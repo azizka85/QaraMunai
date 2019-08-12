@@ -125,4 +125,9 @@ void WCONPRODData::InitVariables()
     date = QDateTime::currentDateTime();
 }
 
+QVariantMap WCONPRODData::toMap()
+{
+    return QVariantMap {{"wellName", wellName}, {"wellStatus", wellStatus}, {"wellControl", wellControl}, {"orat", orat}, {"wrat", wrat}, {"grat", grat}, {"lrat", lrat}, {"resv", resv}, {"bhp", bhp}, {"date", date}};
+}
+
 }}}}

@@ -73,6 +73,20 @@ ApplicationWindow {
             tabWidth: 80
 
             RibbonGroup {
+                title: qsTr("Карта")
+                width: 62
+
+                Button {
+                    id: fieldButton
+                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    width: 44
+                    height: 44
+
+                    onClicked: dockSpace.insertDock(fieldDock, wellscheduleDock)
+                }
+            }
+            
+            RibbonGroup {
                 title: qsTr("Списки")
                 width: 150
 
@@ -83,15 +97,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(wellscheduleDock)
-
-
-                        //var wellscheduleList = projectData.welspecs.getList();
-//                        wellschedule.prepare(projectData);
-//                        content.visible = false;
-//                        wellschedule.visible = true;
-//                        content = wellschedule;
-
+                    onClicked: {
+                        wellschedule.prepare(projectData);
+                        dockSpace.insertDock(wellscheduleDock, fieldDock)
+                    }
                 }
             }
         }
@@ -111,7 +120,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock)
+                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -120,7 +129,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofTableDock, swofChartDock)
+                    onClicked: dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -136,11 +145,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        sgofChart.visible = true;
-                        content = sgofChart;
-                    }
+                    onClicked: dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -149,11 +154,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        sgofTable.visible = true;
-                        content = sgofTable;
-                    }
+                    onClicked: dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -196,11 +197,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtoChart.visible = true;
-                        content = pvtoChart;
-                    }
+                    onClicked: dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -209,11 +206,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtoTable.visible = true;
-                        content = pvtoTable;
-                    }
+                    onClicked: dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -227,11 +220,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtgChart.visible = true;
-                        content = pvtgChart;
-                    }
+                    onClicked: dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -240,11 +229,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtgTable.visible = true;
-                        content = pvtgTable;
-                    }
+                    onClicked: dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -350,6 +335,14 @@ ApplicationWindow {
     DockSpace {
         id: dockSpace
         anchors { left: parent.left; right: parent.right; top: ribbon.bottom; bottom: parent.bottom }
+
+        DockControl {
+            id: fieldDock
+            dockTitle: qsTr("Поле")
+            titleVisible: dockTitleVisible
+
+            FieldView { id: field; anchors.fill: parent; }
+        }
     }
 
     DockControl {
@@ -367,7 +360,7 @@ ApplicationWindow {
         dockTitle: qsTr("Таблица - Функции насыщенности - нефть-вода")
         titleVisible: dockTitleVisible
 
-        SWOFTableView { id: swofTable; anchors.fill: parent; }   
+        SWOFTableView { id: swofTable; anchors.fill: parent; }
     }
 
     DockControl {
@@ -459,8 +452,6 @@ ApplicationWindow {
 
         sfRegionList.model = [];
         pvtRegionList.model = [];
-
-        sfRegionList.model = [];
 
         projectData.initVariables();
     }
