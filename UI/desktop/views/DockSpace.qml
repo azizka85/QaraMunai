@@ -55,7 +55,12 @@ Item {
         }
     }
 
-    function insertDock(dock, shareWith) {
+    function insertDock(dock, shareWith, orientation, ratio, firstItem) {
+        if(orientation === undefined) orientation = Qt.Horizontal;
+        if(shareWith === undefined) shareWith = null;
+        if(ratio === undefined) ratio = -1;
+        if(firstItem === undefined) firstItem = false;
+
         if(dock.visible === false) {
             if(shareWith !== null && shareWith.visible !== false) {
                 if(shareWith.shared !== null) {
@@ -63,6 +68,9 @@ Item {
                 }
                 else dock.parent = dockSpace;
 
+                dock.firstItem = firstItem;
+                dock.ratio = ratio;
+                dock.orientation = orientation;
                 dock.shareWith = shareWith;
                 dock.visible = true;
             }
