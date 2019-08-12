@@ -82,7 +82,7 @@ ApplicationWindow {
                     width: 44
                     height: 44
 
-                    onClicked: dockSpace.insertDock(fieldDock)
+                    onClicked: dockSpace.insertDock(fieldDock, wellscheduleDock)
                 }
             }
             
@@ -97,7 +97,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(wellscheduleDock)
+                    onClicked: {
+                        wellschedule.prepare(projectData);
+                        dockSpace.insertDock(wellscheduleDock, fieldDock)
+                    }
                 }
             }
         }
@@ -142,11 +145,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        sgofChart.visible = true;
-                        content = sgofChart;
-                    }
+                    onClicked: dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -155,11 +154,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        sgofTable.visible = true;
-                        content = sgofTable;
-                    }
+                    onClicked: dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -202,11 +197,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtoChart.visible = true;
-                        content = pvtoChart;
-                    }
+                    onClicked: dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -215,11 +206,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtoTable.visible = true;
-                        content = pvtoTable;
-                    }
+                    onClicked: dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -233,11 +220,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtgChart.visible = true;
-                        content = pvtgChart;
-                    }
+                    onClicked: dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -246,11 +229,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        pvtgTable.visible = true;
-                        content = pvtgTable;
-                    }
+                    onClicked: dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -473,8 +452,6 @@ ApplicationWindow {
 
         sfRegionList.model = [];
         pvtRegionList.model = [];
-
-        sfRegionList.model = [];
 
         projectData.initVariables();
     }

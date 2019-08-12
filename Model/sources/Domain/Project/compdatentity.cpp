@@ -47,6 +47,4 @@ QList<COMPDATData> COMPDATEntity::COMPDATList(){
     return QList<COMPDATData>();
 }
 
-
-
 }}}}
