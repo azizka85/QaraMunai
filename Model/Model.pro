@@ -47,8 +47,15 @@ SOURCES += \
     sources/Domain/Grid/box1d.cpp \
     sources/Domain/Grid/box2d.cpp \
     sources/Domain/Grid/box3d.cpp \
+    sources/Domain/Project/compdatentity.cpp \
     sources/Domain/Project/defaultvalues.cpp \
     sources/Domain/Project/projectdata.cpp \
+    sources/Domain/Project/pvtgentity.cpp \
+    sources/Domain/Project/pvtoentity.cpp \
+    sources/Domain/Project/sgofentity.cpp \
+    sources/Domain/Project/wconinjeentity.cpp \
+    sources/Domain/Project/wconprodentity.cpp \
+    sources/Domain/Project/welspecsentity.cpp \
     sources/Domain/Stratum/adddata.cpp \
     sources/Domain/Stratum/aquancondata.cpp \
     sources/Domain/Stratum/aqufetpdata.cpp \
@@ -125,8 +132,15 @@ HEADERS += \
     sources/Domain/Grid/box1d.h \
     sources/Domain/Grid/box2d.h \
     sources/Domain/Grid/box3d.h \
+    sources/Domain/Project/compdatentity.h \
     sources/Domain/Project/defaultvalues.h \
     sources/Domain/Project/projectdata.h \
+    sources/Domain/Project/pvtgentity.h \
+    sources/Domain/Project/pvtoentity.h \
+    sources/Domain/Project/sgofentity.h \
+    sources/Domain/Project/wconinjeentity.h \
+    sources/Domain/Project/wconprodentity.h \
+    sources/Domain/Project/welspecsentity.h \
     sources/Domain/Stratum/adddata.h \
     sources/Domain/Stratum/aquancondata.h \
     sources/Domain/Stratum/aqufetpdata.h \

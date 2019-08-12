@@ -14,6 +14,15 @@ ProjectData::ProjectData(QObject *parent) : QObject(parent)
     rockOPTS = new ROCKOPTSEntity(this);
 
     swof = new SWOFEntity(this);
+    sgof = new SGOFEntity(this);
+
+    pvto = new PVTOEntity(this);
+    pvtg = new PVTGEntity(this);
+
+    welspecs = new WELSPECSEntity(this);
+    compdat = new COMPDATEntity(this);
+    wconprod = new WCONPRODEntity(this);
+    wconinje = new WCONINJEEntity(this);
 
     initVariables();
 }
@@ -97,6 +106,41 @@ ROCKOPTSEntity *ProjectData::ROCKOPTS()
 SWOFEntity *ProjectData::SWOF()
 {
     return swof;
+}
+
+SGOFEntity *ProjectData::SGOF()
+{
+    return sgof;
+}
+
+PVTOEntity *ProjectData::PVTO()
+{
+    return pvto;
+}
+
+PVTGEntity *ProjectData::PVTG()
+{
+    return pvtg;
+}
+
+WELSPECSEntity *ProjectData::WELSPECS()
+{
+    return welspecs;
+}
+
+COMPDATEntity *ProjectData::COMPDAT()
+{
+    return compdat;
+}
+
+WCONPRODEntity *ProjectData::WCONPROD()
+{
+    return wconprod;
+}
+
+WCONINJEEntity *ProjectData::WCONINJE()
+{
+    return wconinje;
 }
 
 void ProjectData::SetIsLoaded(const bool &isLoaded)

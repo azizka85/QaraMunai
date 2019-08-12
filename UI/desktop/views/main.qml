@@ -67,9 +67,33 @@ ApplicationWindow {
             }
         }
 
+        /****************************************************/
         RibbonTab {
             title: qsTr("Карта")
             tabWidth: 80
+
+            RibbonGroup {
+                title: qsTr("Списки")
+                width: 150
+
+                Button {
+                    id: welsScheduleButton
+                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                    onClicked: dockSpace.insertDock(wellscheduleDock)
+
+
+                        //var wellscheduleList = projectData.welspecs.getList();
+//                        wellschedule.prepare(projectData);
+//                        content.visible = false;
+//                        wellschedule.visible = true;
+//                        content = wellschedule;
+
+                }
+            }
         }
 
         RibbonTab {
@@ -100,6 +124,39 @@ ApplicationWindow {
                 }
             }
 
+            /*****************************************/
+            RibbonGroup {
+                title: qsTr("ОФП и КД (газ-нефть)")
+                width: 140
+
+                Button {
+                    id: sgofButton
+                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                    onClicked: {
+                        content.visible = false;
+                        sgofChart.visible = true;
+                        content = sgofChart;
+                    }
+                }
+
+                Button {
+                    anchors { left: sgofButton.right; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+
+                    onClicked: {
+                        content.visible = false;
+                        sgofTable.visible = true;
+                        content = sgofTable;
+                    }
+                }
+            }
+
             RibbonGroup {
                 title: qsTr("Регионы")
                 width: 62
@@ -111,18 +168,109 @@ ApplicationWindow {
 
                     onCurrentIndexChanged: {
 
-                        var list = projectData.swof.getList(sfRegionList.currentIndex);
+                        var swofList = projectData.swof.getList(sfRegionList.currentIndex);
+                        var sgofList = projectData.sgof.getList(sfRegionList.currentIndex);
 
-                        swofChart.prepare(list);
-                        swofTable.prepare(list);
+                        swofChart.prepare(swofList);
+                        swofTable.prepare(swofList);
+
+                        sgofChart.prepare(sgofList);
+                        sgofTable.prepare(sgofList);
+
                     }
                 }
             }
         }
 
+        /********************************************************/
         RibbonTab {
             title: qsTr("Свойства пластовой жидкости")
             tabWidth: 200
+            RibbonGroup {
+                title: qsTr("PVT нефти")
+                width: 140
+                Button {
+                    id: pvtoButton
+                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                    onClicked: {
+                        content.visible = false;
+                        pvtoChart.visible = true;
+                        content = pvtoChart;
+                    }
+                }
+
+                Button {
+                    anchors { left: pvtoButton.right; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+
+                    onClicked: {
+                        content.visible = false;
+                        pvtoTable.visible = true;
+                        content = pvtoTable;
+                    }
+                }
+            }
+
+            RibbonGroup {
+                title: qsTr("PVT газа")
+                width: 140
+                Button {
+                    id: pvtgButton
+                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                    onClicked: {
+                        content.visible = false;
+                        pvtgChart.visible = true;
+                        content = pvtgChart;
+                    }
+                }
+
+                Button {
+                    anchors { left: pvtgButton.right; top: parent.top; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+
+                    onClicked: {
+                        content.visible = false;
+                        pvtgTable.visible = true;
+                        content = pvtgTable;
+                    }
+                }
+            }
+
+            RibbonGroup {
+                title: qsTr("Регионы")
+                width: 62
+
+                ComboBox {
+                    id: pvtRegionList
+                    anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 5 }
+                    font.pixelSize: 14
+
+                    onCurrentIndexChanged: {
+
+                        var pvtoList = projectData.pvto.getList(pvtRegionList.currentIndex);
+                        var pvtgList = projectData.pvtg.getList(pvtRegionList.currentIndex);
+
+                        pvtoChart.prepare(pvtoList);
+                        pvtoTable.prepare(pvtoList);
+
+                        pvtgChart.prepare(pvtgList);
+                        pvtgTable.prepare(pvtgList);
+
+                    }
+                }
+            }
         }
 
         RibbonTab {
@@ -151,6 +299,7 @@ ApplicationWindow {
             mainWindow.title = projectData.title;
 
             sfRegionList.model = createNumberArray(projectData.tabDIMS.ntSFUN);
+            pvtRegionList.model = createNumberArray(projectData.tabDIMS.ntPVT);
 
             loaderDialog.close();
         }
@@ -218,8 +367,73 @@ ApplicationWindow {
         dockTitle: qsTr("Таблица - Функции насыщенности - нефть-вода")
         titleVisible: dockTitleVisible
 
-        SWOFTableView { id: swofTable; anchors.fill: parent; }
+        SWOFTableView { id: swofTable; anchors.fill: parent; }   
     }
+
+    DockControl {
+        id: sgofChartDock
+        visible: false
+        dockTitle: qsTr("Графики - Функции насыщенности - газ-нефть")
+        titleVisible: dockTitleVisible
+
+        SGOFChartView { id: sgofChart; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: sgofTableDock
+        visible: false
+        dockTitle: qsTr("Таблица - Функции насыщенности - газ-нефть")
+        titleVisible: dockTitleVisible
+
+        SGOFTableView { id: sgofTable; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: pvtoChartDock
+        visible: false
+        dockTitle: qsTr("Графики - Свойства пластовой жидкости - нефть")
+        titleVisible: dockTitleVisible
+
+        PVTOChartView { id: pvtoChart; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: pvtoTableDock
+        visible: false
+        dockTitle: qsTr("Таблица - Свойства пластовой жидкости - нефть")
+        titleVisible: dockTitleVisible
+
+        PVTOTableView { id: pvtoTable; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: pvtgChartDock
+        visible: false
+        dockTitle: qsTr("Графики - Свойства пластовой жидкости - газ")
+        titleVisible: dockTitleVisible
+
+        PVTGChartView { id: pvtgChart; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: pvtgTableDock
+        visible: false
+        dockTitle: qsTr("Таблица - Свойства пластовой жидкости - газ")
+        titleVisible: dockTitleVisible
+
+        PVTGTableView { id: pvtgTable; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: wellscheduleDock
+        visible: false
+        dockTitle: qsTr("Расписание скважин")
+        titleVisible: dockTitleVisible
+
+        WellScheduleView { id: wellschedule; anchors.fill: parent; }
+    }
+
+
 
     function createNumberArray(length)
     {
@@ -234,6 +448,17 @@ ApplicationWindow {
 
         swofChart.closeProject();
         swofTable.closeProject();
+
+        sgofChart.closeProject();
+        sgofTable.closeProject();
+
+        pvtoChart.closeProject();
+        pvtoTable.closeProject();
+
+        wellschedule.closeProject();
+
+        sfRegionList.model = [];
+        pvtRegionList.model = [];
 
         sfRegionList.model = [];
 

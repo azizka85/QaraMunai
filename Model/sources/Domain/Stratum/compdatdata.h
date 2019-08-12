@@ -44,6 +44,7 @@ public:
     void SetDate(const QDateTime& date);
 
     void InitVariables();
+    QVariantMap toMap();
 
 private:
     QString wellName;
