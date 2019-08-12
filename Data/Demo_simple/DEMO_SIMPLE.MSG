@@ -1,0 +1,316 @@
+<eclipse>
+<message date="1/7/1995" time="0.00000000000000">
+ **************************                                              
+ * DATA CHECKING RUN ONLY *                                              
+ **************************                                              
+</message>
+<message date="1/7/1995" time="0.00000000000000">
+ CHECKING FOR LICENSES                                                   
+</message>
+<message date="1/7/1995" time="0.00000000000000">
+ THE MEMORY REQUIRED TO PROCESS THE GRID SECTION IS                      
+     757228 BYTES                                                        
+</message>
+<warning date="1/7/1995" time="0.00000000000000">
+   1250 VALUES NOT DEFINED IN BOX (  1- 25,  1- 25,  1-  3)              
+ OF KEYWORD TOPS                                                         
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ A THRESHOLD PORE VOLUME HAS BEEN SUPPLIED (MINPV).                      
+ ANY CELLS WITH VOLUMES LESS THAN THE THRESHOLD WILL BE                  
+ REMOVED FROM THE SIMULATION. TO ALLOW FLOW TO CONTINUE                  
+ ACROSS A DISABLED CELL THE NON NEIGHBOUR CONNECTION FLAG                
+ MUST BE ENABLED AND THE PINCH KEYWORD ADDED                             
+ TO THE GRID SECTION.                                                    
+</warning>
+<message date="1/7/1995" time="0.00000000000000">
+ UNSPECIFIED TOPS VALUES OBTAINED BY ADDING DZ                           
+ TO TOPS VALUE FOR LAYER ABOVE                                           
+</message>
+<message date="1/7/1995" time="0.00000000000000">
+ NEITHER OLDTRAN,OLDTRANR NOR NEWTRAN SPECIFIED                          
+ BLOCK CENTRE TRANSMISSIBILITIES TO BE CALCULATED                        
+ USING  OLDTRAN                                                          
+</message>
+<comment date="1/7/1995" time="0.00000000000000">
+ NO NON-NEIGHBOUR CONNECTIONS FOUND                                      
+</comment>
+<message date="1/7/1995" time="0.00000000000000">
+ NUMBER OF ACTIVE CELLS IS 1474                                          
+</message>
+<message date="1/7/1995" time="0.00000000000000">
+ ADDITIONAL     0.284 MEGABYTES REQUIRED FOR SIMULATION                  
+</message>
+<message date="1/7/1995" time="0.00000000000000">
+ THE MEMORY REQUIRED TO PROCESS THE SOLUTION SECTION IS                  
+       2387 KBYTES                                                       
+</message>
+<message date="1/7/1995" time="0.00000000000000">
+    58626 CHARACTER VARIABLES USED                                       
+</message>
+<warning date="1/7/1995" time="0.00000000000000">
+ SPURIOUS DATA BEFORE PVDG     KEYWORD                                   
+ /                                                                       
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    1   1   2 AND    1   1   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    2   1   2 AND    2   1   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    3   1   2 AND    3   1   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    4   1   2 AND    4   1   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    5   1   2 AND    5   1   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    1   2   2 AND    1   2   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    2   2   2 AND    2   2   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    3   2   2 AND    3   2   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    4   2   2 AND    4   2   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    5   2   2 AND    5   2   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    1   3   2 AND    1   3   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    2   3   2 AND    2   3   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    3   3   2 AND    3   3   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    4   3   2 AND    4   3   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE IS A TRANSMISSIBILITY IN THE  Z  DIRECTION                        
+ BETWEEN CELLS    5   3   2 AND    5   3   3. THESE CELLS ARE            
+ IN DIFFERENT PVT REGIONS                                                
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THERE ARE   377 CELLS WITH A TRANSMISSIBILITY IN                        
+ THE  Z  DIRECTION WHICH IS INTO A DIFFERENT                             
+ PVT REGION. ONLY THE FIRST    15 CELLS HAVE BEEN                        
+ INDIVIDUALLY REPORTED. THE MAXIMUM NUMBER REPORTED                      
+ CAN BE CONTROLLED BY OPTIONS(23)                                        
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ SPURIOUS DATA BEFORE RSVD     KEYWORD                                   
+ /                                                                       
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 111      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 112      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 119      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 126      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 117      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 109      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 214      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 213      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 102      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 104      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 216      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 103      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 105      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ IT IS NOT PERMISSIBLE TO DEFAULT THE GROUP                              
+ NAME FOR WELL 106      IN KEYWORD WELSPECS.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+  WELL 111      CONNECTS TO CELL   13  14   3 WHICH                      
+  IS IN PVT REGION    2 AND THE WELL HAS                                 
+  PREVIOUSLY BEEN CONNECTED TO CELL(S) IN OTHER                          
+  PVT REGION(S).                                                         
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+  WELL 119      CONNECTS TO CELL   17  20   3 WHICH                      
+  IS IN PVT REGION    2 AND THE WELL HAS                                 
+  PREVIOUSLY BEEN CONNECTED TO CELL(S) IN OTHER                          
+  PVT REGION(S).                                                         
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+  WELL 126      CONNECTS TO CELL   15  25   3 WHICH                      
+  IS IN PVT REGION    2 AND THE WELL HAS                                 
+  PREVIOUSLY BEEN CONNECTED TO CELL(S) IN OTHER                          
+  PVT REGION(S).                                                         
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+  WELL 117      CONNECTS TO CELL    5  20   3 WHICH                      
+  IS IN PVT REGION    2 AND THE WELL HAS                                 
+  PREVIOUSLY BEEN CONNECTED TO CELL(S) IN OTHER                          
+  PVT REGION(S).                                                         
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+  WELL 214      CONNECTS TO CELL   11   8   3 WHICH                      
+  IS IN PVT REGION    2 AND THE WELL HAS                                 
+  PREVIOUSLY BEEN CONNECTED TO CELL(S) IN OTHER                          
+  PVT REGION(S).                                                         
+  THE LIMIT FOR PRINTING THIS WARNING ( 5 )                              
+  HAS BEEN REACHED. NO MORE WILL BE ISSUED                               
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 104                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 214                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THE PREFERRED PHASE FOR WELL 105      IS RE-SET                         
+ TO WATER FLOW, TO MATCH THE INJECTED PHASE.                             
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 126                             
+ HAS BEEN DEFAULTED. THE DEFAULT VALUE IS    6891.   BARSA               
+</warning>
+<warning date="1/7/1995" time="0.00000000000000">
+ THE PREFERRED PHASE FOR WELL 126      IS RE-SET                         
+ TO WATER FLOW, TO MATCH THE INJECTED PHASE.                             
+</warning>
+<message date="1/7/1995" time="0.00000000000000">
+ DRSDT KEYWORD HAS NOT BEEN ENTERED, SO THE                              
+ MAXIMUM GAS RE-SOLUTION RATE IS DEFAULTED TO INFINITY.                  
+</message>
+<warning date="1/8/1995" time="31.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 105                             
+ HAS BEEN DEFAULTED. THE DEFAULT VALUE IS    6891.   BARSA               
+</warning>
+<warning date="1/10/1995" time="92.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 111                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/12/1995" time="153.00000000000000">
+ THE PREFERRED PHASE FOR WELL 104      IS RE-SET                         
+ TO WATER FLOW, TO MATCH THE INJECTED PHASE.                             
+</warning>
+<warning date="1/1/1996" time="184.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 106                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/2/1996" time="215.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 112                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/3/1996" time="244.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 105                             
+ HAS BEEN DEFAULTED. THE DEFAULT VALUE IS    6891.   BARSA               
+</warning>
+<warning date="1/5/1996" time="305.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 216                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/9/1996" time="428.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 111                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/3/1997" time="609.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 111                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/3/1997" time="609.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 105                             
+ HAS BEEN DEFAULTED. THE DEFAULT VALUE IS    6891.   BARSA               
+</warning>
+<warning date="1/5/1997" time="670.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 111                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/5/1997" time="670.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 216                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+<warning date="1/8/1997" time="762.00000000000000">
+ THE BOTTOM HOLE PRESSURE LIMIT FOR WELL 109                             
+ HAS BEEN DEFAULTED.  THE DEFAULT VALUE IS                               
+      1.0   BARSA                                                        
+</warning>
+</eclipse>

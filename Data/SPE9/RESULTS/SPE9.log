@@ -1,0 +1,361 @@
+RFDynamics (R) симулятор tNavigator-3.x
+Демо версияВерсия сборки программы Sep  4 2010 16:30:10
+Copyright (C) RFDynamics 2003-2010.
+Авторские права защищены.
+
+Пользователь	Aziz
+Имя компьютера	DESKTOP-2UJ8P4J.
+Тип системы	MS Windows NT 6.2.9200
+ПРОЦЕССОР	8 x i686 level 6 model 158 stepping 9
+Физический адрес	18:60:24:8d:e6:aa
+
+Текущий тип лицензии:
+    Демо версия
+Статус лицензии: OK[1]
+Тип модели: E100.
+       Имя файла DAT = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA
+       Имя файла RST = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/RESULTS/SPE9.rst
+       Имя файла ERR = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/RESULTS/SPE9.err
+       Имя файла LOG = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/RESULTS/SPE9.log
+В модель включены следующие INC-файлы:
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 1:
+Информация: чтение ключевого слова NOECHO...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 1:
+Информация: ключевое слов NOECHO прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 3:
+Информация: чтение ключевого слова RUNSPEC...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 3:
+Информация: ключевое слов RUNSPEC прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 5:
+Информация: чтение ключевого слова TITLE...
+Кл.сл.                          TITLE: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 6:
+Информация: ключевое слов TITLE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 9:
+Информация: чтение ключевого слова DIMENS...
+Кл.сл.                         DIMENS: успешно прочитаны значения (24, 25, 15)
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 10:
+Информация: ключевое слов DIMENS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 12:
+Информация: чтение ключевого слова NONNC...
+Кл.сл.                          NONNC: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 12:
+Информация: ключевое слов NONNC прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 14:
+Информация: чтение ключевого слова OIL...
+Кл.сл.                            OIL: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 14:
+Информация: ключевое слов OIL прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 16:
+Информация: чтение ключевого слова WATER...
+Кл.сл.                          WATER: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 16:
+Информация: ключевое слов WATER прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 18:
+Информация: чтение ключевого слова GAS...
+Кл.сл.                            GAS: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 18:
+Информация: ключевое слов GAS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 20:
+Информация: чтение ключевого слова DISGAS...
+Кл.сл.                         DISGAS: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 20:
+Информация: ключевое слов DISGAS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 22:
+Информация: чтение ключевого слова FIELD...
+Кл.сл.                          FIELD: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 22:
+Информация: ключевое слов FIELD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 24:
+Информация: чтение ключевого слова TABDIMS...
+Кл.сл.                        TABDIMS: успешно прочитаны значения (1, 1, 1, 1)
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 25:
+Информация: ключевое слов TABDIMS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 27:
+Информация: чтение ключевого слова WELLDIMS...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 28:
+Информация: ключевое слов WELLDIMS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 30:
+Информация: чтение ключевого слова START...
+Найдена начальная дата
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 31:
+Информация: ключевое слов START прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 33:
+Информация: чтение ключевого слова NSTACK...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 34:
+Информация: ключевое слов NSTACK прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 36:
+Информация: чтение ключевого слова GRID...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 36:
+Информация: ключевое слов GRID прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 41:
+Информация: чтение ключевого слова EQUALS...
+Кл.сл.                         EQUALS: успешно прочитано 15 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 57:
+Информация: ключевое слов EQUALS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 59:
+Информация: чтение ключевого слова EQUALS...
+Кл.сл.                         EQUALS: успешно прочитано 56 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 118:
+Информация: ключевое слов EQUALS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 121:
+Информация: чтение ключевого слова PERMX...
+Кл.сл.                          PERMX: успешно прочитано 9000 значений
+Кл.сл.                          PERMX: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2386:
+Информация: ключевое слов PERMX прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2388:
+Информация: чтение ключевого слова COPY...
+Кл.сл.                           COPY: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2391:
+Информация: ключевое слов COPY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2392:
+Информация: чтение ключевого слова MULTIPLY...
+Кл.сл.                       MULTIPLY: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2394:
+Информация: ключевое слов MULTIPLY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2397:
+Информация: чтение ключевого слова PROPS...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2397:
+Информация: ключевое слов PROPS прочитано
+Общее кол-во активных блоков = 9000, общ. поровый объём =72007305.634653
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2399:
+Информация: чтение ключевого слова SWOF...
+Кл.сл.                           SWOF: успешно прочитано 30 строк для региона 0
+Кл.сл.                           SWOF: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2430:
+Информация: ключевое слов SWOF прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2432:
+Информация: чтение ключевого слова SGOF...
+Кл.сл.                           SGOF: успешно прочитано 10 строк для региона 0
+Кл.сл.                           SGOF: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2443:
+Информация: ключевое слов SGOF прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2445:
+Информация: чтение ключевого слова PVTO...
+Кл.сл.                           PVTO: успешно прочитано 12 строк для региона 0
+Кл.сл.                           PVTO: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2459:
+Информация: ключевое слов PVTO прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2461:
+Информация: чтение ключевого слова PVDG...
+Кл.сл.                           PVDG: успешно прочитано 11 строк для региона 0
+Кл.сл.                           PVDG: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2473:
+Информация: ключевое слов PVDG прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2475:
+Информация: чтение ключевого слова PVTW...
+Кл.сл.                           PVTW: успешно прочитано 1 строк для региона 0
+Кл.сл.                           PVTW: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2477:
+Информация: ключевое слов PVTW прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2479:
+Информация: чтение ключевого слова ROCK...
+Кл.сл.                           ROCK: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2484:
+Информация: ключевое слов ROCK прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2484:
+Информация: чтение ключевого слова DENSITY...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2492:
+Информация: ключевое слов DENSITY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2492:
+Информация: чтение ключевого слова SOLUTION...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2492:
+Информация: ключевое слов SOLUTION прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2494:
+Информация: чтение ключевого слова EQUIL...
+Кл.сл.                          EQUIL: успешно прочитано 1 значений
+Кл.сл.                          EQUIL: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2498:
+Информация: ключевое слов EQUIL прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2498:
+Информация: чтение ключевого слова PBVD...
+Кл.сл.                           PBVD: успешно прочитано 2 строк для региона 1
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2501:
+Информация: ключевое слов PBVD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2503:
+Информация: чтение ключевого слова SUMMARY...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2591:
+Информация: ключевое слов SUMMARY прочитано
+                 Проверка PVDO/PVTO/SGOF, нач. GAS [  OK  ]
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2591:
+Информация: чтение ключевого слова SCHEDULE...
+Читаю раздел SCHEDULE
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2599:
+Информация: чтение ключевого слова GRUPTREE...
+Кл.сл.                       GRUPTREE: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2601:
+Информация: ключевое слов GRUPTREE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2603:
+Информация: чтение ключевого слова WELSPECS...
+Кл.сл.                       WELSPECS: успешно прочитано 26 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2631:
+Информация: ключевое слов WELSPECS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2633:
+Информация: чтение ключевого слова COMPDAT...
+Кл.сл.                        COMPDAT: успешно прочитано 26 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2661:
+Информация: ключевое слов COMPDAT прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2663:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2667:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2669:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2673:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2676:
+Информация: чтение ключевого слова TUNING...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2679:
+Информация: ключевое слов TUNING прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2682:
+Информация: чтение ключевого слова TSTEP...
+Кл.сл.                          TSTEP: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2682:
+Информация: ключевое слов TSTEP прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2685:
+Предупреждение: неизвестное ключевое слово 'NEXTSTEP'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2688:
+Предупреждение: 2 непустых строк пропущено при чтении кл.сл 'NEXTSTEP'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2688:
+Информация: чтение ключевого слова TSTEP...
+Кл.сл.                          TSTEP: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2688:
+Информация: ключевое слов TSTEP прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2692:
+Информация: чтение ключевого слова WELTARG...
+Кл.сл.                        WELTARG: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2694:
+Информация: ключевое слов WELTARG прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2696:
+Предупреждение: неизвестное ключевое слово 'NEXTSTEP'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2699:
+Предупреждение: 2 непустых строк пропущено при чтении кл.сл 'NEXTSTEP'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2699:
+Информация: чтение ключевого слова TSTEP...
+Кл.сл.                          TSTEP: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2699:
+Информация: ключевое слов TSTEP прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2702:
+Информация: чтение ключевого слова TUNING...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2705:
+Информация: ключевое слов TUNING прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2707:
+Информация: чтение ключевого слова WELTARG...
+Кл.сл.                        WELTARG: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2709:
+Информация: ключевое слов WELTARG прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2711:
+Информация: чтение ключевого слова TSTEP...
+Кл.сл.                          TSTEP: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2711:
+Информация: ключевое слов TSTEP прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2714:
+Информация: чтение ключевого слова TUNING...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2717:
+Информация: ключевое слов TUNING прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2719:
+Информация: чтение ключевого слова TSTEP...
+Кл.сл.                          TSTEP: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2719:
+Информация: ключевое слов TSTEP прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2722:
+Предупреждение: неизвестное ключевое слово 'NEXTSTEP'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2726:
+Предупреждение: 2 непустых строк пропущено при чтении кл.сл 'NEXTSTEP'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2726:
+Информация: чтение ключевого слова TSTEP...
+Кл.сл.                          TSTEP: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2726:
+Информация: ключевое слов TSTEP прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Строка 2729:
+Информация: чтение ключевого слова END...
+Кл.сл.                            END: успешно прочитан
+Информация: ключевое слов END прочитано
+Информация: ключевое слов SCHEDULE прочитано
+Чтение модели: затрачено 00.00.00, CPU 00.00.00.
+Thread 4: first_row = 4500, last_row = 5624 (rows = 1125 of 9000)
+Thread 3: first_row = 3375, last_row = 4499 (rows = 1125 of 9000)
+Thread 2: first_row = 2250, last_row = 3374 (rows = 1125 of 9000)
+Thread 1: first_row = 1125, last_row = 2249 (rows = 1125 of 9000)
+Thread 6: first_row = 6750, last_row = 7874 (rows = 1125 of 9000)
+Thread 5: first_row = 5625, last_row = 6749 (rows = 1125 of 9000)
+Thread 1: own_first_row = 1125, own_last_row = 2249 (own_rows = 1125 of 9000)
+Thread 6: own_first_row = 6750, own_last_row = 7874 (own_rows = 1125 of 9000)
+Thread 2: own_first_row = 2250, own_last_row = 3374 (own_rows = 1125 of 9000)
+Thread 6: precond_first_row = 6030, precond_last_row = 7874
+Thread 5: own_first_row = 5625, own_last_row = 6749 (own_rows = 1125 of 9000)
+Thread 2: precond_first_row = 1530, precond_last_row = 3374
+Thread 3: own_first_row = 3375, own_last_row = 4499 (own_rows = 1125 of 9000)
+Thread 4: own_first_row = 4500, own_last_row = 5624 (own_rows = 1125 of 9000)
+Thread 5: precond_first_row = 4905, precond_last_row = 6749
+Thread 3: precond_first_row = 2655, precond_last_row = 4499
+Thread 7: first_row = 7875, last_row = 8999 (rows = 1125 of 9000)
+Thread 0: first_row = 0, last_row = 1124 (rows = 1125 of 9000)
+Thread 1: precond_first_row = 405, precond_last_row = 2249
+Thread 7: own_first_row = 7875, own_last_row = 8999 (own_rows = 1125 of 9000)
+Thread 4: precond_first_row = 3780, precond_last_row = 5624
+Thread 7: precond_first_row = 7155, precond_last_row = 8999
+Thread 0: own_first_row = 0, own_last_row = 1124 (own_rows = 1125 of 9000)
+Thread 0: precond_first_row = 0, precond_last_row = 1124
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                ПРОВЕРКА ВХОДНЫХ ДАННЫХ
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                             Проверка насыщенности [  OK  ]
+                              Проверка св-в породы [  OK  ]
+                               Проверка пористости [  OK  ]
+                                 Проверка операций [  OK  ]
+                                  Проверка скважин [  OK  ]
+                         Проверка номеров регионов [  OK  ]
+                                  Проверка DENSITY [  OK  ]
+                      Проверка таблицы PVT по воде [  OK  ]
+                     Проверка таблицы PVT по нефти [  OK  ]
+                      Проверка таблицы PVT по газу [  OK  ]
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      ПРОВЕРКА ВХОДНЫХ ДАННЫХ ЗАВЕРШЕНА
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Информация: подготовка структур данных для расчёта...
+Информация: подготовка структур данных для расчёта завершена
+Информация: расчёт начального равновесия...
+Информация: ГНК выше кровли модели в регионе 1, ГНК и капиллярное давление на ГНК игнорируются
+Информация: расчёт начального равновесия... завершён
+
+############           Статистика чтения модели              ############
+Ошибки: 0
+Предупреждения: 6
+
+############           СТАТИСТИКА МОДЕЛИ          ############
+Файл модели: 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA'.
+Количество шагов: 13.
+Число участков перфорации: 80.
+Макс. число участков перфорации на скважину: 5.
+Кол-во скважин: 26. Кол-во групп: 2.
+Кол-во активных блоков: 9000.
+Всего выделено памяти: 25790735 байтов (25186K, 2865 байтов на блок).
+Общий размер образа процесса: 90.934MB.
+Информация: для расчёта исторических значений по скважинам, группам потребовалось 0.00.
+Кол-во потоков: 8
+Информация: расчёт физических величин на первом шаге...
+Информация: расчёт физических величин на первом шаге завершён
+Информация: расчёт начальных данных по отчётным регионам...
+Информация: расчёт начальных данных по отчётным регионам завершён.
+Начальные запасы нефти в ОТЧ.РЕГ.: 214238352.373745 stb.
+Начальные запасы свободной нефти в ОТЧ.РЕГ.: 214238352.373745 stb.
+Начальные запасы летучей нефти в ОТЧ.РЕГ.: 0.000000 stb.
+Начальные запасы воды в ОТЧ.РЕГ.: 214650265.911362 stb.
+Начальные запасы газа в ОТЧ.РЕГ.: 297789389.930298 Mscf.
+Начальные запасы свободного газа в ОТЧ.РЕГ.: 0.000000 Mscf.
+Начальные запасы растворённого газа в ОТЧ.РЕГ.: 297789389.930298 Mscf.
+Начальные запасы углеводородов в ОТЧ.РЕГ.: 184061720.143914 RB.
+Поровый объём: 452912326.530609 RB.
+Переменная 'box' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'actnum' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'histo_2D_x' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'box' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'actnum' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'histo_2D_y' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'box' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'actnum' изменена в блоках (1 : 24, 1 : 25, 1 : 15).
+Переменная 'histo_2D_weight' изменена в блоках (1 : 24, 1 : 25, 1 : 15).

@@ -1,0 +1,361 @@
+RFDynamics (R) simulator tNavigator-3.x
+Demo versionProgram build Sep  4 2010 16:30:10
+Copyright (C) RFDynamics 2003-2010.
+All rights reserved.
+
+User	Aziz
+On host	DESKTOP-2UJ8P4J.
+Host type	MS Windows NT 6.2.9200
+CPU	8 x i686 level 6 model 158 stepping 9
+Adapter Id	18:60:24:8d:e6:aa
+
+Current license type:
+    Demo version
+License status: OK[1]
+Model type: E100.
+       File name DAT = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA
+       File name RST = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/RESULTS/SPE9.rst
+       File name ERR = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/RESULTS/SPE9.err
+       File name LOG = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/RESULTS/SPE9.log
+The following files have been included:
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 1:
+Info: read keyword NOECHO start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 1:
+Info: read keyword NOECHO end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 3:
+Info: read keyword RUNSPEC start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 3:
+Info: read keyword RUNSPEC end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 5:
+Info: read keyword TITLE start
+Keyword                          TITLE: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 6:
+Info: read keyword TITLE end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 9:
+Info: read keyword DIMENS start
+Keyword                         DIMENS: read (24, 25, 15) values successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 10:
+Info: read keyword DIMENS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 12:
+Info: read keyword NONNC start
+Keyword                          NONNC: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 12:
+Info: read keyword NONNC end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 14:
+Info: read keyword OIL start
+Keyword                            OIL: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 14:
+Info: read keyword OIL end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 16:
+Info: read keyword WATER start
+Keyword                          WATER: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 16:
+Info: read keyword WATER end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 18:
+Info: read keyword GAS start
+Keyword                            GAS: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 18:
+Info: read keyword GAS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 20:
+Info: read keyword DISGAS start
+Keyword                         DISGAS: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 20:
+Info: read keyword DISGAS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 22:
+Info: read keyword FIELD start
+Keyword                          FIELD: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 22:
+Info: read keyword FIELD end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 24:
+Info: read keyword TABDIMS start
+Keyword                        TABDIMS: read (1, 1, 1, 1) values successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 25:
+Info: read keyword TABDIMS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 27:
+Info: read keyword WELLDIMS start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 28:
+Info: read keyword WELLDIMS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 30:
+Info: read keyword START start
+Found starting date
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 31:
+Info: read keyword START end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 33:
+Info: read keyword NSTACK start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 34:
+Info: read keyword NSTACK end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 36:
+Info: read keyword GRID start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 36:
+Info: read keyword GRID end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 41:
+Info: read keyword EQUALS start
+Keyword                         EQUALS: read 15 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 57:
+Info: read keyword EQUALS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 59:
+Info: read keyword EQUALS start
+Keyword                         EQUALS: read 56 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 118:
+Info: read keyword EQUALS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 121:
+Info: read keyword PERMX start
+Keyword                          PERMX: read 9000 values successfully
+Keyword                          PERMX: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2386:
+Info: read keyword PERMX end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2388:
+Info: read keyword COPY start
+Keyword                           COPY: read 2 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2391:
+Info: read keyword COPY end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2392:
+Info: read keyword MULTIPLY start
+Keyword                       MULTIPLY: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2394:
+Info: read keyword MULTIPLY end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2397:
+Info: read keyword PROPS start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2397:
+Info: read keyword PROPS end
+Total active grid blocks = 9000, total pore volume = 72007305.634653
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2399:
+Info: read keyword SWOF start
+Keyword                           SWOF: read 30 lines for region 0 successfully
+Keyword                           SWOF: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2430:
+Info: read keyword SWOF end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2432:
+Info: read keyword SGOF start
+Keyword                           SGOF: read 10 lines for region 0 successfully
+Keyword                           SGOF: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2443:
+Info: read keyword SGOF end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2445:
+Info: read keyword PVTO start
+Keyword                           PVTO: read 12 lines for region 0 successfully
+Keyword                           PVTO: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2459:
+Info: read keyword PVTO end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2461:
+Info: read keyword PVDG start
+Keyword                           PVDG: read 11 lines for region 0 successfully
+Keyword                           PVDG: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2473:
+Info: read keyword PVDG end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2475:
+Info: read keyword PVTW start
+Keyword                           PVTW: read 1 lines for region 0 successfully
+Keyword                           PVTW: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2477:
+Info: read keyword PVTW end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2479:
+Info: read keyword ROCK start
+Keyword                           ROCK: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2484:
+Info: read keyword ROCK end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2484:
+Info: read keyword DENSITY start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2492:
+Info: read keyword DENSITY end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2492:
+Info: read keyword SOLUTION start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2492:
+Info: read keyword SOLUTION end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2494:
+Info: read keyword EQUIL start
+Keyword                          EQUIL: read 1 values successfully
+Keyword                          EQUIL: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2498:
+Info: read keyword EQUIL end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2498:
+Info: read keyword PBVD start
+Keyword                           PBVD: read 2 lines for region 1 successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2501:
+Info: read keyword PBVD end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2503:
+Info: read keyword SUMMARY start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2591:
+Info: read keyword SUMMARY end
+                 PVDO/PVTO/SGOF, initial GAS check [  OK  ]
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2591:
+Info: read keyword SCHEDULE start
+Found SCHEDULE section
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2599:
+Info: read keyword GRUPTREE start
+Keyword                       GRUPTREE: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2601:
+Info: read keyword GRUPTREE end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2603:
+Info: read keyword WELSPECS start
+Keyword                       WELSPECS: read 26 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2631:
+Info: read keyword WELSPECS end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2633:
+Info: read keyword COMPDAT start
+Keyword                        COMPDAT: read 26 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2661:
+Info: read keyword COMPDAT end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2663:
+Info: read keyword WCONINJE start
+Keyword                       WCONINJE: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2667:
+Info: read keyword WCONINJE end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2669:
+Info: read keyword WCONPROD start
+Keyword                       WCONPROD: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2673:
+Info: read keyword WCONPROD end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2676:
+Info: read keyword TUNING start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2679:
+Info: read keyword TUNING end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2682:
+Info: read keyword TSTEP start
+Keyword                          TSTEP: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2682:
+Info: read keyword TSTEP end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2685:
+Warning: unknown keyword 'NEXTSTEP'
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2688:
+Warning: 2 non empty lines of keyword 'NEXTSTEP' was skipped
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2688:
+Info: read keyword TSTEP start
+Keyword                          TSTEP: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2688:
+Info: read keyword TSTEP end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2692:
+Info: read keyword WELTARG start
+Keyword                        WELTARG: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2694:
+Info: read keyword WELTARG end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2696:
+Warning: unknown keyword 'NEXTSTEP'
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2699:
+Warning: 2 non empty lines of keyword 'NEXTSTEP' was skipped
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2699:
+Info: read keyword TSTEP start
+Keyword                          TSTEP: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2699:
+Info: read keyword TSTEP end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2702:
+Info: read keyword TUNING start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2705:
+Info: read keyword TUNING end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2707:
+Info: read keyword WELTARG start
+Keyword                        WELTARG: read 1 lines successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2709:
+Info: read keyword WELTARG end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2711:
+Info: read keyword TSTEP start
+Keyword                          TSTEP: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2711:
+Info: read keyword TSTEP end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2714:
+Info: read keyword TUNING start
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2717:
+Info: read keyword TUNING end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2719:
+Info: read keyword TSTEP start
+Keyword                          TSTEP: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2719:
+Info: read keyword TSTEP end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2722:
+Warning: unknown keyword 'NEXTSTEP'
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2726:
+Warning: 2 non empty lines of keyword 'NEXTSTEP' was skipped
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2726:
+Info: read keyword TSTEP start
+Keyword                          TSTEP: read successfully
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2726:
+Info: read keyword TSTEP end
+File 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA' Line 2729:
+Info: read keyword END start
+Keyword                            END: read successfully
+Info: read keyword END end
+Info: read keyword SCHEDULE end
+Reading model: elapsed 00.00.00, CPU 00.00.00.
+Thread 6: first_row = 6750, last_row = 7874 (rows = 1125 of 9000)
+Thread 5: first_row = 5625, last_row = 6749 (rows = 1125 of 9000)
+Thread 3: first_row = 3375, last_row = 4499 (rows = 1125 of 9000)
+Thread 4: first_row = 4500, last_row = 5624 (rows = 1125 of 9000)
+Thread 7: first_row = 7875, last_row = 8999 (rows = 1125 of 9000)
+Thread 4: own_first_row = 4500, own_last_row = 5624 (own_rows = 1125 of 9000)
+Thread 0: first_row = 0, last_row = 1124 (rows = 1125 of 9000)
+Thread 4: precond_first_row = 3780, precond_last_row = 5624
+Thread 2: first_row = 2250, last_row = 3374 (rows = 1125 of 9000)
+Thread 3: own_first_row = 3375, own_last_row = 4499 (own_rows = 1125 of 9000)
+Thread 1: first_row = 1125, last_row = 2249 (rows = 1125 of 9000)
+Thread 5: own_first_row = 5625, own_last_row = 6749 (own_rows = 1125 of 9000)
+Thread 1: own_first_row = 1125, own_last_row = 2249 (own_rows = 1125 of 9000)
+Thread 6: own_first_row = 6750, own_last_row = 7874 (own_rows = 1125 of 9000)
+Thread 2: own_first_row = 2250, own_last_row = 3374 (own_rows = 1125 of 9000)
+Thread 1: precond_first_row = 405, precond_last_row = 2249
+Thread 5: precond_first_row = 4905, precond_last_row = 6749
+Thread 7: own_first_row = 7875, own_last_row = 8999 (own_rows = 1125 of 9000)
+Thread 0: own_first_row = 0, own_last_row = 1124 (own_rows = 1125 of 9000)
+Thread 2: precond_first_row = 1530, precond_last_row = 3374
+Thread 0: precond_first_row = 0, precond_last_row = 1124
+Thread 3: precond_first_row = 2655, precond_last_row = 4499
+Thread 6: precond_first_row = 6030, precond_last_row = 7874
+Thread 7: precond_first_row = 7155, precond_last_row = 8999
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                       CHECK INPUT DATA
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                                  Saturation check [  OK  ]
+                                        Rock check [  OK  ]
+                                    Porosity check [  OK  ]
+                             Operations data check [  OK  ]
+                                   Well data check [  OK  ]
+                              Region numbers check [  OK  ]
+                                     DENSITY check [  OK  ]
+                                   Water PVT check [  OK  ]
+                                Oil PVT data check [  OK  ]
+                                     Gas PVT check [  OK  ]
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                 CHECK INPUT DATA DONE.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Info: preparing data structures to start computation started
+Info: preparing data structures to start computation finished
+Info: initial equilibrium regions calculation start...
+Information: GOC is above model tops in region 1, GOC and capillary pressure on GOC are ignored
+Info: initial equilibrium regions calculation end
+
+############           MODEL READ STATUS              ############
+Errors: 0
+Warnings: 6
+
+############           STATISTICS FOR MODEL          ############
+Model file: 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA'.
+Number of steps: 13.
+Number of connections: 80.
+Maximal number of connections per well: 5.
+Number of wells: 26. Number of groups: 2.
+Number of active blocks: 9000.
+Total memory allocated: 25790735 bytes (25186K, 2865 bytes per block).
+Total process image size: 74.703MB.
+Information: total time for calculating history values for wells, groups = 0.00.
+Number of threads: 8.
+Info: all physical values computation on first step started
+Info: all physical values computation on first step finished
+Info: original FIP data calculation started.
+Info: original FIP data calculation finished.
+Original oil in place: 214238352.373745 stb.
+Original free oil in place: 214238352.373745 stb.
+Original vaporized oil in place: 0.000000 stb.
+Original water in place: 214650265.911362 stb.
+Original gas in place: 297789389.930298 Mscf.
+Original free gas in place: 0.000000 Mscf.
+Original dissolved gas in place: 297789389.930298 Mscf.
+Original displ. hydrocarbon in place: 184061720.143914 RB.
+Pore volume: 452912326.530609 RB.
+Variable 'box' has been modified in the range (1:24,1:25,1:15).
+Variable 'actnum' has been modified in the range (1:24,1:25,1:15).
+Variable 'histo_2D_x' has been modified in the range (1:24,1:25,1:15).
+Variable 'box' has been modified in the range (1:24,1:25,1:15).
+Variable 'actnum' has been modified in the range (1:24,1:25,1:15).
+Variable 'histo_2D_y' has been modified in the range (1:24,1:25,1:15).
+Variable 'box' has been modified in the range (1:24,1:25,1:15).
+Variable 'actnum' has been modified in the range (1:24,1:25,1:15).
+Variable 'histo_2D_weight' has been modified in the range (1:24,1:25,1:15).

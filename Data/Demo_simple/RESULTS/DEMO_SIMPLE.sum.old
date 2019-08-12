@@ -1,0 +1,64 @@
+RFDynamics (R) симулятор tNavigator-3.x
+Демо версияВерсия сборки программы Sep  4 2010 16:30:10
+Copyright (C) RFDynamics 2003-2010.
+Авторские права защищены.
+
+Пользователь	1
+Имя компьютера	DESKTOP-VE3M6GR.
+Тип системы	MS Windows NT 6.2.9200
+ПРОЦЕССОР	8 x i686 level 6 model 158 stepping 9
+Физический адрес	10:7b:44:8e:7a:d4
+
+Текущий тип лицензии:
+    Демо версия
+Статус лицензии: OK[1]
+Файл модели: 'C:/Distr/tNavigator-x86-demo/tNavigator-x86-demo/demo/Demo_simple/DEMO_SIMPLE.DATA'.
+Количество шагов: 30.
+Число участков перфорации: 32.
+Макс. число участков перфорации на скважину: 3.
+Кол-во скважин: 14. Кол-во групп: 2.
+Кол-во активных блоков: 1474.
+Всего выделено памяти: 4687356 байтов (4577K, 3180 байтов на блок).
+Общий размер образа процесса: 81.078MB.
+Информация: для расчёта исторических значений по скважинам, группам потребовалось 0.00.
+Кол-во потоков: 8
+Начальные запасы нефти в ОТЧ.РЕГ.: 6321264.163657 sm3.
+Начальные запасы свободной нефти в ОТЧ.РЕГ.: 6321264.163657 sm3.
+Начальные запасы летучей нефти в ОТЧ.РЕГ.: 0.000000 sm3.
+Начальные запасы воды в ОТЧ.РЕГ.: 6189344.816539 sm3.
+Начальные запасы газа в ОТЧ.РЕГ.: 126425283.273134 sm3.
+Начальные запасы свободного газа в ОТЧ.РЕГ.: -0.000000 sm3.
+Начальные запасы растворённого газа в ОТЧ.РЕГ.: 126425283.273134 sm3.
+Начальные запасы углеводородов в ОТЧ.РЕГ.: 4392780.013067 rm3.
+Поровый объём: 13569488.036505 rm3.
+Summary at time=   31.00: elapsed=0, CPU=0, steps=5, NI=11, LI=83, #PROD=10, #INJ=1, PAV=194.1, WP=53.33, OP=264.62, GP=5289.78, TWP=1655.94, TOP=8279.54, TGP=165529.57, WI=15.48, TWI=479.88, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=   62.00: elapsed=1, CPU=0, steps=3, NI=6, LI=76, #PROD=10, #INJ=0, PAV=189.5, WP=51.33, OP=226.48, GP=4524.94, TWP=3250.34, TOP=15336.34, TGP=306536.18, WI=0.00, TWI=479.88, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=   92.00: elapsed=1, CPU=0, steps=1, NI=2, LI=37, #PROD=10, #INJ=0, PAV=184.1, WP=92.20, OP=269.94, GP=5393.23, TWP=6016.38, TOP=23434.44, TGP=468332.99, WI=0.00, TWI=479.88, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  123.00: elapsed=1, CPU=0, steps=1, NI=2, LI=35, #PROD=9, #INJ=0, PAV=179.1, WP=100.16, OP=223.46, GP=4462.04, TWP=9121.24, TOP=30361.84, TGP=606656.20, WI=0.00, TWI=479.88, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  153.00: elapsed=1, CPU=0, steps=1, NI=2, LI=34, #PROD=9, #INJ=0, PAV=175.0, WP=50.52, OP=202.30, GP=4037.79, TWP=10636.77, TOP=36430.75, TGP=727789.81, WI=0.00, TWI=479.88, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  184.00: elapsed=1, CPU=0, steps=1, NI=3, LI=42, #PROD=9, #INJ=2, PAV=175.8, WP=22.90, OP=234.16, GP=4676.25, TWP=11346.72, TOP=43689.76, TGP=872753.48, WI=144.72, TWI=4966.16, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  215.00: elapsed=1, CPU=0, steps=1, NI=3, LI=50, #PROD=8, #INJ=2, PAV=176.1, WP=7.38, OP=198.78, GP=3966.62, TWP=11575.38, TOP=49852.07, TGP=995718.60, WI=134.37, TWI=9131.48, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  244.00: elapsed=1, CPU=0, steps=1, NI=3, LI=61, #PROD=8, #INJ=3, PAV=176.4, WP=42.98, OP=199.17, GP=3973.97, TWP=12821.81, TOP=55627.96, TGP=1110963.69, WI=233.93, TWI=15915.58, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  275.00: elapsed=1, CPU=0, steps=1, NI=2, LI=35, #PROD=9, #INJ=2, PAV=174.8, WP=23.98, OP=183.28, GP=3655.59, TWP=13565.28, TOP=61309.70, TGP=1224287.13, WI=214.02, TWI=22550.06, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  305.00: elapsed=1, CPU=0, steps=1, NI=4, LI=64, #PROD=10, #INJ=3, PAV=177.0, WP=1.48, OP=192.67, GP=3843.60, TWP=13609.79, TOP=67089.76, TGP=1339595.00, WI=281.10, TWI=30983.18, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  336.00: elapsed=1, CPU=0, steps=3, NI=6, LI=81, #PROD=9, #INJ=3, PAV=179.9, WP=0.60, OP=171.68, GP=3424.72, TWP=13628.42, TOP=72443.95, TGP=1446403.58, WI=328.31, TWI=41123.58, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  366.00: elapsed=1, CPU=0, steps=1, NI=2, LI=35, #PROD=9, #INJ=3, PAV=182.5, WP=0.56, OP=161.77, GP=3229.13, TWP=13645.20, TOP=77297.00, TGP=1543277.48, WI=293.37, TWI=49924.56, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  397.00: elapsed=1, CPU=0, steps=1, NI=3, LI=58, #PROD=9, #INJ=3, PAV=184.7, WP=0.71, OP=180.12, GP=3591.49, TWP=13667.22, TOP=82880.61, TGP=1654613.78, WI=313.26, TWI=59635.53, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  428.00: elapsed=1, CPU=0, steps=1, NI=3, LI=50, #PROD=10, #INJ=3, PAV=186.2, WP=0.70, OP=212.76, GP=4249.72, TWP=13688.89, TOP=89476.30, TGP=1786355.24, WI=307.19, TWI=69158.29, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  458.00: elapsed=1, CPU=0, steps=1, NI=2, LI=35, #PROD=9, #INJ=3, PAV=188.2, WP=1.61, OP=173.10, GP=3459.59, TWP=13737.12, TOP=94669.41, TGP=1890142.95, WI=277.96, TWI=77497.03, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  489.00: elapsed=1, CPU=0, steps=1, NI=2, LI=38, #PROD=10, #INJ=3, PAV=189.3, WP=1.22, OP=221.24, GP=4422.71, TWP=13774.90, TOP=101527.98, TGP=2027247.02, WI=275.60, TWI=86040.58, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  519.00: elapsed=1, CPU=0, steps=1, NI=3, LI=49, #PROD=10, #INJ=3, PAV=191.0, WP=1.83, OP=211.60, GP=4231.15, TWP=13829.79, TOP=107875.94, TGP=2154181.38, WI=326.84, TWI=95845.71, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  550.00: elapsed=1, CPU=0, steps=1, NI=2, LI=28, #PROD=10, #INJ=3, PAV=192.1, WP=53.67, OP=221.43, GP=4427.14, TWP=15493.49, TOP=114740.36, TGP=2291422.72, WI=319.48, TWI=105749.49, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  581.00: elapsed=1, CPU=0, steps=1, NI=2, LI=19, #PROD=10, #INJ=3, PAV=191.7, WP=81.81, OP=289.48, GP=5785.38, TWP=18029.74, TOP=123714.18, TGP=2470769.46, WI=334.97, TWI=116133.70, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  609.00: elapsed=1, CPU=0, steps=1, NI=2, LI=34, #PROD=10, #INJ=3, PAV=188.3, WP=112.98, OP=276.63, GP=5528.57, TWP=21193.06, TOP=131459.92, TGP=2625569.29, WI=247.89, TWI=123074.71, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  640.00: elapsed=1, CPU=0, steps=1, NI=3, LI=40, #PROD=9, #INJ=2, PAV=187.1, WP=49.34, OP=204.74, GP=4088.06, TWP=22722.66, TOP=137806.87, TGP=2752299.11, WI=273.66, TWI=131558.17, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  670.00: elapsed=1, CPU=0, steps=1, NI=2, LI=32, #PROD=11, #INJ=2, PAV=184.9, WP=53.15, OP=232.42, GP=4640.84, TWP=24317.27, TOP=144779.32, TGP=2891524.32, WI=211.50, TWI=137903.17, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  701.00: elapsed=1, CPU=0, steps=1, NI=3, LI=48, #PROD=9, #INJ=2, PAV=185.1, WP=52.80, OP=192.81, GP=3848.89, TWP=25954.02, TOP=150756.55, TGP=3010839.84, WI=274.02, TWI=146397.84, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  731.00: elapsed=1, CPU=0, steps=1, NI=2, LI=35, #PROD=9, #INJ=2, PAV=186.4, WP=54.67, OP=155.33, GP=3105.16, TWP=27594.12, TOP=155416.51, TGP=3103994.64, WI=321.08, TWI=156030.23, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  762.00: elapsed=1, CPU=0, steps=1, NI=3, LI=57, #PROD=9, #INJ=2, PAV=187.2, WP=54.75, OP=189.55, GP=3790.99, TWP=29291.41, TOP=161292.47, TGP=3221515.39, WI=321.72, TWI=166003.40, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  793.00: elapsed=2, CPU=0, steps=1, NI=2, LI=34, #PROD=8, #INJ=2, PAV=187.4, WP=51.87, OP=192.13, GP=3842.70, TWP=30899.25, TOP=167248.62, TGP=3340639.13, WI=253.40, TWI=173858.80, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  823.00: elapsed=2, CPU=0, steps=1, NI=2, LI=36, #PROD=8, #INJ=2, PAV=188.8, WP=52.00, OP=185.39, GP=3707.80, TWP=32459.26, TOP=172810.23, TGP=3451873.16, WI=356.43, TWI=184551.76, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  854.00: elapsed=2, CPU=0, steps=1, NI=2, LI=36, #PROD=8, #INJ=2, PAV=190.4, WP=55.81, OP=183.28, GP=3665.71, TWP=34189.43, TOP=178491.96, TGP=3565510.09, WI=348.96, TWI=195369.67, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  884.00: elapsed=2, CPU=0, steps=1, NI=2, LI=33, #PROD=8, #INJ=2, PAV=192.4, WP=39.62, OP=182.61, GP=3652.32, TWP=35378.05, TOP=183970.29, TGP=3675079.55, WI=360.12, TWI=206173.36, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Summary at time=  915.00: elapsed=2, CPU=0, steps=1, NI=2, LI=34, #PROD=8, #INJ=2, PAV=194.0, WP=50.22, OP=203.62, GP=4072.45, TWP=36934.85, TOP=190282.42, TGP=3801325.36, WI=353.28, TWI=217125.00, GI=0.00, TGI=0.00, AW=0.00, TAW=0.00
+Время расчёта = 00.00.02, CPU = 00.00.00, шагов = 38, NI = 88, LI = 1366

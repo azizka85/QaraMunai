@@ -1,0 +1,134 @@
+-- Generated [
+-- Format      : ECLIPSE keywords (ASCII)
+-- Exported by : Petrel 2017.4 Schlumberger
+-- User name   : aprikhnenko
+
+RUNSPEC
+
+ENDSCALE                               -- Generated : Petrel
+  /
+
+TITLE                                  -- Generated : Petrel
+'OPTIMUM TEST FOR KBTU'
+
+WELLDIMS                               -- Generated : Petrel
+  5 21 2 5 5* 21 /
+
+START                                  -- Generated : Petrel
+  1 JUL 2007 /
+
+WATER                                  -- Generated : Petrel
+
+OIL                                    -- Generated : Petrel
+
+--PETOPTS                                -- Generated : Petrel
+--INITNNC /
+
+MONITOR                                -- Generated : Petrel
+
+--PARALLEL                               -- Generated : Petrel
+--  10 /
+
+MULTOUT                                -- Generated : Petrel
+
+--NOSIM
+
+METRIC                                 -- Generated : Petrel
+
+DIMENS                                 -- Generated : Petrel
+  83 91 33 /
+
+TABDIMS                                -- Generated : Petrel
+  12* 1 /
+
+--TABDIMS                                
+--  1 1 22 57 1* 57 57 5* 1 /
+
+EQLDIMS                                
+  1 /
+  
+GRID
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_GRID.INC' /
+
+NOECHO                                 -- Generated : Petrel
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_GRID.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROP_PERMX.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROP_PERMY.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROP_PERMZ.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROP_PORO.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROP_NTG.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROP_MULTPV.GRDECL' /
+
+ECHO                                   -- Generated : Petrel
+
+EDIT
+
+PROPS
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_PROPS.INC' /
+
+REGIONS
+
+NOECHO                                 -- Generated : Petrel
+
+--INCLUDE                                -- Generated : Petrel
+--'OPMKBTU_TEST01_PROP_SATNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SATNUM.INC' /
+
+--INCLUDE                                -- Generated : Petrel
+--'OPMKBTU_TEST01_PROP_PVTNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'PVTNUM.INC' /
+
+--INCLUDE                                -- Generated : Petrel
+--'OPMKBTU_TEST01_PROP_ROCKNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'ROCKNUM.INC' /
+
+
+--INCLUDE                                -- Generated : Petrel
+--'OPMKBTU_TEST01_PROP_EQLNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'EQLNUM.INC' /
+
+ECHO                                   -- Generated : Petrel
+
+SOLUTION
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_SOL.inc' /
+
+SUMMARY
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_SUM.INC' /
+
+SCHEDULE
+
+INCLUDE                                -- Generated : Petrel
+'OPMKBTU_TEST01_SCH.INC' /
+
+MESSAGES
+9* 1000 2* /

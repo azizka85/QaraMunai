@@ -1,0 +1,33 @@
+RFDynamics (R) simulator tNavigator-3.x
+Demo versionProgram build Sep  4 2010 16:30:10
+Copyright (C) RFDynamics 2003-2010.
+All rights reserved.
+
+User	Aziz
+On host	DESKTOP-2UJ8P4J.
+Host type	MS Windows NT 6.2.9200
+CPU	8 x i686 level 6 model 158 stepping 9
+Adapter Id	18:60:24:8d:e6:aa
+
+Current license type:
+    Demo version
+License status: OK[1]
+Model file: 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/SPE9/SPE9.DATA'.
+Number of steps: 13.
+Number of connections: 80.
+Maximal number of connections per well: 5.
+Number of wells: 26. Number of groups: 2.
+Number of active blocks: 9000.
+Total memory allocated: 25790735 bytes (25186K, 2865 bytes per block).
+Total process image size: 74.703MB.
+Information: total time for calculating history values for wells, groups = 0.00.
+Number of threads: 8.
+Original oil in place: 214238352.373745 stb.
+Original free oil in place: 214238352.373745 stb.
+Original vaporized oil in place: 0.000000 stb.
+Original water in place: 214650265.911362 stb.
+Original gas in place: 297789389.930298 Mscf.
+Original free gas in place: 0.000000 Mscf.
+Original dissolved gas in place: 297789389.930298 Mscf.
+Original displ. hydrocarbon in place: 184061720.143914 RB.
+Pore volume: 452912326.530609 RB.

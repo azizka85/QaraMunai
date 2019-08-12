@@ -1,0 +1,216 @@
+   ImportGrid( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.GRID" &
+      ,  Grid = "Grid1",  PropManager = "PropManager1" )
+   ReadProperties( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.INIT, &
+InitialProperty",  PropManager = "PropManager1",  DefaultToPropUnits = "TRUE",   &
+      ReadNow = "TRUE" )
+   ReadProperties( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.UNRST, &
+MinReportStep, 0, MaxReportSTep, 9999, RestartProperty",   &
+      PropManager = "PropManager1",  DefaultToPropUnits = "TRUE",   &
+      ReadNow = "FALSE" )
+   ImportWells( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.UNRST, &
+MinReportStep, 0, MaxReportSTep, 9999",  Grid = "Grid1",  Wells = "Wells1",   &
+      ReadNow = "FALSE" )
+   ReadRestartFiles(  )
+   UpdateGridUnits( Grid = "Grid1" )
+   UpdateWellUnits( Wells = "Wells1" )
+   ReportGridDimensions( Grid = "Grid1" )
+   AddSimulationToView( Viewer = "3DViewer1",  Grid = "Grid1",   &
+      GridComposite = "GridComposite1",  Wells = "Wells1",   &
+      WellComposite = "WellComposite1" )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 2 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 3 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 4 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 5 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 6 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 7 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 8 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 9 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 10 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 11 )
+   Exaggerate( Viewer = "3DViewer1",  X = 1,  Y = 1,  Z = 12 )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "PRESSURE",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite1",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   RemoveWellsFromView( Viewer = "3DViewer1",  Wells = "Wells1" )
+   RemoveWells( Wells = "Wells1" )
+   RemoveGridFromView( Viewer = "3DViewer1",  Grid = "Grid1" )
+   RemoveGrid( Grid = "Grid1" )
+   ResetTimeLine(  )
+   ImportGrid( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.GRID" &
+      ,  Grid = "Grid2",  PropManager = "PropManager2" )
+   ReadProperties( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.INIT, &
+InitialProperty",  PropManager = "PropManager2",  DefaultToPropUnits = "TRUE",   &
+      ReadNow = "TRUE" )
+   ReadProperties( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.UNRST, &
+MinReportStep, 0, MaxReportSTep, 9999, RestartProperty",   &
+      PropManager = "PropManager2",  DefaultToPropUnits = "TRUE",   &
+      ReadNow = "FALSE" )
+   ImportWells( Vendor = "Eclipse",   &
+      Location = &
+      "C:\Distr\tNavigator-x86-demo\tNavigator-x86-demo\demo\Demo_simple\DEMO_SIMPLE.UNRST, &
+MinReportStep, 0, MaxReportSTep, 9999",  Grid = "Grid2",  Wells = "Wells2",   &
+      ReadNow = "FALSE" )
+   ReadRestartFiles(  )
+   UpdateGridUnits( Grid = "Grid2" )
+   UpdateWellUnits( Wells = "Wells2" )
+   ReportGridDimensions( Grid = "Grid2" )
+   AddSimulationToView( Viewer = "3DViewer1",  Grid = "Grid2",   &
+      GridComposite = "GridComposite2",  Wells = "Wells2",   &
+      WellComposite = "WellComposite2" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "PRESSURE",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "PRESSURE",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "PRESSURE",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 1 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 2 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 3 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 4 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 5 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 6 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 7 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 8 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 9 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 10 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 11 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 12 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 13 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 14 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 15 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 16 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 17 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 18 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 19 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 20 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 21 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 22 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 23 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 24 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 25 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 26 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 27 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 28 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 29 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 1 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 2 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 3 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 4 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 5 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 6 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 7 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 8 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 9 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 10 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 11 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 12 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 13 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 14 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 15 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 16 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 17 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 18 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 19 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 20 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 21 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 22 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 23 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 24 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 25 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 26 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 27 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 28 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 29 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SetTimeStep( Viewer = "3DViewer1",  TimeStep = 0 )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "Ternary",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SWAT",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SWAT",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SWAT",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SOIL",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SOIL",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SGAS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SGAS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SGAS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SGAS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "SGAS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )
+   SelectProp( GridComposite = "GridComposite2",  PropName = "RS",   &
+      PropType = "RECR",  Update = "TRUE" )

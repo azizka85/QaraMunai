@@ -1,0 +1,927 @@
+RFDynamics (R) симулятор tNavigator-3.x
+Демо версияВерсия сборки программы Sep  4 2010 16:30:10
+Copyright (C) RFDynamics 2003-2010.
+Авторские права защищены.
+
+Пользователь	Aziz
+Имя компьютера	DESKTOP-2UJ8P4J.
+Тип системы	MS Windows NT 6.2.9200
+ПРОЦЕССОР	8 x i686 level 6 model 158 stepping 9
+Физический адрес	18:60:24:8d:e6:aa
+
+Текущий тип лицензии:
+    Демо версия
+Статус лицензии: OK[1]
+Тип модели: E100.
+       Имя файла DAT = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA
+       Имя файла RST = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/RESULTS/DEMO_SIMPLE.rst
+       Имя файла ERR = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/RESULTS/DEMO_SIMPLE.err
+       Имя файла LOG = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/RESULTS/DEMO_SIMPLE.log
+В модель включены следующие INC-файлы:
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 4:
+Информация: чтение ключевого слова RUNSPEC...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 4:
+Информация: ключевое слов RUNSPEC прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 6:
+Информация: чтение ключевого слова TITLE...
+Кл.сл.                          TITLE: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 7:
+Информация: ключевое слов TITLE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 9:
+Информация: чтение ключевого слова START...
+Найдена начальная дата
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 10:
+Информация: ключевое слов START прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 12:
+Информация: чтение ключевого слова METRIC...
+Кл.сл.                         METRIC: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 12:
+Информация: ключевое слов METRIC прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 13:
+Информация: чтение ключевого слова UNIFOUT...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 13:
+Информация: ключевое слов UNIFOUT прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 15:
+Информация: чтение ключевого слова OIL...
+Кл.сл.                            OIL: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 15:
+Информация: ключевое слов OIL прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 16:
+Информация: чтение ключевого слова WATER...
+Кл.сл.                          WATER: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 16:
+Информация: ключевое слов WATER прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 17:
+Информация: чтение ключевого слова GAS...
+Кл.сл.                            GAS: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 17:
+Информация: ключевое слов GAS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 18:
+Информация: чтение ключевого слова DISGAS...
+Кл.сл.                         DISGAS: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 18:
+Информация: ключевое слов DISGAS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 22:
+Информация: чтение ключевого слова NOECHO...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 22:
+Информация: ключевое слов NOECHO прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 24:
+Информация: чтение ключевого слова NOSIM...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 24:
+Информация: ключевое слов NOSIM прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 26:
+Информация: чтение ключевого слова IMPLICIT...
+Кл.сл.                       IMPLICIT: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 26:
+Информация: ключевое слов IMPLICIT прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 28:
+Информация: чтение ключевого слова DIMENS...
+Кл.сл.                         DIMENS: успешно прочитаны значения (25, 25, 3)
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 29:
+Информация: ключевое слов DIMENS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 31:
+Информация: чтение ключевого слова REGDIMS...
+Кл.сл.                        REGDIMS: успешно прочитаны значения (1, 1, 1, 1)
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 33:
+Информация: ключевое слов REGDIMS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 35:
+Информация: чтение ключевого слова TABDIMS...
+Кл.сл.                        TABDIMS: успешно прочитаны значения (2, 2, 1, 1)
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 37:
+Информация: ключевое слов TABDIMS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 39:
+Информация: чтение ключевого слова EQLDIMS...
+Кл.сл.                        EQLDIMS: успешно прочитаны значения (2, 2, 2, 1)
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 41:
+Информация: ключевое слов EQLDIMS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 43:
+Информация: чтение ключевого слова WELLDIMS...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 44:
+Информация: ключевое слов WELLDIMS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 46:
+Информация: чтение ключевого слова GRID...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 46:
+Информация: ключевое слов GRID прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 47:
+Информация: чтение ключевого слова INIT...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 47:
+Информация: ключевое слов INIT прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 49:
+Информация: чтение ключевого слова GRIDFILE...
+Кл.сл.                       GRIDFILE: успешно прочитано 1 значений
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 50:
+Информация: ключевое слов GRIDFILE прочитано
+INC файл [#0001] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 4:
+Информация: чтение ключевого слова DX...
+Кл.сл.                             DX: успешно прочитано 1875 значений
+Кл.сл.                             DX: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 68:
+Информация: ключевое слов DX прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 71:
+Информация: чтение ключевого слова DY...
+Кл.сл.                             DY: успешно прочитано 1875 значений
+Кл.сл.                             DY: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 72:
+Информация: ключевое слов DY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 75:
+Информация: чтение ключевого слова DZ...
+Кл.сл.                             DZ: успешно прочитано 1875 значений
+Кл.сл.                             DZ: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 76:
+Информация: ключевое слов DZ прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 79:
+Информация: чтение ключевого слова TOPS...
+Кл.сл.                           TOPS: успешно прочитано 625 значений
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 145:
+Информация: ключевое слов TOPS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 148:
+Информация: чтение ключевого слова PERMX...
+Кл.сл.                          PERMX: успешно прочитано 1875 значений
+Кл.сл.                          PERMX: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 350:
+Информация: ключевое слов PERMX прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 353:
+Информация: чтение ключевого слова PERMY...
+Кл.сл.                          PERMY: успешно прочитано 1875 значений
+Кл.сл.                          PERMY: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 555:
+Информация: ключевое слов PERMY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 558:
+Информация: чтение ключевого слова PERMZ...
+Кл.сл.                          PERMZ: успешно прочитано 1875 значений
+Кл.сл.                          PERMZ: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 761:
+Информация: ключевое слов PERMZ прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 764:
+Информация: чтение ключевого слова PORO...
+Кл.сл.                           PORO: успешно прочитано 1875 значений
+Кл.сл.                           PORO: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 951:
+Информация: ключевое слов PORO прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 954:
+Информация: чтение ключевого слова NTG...
+Кл.сл.                            NTG: успешно прочитано 1875 значений
+Кл.сл.                            NTG: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 955:
+Информация: ключевое слов NTG прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 958:
+Информация: чтение ключевого слова ACTNUM...
+Кл.сл.                         ACTNUM: успешно прочитано 1875 значений
+Кл.сл.                         ACTNUM: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 965:
+Информация: ключевое слов ACTNUM прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 968:
+Информация: чтение ключевого слова MULTX...
+Кл.сл.                          MULTX: успешно прочитано 1875 значений
+Кл.сл.                          MULTX: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 972:
+Информация: ключевое слов MULTX прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 975:
+Информация: чтение ключевого слова MULTY...
+Кл.сл.                          MULTY: успешно прочитано 1875 значений
+Кл.сл.                          MULTY: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 976:
+Информация: ключевое слов MULTY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 979:
+Информация: чтение ключевого слова MULTZ...
+Кл.сл.                          MULTZ: успешно прочитано 1875 значений
+Кл.сл.                          MULTZ: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 980:
+Информация: ключевое слов MULTZ прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 983:
+Информация: чтение ключевого слова MINPV...
+Кл.сл.                          MINPV: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_grid.inc' Строка 984:
+Информация: ключевое слов MINPV прочитано
+Чтение включаемого файла завершено.
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 56:
+Информация: чтение ключевого слова PROPS...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 56:
+Информация: ключевое слов PROPS прочитано
+Общее кол-во активных блоков = 1474, общ. поровый объём =13569488.036505
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 58:
+Информация: чтение ключевого слова STONE1...
+Кл.сл.                         STONE1: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 58:
+Информация: ключевое слов STONE1 прочитано
+INC файл [#0002] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 5:
+Информация: чтение ключевого слова PVTO...
+Кл.сл.                           PVTO: успешно прочитано 10 строк для региона 0
+Кл.сл.                           PVTO: успешно прочитано 9 строк для региона 1
+Кл.сл.                           PVTO: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 27:
+Информация: ключевое слов PVTO прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 29:
+Информация: чтение ключевого слова PVTW...
+Кл.сл.                           PVTW: успешно прочитано 1 строк для региона 0
+Кл.сл.                           PVTW: успешно прочитано 1 строк для региона 1
+Кл.сл.                           PVTW: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 32:
+Информация: ключевое слов PVTW прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 35:
+Информация: чтение ключевого слова PVDG...
+Кл.сл.                           PVDG: успешно прочитано 3 строк для региона 0
+Кл.сл.                           PVDG: успешно прочитано 3 строк для региона 1
+Кл.сл.                           PVDG: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 44:
+Информация: ключевое слов PVDG прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 46:
+Информация: чтение ключевого слова ROCK...
+Кл.сл.                           ROCK: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 53:
+Информация: ключевое слов ROCK прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_pvt.inc' Строка 53:
+Информация: чтение ключевого слова DENSITY...
+Чтение включаемого файла завершено.
+INC файл [#0003] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc' Строка 5:
+Информация: ключевое слов DENSITY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc' Строка 5:
+Информация: чтение ключевого слова SWOF...
+Кл.сл.                           SWOF: успешно прочитано 12 строк для региона 0
+Кл.сл.                           SWOF: успешно прочитано 12 строк для региона 1
+Кл.сл.                           SWOF: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc' Строка 31:
+Информация: ключевое слов SWOF прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc' Строка 33:
+Информация: чтение ключевого слова SGOF...
+Кл.сл.                           SGOF: успешно прочитано 10 строк для региона 0
+Кл.сл.                           SGOF: успешно прочитано 10 строк для региона 1
+Кл.сл.                           SGOF: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_rp.inc' Строка 55:
+Информация: ключевое слов SGOF прочитано
+Чтение включаемого файла завершено.
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 66:
+Информация: чтение ключевого слова REGIONS...
+INC файл [#0004] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc".
+INC файл [#0005] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_rp.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_rp.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_rp.inc' Строка 6:
+Информация: чтение ключевого слова SWOF...
+Кл.сл.                           SWOF: успешно прочитано 12 строк для региона 0
+Кл.сл.                           SWOF: успешно прочитано 12 строк для региона 1
+Кл.сл.                           SWOF: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_rp.inc' Строка 32:
+Информация: ключевое слов SWOF прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_rp.inc' Строка 34:
+Информация: чтение ключевого слова SGOF...
+Кл.сл.                           SGOF: успешно прочитано 10 строк для региона 0
+Кл.сл.                           SGOF: успешно прочитано 10 строк для региона 1
+Кл.сл.                           SGOF: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_rp.inc' Строка 56:
+Информация: ключевое слов SGOF прочитано
+Чтение включаемого файла завершено.
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 6:
+Информация: чтение ключевого слова PVTO...
+Кл.сл.                           PVTO: успешно прочитано 10 строк для региона 0
+Кл.сл.                           PVTO: успешно прочитано 9 строк для региона 1
+Кл.сл.                           PVTO: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 28:
+Информация: ключевое слов PVTO прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 30:
+Информация: чтение ключевого слова PVTW...
+Кл.сл.                           PVTW: успешно прочитано 1 строк для региона 0
+Кл.сл.                           PVTW: успешно прочитано 1 строк для региона 1
+Кл.сл.                           PVTW: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 33:
+Информация: ключевое слов PVTW прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 35:
+Информация: чтение ключевого слова PVDG...
+Кл.сл.                           PVDG: успешно прочитано 3 строк для региона 0
+Кл.сл.                           PVDG: успешно прочитано 3 строк для региона 1
+Кл.сл.                           PVDG: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 44:
+Информация: ключевое слов PVDG прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 46:
+Информация: чтение ключевого слова ROCK...
+Кл.сл.                           ROCK: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 49:
+Информация: ключевое слов ROCK прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 51:
+Информация: чтение ключевого слова DENSITY...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/USER/DEMO_SIMPLE_pvt.inc' Строка 54:
+Информация: ключевое слов DENSITY прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 66:
+Информация: ключевое слов REGIONS прочитано
+INC файл [#0006] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 5:
+Информация: чтение ключевого слова PVTNUM...
+Кл.сл.                         PVTNUM: успешно прочитано 1875 значений
+Кл.сл.                         PVTNUM: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 6:
+Информация: ключевое слов PVTNUM прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 9:
+Информация: чтение ключевого слова SATNUM...
+Кл.сл.                         SATNUM: успешно прочитано 1875 значений
+Кл.сл.                         SATNUM: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 10:
+Информация: ключевое слов SATNUM прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 13:
+Информация: чтение ключевого слова EQLNUM...
+Кл.сл.                         EQLNUM: успешно прочитано 1875 значений
+Кл.сл.                         EQLNUM: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 14:
+Информация: ключевое слов EQLNUM прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 17:
+Информация: чтение ключевого слова FIPNUM...
+Кл.сл.                         FIPNUM: успешно прочитано 1875 значений
+Кл.сл.                         FIPNUM: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_regs.inc' Строка 18:
+Информация: ключевое слов FIPNUM прочитано
+Чтение включаемого файла завершено.
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 70:
+Информация: чтение ключевого слова SOLUTION...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 70:
+Информация: ключевое слов SOLUTION прочитано
+INC файл [#0007] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_init.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_init.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_init.inc' Строка 4:
+Информация: чтение ключевого слова EQUIL...
+Кл.сл.                          EQUIL: успешно прочитано 2 значений
+Кл.сл.                          EQUIL: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_init.inc' Строка 7:
+Информация: ключевое слов EQUIL прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_init.inc' Строка 9:
+Информация: чтение ключевого слова RSVD...
+Кл.сл.                           RSVD: успешно прочитано 2 строк для региона 1
+Кл.сл.                           RSVD: успешно прочитано 2 строк для региона 2
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_init.inc' Строка 15:
+Информация: ключевое слов RSVD прочитано
+Чтение включаемого файла завершено.
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 74:
+Информация: чтение ключевого слова SUMMARY...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 80:
+Информация: ключевое слов SUMMARY прочитано
+                 Проверка PVDO/PVTO/SGOF, нач. GAS [  OK  ]
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 80:
+Информация: чтение ключевого слова SCHEDULE...
+Читаю раздел SCHEDULE
+INC файл [#0008] имя = D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc
+Включается файл "D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc".
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 4:
+Предупреждение: неизвестное ключевое слово 'NOSIM'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 6:
+Предупреждение: 1 непустых строк пропущено при чтении кл.сл 'NOSIM'
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 6:
+Информация: чтение ключевого слова RPTRST...
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 7:
+Информация: ключевое слов RPTRST прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 9:
+Информация: чтение ключевого слова RPTSCHED...
+Кл.сл.                       RPTSCHED: успешно прочитан
+установки для врем. шага
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 10:
+Информация: ключевое слов RPTSCHED прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 12:
+Информация: чтение ключевого слова WELSPECS...
+Кл.сл.                       WELSPECS: успешно прочитано 14 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 28:
+Информация: ключевое слов WELSPECS прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 30:
+Информация: чтение ключевого слова COMPDAT...
+Кл.сл.                        COMPDAT: успешно прочитано 17 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 49:
+Информация: ключевое слов COMPDAT прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 51:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 12 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 65:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 67:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 71:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 73:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 75:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 77:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 89:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 91:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 1 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 94:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 96:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 98:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 100:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 112:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 114:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 116:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 118:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 130:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 132:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 134:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 136:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 147:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 149:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 151:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 153:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 164:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 166:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 170:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 172:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 174:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 176:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 187:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 189:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 193:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 195:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 197:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 199:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 210:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 212:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 217:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 219:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 221:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 223:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 234:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 236:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 241:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 243:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 245:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 247:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 259:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 261:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 266:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 268:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 270:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 272:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 284:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 286:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 291:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 293:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 295:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 297:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 308:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 310:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 315:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 317:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 319:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 321:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 332:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 334:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 339:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 341:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 343:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 345:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 357:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 359:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 364:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 366:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 368:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 370:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 382:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 384:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 389:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 391:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 393:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 395:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 407:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 409:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 414:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 416:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 418:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 420:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 432:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 434:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 439:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 441:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 443:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 445:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 457:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 459:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 464:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 466:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 468:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 470:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 482:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 484:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 489:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 491:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 493:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 495:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 507:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 509:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 514:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 516:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 518:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 520:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 10 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 532:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 534:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 3 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 539:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 541:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 543:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 545:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 11 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 558:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 560:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 564:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 566:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 568:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 570:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 11 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 583:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 585:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 589:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 591:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 593:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 595:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 606:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 608:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 612:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 614:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 616:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 618:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 629:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 631:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 635:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 637:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 639:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 641:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 9 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 652:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 654:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 658:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 660:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 662:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 664:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 8 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 674:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 676:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 680:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 682:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 684:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 686:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 8 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 696:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 698:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 702:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 704:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 706:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 708:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 8 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 718:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 720:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 724:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 726:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 728:
+Информация: ключевое слов DATES прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 730:
+Информация: чтение ключевого слова WCONPROD...
+Кл.сл.                       WCONPROD: успешно прочитано 8 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 740:
+Информация: ключевое слов WCONPROD прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 742:
+Информация: чтение ключевого слова WCONINJE...
+Кл.сл.                       WCONINJE: успешно прочитано 2 строк
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 746:
+Информация: ключевое слов WCONINJE прочитано
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 748:
+Информация: чтение ключевого слова DATES...
+Кл.сл.                          DATES: успешно прочитан
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/demo3_sch.inc' Строка 750:
+Информация: ключевое слов DATES прочитано
+Чтение включаемого файла завершено.
+Файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA' Строка 84:
+Информация: чтение ключевого слова END...
+Кл.сл.                            END: успешно прочитан
+Информация: ключевое слов END прочитано
+Информация: ключевое слов SCHEDULE прочитано
+Чтение модели: затрачено 00.00.01, CPU 00.00.00.
+Thread 6: first_row = 1105, last_row = 1288 (rows = 184 of 1474)
+Thread 1: first_row = 184, last_row = 367 (rows = 184 of 1474)
+Thread 0: first_row = 0, last_row = 183 (rows = 184 of 1474)
+Thread 6: own_first_row = 1105, own_last_row = 1288 (own_rows = 184 of 1474)
+Thread 1: own_first_row = 184, own_last_row = 367 (own_rows = 184 of 1474)
+Thread 3: first_row = 552, last_row = 736 (rows = 185 of 1474)
+Thread 1: precond_first_row = 34, precond_last_row = 367
+Thread 3: own_first_row = 552, own_last_row = 736 (own_rows = 185 of 1474)
+Thread 5: first_row = 921, last_row = 1104 (rows = 184 of 1474)
+Thread 4: first_row = 737, last_row = 920 (rows = 184 of 1474)
+Thread 6: precond_first_row = 955, precond_last_row = 1288
+Thread 4: own_first_row = 737, own_last_row = 920 (own_rows = 184 of 1474)
+Thread 2: first_row = 368, last_row = 551 (rows = 184 of 1474)
+Thread 7: first_row = 1289, last_row = 1473 (rows = 185 of 1474)
+Thread 0: own_first_row = 0, own_last_row = 183 (own_rows = 184 of 1474)
+Thread 2: own_first_row = 368, own_last_row = 551 (own_rows = 184 of 1474)
+Thread 7: own_first_row = 1289, own_last_row = 1473 (own_rows = 185 of 1474)
+Thread 3: precond_first_row = 402, precond_last_row = 736
+Thread 7: precond_first_row = 1139, precond_last_row = 1473
+Thread 2: precond_first_row = 218, precond_last_row = 551
+Thread 0: precond_first_row = 0, precond_last_row = 183
+Thread 4: precond_first_row = 587, precond_last_row = 920
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Thread 5: own_first_row = 921, own_last_row = 1104 (own_rows = 184 of 1474)
+                ПРОВЕРКА ВХОДНЫХ ДАННЫХ
+Thread 5: precond_first_row = 771, precond_last_row = 1104
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                             Проверка насыщенности [  OK  ]
+                              Проверка св-в породы [  OK  ]
+                               Проверка пористости [  OK  ]
+                                 Проверка операций [  OK  ]
+                                  Проверка скважин [  OK  ]
+                         Проверка номеров регионов [  OK  ]
+                                  Проверка DENSITY [  OK  ]
+                      Проверка таблицы PVT по воде [  OK  ]
+                     Проверка таблицы PVT по нефти [  OK  ]
+                      Проверка таблицы PVT по газу [  OK  ]
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      ПРОВЕРКА ВХОДНЫХ ДАННЫХ ЗАВЕРШЕНА
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Информация: подготовка структур данных для расчёта...
+Информация: подготовка структур данных для расчёта завершена
+Информация: расчёт начального равновесия...
+Информация: ГНК выше кровли модели в регионе 1, ГНК и капиллярное давление на ГНК игнорируются
+Информация: ГНК выше кровли модели в регионе 2, ГНК и капиллярное давление на ГНК игнорируются
+Информация: расчёт начального равновесия... завершён
+
+Найдены файлы отчётов в директории с моделью!
+Графики можно посмотреть в закладке 'Графики' (графики с отметкой [E]).
+Читаем .SMSPEC файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.SMSPEC'.
+Предупреждение: прочитано 9 параметров из слова 'KEYWORDS' из файла .SMSPEC, которые не поддерживаются в симуляторе, пропущены: FWGR      GWGR      FOIP      FOIPL     FOIPG     FWIP      FGIP      FGIPL     FGIPG    
+Неподдерживаемое кл.сл 'RUNTIMEI' прочитано из .SMSPEC файла 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.SMSPEC' (проигнорировано).
+Неподдерживаемое кл.сл 'RUNTIMED' прочитано из .SMSPEC файла 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.SMSPEC' (проигнорировано).
+.SMSPEC файл D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.SMSPEC успешно прочитан.
+Читаем файл 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.UNSMRY'!
+.UNSMRY (.Snnnn) файл(ы) успешно прочитаны(ы).
+Найдено шагов: 30.
+############           Статистика чтения модели              ############
+Ошибки: 0
+Предупреждения: 2
+
+############           СТАТИСТИКА МОДЕЛИ          ############
+Файл модели: 'D:/Workspace/C#/Workspace/Illustrator/Illustrator/Data/Demo_simple/DEMO_SIMPLE.DATA'.
+Количество шагов: 30.
+Число участков перфорации: 32.
+Макс. число участков перфорации на скважину: 3.
+Кол-во скважин: 14. Кол-во групп: 2.
+Кол-во активных блоков: 1474.
+Всего выделено памяти: 4687356 байтов (4577K, 3180 байтов на блок).
+Общий размер образа процесса: 56.254MB.
+Информация: для расчёта исторических значений по скважинам, группам потребовалось 0.00.
+Кол-во потоков: 8
+Информация: расчёт физических величин на первом шаге...
+Информация: расчёт физических величин на первом шаге завершён
+Информация: расчёт начальных данных по отчётным регионам...
+Информация: расчёт начальных данных по отчётным регионам завершён.
+Начальные запасы нефти в ОТЧ.РЕГ.: 6321264.163657 sm3.
+Начальные запасы свободной нефти в ОТЧ.РЕГ.: 6321264.163657 sm3.
+Начальные запасы летучей нефти в ОТЧ.РЕГ.: 0.000000 sm3.
+Начальные запасы воды в ОТЧ.РЕГ.: 6189344.816539 sm3.
+Начальные запасы газа в ОТЧ.РЕГ.: 126425283.273134 sm3.
+Начальные запасы свободного газа в ОТЧ.РЕГ.: -0.000000 sm3.
+Начальные запасы растворённого газа в ОТЧ.РЕГ.: 126425283.273134 sm3.
+Начальные запасы углеводородов в ОТЧ.РЕГ.: 4392780.013067 rm3.
+Поровый объём: 13569488.036505 rm3.
+Переменная 'box' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'actnum' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'histo_2D_x' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'box' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'actnum' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'histo_2D_y' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'box' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'actnum' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
+Переменная 'histo_2D_weight' изменена в блоках (1 : 25, 1 : 25, 1 : 3).
