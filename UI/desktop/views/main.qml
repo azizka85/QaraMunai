@@ -6,7 +6,7 @@ import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
 
 ApplicationWindow {
-    property Item content: home
+    property bool dockTitleVisible: true
 
     id: mainWindow
     visible: true
@@ -45,14 +45,24 @@ ApplicationWindow {
             }
 
             RibbonGroup {
-                title: qsTr("Полный экран")
+                title: qsTr("Настройки")
+                width: 112
 
                 Button {
+                    id: fullScreenButton
                     anchors { left: parent.left; top: parent.top; margins: 6 }
                     width: 44
                     height: 44
 
                     onClicked: mainWindow.visibility = mainWindow.visibility === Window.Maximized ? "FullScreen" : "Maximized"
+                }
+
+                Button {
+                    anchors { left: fullScreenButton.right; top: parent.top; margins: 6 }
+                    width: 44
+                    height: 44
+
+                    onClicked: dockTitleVisible = !dockTitleVisible
                 }
             }
         }
@@ -77,11 +87,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        swofChart.visible = true;
-                        content = swofChart;
-                    }
+                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock)
                 }
 
                 Button {
@@ -90,11 +96,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: {
-                        content.visible = false;
-                        swofTable.visible = true;
-                        content = swofTable;
-                    }
+                    onClicked: dockSpace.insertDock(swofTableDock, swofChartDock)
                 }
             }
 
@@ -196,22 +198,28 @@ ApplicationWindow {
         }
     }
 
-    Item {
-        id: home;
+    DockSpace {
+        id: dockSpace
         anchors { left: parent.left; right: parent.right; top: ribbon.bottom; bottom: parent.bottom }
-        visible: true;
-
-        Text {
-            anchors.centerIn: parent
-            text: qsTr("Qara munai'")
-            font.pixelSize: 20
-            color: "green"
-        }
     }
 
-    SWOFChartView { id: swofChart; anchors { left: parent.left; right: parent.right; top: ribbon.bottom; bottom: parent.bottom } visible: false; }
+    DockControl {
+        id: swofChartDock
+        visible: false
+        dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
+        titleVisible: dockTitleVisible
 
-    SWOFTableView { id: swofTable; anchors { left: parent.left; right: parent.right; top: ribbon.bottom; bottom: parent.bottom } visible: false; }
+        SWOFChartView { id: swofChart; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: swofTableDock
+        visible: false
+        dockTitle: qsTr("Таблица - Функции насыщенности - нефть-вода")
+        titleVisible: dockTitleVisible
+
+        SWOFTableView { id: swofTable; anchors.fill: parent; }
+    }
 
     function createNumberArray(length)
     {
@@ -228,10 +236,6 @@ ApplicationWindow {
         swofTable.closeProject();
 
         sfRegionList.model = [];
-
-        content.visible = false;
-        home.visible = true;
-        content = home;
 
         projectData.initVariables();
     }

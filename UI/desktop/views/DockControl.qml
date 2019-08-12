@@ -40,10 +40,11 @@ SplitView {
                     visible: titleVisible
 
                     Text {
-                        anchors.fill: parent
+                        anchors { right: closeImage.left; left: parent.left; top: parent.top; bottom: parent.bottom }
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         text: dockTitle
+                        elide: Text.ElideRight
 
                         MouseArea {
                             anchors.fill: parent
@@ -55,8 +56,9 @@ SplitView {
                     }
 
                     Image {
+                        id: closeImage
                         anchors { right: parent.right; verticalCenter: parent.verticalCenter; rightMargin: 5 }
-                        source: "qrc:/close.svg"
+                        source: "qrc:/desktop/images/close.svg"
                         width: 16
                         height: 16
                         visible: !dockWindow.visible
