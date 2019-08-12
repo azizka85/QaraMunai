@@ -70,6 +70,20 @@ ApplicationWindow {
         RibbonTab {
             title: qsTr("Карта")
             tabWidth: 80
+
+            RibbonGroup {
+                title: qsTr("Карта")
+                width: 62
+
+                Button {
+                    id: fieldButton
+                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    width: 44
+                    height: 44
+
+                    onClicked: dockSpace.insertDock(fieldDock)
+                }
+            }
         }
 
         RibbonTab {
@@ -87,7 +101,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock)
+                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -96,7 +110,7 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofTableDock, swofChartDock)
+                    onClicked: dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -201,6 +215,14 @@ ApplicationWindow {
     DockSpace {
         id: dockSpace
         anchors { left: parent.left; right: parent.right; top: ribbon.bottom; bottom: parent.bottom }
+
+        DockControl {
+            id: fieldDock
+            dockTitle: qsTr("Поле")
+            titleVisible: dockTitleVisible
+
+            FieldView { id: field; anchors.fill: parent; }
+        }
     }
 
     DockControl {
