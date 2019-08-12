@@ -30,6 +30,13 @@
         <file alias="DockControl.qml">desktop/views/DockControl.qml</file>
         <file alias="DockSpace.qml">desktop/views/DockSpace.qml</file>
         <file alias="FieldView.qml">desktop/views/FieldView.qml</file>
+        <file alias="PVTGChartView.qml">desktop/views/PVTGChartView.qml</file>
+        <file alias="PVTGTableView.qml">desktop/views/PVTGTableView.qml</file>
+        <file alias="PVTOChartView.qml">desktop/views/PVTOChartView.qml</file>
+        <file alias="PVTOTableView.qml">desktop/views/PVTOTableView.qml</file>
+        <file alias="SGOFChartView.qml">desktop/views/SGOFChartView.qml</file>
+        <file alias="SGOFTableView.qml">desktop/views/SGOFTableView.qml</file>
+        <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>

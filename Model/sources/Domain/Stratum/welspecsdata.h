@@ -32,6 +32,7 @@ public:
     void SetDate(const QDateTime& date);
 
     void InitVariables();
+    QVariantMap toMap();
 
 private:
     int i, j;
