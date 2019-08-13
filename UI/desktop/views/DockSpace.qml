@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.12
+import QtQuick.Window 2.12
 
 Item {
     id: dockSpace
@@ -62,19 +63,20 @@ Item {
         if(firstItem === undefined) firstItem = false;
 
         if(dock.visible === false) {
-            if(shareWith !== null && shareWith.visible !== false) {
+            dock.firstItem = firstItem;
+            dock.ratio = ratio;
+            dock.orientation = orientation;
+
+            if(shareWith !== null && shareWith.visible !== false && (shareWith.dockWindow.visible === false || shareWith.dockWindow === Window.window)) {
                 if(shareWith.shared !== null) {
                     shareWith.shared.shareWith = dock;
                 }
                 else dock.parent = dockSpace;
 
-                dock.firstItem = firstItem;
-                dock.ratio = ratio;
-                dock.orientation = orientation;
                 dock.shareWith = shareWith;
                 dock.visible = true;
             }
-            else appendDock(dock);
+            else insertFirst(dock);
         }
     }
 }
