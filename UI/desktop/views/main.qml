@@ -4,6 +4,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
+import QtQuick 2.0
 
 ApplicationWindow {
     property bool dockTitleVisible: true
@@ -11,8 +12,7 @@ ApplicationWindow {
     id: mainWindow
     visible: true
     visibility: "Maximized"
-    title: qsTr("Qara munai'")
-
+    title: qsTr("Qara munai'")    
     Ribbon {
         id: ribbon
 
@@ -29,7 +29,7 @@ ApplicationWindow {
                     anchors { left: parent.left; top: parent.top; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-eclipse-32x32.png"; }
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/desktop/images/icon-eclipse-32x32.png"; }
 
                     onClicked: importDATAOFD.open()
                 }
@@ -38,7 +38,7 @@ ApplicationWindow {
                     anchors { left: eclipseButton.right; top: parent.top; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-exit-32x32.ico"; }
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/desktop/images/icon-exit-32x32.ico"; }
 
                     onClicked: closeProject()
                 }
@@ -78,25 +78,36 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (нефть вода)")
-                width: 140
+                width: 165
 
                 Button {
                     id: swofButton
                     anchors { left: parent.left; top: parent.top; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/desktop/images/icon-linechart-32x32.png"; }
 
                     onClicked: dockSpace.insertDock(swofChartDock, swofTableDock)
                 }
 
                 Button {
+                    id: swofTableButton
                     anchors { left: swofButton.right; top: parent.top; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/desktop/images/icon-tablegrid-32x32.png"; }
 
                     onClicked: dockSpace.insertDock(swofTableDock, swofChartDock)
+                }
+
+                Button {
+                    id: swofSettingsButton
+                    anchors{ left:swofTableButton.right; top: parent.top; margins: 6 }
+                    width: icon.width+12
+                    height: icon.height+12
+                    icon{ width: 32; height: 32; source: "qrc:/desktop/images/desktop/images/settings_icon_32x32.png"; }
+                    onClicked: settingsWindow.open()
+
                 }
             }
 
@@ -220,7 +231,6 @@ ApplicationWindow {
 
         SWOFTableView { id: swofTable; anchors.fill: parent; }
     }
-
     function createNumberArray(length)
     {
         var items = [];
@@ -240,3 +250,4 @@ ApplicationWindow {
         projectData.initVariables();
     }
 }
+

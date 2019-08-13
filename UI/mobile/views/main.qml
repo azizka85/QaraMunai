@@ -88,6 +88,7 @@ ApplicationWindow {
         onLoadComplete: {
             var regions = createNumberArray(projectData.tabDIMS.ntSFUN);
             swofView.loadProject(regions);
+             sgofView.loadProject(regions);
             loaderDialog.close();
         }
     }
@@ -302,9 +303,14 @@ ApplicationWindow {
             text: qsTr("ОФП и КД (газ-нефть)")
             icon: "qrc:/mobile/images/icon-linechart-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.sgof.exist();
             }
             triggered: function() {
+                sgofView.prepare(projectData);
+                rightMenu = sgofView.sgofRightMenu;
+                content.visible = false;
+                content = sgofView;
+                content.visible = true;
                 mainMenu.close();
             }
         }
@@ -436,7 +442,6 @@ ApplicationWindow {
         visible: false
         anchors.fill: parent
     }
-
     function createNumberArray(length)
     {
         var items = [];
@@ -447,6 +452,34 @@ ApplicationWindow {
     function closeProject()
     {
         swofView.closeProject();
+
+        projectData.initVariables();
+
+        rightMenu = null;
+
+        content.visible = false;
+        content = homeView;
+        content.visible = true;
+
+        mainMenu.close();
+    }
+
+    SGOFView {
+        id: sgofView
+        visible: false
+        anchors.fill: parent
+    }
+
+    function createNumberArraySG(length)
+    {
+        var items = [];
+        for(var i = 0; i < length; i++) items[i] = i+1;
+        return items;
+    }
+
+    function closeProjectSG()
+    {
+        sgofView.closeProject();
 
         projectData.initVariables();
 
