@@ -82,7 +82,11 @@ ApplicationWindow {
                     width: 44
                     height: 44
 
-                    onClicked: dockSpace.insertDock(fieldDock, wellscheduleDock)
+                    onClicked:
+                        if(fieldDock.visible)
+                            fieldDock.hide();
+                        else
+                            dockSpace.insertDock(fieldDock, wellscheduleDock);
                 }
             }
             
@@ -99,7 +103,10 @@ ApplicationWindow {
 
                     onClicked: {
                         wellschedule.prepare(projectData);
-                        dockSpace.insertDock(wellscheduleDock, fieldDock)
+                        if(wellscheduleDock.visible)
+                            wellscheduleDock.hide()
+                        else
+                            dockSpace.insertDock(wellscheduleDock, fieldDock)
                     }
                 }
             }
@@ -120,7 +127,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
+                    onClicked: if(swofChartDock.visible)
+                                   swofChartDock.hide()
+                                else
+                                   dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
