@@ -12,13 +12,6 @@
 #include <rockoptsentity.h>
 
 #include <swofentity.h>
-#include <sgofentity.h>
-#include <pvtoentity.h>
-#include <pvtgentity.h>
-#include <welspecsentity.h>
-#include <compdatentity.h>
-#include <wconprodentity.h>
-#include <wconinjeentity.h>
 
 #include <model_global.h>
 
@@ -55,13 +48,6 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(ENDSCALEEntity* endSCALE READ ENDSCALE)
     Q_PROPERTY(ROCKOPTSEntity* rockOPTS READ ROCKOPTS)
     Q_PROPERTY(SWOFEntity* swof READ SWOF)
-    Q_PROPERTY(SGOFEntity* sgof READ SGOF)
-    Q_PROPERTY(PVTOEntity* pvto READ PVTO)
-    Q_PROPERTY(PVTGEntity* pvtg READ PVTG)
-    Q_PROPERTY(WELSPECSEntity* welspecs READ WELSPECS)
-    Q_PROPERTY(COMPDATEntity* compdat READ COMPDAT)
-    Q_PROPERTY(WCONPRODEntity* wconprod READ WCONPROD)
-    Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)
 
 public:
     explicit ProjectData(QObject *parent = nullptr);
@@ -94,13 +80,6 @@ public:
     ROCKOPTSEntity* ROCKOPTS();
 
     SWOFEntity *SWOF();
-    SGOFEntity *SGOF();
-    PVTOEntity *PVTO();
-    PVTGEntity *PVTG();
-    WELSPECSEntity *WELSPECS();
-    COMPDATEntity *COMPDAT();
-    WCONPRODEntity *WCONPROD();
-    WCONINJEEntity *WCONINJE();
 
     void SetIsLoaded(const bool& isLoaded);
     void SetTitle(const QString& title);
@@ -148,15 +127,6 @@ private:
     ROCKOPTSEntity *rockOPTS;
 
     SWOFEntity *swof;
-    SGOFEntity *sgof;
-
-    PVTOEntity *pvto;
-    PVTGEntity *pvtg;
-    WELSPECSEntity *welspecs;
-    COMPDATEntity *compdat;
-    WCONPRODEntity *wconprod;
-    WCONINJEEntity *wconinje;
-
 };
 
 }}}}

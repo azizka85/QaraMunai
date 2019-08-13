@@ -1,7 +1,6 @@
 #ifndef PVTODATA_H
 #define PVTODATA_H
 
-#include <qvariant.h>
 #include <model_global.h>
 
 namespace QaraMunai {
@@ -25,7 +24,6 @@ public:
     void SetMO(const double& mo);
 
     void InitVariables();
-    QVariantMap toMap();
 
 private:
     double rs, po, bo, mo;

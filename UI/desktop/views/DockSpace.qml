@@ -1,5 +1,4 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick 2.0
 
 Item {
     id: dockSpace
@@ -56,18 +55,9 @@ Item {
         }
     }
 
-    function insertDock(dock, shareWith, orientation, ratio, firstItem) {
-        if(orientation === undefined) orientation = Qt.Horizontal;
-        if(shareWith === undefined) shareWith = null;
-        if(ratio === undefined) ratio = -1;
-        if(firstItem === undefined) firstItem = false;
-
+    function insertDock(dock, shareWith) {
         if(dock.visible === false) {
-            dock.firstItem = firstItem;
-            dock.ratio = ratio;
-            dock.orientation = orientation;
-
-            if(shareWith !== null && shareWith.visible !== false && (shareWith.dockWindow.visible === false || shareWith.dockWindow === Window.window)) {
+            if(shareWith !== null && shareWith.visible !== false) {
                 if(shareWith.shared !== null) {
                     shareWith.shared.shareWith = dock;
                 }
@@ -76,7 +66,7 @@ Item {
                 dock.shareWith = shareWith;
                 dock.visible = true;
             }
-            else insertFirst(dock);
+            else appendDock(dock);
         }
     }
 }

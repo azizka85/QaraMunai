@@ -103,9 +103,4 @@ void WCONINJEData::InitVariables()
     date = QDateTime::currentDateTime();
 }
 
-QVariantMap WCONINJEData::toMap()
-{
-    return QVariantMap {{"wellName", wellName}, {"wellStatus", wellStatus}, {"wellControl", wellControl}, {"injFluid", injFluid}, {"rate", rate}, {"resv", resv}, {"bhp", bhp}, {"date", date}};
-}
-
 }}}}

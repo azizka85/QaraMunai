@@ -58,11 +58,4 @@ void PVTOData::InitVariables()
     mo = 0;
 }
 
-QVariantMap PVTOData::toMap()
-{
-    return QVariantMap {{"rs", rs}, {"po", po}, {"bo", bo}, {"mo", mo}};
-}
-
-
-
 }}}}

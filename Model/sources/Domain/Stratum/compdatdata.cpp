@@ -146,9 +146,4 @@ void COMPDATData::InitVariables()
     date = QDateTime::currentDateTime();
 }
 
-QVariantMap COMPDATData::toMap()
-{
-    return QVariantMap{{"wellName", wellName}, {"wellStatus", wellStatus}, {"i", i}, {"j", j}, {"k1", k1}, {"k2", k2}, {"satnum", satnum}, {"tranFactor", tranFactor}, {"diameter", diameter}, {"kh", kh}, {"skinFactor", skinFactor}, {"date", date}};
-}
-
 }}}}

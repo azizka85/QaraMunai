@@ -78,9 +78,4 @@ void WELSPECSData::InitVariables()
     date = QDateTime::currentDateTime();
 }
 
-QVariantMap WELSPECSData::toMap()
-{
-    return QVariantMap {{"i", i}, {"j", j}, {"wellName", wellName}, {"wellGroup", wellGroup}, {"date", date}};
-}
-
 }}}}

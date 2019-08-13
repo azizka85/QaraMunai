@@ -40,7 +40,7 @@ public:
     void SetDate(const QDateTime& date);
 
     void InitVariables();
-    QVariantMap toMap();
+
 private:
     QString wellName;
     QVariant wellStatus, wellControl, orat, wrat, grat, lrat, resv, bhp;

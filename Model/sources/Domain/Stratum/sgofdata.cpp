@@ -59,9 +59,4 @@ void SGOFData::InitVariables()
     pc.clear();
 }
 
-QVariantMap SGOFData::toMap()
-{
-    return QVariantMap {{"sg", sg}, {"krg", krg}, {"kro", kro}, {"pc", pc}};
-}
-
 }}}}
