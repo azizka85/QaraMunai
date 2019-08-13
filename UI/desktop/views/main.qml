@@ -26,7 +26,7 @@ ApplicationWindow {
 
                 Button {
                     id: eclipseButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; /*top: parent.top;*/ margins: 6; verticalCenter: parent.verticalCenter }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-eclipse-32x32.png"; }
@@ -35,7 +35,7 @@ ApplicationWindow {
                 }
 
                 Button {
-                    anchors { left: eclipseButton.right; top: parent.top; margins: 6 }
+                    anchors { left: eclipseButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-exit-32x32.ico"; }
@@ -50,7 +50,7 @@ ApplicationWindow {
 
                 Button {
                     id: fullScreenButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: 44
                     height: 44
 
@@ -58,7 +58,7 @@ ApplicationWindow {
                 }
 
                 Button {
-                    anchors { left: fullScreenButton.right; top: parent.top; margins: 6 }
+                    anchors { left: fullScreenButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: 44
                     height: 44
 
@@ -67,7 +67,6 @@ ApplicationWindow {
             }
         }
 
-        /****************************************************/
         RibbonTab {
             title: qsTr("Карта")
             tabWidth: 80
@@ -78,7 +77,7 @@ ApplicationWindow {
 
                 Button {
                     id: fieldButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: 44
                     height: 44
 
@@ -96,7 +95,7 @@ ApplicationWindow {
 
                 Button {
                     id: welsScheduleButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
@@ -122,7 +121,7 @@ ApplicationWindow {
 
                 Button {
                     id: swofButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
@@ -134,7 +133,7 @@ ApplicationWindow {
                 }
 
                 Button {
-                    anchors { left: swofButton.right; top: parent.top; margins: 6 }
+                    anchors { left: swofButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -152,7 +151,7 @@ ApplicationWindow {
 
                 Button {
                     id: sgofButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
@@ -164,7 +163,7 @@ ApplicationWindow {
                 }
 
                 Button {
-                    anchors { left: sgofButton.right; top: parent.top; margins: 6 }
+                    anchors { left: sgofButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -209,7 +208,7 @@ ApplicationWindow {
                 width: 140
                 Button {
                     id: pvtoButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
@@ -221,7 +220,7 @@ ApplicationWindow {
                 }
 
                 Button {
-                    anchors { left: pvtoButton.right; top: parent.top; margins: 6 }
+                    anchors { left: pvtoButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -238,7 +237,7 @@ ApplicationWindow {
                 width: 140
                 Button {
                     id: pvtgButton
-                    anchors { left: parent.left; top: parent.top; margins: 6 }
+                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
@@ -250,7 +249,7 @@ ApplicationWindow {
                 }
 
                 Button {
-                    anchors { left: pvtgButton.right; top: parent.top; margins: 6 }
+                    anchors { left: pvtgButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
