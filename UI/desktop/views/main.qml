@@ -82,7 +82,11 @@ ApplicationWindow {
                     width: 44
                     height: 44
 
-                    onClicked: dockSpace.insertDock(fieldDock, wellscheduleDock)
+                    onClicked:
+                        if(fieldDock.visible)
+                            fieldDock.hide();
+                        else
+                            dockSpace.insertDock(fieldDock, wellscheduleDock);
                 }
             }
             
@@ -99,7 +103,10 @@ ApplicationWindow {
 
                     onClicked: {
                         wellschedule.prepare(projectData);
-                        dockSpace.insertDock(wellscheduleDock, fieldDock)
+                        if(wellscheduleDock.visible)
+                            wellscheduleDock.hide()
+                        else
+                            dockSpace.insertDock(wellscheduleDock, fieldDock)
                     }
                 }
             }
@@ -120,7 +127,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
+                    onClicked: if(swofChartDock.visible)
+                                   swofChartDock.hide()
+                                else
+                                   dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -129,11 +139,13 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5)
+                    onClicked: if(swofTableDock.visible)
+                                   swofTableDock.hide();
+                                else
+                                    dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
                 }
             }
 
-            /*****************************************/
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
                 width: 140
@@ -145,7 +157,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true)
+                    onClicked: if(sgofChartDock.visible)
+                                    sgofChartDock.hide();
+                                else
+                                    dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true);
                 }
 
                 Button {
@@ -154,7 +169,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5)
+                    onClicked: if(sgofTableDock.visible)
+                                    sgofTableDock.hide();
+                                else
+                                    dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
                 }
             }
 
@@ -183,7 +201,6 @@ ApplicationWindow {
             }
         }
 
-        /********************************************************/
         RibbonTab {
             title: qsTr("Свойства пластовой жидкости")
             tabWidth: 200
@@ -197,7 +214,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
+                    onClicked:  if(pvtoChartDock.visible)
+                                    pvtoChartDock.hide();
+                                else
+                                    dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -206,7 +226,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
+                    onClicked:  if(pvtoTableDock.visible)
+                                    pvtoTableDock.hide();
+                                else
+                                    dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
                 }
             }
 
@@ -220,7 +243,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
+                    onClicked:  if(pvtgChartDock.visible)
+                                    pvtgChartDock.hide();
+                                else
+                                    dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
                 }
 
                 Button {
@@ -229,7 +255,10 @@ ApplicationWindow {
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
+                    onClicked:  if(pvtgTableDock.visible)
+                                    pvtgTableDock.hide();
+                                else
+                                    dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
                 }
             }
 
