@@ -7,25 +7,47 @@ import QtQuick.Layouts 1.3
 
 
 Item {
-    ColumnLayout {
         anchors.fill: parent
-        spacing: 10
+
         ComboBox {
             id: dateComboBox
-            height: 30
+            anchors { left: tabview.left; top: parent.top; topMargin: 30 }
             width: 300
-            //anchors.margins: 10
-            x: 20
-            y: 100
+            height: 30
         }
 
+        Row {
+            spacing: 20
+            anchors { verticalCenter: dateComboBox.verticalCenter; /*top: dateComboBox.top; */ left: dateComboBox.right; leftMargin: 20}
+            Button {
+                id: exportButton
+                height: dateComboBox.height
+                width:  100;
+            }
+
+            Button {
+                id: applyButton
+                height: dateComboBox.height
+                width:  100;
+            }
+
+            Button {
+                id: cancelButton
+                height: dateComboBox.height
+                width:  100;
+            }
+        }
+
+
         TabView {
+            id: tabview
+            anchors { top: dateComboBox.bottom; bottom: parent.bottom; left: parent.left; right: parent.right;
+                topMargin: 10; bottomMargin: 10; leftMargin: 10; rightMargin: 10}
             Layout.fillHeight: true
             Layout.fillWidth: true
             Tab {
                 id: wellSpecsTab
-                title: "Tab 1"
-            }
+                title: "Tab 1"}
             Tab {
                 id: compdatTab
                 title: "Tab 2" }
@@ -54,13 +76,13 @@ Item {
                 frame: Rectangle { color: "steelblue" }
             }
         }
-    }
 
     TableView {
         parent: wellSpecsTab
         id: wellSpecsTable
-        width: parent.width
+        anchors.fill:  parent
         TableViewColumn {
+
             role: "wellName"
             title: "WellName"
             width: 100
