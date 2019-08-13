@@ -28,7 +28,14 @@ signals:
 
 private slots:
     void TestLinearMatrix2D();
+    void TestUnitConstants();
     void TestConvertPressure();
+    void TestConvertLength();
+    void TestConvertVolume();
+    void TestConvertMass();
+    void TestConvertDensity();
+    void TestConvertGasLiquidRatio();
+    void TestConvertTemperature();
     void TestDefaultValues();
     void TestCasesEnum();
     void TestEnums();

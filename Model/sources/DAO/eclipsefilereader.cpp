@@ -52,8 +52,7 @@ void EclipseFileReader::ReadFile(ProjectData *data, const QString &filePath, QMe
             case START: ReadSTART(data, sr); break;
             case METRIC: data->SetUnit(ProjectData::METRIC); break;
             case FIELD: data->SetUnit(ProjectData::FIELD); break;
-            case LAB: data->SetUnit(ProjectData::LAB); break;
-            case PVTmM: data->SetUnit(ProjectData::LAB); break;
+            case LAB: data->SetUnit(ProjectData::LAB); break;            
             case UNIFOUT: break;
             case OIL: break;
             case WATER: break;

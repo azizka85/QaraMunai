@@ -63,35 +63,266 @@ void TestUtils::TestLinearMatrix2D()
 
 }
 
+void TestUtils::TestUnitConstants()
+{
+    // Gravity
+    double val = UnitHelper::GravityTable[ProjectData::METRIC];
+
+    VERIFY(ISEQUAL(val, 0.0000980665), QString("Gravity in Metric unit is %1").arg(0.0000980665).toLatin1());
+
+    val = UnitHelper::GravityTable[ProjectData::FIELD];
+
+    VERIFY(ISEQUAL(val, 0.00694444), QString("Gravity in Field unit is %1").arg(0.00694444).toLatin1());
+
+    val = UnitHelper::GravityTable[ProjectData::LAB];
+
+    VERIFY(ISEQUAL(val, 0.000967841), QString("Gravity in Lab unit is %1").arg(0.000967841).toLatin1());
+
+    val = UnitHelper::DarcyTable[ProjectData::METRIC];
+
+    // Darcy
+    VERIFY(ISEQUAL(val, 0.00852702), QString("Darcy in Metric unit is %1").arg(0.00852702).toLatin1());
+
+    val = UnitHelper::DarcyTable[ProjectData::FIELD];
+
+    VERIFY(ISEQUAL(val, 0.00112712), QString("Darcy in Field unit is %1").arg(0.00112712).toLatin1());
+
+    val = UnitHelper::DarcyTable[ProjectData::LAB];
+
+    VERIFY(ISEQUAL(val, 3.6), QString("Darcy in Lab unit is %1").arg(3.6).toLatin1());
+
+    // Atmospheric pressure
+    val = UnitHelper::AtmosphericPressureTable[ProjectData::METRIC];
+
+    VERIFY(ISEQUAL(val, 1.01325), QString("Atmospheric pressure in Metric unit is %1").arg(1.01325).toLatin1());
+
+    val = UnitHelper::AtmosphericPressureTable[ProjectData::FIELD];
+
+    VERIFY(ISEQUAL(val, 14.6959), QString("Atmospheric pressure in Field unit is %1").arg(14.6959).toLatin1());
+
+    val = UnitHelper::AtmosphericPressureTable[ProjectData::LAB];
+
+    VERIFY(ISEQUAL(val, 1.0), QString("Atmospheric pressure in Lab unit is %1").arg(1.0).toLatin1());
+
+    // Density of air
+    val = UnitHelper::DensityOfAirTable[ProjectData::METRIC];
+
+    VERIFY(ISEQUAL(val, 1.2232), QString("Density of air in Metric unit is %1").arg(1.2232).toLatin1());
+
+    val = UnitHelper::DensityOfAirTable[ProjectData::FIELD];
+
+    VERIFY(ISEQUAL(val, 0.076362), QString("Density of air in Field unit is %1").arg(0.076362).toLatin1());
+
+    val = UnitHelper::DensityOfAirTable[ProjectData::LAB];
+
+    VERIFY(ISEQUAL(val, 0.0012232), QString("Density of air in Lab unit is %1").arg(0.0012232).toLatin1());
+
+    // Density of water
+    val = UnitHelper::DensityOfWaterTable[ProjectData::METRIC];
+
+    VERIFY(ISEQUAL(val, 999.014), QString("Density of water in Metric unit is %1").arg(999.014).toLatin1());
+
+    val = UnitHelper::DensityOfWaterTable[ProjectData::FIELD];
+
+    VERIFY(ISEQUAL(val, 62.3664), QString("Density of water in Field unit is %1").arg(62.3664).toLatin1());
+
+    val = UnitHelper::DensityOfWaterTable[ProjectData::LAB];
+
+    VERIFY(ISEQUAL(val, 0.999014), QString("Density of water in Lab unit is %1").arg(0.999014).toLatin1());
+
+    // Gas constant
+    val = UnitHelper::GasConstantTable[ProjectData::METRIC];
+
+    VERIFY(ISEQUAL(val, 0.083143), QString("Gas constant in Metric unit is %1").arg(0.083143).toLatin1());
+
+    val = UnitHelper::GasConstantTable[ProjectData::FIELD];
+
+    VERIFY(ISEQUAL(val, 10.732), QString("Gas constant in Field unit is %1").arg(10.732).toLatin1());
+
+    val = UnitHelper::GasConstantTable[ProjectData::LAB];
+
+    VERIFY(ISEQUAL(val, 820.55776), QString("Gas constant in Lab unit is %1").arg(820.55776).toLatin1());
+}
+
 void TestUtils::TestConvertPressure()
 {
     QMetaObject metaObject = ProjectData::staticMetaObject;
 
     QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
 
-    double val = UnitHelper::ConvertPressure(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum);
+    double val = UnitHelper::ConvertPressure(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
 
     VERIFY(ISEQUAL(val, UnitHelper::BarToPsi), QString("1 barsa must be equal %1 psia").arg(UnitHelper::BarToPsi).toLatin1());
 
-    val = UnitHelper::ConvertPressure(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum);
+    val = UnitHelper::ConvertPressure(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum).toDouble();
 
     VERIFY(ISEQUAL(val, UnitHelper::BarToAtm), QString("1 barsa must be equal %1 atma").arg(UnitHelper::BarToAtm).toLatin1());
 
-    val = UnitHelper::ConvertPressure(ProjectData::FIELD, ProjectData::LAB, 1, unitsEnum);
+    val = UnitHelper::ConvertPressure(ProjectData::FIELD, ProjectData::LAB, 1, unitsEnum).toDouble();
 
     VERIFY(ISEQUAL(val, UnitHelper::PsiToAtm), QString("1 psia must be equal %1 atma").arg(UnitHelper::PsiToAtm).toLatin1());
 
-    val = UnitHelper::ConvertPressure(ProjectData::LAB, ProjectData::FIELD, 1, unitsEnum);
+    val = UnitHelper::ConvertPressure(ProjectData::LAB, ProjectData::FIELD, 1, unitsEnum).toDouble();
 
     VERIFY(ISEQUAL(val, 1 / UnitHelper::PsiToAtm), QString("1 atma must be equal %1 psia").arg(1 / UnitHelper::PsiToAtm).toLatin1());
 
-    val = UnitHelper::ConvertPressure(ProjectData::LAB, ProjectData::METRIC, 1, unitsEnum);
+    val = UnitHelper::ConvertPressure(ProjectData::LAB, ProjectData::METRIC, 1, unitsEnum).toDouble();
 
     VERIFY(ISEQUAL(val, 1 / UnitHelper::BarToAtm), QString("1 atma must be equal %1 barsa").arg(1 / UnitHelper::BarToAtm).toLatin1());
 
-    val = UnitHelper::ConvertPressure(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum);
+    val = UnitHelper::ConvertPressure(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
 
     VERIFY(ISEQUAL(val, 1 / UnitHelper::BarToPsi), QString("1 psia must be equal %1 barsa").arg(1 / UnitHelper::BarToPsi).toLatin1());
+}
+
+void TestUtils::TestConvertLength()
+{
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+
+    double val = UnitHelper::ConvertLength(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::MeterToFoot), QString("1 meter must be equal %1 foot").arg(UnitHelper::MeterToFoot).toLatin1());
+
+    val = UnitHelper::ConvertLength(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::MeterToFoot), QString("1 foot must be equal %1 meter").arg(1/UnitHelper::MeterToFoot).toLatin1());
+
+    QVariant varVal = UnitHelper::ConvertLength(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum);
+
+    VERIFY(varVal.isNull(), QString("1 meter in Lab unit not defined yet").toLatin1());
+}
+
+void TestUtils::TestConvertVolume()
+{
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+
+    double val = UnitHelper::ConvertVolume(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::CmToCf), QString("1 m^3 must be equal %1 f^3").arg(UnitHelper::CmToCf).toLatin1());
+
+    val = UnitHelper::ConvertVolume(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::CmToCf), QString("1 f^3 must be equal %1 m^3").arg(1/UnitHelper::CmToCf).toLatin1());
+
+    val = UnitHelper::ConvertVolume(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::CmToBbl), QString("1 m^3 must be equal %1 bbl").arg(UnitHelper::CmToBbl).toLatin1());
+
+    val = UnitHelper::ConvertVolume(ProjectData::LAB, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::CmToBbl), QString("1 bbl must be equal %1 m^3").arg(1/UnitHelper::CmToBbl).toLatin1());
+
+    val = UnitHelper::ConvertVolume(ProjectData::FIELD, ProjectData::LAB, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::CfToBbl), QString("1 cf must be equal %1 bbl").arg(UnitHelper::CfToBbl).toLatin1());
+
+    val = UnitHelper::ConvertVolume(ProjectData::LAB, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::CfToBbl), QString("1 bbl must be equal %1 cf").arg(1/UnitHelper::CfToBbl).toLatin1());
+}
+
+void TestUtils::TestConvertMass()
+{
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+
+    double val = UnitHelper::ConvertMass(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::KgToLb), QString("1 kg must be equal %1 lb").arg(UnitHelper::KgToLb).toLatin1());
+
+    val = UnitHelper::ConvertMass(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::KgToLb), QString("1 lb must be equal %1 kg").arg(1/UnitHelper::KgToLb).toLatin1());
+
+    QVariant varVal = UnitHelper::ConvertMass(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum);
+
+    VERIFY(varVal.isNull(), QString("1 kg in Lab unit not defined yet").toLatin1());
+}
+
+void TestUtils::TestConvertDensity()
+{
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+
+    double val = UnitHelper::ConvertDensity(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::DMToDF), QString("1 kg/m3 must be equal %1 lb/ft3").arg(UnitHelper::DMToDF).toLatin1());
+
+    val = UnitHelper::ConvertDensity(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::DMToDF), QString("1 lb/ft3 must be equal %1 kg/m3").arg(1/UnitHelper::DMToDF).toLatin1());
+
+    val = UnitHelper::ConvertDensity(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::DMToDL), QString("1 kg/m3 must be equal %1 g/cm3").arg(UnitHelper::DMToDL).toLatin1());
+
+    val = UnitHelper::ConvertDensity(ProjectData::LAB, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::DMToDL), QString("1 g/cm3 must be equal %1 kg/m3").arg(1/UnitHelper::DMToDL).toLatin1());
+
+    val = UnitHelper::ConvertDensity(ProjectData::FIELD, ProjectData::LAB, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::DFToDL), QString("1 lb/ft3 must be equal %1 g/cm3").arg(UnitHelper::DFToDL).toLatin1());
+
+    val = UnitHelper::ConvertDensity(ProjectData::LAB, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::DFToDL), QString("1 lb/ft3 must be equal %1 g/cm3").arg(1/UnitHelper::DFToDL).toLatin1());
+}
+
+void TestUtils::TestConvertGasLiquidRatio()
+{
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+
+    double val = UnitHelper::ConvertGasLiquidRatio(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::GLRMToGLRF), QString("1 m3/m3 must be equal %1 mcf/bbl").arg(UnitHelper::GLRMToGLRF).toLatin1());
+
+    val = UnitHelper::ConvertGasLiquidRatio(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::GLRMToGLRF), QString("1 mcf/bbl must be equal %1 m3/m3").arg(1/UnitHelper::GLRMToGLRF).toLatin1());
+
+    val = UnitHelper::ConvertGasLiquidRatio(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::GLRMToGLRL), QString("1 m3/m3 must be equal %1 bbl/bbl").arg(UnitHelper::GLRMToGLRL).toLatin1());
+
+    val = UnitHelper::ConvertGasLiquidRatio(ProjectData::LAB, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::GLRMToGLRL), QString("1 bbl/bbl must be equal %1 m^3/m^3").arg(1/UnitHelper::GLRMToGLRL).toLatin1());
+
+    val = UnitHelper::ConvertGasLiquidRatio(ProjectData::FIELD, ProjectData::LAB, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::GLRFToGLRL), QString("1 mcf/bbl must be equal %1 bbl/bbl").arg(UnitHelper::GLRFToGLRL).toLatin1());
+
+    val = UnitHelper::ConvertGasLiquidRatio(ProjectData::LAB, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::GLRFToGLRL), QString("1 bbl/bbl must be equal %1 mcf/bbl").arg(1/UnitHelper::GLRFToGLRL).toLatin1());
+}
+
+void TestUtils::TestConvertTemperature()
+{
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+
+    double val = UnitHelper::ConvertTemperature(ProjectData::METRIC, ProjectData::FIELD, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, UnitHelper::KToR), QString("1 K must be equal %1 R").arg(UnitHelper::KToR).toLatin1());
+
+    val = UnitHelper::ConvertTemperature(ProjectData::FIELD, ProjectData::METRIC, 1, unitsEnum).toDouble();
+
+    VERIFY(ISEQUAL(val, 1/UnitHelper::KToR), QString("1 R must be equal %1 K").arg(1/UnitHelper::KToR).toLatin1());
+
+    QVariant varVal = UnitHelper::ConvertTemperature(ProjectData::METRIC, ProjectData::LAB, 1, unitsEnum);
+
+    VERIFY(varVal.isNull(), QString("1 K in Lab unit not defined yet").toLatin1());
 }
 
 void TestUtils::TestDefaultValues()
@@ -140,12 +371,6 @@ void TestUtils::TestCasesEnum()
     value = casesEnum.keyToValue(caseStr.toLatin1());
 
     VERIFY(value == EclipseFileReader::LAB, "Value must be equal to LAB");
-
-    caseStr = "PVTmM";
-
-    value = casesEnum.keyToValue(caseStr.toLatin1());
-
-    VERIFY(value == EclipseFileReader::PVTmM, "Value must be equal to PVT-M");
 
     caseStr = "GAS";
 
