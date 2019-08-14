@@ -108,6 +108,22 @@ ApplicationWindow {
                             dockSpace.insertDock(wellscheduleDock, fieldDock)
                     }
                 }
+
+                Button {
+                    id: welsListButton
+                    anchors { left: welsScheduleButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                    onClicked: {
+                        wellsList.prepare(projectData);
+                        if(wellsListDock.visible)
+                            wellsListDock.hide()
+                        else
+                            dockSpace.insertDock(wellsListDock, fieldDock)
+                    }
+                }
             }
         }
 
@@ -454,6 +470,14 @@ ApplicationWindow {
         WellScheduleView { id: wellschedule; anchors.fill: parent; }
     }
 
+    DockControl {
+        id: wellsListDock
+        visible: false
+        dockTitle: qsTr("Список скважин")
+        titleVisible: dockTitleVisible
+
+        WellScheduleView { id: wellsList; anchors.fill: parent; }
+    }
 
 
     function createNumberArray(length)
