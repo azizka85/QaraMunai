@@ -226,7 +226,7 @@ ApplicationWindow {
             }
             triggered: function() {
                 importDATAOFD.open();
-                mainMenu.close();                
+                mainMenu.close();
             }
         }
 

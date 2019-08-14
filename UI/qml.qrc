@@ -5,6 +5,7 @@
         <file alias="SGOFView.qml">mobile/views/SGOFView.qml</file>
         <file alias="PVTGView.qml">mobile/views/PVTGView.qml</file>
         <file alias="PVTOView.qml">mobile/views/PVTOView.qml</file>
+        <file alias="FieldView.qml">mobile/views/FieldView.qml</file>
     </qresource>
     <qresource prefix="/mobile/images">
         <file alias="main-image-32x32.png">mobile/images/main-image-32x32.png</file>
