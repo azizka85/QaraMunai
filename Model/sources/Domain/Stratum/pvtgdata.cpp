@@ -58,4 +58,9 @@ void PVTGData::InitVariables()
     mg = 0;
 }
 
+QVariantMap PVTGData::toMap()
+{
+    return QVariantMap {{"pg", pg}, {"rv", rv}, {"bg", bg}, {"mg", mg}};
+}
+
 }}}}

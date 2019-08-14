@@ -28,6 +28,7 @@ public:
     void SetPc(const QVariant& pc);
 
     void InitVariables();
+    QVariantMap toMap();
 
 private:
     double sg;

@@ -20,18 +20,21 @@ Item {
             spacing: 20
             anchors { verticalCenter: dateComboBox.verticalCenter; /*top: dateComboBox.top; */ left: dateComboBox.right; leftMargin: 20}
             Button {
+                text: "Экспорт"
                 id: exportButton
                 height: dateComboBox.height
                 width:  100;
             }
 
             Button {
+                text:  "Применить"
                 id: applyButton
                 height: dateComboBox.height
                 width:  100;
             }
 
             Button {
+                text:  "Отменить"
                 id: cancelButton
                 height: dateComboBox.height
                 width:  100;
@@ -110,6 +113,7 @@ Item {
     TableView {
         parent: compdatTab
         id: compdatTable
+        anchors.fill:  parent
         width: parent.width
 
         TableViewColumn {
@@ -162,6 +166,7 @@ Item {
     }
 
     TableView {
+        anchors.fill:  parent
         parent: wconprodTab
         id: wconprodTable
         width: parent.width
@@ -223,6 +228,7 @@ Item {
     }
 
     TableView {
+        anchors.fill:  parent
         parent: wconinjeTab
         id: wconinjeTable
         width: parent.width

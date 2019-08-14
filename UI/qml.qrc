@@ -2,7 +2,6 @@
     <qresource prefix="/mobile/views">
         <file alias="main.qml">mobile/views/main.qml</file>
         <file alias="SWOFView.qml">mobile/views/SWOFView.qml</file>
-        <file>SGOFView.qml</file>
     </qresource>
     <qresource prefix="/mobile/images">
         <file alias="main-image-32x32.png">mobile/images/main-image-32x32.png</file>
@@ -30,16 +29,25 @@
         <file alias="SWOFTableView.qml">desktop/views/SWOFTableView.qml</file>
         <file alias="DockControl.qml">desktop/views/DockControl.qml</file>
         <file alias="DockSpace.qml">desktop/views/DockSpace.qml</file>
-        <file>Settings.qml</file>
+        <file alias="FieldView.qml">desktop/views/FieldView.qml</file>
+        <file alias="PVTGChartView.qml">desktop/views/PVTGChartView.qml</file>
+        <file alias="PVTGTableView.qml">desktop/views/PVTGTableView.qml</file>
+        <file alias="PVTOChartView.qml">desktop/views/PVTOChartView.qml</file>
+        <file alias="PVTOTableView.qml">desktop/views/PVTOTableView.qml</file>
+        <file alias="SGOFChartView.qml">desktop/views/SGOFChartView.qml</file>
+        <file alias="SGOFTableView.qml">desktop/views/SGOFTableView.qml</file>
+        <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
+        <file>WellsListView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
-        <file>desktop/images/arrow-down-16x16.png</file>
-        <file>desktop/images/arrow-up-16x16.png</file>
-        <file>desktop/images/close.svg</file>
-        <file>desktop/images/icon-eclipse-32x32.png</file>
-        <file>desktop/images/icon-exit-32x32.ico</file>
-        <file>desktop/images/icon-linechart-32x32.png</file>
-        <file>desktop/images/icon-tablegrid-32x32.png</file>
-        <file>desktop/images/settings_icon_32x32.png</file>
+        <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>
+        <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
+        <file alias="close.svg">desktop/images/close.svg</file>
+        <file alias="icon-eclipse-32x32.png">desktop/images/icon-eclipse-32x32.png</file>
+        <file alias="icon-exit-32x32.ico">desktop/images/icon-exit-32x32.ico</file>
+        <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
+        <file alias="arrow-up-16x16.png">desktop/images/arrow-up-16x16.png</file>
+        <file alias="icon-linechart-32x32.png">desktop/images/icon-linechart-32x32.png</file>
+        <file alias="icon-tablegrid-32x32.png">desktop/images/icon-tablegrid-32x32.png</file>
     </qresource>
 </RCC>
