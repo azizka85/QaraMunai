@@ -2,6 +2,9 @@
     <qresource prefix="/mobile/views">
         <file alias="main.qml">mobile/views/main.qml</file>
         <file alias="SWOFView.qml">mobile/views/SWOFView.qml</file>
+        <file>SGOFView.qml</file>
+        <file>PVTGView.qml</file>
+        <file>PVTOView.qml</file>
     </qresource>
     <qresource prefix="/mobile/images">
         <file alias="main-image-32x32.png">mobile/images/main-image-32x32.png</file>
