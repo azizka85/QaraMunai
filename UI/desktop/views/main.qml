@@ -85,7 +85,7 @@ ApplicationWindow {
                         if(fieldDock.visible)
                             fieldDock.hide();
                         else
-                            dockSpace.insertDock(fieldDock, wellscheduleDock);
+                            dockSpace.insertDock(fieldDock, wellscheduleDock, Qt.Horizontal, 0.4, false);
                 }
             }
             
@@ -476,7 +476,7 @@ ApplicationWindow {
         dockTitle: qsTr("Список скважин")
         titleVisible: dockTitleVisible
 
-        WellScheduleView { id: wellsList; anchors.fill: parent; }
+        WellsListView { id: wellsList; anchors.fill: parent; }
     }
 
 
