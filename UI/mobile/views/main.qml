@@ -305,6 +305,11 @@ ApplicationWindow {
                 return projectData.isLoaded;
             }
             triggered: function() {
+                sgofView.prepare(projectData);
+                rightMenu = sgofView.sgofRightMenu;
+                content.visible = false;
+                content = sgofView;
+                content.visible = true;
                 mainMenu.close();
             }
         }
@@ -331,6 +336,11 @@ ApplicationWindow {
                 return projectData.isLoaded;
             }
             triggered: function() {
+                pvtoView.prepare(projectData);
+                rightMenu = pvtoView.pvtoRightMenu;
+                content.visible = false;
+                content = pvtoView;
+                content.visible = true;
                 mainMenu.close();
             }
         }
@@ -342,6 +352,11 @@ ApplicationWindow {
                 return projectData.isLoaded;
             }
             triggered: function() {
+                pvtgView.prepare(projectData);
+                rightMenu = pvtgView.pvtgRightMenu;
+                content.visible = false;
+                content = pvtgView;
+                content.visible = true;
                 mainMenu.close();
             }
         }
@@ -437,6 +452,23 @@ ApplicationWindow {
         anchors.fill: parent
     }
 
+    SGOFView {
+        id: sgofView
+        visible: false
+        anchors.fill: parent
+    }
+
+    PVTOView {
+        id: pvtoView
+        visible: false
+        anchors.fill: parent
+    }
+
+    PVTGView {
+        id: pvtgView
+        visible: false
+        anchors.fill: parent
+    }
     function createNumberArray(length)
     {
         var items = [];
