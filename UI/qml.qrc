@@ -5,6 +5,7 @@
         <file alias="SGOFView.qml">mobile/views/SGOFView.qml</file>
         <file alias="PVTGView.qml">mobile/views/PVTGView.qml</file>
         <file alias="PVTOView.qml">mobile/views/PVTOView.qml</file>
+        <file alias="FieldView.qml">mobile/views/FieldView.qml</file>
     </qresource>
     <qresource prefix="/mobile/images">
         <file alias="main-image-32x32.png">mobile/images/main-image-32x32.png</file>
@@ -49,6 +50,5 @@
         <file alias="icon-exit-32x32.ico">desktop/images/icon-exit-32x32.ico</file>
         <file alias="icon-linechart-32x32.png">desktop/images/icon-linechart-32x32.png</file>
         <file alias="icon-tablegrid-32x32.png">desktop/images/icon-tablegrid-32x32.png</file>
-        <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
     </qresource>
 </RCC>
