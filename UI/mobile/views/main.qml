@@ -182,13 +182,14 @@ ApplicationWindow {
         }
 
         ListElement {
-            text: qsTr("Расчетные данные")
+            text: qsTr("Расчетные данные 123")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
                 return projectData.isLoaded;
             }
             triggered: function() {
                 menuList.model = calcMenuList;
+                console.log("ok");
             }
         }
 
