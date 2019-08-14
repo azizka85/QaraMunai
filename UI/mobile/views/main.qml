@@ -183,6 +183,7 @@ ApplicationWindow {
 
         ListElement {
             text: qsTr("Расчетные данные 123")
+            text: qsTr("Расчетный")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
                 return projectData.isLoaded;
@@ -227,7 +228,7 @@ ApplicationWindow {
             }
             triggered: function() {
                 importDATAOFD.open();
-                mainMenu.close();                
+                mainMenu.close();
             }
         }
 
