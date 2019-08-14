@@ -182,7 +182,7 @@ ApplicationWindow {
         }
 
         ListElement {
-            text: qsTr("Расчетные данные")
+            text: qsTr("Расчетный")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
                 return projectData.isLoaded;
