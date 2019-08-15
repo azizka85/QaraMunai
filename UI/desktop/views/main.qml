@@ -26,7 +26,7 @@ ApplicationWindow {
 
                 Button {
                     id: eclipseButton
-                    anchors { left: parent.left; margins: 6; verticalCenter: parent.verticalCenter }
+                    anchors { left: parent.left; /*top: parent.top;*/ margins: 6; verticalCenter: parent.verticalCenter }
                     width: icon.width + 12
                     height: icon.height + 12
                     icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-eclipse-32x32.png"; }
@@ -97,7 +97,6 @@ ApplicationWindow {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
                     Button {
-                        checkable: true;
                         id: fieldListButton
                         width: icon.width + 12
                         height: icon.height + 12
@@ -166,7 +165,7 @@ ApplicationWindow {
                                        dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
                     }
 
-                    MyButton {
+                    Button {
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
