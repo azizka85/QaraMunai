@@ -88,6 +88,9 @@ ApplicationWindow {
         onLoadComplete: {
             var regions = createNumberArray(projectData.tabDIMS.ntSFUN);
             swofView.loadProject(regions);
+            sgofView.loadProject(regions);
+            pvtoView.loadProject(regions);
+            pvtgView.loadProject(regions);
             loaderDialog.close();
         }
     }
@@ -479,6 +482,9 @@ ApplicationWindow {
     function closeProject()
     {
         swofView.closeProject();
+        sgofView.closeProject();
+        pvtoView.closeProject();
+        pvtoView.closeProject();
 
         projectData.initVariables();
 

@@ -198,9 +198,10 @@ Item {
 
         for(var i = 0; i < list.length; i++)
         {
-            pgPVTG.append(list[i].sg, list[i].pg);
-            bgPVTG.append(list[i].sg, list[i].bg);
-            mgPVTG.append(list[i].sg, list[i].mg);
+            if (rsVisible) {
+            pgPVTG.append(list[i].pvtg, list[i].pg);}
+            bgPVTG.append(list[i].pvtg, list[i].bg);
+            mgPVTG.append(list[i].pvtg, list[i].mg);
         }
     }
 }

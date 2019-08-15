@@ -41,6 +41,7 @@
         <file alias="SGOFChartView.qml">desktop/views/SGOFChartView.qml</file>
         <file alias="SGOFTableView.qml">desktop/views/SGOFTableView.qml</file>
         <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
+        <file>SettingsView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
@@ -50,5 +51,7 @@
         <file alias="icon-exit-32x32.ico">desktop/images/icon-exit-32x32.ico</file>
         <file alias="icon-linechart-32x32.png">desktop/images/icon-linechart-32x32.png</file>
         <file alias="icon-tablegrid-32x32.png">desktop/images/icon-tablegrid-32x32.png</file>
+        <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

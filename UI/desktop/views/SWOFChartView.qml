@@ -31,6 +31,7 @@ Item {
         }
     }
 
+
     function closeProject()
     {
         krwSWOF.clear();
