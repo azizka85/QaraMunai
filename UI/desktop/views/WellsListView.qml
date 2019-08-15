@@ -24,9 +24,7 @@ Item {
     }
 
     TreeView {
-
         id: treeView
-
         anchors { top: addGroupButton.bottom; left:  parent.left; right: parent.right; bottom: parent.bottom;
                   topMargin: 30;  margins: 20 }
 
@@ -46,5 +44,12 @@ Item {
     }
 
     function prepare(projectData){
+        var resource = projectData.welspecs.getList();
+
+        var groupLis = [];
+        for(let i = 0; i< resource.length; i++){
+            if(resource[i].)
+        }
     }
+
 }
