@@ -29,11 +29,13 @@ Item {
                   topMargin: 30;  margins: 20 }
 
         TableViewColumn {
+            role: "group"
             id: groupNodes
             title: "groupNodes"
         }
 
         TableViewColumn {
+            role: "well"
             id: wellNodes
             title: "wellNodes"
         }
@@ -44,12 +46,30 @@ Item {
     }
 
     function prepare(projectData){
-        var resource = projectData.welspecs.getList();
-
-        var groupLis = [];
-        for(let i = 0; i< resource.length; i++){
-            if(resource[i].)
+        console.log("Preparing started");
+        var wellsList = projectData.welspecs.getList(); // Works
+        var groupList = [];
+        var result = [];
+        for(let i = 0; i < wellsList.length; i++){
+            var group = wellsList[i].wellGroup;
+            if(!groupList.includes(group)) {
+                groupList.push(group);
+                var wells = [];
+                for(let j = 0; j < wellsList.length; j++){
+                    var res = wellsList[j].wellGroup === group;
+                    if(res){
+                        wells.push(wellsList[j].wellName);
+                    }
+                }
+                result.push({ "group": group, "well": wells});
+            }
         }
+        treeView.model = result;    // works
     }
 
+    function contains(arr, elem) {
+        var res = arr.find((i) => i === elem) !== -1
+        console.log("Comparing" + res);
+        return res;
+    }
 }
