@@ -16,25 +16,33 @@ Item {
         id: grop
         title: qsTr("Карты")
         anchors { top: kartaText.bottom; right: parent.right; left: parent.left; rightMargin: 20; leftMargin: 20; topMargin: 20}
-        RowLayout {
+        Row {
 
             ExclusiveGroup { id: tabPositionGroup }
             RadioButton {
                 text: "Начальный"
-                Layout.preferredWidth: (grop.width-60)/2
-                Layout.minimumWidth: text.width
+                width: (grop.width-60)/2
                 checked: true
                 exclusiveGroup: tabPositionGroup
             }
 
             RadioButton {
-                anchors { left: parent.parent.left }
                 text: "Расчитанный"
-                Layout.preferredWidth: (grop.width-60)/2
-                Layout.minimumWidth: text.width
+                width: (grop.width-60)/2
                 checked: false
                 exclusiveGroup: tabPositionGroup
             }
         }
+    }
+
+    ListView {
+        id: listView
+        anchors { top: grop.bottom; right: parent.right; left: parent.left; topMargin: 20; rightMargin: 20; leftMargin: 20 }
+        height: 100
+        model: Model{}
+        delegate: Text {
+            text: name
+        }
+
     }
 }
