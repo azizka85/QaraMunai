@@ -46,7 +46,6 @@ Item {
     }
 
     function prepare(projectData){
-        console.log("Preparing started");
         var wellsList = projectData.welspecs.getList(); // Works
         var groupList = [];
         var result = [];
