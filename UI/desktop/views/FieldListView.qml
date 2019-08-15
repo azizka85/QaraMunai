@@ -13,8 +13,10 @@ Item {
     }
 
     GroupBox {
+        title: qsTr("Карты")
         anchors { left: parent.left; top:  kartaText.bottom; leftMargin: 20; topMargin: 20}
         Row {
+            spacing: 20
             ExclusiveGroup { id: tabPositionGroup }
             RadioButton {
                 text: "Начальный"
