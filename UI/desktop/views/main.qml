@@ -73,55 +73,71 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Карта")
-                width: 62
+                Row {
+                    spacing: 6
+                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
 
-                Button {
-                    id: fieldButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: 44
-                    height: 44
+                    Button {
+                        id: fieldButton
+                        width: 44
+                        height: 44
 
-                    onClicked:
-                        if(fieldDock.visible)
-                            fieldDock.hide();
-                        else
-                            dockSpace.insertDock(fieldDock, wellscheduleDock, Qt.Horizontal, 0.4, false);
+                        onClicked:
+                            if(fieldDock.visible)
+                                fieldDock.hide();
+                            else
+                                dockSpace.insertDock(fieldDock, wellscheduleDock, Qt.Horizontal, 0.4, false);
+                    }
                 }
             }
             
             RibbonGroup {
                 title: qsTr("Списки")
-                width: 150
+                Row {
+                    spacing: 6
+                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    Button {
+                        id: fieldListButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                Button {
-                    id: welsScheduleButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
-
-                    onClicked: {
-                        wellschedule.prepare(projectData);
-                        if(wellscheduleDock.visible)
-                            wellscheduleDock.hide()
-                        else
-                            dockSpace.insertDock(wellscheduleDock, fieldDock)
+                        onClicked: {
+                            if(fieldListDock.visible)
+                                fieldListDock.hide()
+                            else
+                                dockSpace.insertDock(fieldListDock, fieldDock)
+                        }
                     }
-                }
 
-                Button {
-                    id: welsListButton
-                    anchors { left: welsScheduleButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                    Button {
+                        id: welsScheduleButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: {
-                        wellsList.prepare(projectData);
-                        if(wellsListDock.visible)
-                            wellsListDock.hide()
-                        else
-                            dockSpace.insertDock(wellsListDock, fieldDock)
+                        onClicked: {
+                            wellschedule.prepare(projectData);
+                            if(wellscheduleDock.visible)
+                                wellscheduleDock.hide()
+                            else
+                                dockSpace.insertDock(wellscheduleDock, fieldDock)
+                        }
+                    }
+
+                    Button {
+                        id: welsListButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                        onClicked: {
+                            wellsList.prepare(projectData);
+                            if(wellsListDock.visible)
+                                wellsListDock.hide()
+                            else
+                                dockSpace.insertDock(wellsListDock, fieldDock)
+                        }
                     }
                 }
             }
@@ -133,61 +149,64 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (нефть вода)")
-                width: 140
+                Row {
+                    spacing: 6
+                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
 
-                Button {
-                    id: swofButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                    Button {
+                        id: swofButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked: if(swofChartDock.visible)
-                                   swofChartDock.hide()
-                                else
-                                   dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
-                }
+                        onClicked: if(swofChartDock.visible)
+                                       swofChartDock.hide()
+                                   else
+                                       dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
+                    }
 
-                Button {
-                    anchors { left: swofButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked: if(swofTableDock.visible)
-                                   swofTableDock.hide();
-                                else
-                                    dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
+                        onClicked: if(swofTableDock.visible)
+                                       swofTableDock.hide();
+                                   else
+                                       dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
+                    }
                 }
             }
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
-                width: 140
 
-                Button {
-                    id: sgofButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                Row {
+                    spacing: 6
+                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
 
-                    onClicked: if(sgofChartDock.visible)
-                                    sgofChartDock.hide();
-                                else
-                                    dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true);
-                }
+                    Button {
+                        id: sgofButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                Button {
-                    anchors { left: sgofButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                        onClicked: if(sgofChartDock.visible)
+                                       sgofChartDock.hide();
+                                   else
+                                       dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true);
+                    }
 
-                    onClicked: if(sgofTableDock.visible)
-                                    sgofTableDock.hide();
-                                else
-                                    dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+
+                        onClicked: if(sgofTableDock.visible)
+                                       sgofTableDock.hide();
+                                   else
+                                       dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
+                    }
                 }
             }
 
@@ -221,62 +240,63 @@ ApplicationWindow {
             tabWidth: 200
             RibbonGroup {
                 title: qsTr("PVT нефти")
-                width: 140
-                Button {
-                    id: pvtoButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                Row {
+                    spacing: 6
+                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
 
-                    onClicked:  if(pvtoChartDock.visible)
-                                    pvtoChartDock.hide();
-                                else
-                                    dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
-                }
+                    Button {
+                        id: pvtoButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                Button {
-                    anchors { left: pvtoButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                        onClicked:  if(pvtoChartDock.visible)
+                                        pvtoChartDock.hide();
+                                    else
+                                        dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
+                    }
 
-                    onClicked:  if(pvtoTableDock.visible)
-                                    pvtoTableDock.hide();
-                                else
-                                    dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+
+                        onClicked:  if(pvtoTableDock.visible)
+                                        pvtoTableDock.hide();
+                                    else
+                                        dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
+                    }
                 }
             }
-
             RibbonGroup {
                 title: qsTr("PVT газа")
-                width: 140
-                Button {
-                    id: pvtgButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                Row {
+                    spacing: 6
+                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    Button {
+                        id: pvtgButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                    onClicked:  if(pvtgChartDock.visible)
-                                    pvtgChartDock.hide();
-                                else
-                                    dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
-                }
+                        onClicked:  if(pvtgChartDock.visible)
+                                        pvtgChartDock.hide();
+                                    else
+                                        dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
+                    }
 
-                Button {
-                    anchors { left: pvtgButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                    onClicked:  if(pvtgTableDock.visible)
-                                    pvtgTableDock.hide();
-                                else
-                                    dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
+                        onClicked:  if(pvtgTableDock.visible)
+                                        pvtgTableDock.hide();
+                                    else
+                                        dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
+                    }
                 }
             }
-
             RibbonGroup {
                 title: qsTr("Регионы")
                 width: 62
@@ -459,6 +479,15 @@ ApplicationWindow {
         titleVisible: dockTitleVisible
 
         PVTGTableView { id: pvtgTable; anchors.fill: parent; }
+    }
+
+    DockControl {
+        id: fieldListDock
+        visible: false
+        dockTitle: qsTr("Список полей")
+        titleVisible: dockTitleVisible
+
+        FieldListView { id: fieldList; anchors.fill: parent; }
     }
 
     DockControl {
