@@ -143,6 +143,16 @@ WCONINJEEntity *ProjectData::WCONINJE()
     return wconinje;
 }
 
+QVariantList *ProjectData::DATELIST()
+{
+    QList<QDateTime> list = stratum.DATES();
+    QVariantList *result = new QVariantList();
+    for (int i = 0; i < list.length(); i++) {
+        result->append((list[i]));
+    }
+    return result;
+}
+
 void ProjectData::SetIsLoaded(const bool &isLoaded)
 {
     this->isLoaded = isLoaded;

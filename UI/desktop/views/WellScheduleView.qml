@@ -12,32 +12,32 @@ Item {
         ComboBox {
             id: dateComboBox
             anchors { left: tabview.left; top: parent.top; topMargin: 30 }
-            width: 300
+            width: (parent.width - 80) / 2.5
             height: 30
         }
 
         Row {
             spacing: 20
-            anchors { verticalCenter: dateComboBox.verticalCenter; /*top: dateComboBox.top; */ left: dateComboBox.right; leftMargin: 20}
+            anchors { verticalCenter: dateComboBox.verticalCenter; right: parent.right; rightMargin: 10; left: dateComboBox.right; leftMargin: 20}
             Button {
                 text: "Экспорт"
                 id: exportButton
                 height: dateComboBox.height
-                width:  100;
+                width: Math.max(text.width, (parent.width - 40) / 3);
             }
 
             Button {
                 text:  "Применить"
                 id: applyButton
                 height: dateComboBox.height
-                width:  100;
+                width:  (parent.width - 40) / 3;
             }
 
             Button {
                 text:  "Отменить"
                 id: cancelButton
                 height: dateComboBox.height
-                width:  100;
+                width:  (parent.width - 40) / 3;
             }
         }
 
@@ -46,29 +46,30 @@ Item {
             id: tabview
             anchors { top: dateComboBox.bottom; bottom: parent.bottom; left: parent.left; right: parent.right;
                 topMargin: 10; bottomMargin: 10; leftMargin: 10; rightMargin: 10}
+            width: dateComboBox.width
             Layout.fillHeight: true
             Layout.fillWidth: true
             Tab {
                 id: wellSpecsTab
-                title: "Tab 1"}
+                title: "WELLSPECS"}
             Tab {
                 id: compdatTab
-                title: "Tab 2" }
+                title: "COMPDAT" }
             Tab {
                 id: wconprodTab
-                title: "Tab 3" }
+                title: "WCONPROD" }
             Tab {
                 id: wconinjeTab
-                title: "Tab 3" }
+                title: "WCONINJE" }
 
             style: TabViewStyle {
                 frameOverlap: 1
                 tab: Rectangle {
                     color: styleData.selected ? "steelblue" :"lightsteelblue"
                     border.color:  "steelblue"
-                    implicitWidth: Math.max(text.width + 4, 80)
+                    implicitWidth: Math.max(text.width + 8, dateComboBox.width / 4)
                     implicitHeight: 20
-                    radius: 2
+                    radius: 4
                     Text {
                         id: text
                         anchors.centerIn: parent
@@ -287,6 +288,7 @@ Item {
 
     function prepare(projectData)
     {
+        dateComboBox.model = projectData.datelist;
         wellSpecsTab.children[0].model = projectData.welspecs.getList();
         compdatTab.children[0].model = projectData.compdat.getList();
         wconprodTab.children[0].model = projectData.wconprod.getList();
