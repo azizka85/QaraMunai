@@ -86,6 +86,10 @@ public:
     int Ny() const;
     int Nz() const;
 
+    Q_INVOKABLE double dx(int i, int j, int k);
+    Q_INVOKABLE double dy(int i, int j, int k);
+    Q_INVOKABLE double dz(int i, int j, int k);
+
     StratumData &Stratum();
 
     TABDIMSEntity* TABDIMS();

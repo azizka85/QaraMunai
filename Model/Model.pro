@@ -44,9 +44,13 @@ INCLUDEPATH += sources \
 SOURCES += \
     sources/DAO/asyncfilereader.cpp \
     sources/DAO/eclipsefilereader.cpp \
+    sources/Domain/Grid/block.cpp \
     sources/Domain/Grid/box1d.cpp \
     sources/Domain/Grid/box2d.cpp \
     sources/Domain/Grid/box3d.cpp \
+    sources/Domain/Grid/point2d.cpp \
+    sources/Domain/Grid/point3d.cpp \
+    sources/Domain/Project/blockpointsentity.cpp \
     sources/Domain/Project/compdatentity.cpp \
     sources/Domain/Project/defaultvalues.cpp \
     sources/Domain/Project/projectdata.cpp \
@@ -109,6 +113,7 @@ SOURCES += \
     sources/Domain/Stratum/welspecsdata.cpp \
     sources/Domain/Stratum/weltargdata.cpp \
     sources/Helpers/Eclipse/readfilehelper.cpp \
+    sources/Helpers/mathhelper.cpp \
     sources/Helpers/unithelper.cpp \
     sources/Utils/linearmatrix2d.cpp \
     sources/Utils/linearmatrix3d.cpp \
@@ -129,9 +134,13 @@ HEADERS += \
     sources/DAO/eclipsefilereader.h \
     sources/DAO/idatafilereader.h \
     sources/DAO/idatafilewriter.h \
+    sources/Domain/Grid/block.h \
     sources/Domain/Grid/box1d.h \
     sources/Domain/Grid/box2d.h \
     sources/Domain/Grid/box3d.h \
+    sources/Domain/Grid/point2d.h \
+    sources/Domain/Grid/point3d.h \
+    sources/Domain/Project/blockpointsentity.h \
     sources/Domain/Project/compdatentity.h \
     sources/Domain/Project/defaultvalues.h \
     sources/Domain/Project/projectdata.h \
@@ -194,6 +203,7 @@ HEADERS += \
     sources/Domain/Stratum/welspecsdata.h \
     sources/Domain/Stratum/weltargdata.h \
     sources/Helpers/Eclipse/readfilehelper.h \
+    sources/Helpers/mathhelper.h \
     sources/Helpers/unithelper.h \
     sources/Utils/linearmatrix2d.h \
     sources/Utils/linearmatrix3d.h \
