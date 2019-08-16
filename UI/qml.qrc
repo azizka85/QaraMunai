@@ -54,6 +54,7 @@
         <file alias="icon-linechart-32x32.png">desktop/images/icon-linechart-32x32.png</file>
         <file alias="icon-tablegrid-32x32.png">desktop/images/icon-tablegrid-32x32.png</file>
         <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
+        <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
+        <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>
     </qresource>
-    <qresource prefix="/"/>
 </RCC>
