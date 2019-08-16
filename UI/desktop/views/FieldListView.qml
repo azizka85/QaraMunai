@@ -39,7 +39,6 @@ Item {
         id: listView
         anchors { top: grop.bottom; right: parent.right; left: parent.left; topMargin: 20; rightMargin: 20; leftMargin: 20 }
         height: 100
-        model: Model{}
         delegate: Text {
             text: name
         }
