@@ -6,6 +6,7 @@ import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
 
 ApplicationWindow {
+
     property bool dockTitleVisible: true
 
     id: mainWindow
@@ -176,6 +177,7 @@ ApplicationWindow {
                                        dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
                     }
                 }
+
             }
 
             RibbonGroup {
@@ -198,6 +200,7 @@ ApplicationWindow {
                     }
 
                     Button {
+                        id: sgofTableButton
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -207,6 +210,16 @@ ApplicationWindow {
                                    else
                                        dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
                     }
+                width: 160
+
+                Button {
+                    checkable: true
+                    anchors { left: sgofTableButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                   onClicked: settingsForm.show();
                 }
             }
 
@@ -267,6 +280,15 @@ ApplicationWindow {
                                         dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
                     }
                 }
+                Button {
+                    checkable: true
+                    anchors { left: pvtoTableButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                   onClicked: settingsForm.show();
+                }
             }
             RibbonGroup {
                 title: qsTr("PVT газа")
@@ -295,6 +317,15 @@ ApplicationWindow {
                                     else
                                         dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
                     }
+                }
+                Button {
+                    checkable: true
+                    anchors { left: pvtgTableButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
+                    width: icon.width + 12
+                    height: icon.height + 12
+                    icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                   onClicked: settingsForm.show();
                 }
             }
             RibbonGroup {
@@ -508,6 +539,10 @@ ApplicationWindow {
         WellsListView { id: wellsList; anchors.fill: parent; }
     }
 
+    SettingsView{
+        id: settingsForm
+        visible: false
+    }
 
     function createNumberArray(length)
     {
