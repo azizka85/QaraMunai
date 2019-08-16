@@ -4,8 +4,8 @@ import QtQuick.Controls 1.4
 
 Window{
     visible: false
-    width: 500
-    height: 150
+    width: 700
+    height: 200
     title: qsTr("Настройка графиков")
     TableView {
         id: settings
@@ -14,50 +14,49 @@ Window{
         TableViewColumn {
             role: "name"
             title: "Название"
-            width: 60
+            width: 90
         }
 
         TableViewColumn {
             role: "show"
             title: "Отображение"
-            width: 80
+            width: 90
         }
 
         TableViewColumn {
             role: "linecolor"
-            title: "Цвет \nлинии"
-            width: 60
+            title: "Цвет линии"
+            width: 90
         }
 
         TableViewColumn {
             role: "linethck"
-            title: "Толщина \nлинии"
-            width: 60
+            title: "Толщина линии"
+            width: 80
         }
 
         TableViewColumn {
             role: "linedash"
-            title: "Тип \nлинии"
-            width: 60
+            title: "Тип линии"
+            width: 90
         }
 
         TableViewColumn {
             role: "markercolor"
-            title: "Цвет \nмаркера"
-            width: 60
+            title: "Цвет маркера"
+            width: 90
         }
 
         TableViewColumn {
             role: "markerthck"
-            title: "Толщина \nмаркера"
-            width: 60
+            title: "Толщина маркера"
+            width: 80
         }
 
         TableViewColumn {
             role: "markerdash"
-            title: "Тип \nмаркера"
-            width: 60
+            title: "Тип маркера"
+            width: 90
         }
     }
 }
-
