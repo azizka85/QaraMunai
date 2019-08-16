@@ -38,10 +38,34 @@ Item {
     ListView {
         id: listView
         anchors { top: grop.bottom; right: parent.right; left: parent.left; topMargin: 20; rightMargin: 20; leftMargin: 20 }
-        height: 100
-        delegate: Text {
-            text: name
+        height: 200
+        width: 180;
+        Component {
+            id: contactsDelegate
+            Rectangle {
+                id: wrapper
+                width: 180
+                height: contactInfo.height
+                color: ListView.isCurrentItem ? "black" : "red"
+                Text {
+                    id: contactInfo
+                    text: wellName + ": "
+                    color: wrapper.ListView.isCurrentItem ? "red" : "black"
+                }
+            }
         }
 
+        delegate: contactsDelegate
+        focus: true
+    }
+    function closeProject()
+    {
+        listView.model = [];
+    }
+
+    function prepare(projectData)
+    {
+        listView.model = projectData.welspecs;
     }
 }
+
