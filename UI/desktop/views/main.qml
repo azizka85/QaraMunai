@@ -161,7 +161,7 @@ ApplicationWindow {
                     onClicked: if(swofTableDock.visible)
                                    swofTableDock.hide();
                                 else
-                                    dockSpace.insertDock(swofTableDock, swofChartDock, Qt.buttom, 0.75);
+                                    dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.75);
                 }
 
                 Button {
