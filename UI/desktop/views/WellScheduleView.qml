@@ -51,16 +51,16 @@ Item {
             Layout.fillWidth: true
             Tab {
                 id: wellSpecsTab
-                title: "Tab 1"}
+                title: "WELLSPECS"}
             Tab {
                 id: compdatTab
-                title: "Tab 2" }
+                title: "COMPDAT" }
             Tab {
                 id: wconprodTab
-                title: "Tab 3" }
+                title: "WCONPROD" }
             Tab {
                 id: wconinjeTab
-                title: "Tab 3" }
+                title: "WCONINJE" }
 
             style: TabViewStyle {
                 frameOverlap: 1
