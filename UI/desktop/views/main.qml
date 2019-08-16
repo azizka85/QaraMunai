@@ -539,7 +539,7 @@ ApplicationWindow {
         WellsListView { id: wellsList; anchors.fill: parent; }
     }
 
-    SettingsView{
+    SettingsView {
         id: settingsForm
         visible: false
     }
