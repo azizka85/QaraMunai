@@ -128,6 +128,8 @@ ApplicationWindow {
 
                     Button {
                         id: swofButton
+                        Label { text: qsTr("Показать")
+                                anchors { top: swofButton.bottom; topMargin: 4 }}
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
