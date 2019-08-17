@@ -97,20 +97,6 @@ ApplicationWindow {
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
-                    Button {
-                        id: fieldListButton
-                        width: icon.width + 12
-                        height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
-
-                        onClicked: {
-
-                            if(fieldListDock.visible)
-                                fieldListDock.hide()
-                            else
-                                dockSpace.insertDock(fieldListDock, fieldDock)
-                        }
-                    }
 
                     Button {
                         id: welsScheduleButton
@@ -135,7 +121,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (нефть вода)")
-                width: 150
+                width: 170
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -175,7 +161,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
-                width: 150
+                width: 170
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -244,7 +230,7 @@ ApplicationWindow {
             tabWidth: 200
             RibbonGroup {
                 title: qsTr("PVT нефти")
-                width: 130
+                width: 170
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -286,7 +272,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("PVT газа")
-                width: 130
+                width: 170
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -378,7 +364,6 @@ ApplicationWindow {
             pvtRegionList.model = createNumberArray(projectData.tabDIMS.ntPVT);
 
             wellschedule.prepare(projectData);
-            wellsList.prepare(projectData);
 
             loaderDialog.close();
         }

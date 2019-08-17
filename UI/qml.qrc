@@ -42,7 +42,6 @@
         <file alias="SGOFTableView.qml">desktop/views/SGOFTableView.qml</file>
         <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
         <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
-        <file alias="WellsListView.qml">desktop/views/WellsListView.qml</file>
         <file alias="FieldListView.qml">desktop/views/FieldListView.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>
     </qresource>
@@ -57,7 +56,5 @@
         <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>
         <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
         <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
-        <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
-        <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>
     </qresource>
 </RCC>
