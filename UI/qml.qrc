@@ -42,7 +42,6 @@
         <file alias="SGOFTableView.qml">desktop/views/SGOFTableView.qml</file>
         <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
         <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
-        <file alias="FieldListView.qml">desktop/views/FieldListView.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
