@@ -6,6 +6,7 @@ import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
 
 ApplicationWindow {
+
     property bool dockTitleVisible: true
 
     id: mainWindow
@@ -90,12 +91,26 @@ ApplicationWindow {
                     }
                 }
             }
-            
+
             RibbonGroup {
                 title: qsTr("Списки")
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    Button {
+                        id: fieldListButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+
+                        onClicked: {
+
+                            if(fieldListDock.visible)
+                                fieldListDock.hide()
+                            else
+                                dockSpace.insertDock(fieldListDock, fieldDock)
+                        }
+                    }
 
                     Button {
                         id: welsScheduleButton
@@ -103,7 +118,7 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                        onClicked: {                            
+                        onClicked: {
                             if(wellscheduleDock.visible)
                                 wellscheduleDock.hide()
                             else
@@ -147,7 +162,15 @@ ApplicationWindow {
                                    else
                                        dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
                     }
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                        onClicked: settingsForm.show();
+                    }
                 }
+
             }
 
             RibbonGroup {
@@ -170,6 +193,7 @@ ApplicationWindow {
                     }
 
                     Button {
+                        id: sgofTableButton
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -178,6 +202,14 @@ ApplicationWindow {
                                        sgofTableDock.hide();
                                    else
                                        dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
+                    }
+
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                        onClicked: settingsForm.show();
                     }
                 }
             }
@@ -230,6 +262,7 @@ ApplicationWindow {
                     }
 
                     Button {
+                        id: pvtoTableButton
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -239,8 +272,18 @@ ApplicationWindow {
                                     else
                                         dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
                     }
+
+                    Button {
+                        checkable: true
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                        onClicked: settingsForm.show();
+                    }
                 }
             }
+
             RibbonGroup {
                 title: qsTr("PVT газа")
                 width: 130
@@ -260,6 +303,7 @@ ApplicationWindow {
                     }
 
                     Button {
+                        id: pvtgTableButton
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
@@ -269,8 +313,18 @@ ApplicationWindow {
                                     else
                                         dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
                     }
+
+                    Button {
+                        checkable: true
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                        onClicked: settingsForm.show();
+                    }
                 }
             }
+
             RibbonGroup {
                 title: qsTr("Регионы")
                 width: 62
@@ -306,7 +360,6 @@ ApplicationWindow {
             tabWidth: 100
         }
     }
-
     ProjectData {
         id: projectData
     }
@@ -325,6 +378,7 @@ ApplicationWindow {
             pvtRegionList.model = createNumberArray(projectData.tabDIMS.ntPVT);
 
             wellschedule.prepare(projectData);
+            wellsList.prepare(projectData);
 
             loaderDialog.close();
         }
@@ -455,6 +509,11 @@ ApplicationWindow {
 
             WellScheduleView { id: wellschedule; anchors.fill: parent; }
         }
+    }
+
+    SettingsView {
+        id: settingsForm
+        visible: false
     }
 
     function createNumberArray(length)

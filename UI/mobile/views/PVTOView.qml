@@ -198,9 +198,9 @@ Item {
 
         for(var i = 0; i < list.length; i++)
         {
-            poPVTO.append(list[i].sg, list[i].po);
-            boPVTO.append(list[i].sg, list[i].bo);
-            moPVTO.append(list[i].sg, list[i].mo);
+            poPVTO.append(list[i].pvto, list[i].po);
+            boPVTO.append(list[i].pvto, list[i].bo);
+            moPVTO.append(list[i].pvto, list[i].mo);
         }
     }
 }
