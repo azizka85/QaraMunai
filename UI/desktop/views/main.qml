@@ -103,8 +103,7 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                        onClicked: {
-                            wellschedule.prepare(projectData);
+                        onClicked: {                            
                             if(wellscheduleDock.visible)
                                 wellscheduleDock.hide()
                             else
@@ -324,6 +323,8 @@ ApplicationWindow {
 
             sfRegionList.model = createNumberArray(projectData.tabDIMS.ntSFUN);
             pvtRegionList.model = createNumberArray(projectData.tabDIMS.ntPVT);
+
+            wellschedule.prepare(projectData);
 
             loaderDialog.close();
         }
