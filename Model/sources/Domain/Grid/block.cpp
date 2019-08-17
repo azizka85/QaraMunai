@@ -27,6 +27,61 @@ Block::Block(int i, int j, int k, const Point3D &p1, const Point3D &p2, const Po
     this->p8 = p8;
 }
 
+int Block::I()
+{
+    return i;
+}
+
+int Block::J()
+{
+    return j;
+}
+
+int Block::K()
+{
+    return k;
+}
+
+Point3D &Block::P1()
+{
+    return p1;
+}
+
+Point3D &Block::P2()
+{
+    return p2;
+}
+
+Point3D &Block::P3()
+{
+    return p3;
+}
+
+Point3D &Block::P4()
+{
+    return p4;
+}
+
+Point3D &Block::P5()
+{
+    return p5;
+}
+
+Point3D &Block::P6()
+{
+    return p6;
+}
+
+Point3D &Block::P7()
+{
+    return p7;
+}
+
+Point3D &Block::P8()
+{
+    return p8;
+}
+
 double Block::Volume()
 {
     Point3D v1, v2, v3;

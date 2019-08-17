@@ -96,19 +96,6 @@ ApplicationWindow {
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
-                    Button {
-                        id: fieldListButton
-                        width: icon.width + 12
-                        height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
-
-                        onClicked: {
-                            if(fieldListDock.visible)
-                                fieldListDock.hide()
-                            else
-                                dockSpace.insertDock(fieldListDock, fieldDock)
-                        }
-                    }
 
                     Button {
                         id: welsScheduleButton
@@ -124,21 +111,6 @@ ApplicationWindow {
                                 dockSpace.insertDock(wellscheduleDock, fieldDock)
                         }
                     }
-
-                    Button {
-                        id: welsListButton
-                        width: icon.width + 12
-                        height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
-
-                        onClicked: {
-                            wellsList.prepare(projectData);
-                            if(wellsListDock.visible)
-                                wellsListDock.hide()
-                            else
-                                dockSpace.insertDock(wellsListDock, fieldDock)
-                        }
-                    }
                 }
             }
         }
@@ -149,6 +121,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (нефть вода)")
+                width: 150
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -180,7 +153,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
-
+                width: 150
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -240,6 +213,7 @@ ApplicationWindow {
             tabWidth: 200
             RibbonGroup {
                 title: qsTr("PVT нефти")
+                width: 130
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -270,6 +244,7 @@ ApplicationWindow {
             }
             RibbonGroup {
                 title: qsTr("PVT газа")
+                width: 130
                 Row {
                     spacing: 6
                     anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
@@ -407,107 +382,79 @@ ApplicationWindow {
 
             FieldView { id: field; anchors.fill: parent; }
         }
+
+        DockControl {
+            id: swofChartDock
+            dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
+            titleVisible: dockTitleVisible
+
+            SWOFChartView { id: swofChart; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: swofTableDock
+            dockTitle: qsTr("Таблица - Функции насыщенности - нефть-вода")
+            titleVisible: dockTitleVisible
+
+            SWOFTableView { id: swofTable; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: sgofChartDock
+            dockTitle: qsTr("Графики - Функции насыщенности - газ-нефть")
+            titleVisible: dockTitleVisible
+
+            SGOFChartView { id: sgofChart; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: sgofTableDock
+            dockTitle: qsTr("Таблица - Функции насыщенности - газ-нефть")
+            titleVisible: dockTitleVisible
+
+            SGOFTableView { id: sgofTable; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: pvtoChartDock
+            dockTitle: qsTr("Графики - Свойства пластовой жидкости - нефть")
+            titleVisible: dockTitleVisible
+
+            PVTOChartView { id: pvtoChart; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: pvtoTableDock
+            dockTitle: qsTr("Таблица - Свойства пластовой жидкости - нефть")
+            titleVisible: dockTitleVisible
+
+            PVTOTableView { id: pvtoTable; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: pvtgChartDock
+            dockTitle: qsTr("Графики - Свойства пластовой жидкости - газ")
+            titleVisible: dockTitleVisible
+
+            PVTGChartView { id: pvtgChart; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: pvtgTableDock
+            dockTitle: qsTr("Таблица - Свойства пластовой жидкости - газ")
+            titleVisible: dockTitleVisible
+
+            PVTGTableView { id: pvtgTable; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: wellscheduleDock
+            dockTitle: qsTr("Расписание скважин")
+            titleVisible: dockTitleVisible
+
+            WellScheduleView { id: wellschedule; anchors.fill: parent; }
+        }
     }
-
-    DockControl {
-        id: swofChartDock
-        visible: false
-        dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
-        titleVisible: dockTitleVisible
-
-        SWOFChartView { id: swofChart; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: swofTableDock
-        visible: false
-        dockTitle: qsTr("Таблица - Функции насыщенности - нефть-вода")
-        titleVisible: dockTitleVisible
-
-        SWOFTableView { id: swofTable; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: sgofChartDock
-        visible: false
-        dockTitle: qsTr("Графики - Функции насыщенности - газ-нефть")
-        titleVisible: dockTitleVisible
-
-        SGOFChartView { id: sgofChart; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: sgofTableDock
-        visible: false
-        dockTitle: qsTr("Таблица - Функции насыщенности - газ-нефть")
-        titleVisible: dockTitleVisible
-
-        SGOFTableView { id: sgofTable; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: pvtoChartDock
-        visible: false
-        dockTitle: qsTr("Графики - Свойства пластовой жидкости - нефть")
-        titleVisible: dockTitleVisible
-
-        PVTOChartView { id: pvtoChart; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: pvtoTableDock
-        visible: false
-        dockTitle: qsTr("Таблица - Свойства пластовой жидкости - нефть")
-        titleVisible: dockTitleVisible
-
-        PVTOTableView { id: pvtoTable; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: pvtgChartDock
-        visible: false
-        dockTitle: qsTr("Графики - Свойства пластовой жидкости - газ")
-        titleVisible: dockTitleVisible
-
-        PVTGChartView { id: pvtgChart; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: pvtgTableDock
-        visible: false
-        dockTitle: qsTr("Таблица - Свойства пластовой жидкости - газ")
-        titleVisible: dockTitleVisible
-
-        PVTGTableView { id: pvtgTable; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: fieldListDock
-        visible: false
-        dockTitle: qsTr("Список полей")
-        titleVisible: dockTitleVisible
-
-        FieldListView { id: fieldList; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: wellscheduleDock
-        visible: false
-        dockTitle: qsTr("Расписание скважин")
-        titleVisible: dockTitleVisible
-
-        WellScheduleView { id: wellschedule; anchors.fill: parent; }
-    }
-
-    DockControl {
-        id: wellsListDock
-        visible: false
-        dockTitle: qsTr("Список скважин")
-        titleVisible: dockTitleVisible
-
-        WellsListView { id: wellsList; anchors.fill: parent; }
-    }
-
 
     function createNumberArray(length)
     {

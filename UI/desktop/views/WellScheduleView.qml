@@ -288,7 +288,7 @@ Item {
 
     function prepare(projectData)
     {
-        dateComboBox.model = projectData.datelist;
+        dateComboBox.model = projectData.dates;
         wellSpecsTab.children[0].model = projectData.welspecs.getList();
         compdatTab.children[0].model = projectData.compdat.getList();
         wconprodTab.children[0].model = projectData.wconprod.getList();

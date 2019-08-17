@@ -167,13 +167,13 @@ WCONINJEEntity *ProjectData::WCONINJE()
     return wconinje;
 }
 
-QVariantList *ProjectData::DATELIST()
+QVariantList ProjectData::DATES()
 {
     QList<QDateTime> list = stratum.DATES();
-    QVariantList *result = new QVariantList();
-    for (int i = 0; i < list.length(); i++) {
-        result->append((list[i]));
-    }
+    QVariantList result;
+
+    for (int i = 0; i < list.length(); i++) result.append((list[i]));
+
     return result;
 }
 
