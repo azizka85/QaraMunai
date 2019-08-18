@@ -17,17 +17,17 @@ Item {
 
         LineSeries {
             id: poPVTO
-            name: qsTr("PO")
+            name: qsTr("PO(RS)")
         }
 
         LineSeries {
             id: boPVTO
-            name: qsTr("BO")
+            name: qsTr("BO(RS)")
         }
 
         LineSeries {
             id: moPVTO
-            name: qsTr("MO")
+            name: qsTr("MO(RS)")
         }
     }
 

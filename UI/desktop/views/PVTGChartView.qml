@@ -17,17 +17,17 @@ Item {
 
         LineSeries {
             id: pgPVTG
-            name: qsTr("PG")
+            name: qsTr("PG(RV)")
         }
 
         LineSeries {
             id: bgPVTG
-            name: qsTr("BG")
+            name: qsTr("BG(RV)")
         }
 
         LineSeries {
             id: mgPVTG
-            name: qsTr("MG")
+            name: qsTr("MG(RV)")
         }
     }
 
