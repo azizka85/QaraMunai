@@ -34,7 +34,7 @@ QVariantList WELSPECSEntity::getList(QDateTime date)
     return welspecsList;
 }
 
-QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
+QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QVariant date)
 {
     QObject* projectData = parent();
 
@@ -47,6 +47,8 @@ QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
             QList<WELSPECSData> welspecsList;
 
             QList<WELSPECSData> list = project->Stratum().WELSPECS();
+
+            if(date.isNull()) return list;
 
             for(int i = 0; i < list.length(); i++)
             {

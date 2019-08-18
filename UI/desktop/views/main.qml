@@ -27,23 +27,27 @@ ApplicationWindow {
                 title: qsTr("Файл")
                 width: 112
 
-                Button {
-                    id: eclipseButton
-                    anchors { left: parent.left; /*top: parent.top;*/ margins: 6; verticalCenter: parent.verticalCenter }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-eclipse-32x32.png"; }
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    onClicked: importDATAOFD.open()
-                }
+                    Button {
+                        id: eclipseButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-eclipse-32x32.png"; }
 
-                Button {
-                    anchors { left: eclipseButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: icon.width + 12
-                    height: icon.height + 12
-                    icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-exit-32x32.ico"; }
+                        onClicked: importDATAOFD.open()
+                    }
 
-                    onClicked: closeProject()
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-exit-32x32.ico"; }
+
+                        onClicked: closeProject()
+                    }
                 }
             }
 
@@ -51,21 +55,25 @@ ApplicationWindow {
                 title: qsTr("Настройки")
                 width: 112
 
-                Button {
-                    id: fullScreenButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: 44
-                    height: 44
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    onClicked: mainWindow.visibility = mainWindow.visibility === Window.Maximized ? "FullScreen" : "Maximized"
-                }
+                    Button {
+                        id: fullScreenButton
+                        width: 44
+                        height: 44
 
-                Button {
-                    anchors { left: fullScreenButton.right; verticalCenter: parent.verticalCenter; margins: 6 }
-                    width: 44
-                    height: 44
+                        onClicked: mainWindow.visibility = mainWindow.visibility === Window.Maximized ? "FullScreen" : "Maximized"
+                    }
 
-                    onClicked: dockTitleVisible = !dockTitleVisible
+                    Button {
+                        width: 44
+                        height: 44
+
+                        onClicked: dockTitleVisible = !dockTitleVisible
+                    }
                 }
             }
         }
@@ -76,20 +84,22 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Карта")
+
                 Row {
                     spacing: 6
-                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     Button {
                         id: fieldButton
                         width: 44
-                        height: 44
+                        height: 44                        
 
                         onClicked: {
                             if(fieldDock.visible)
                                 fieldDock.hide();
                             else
-                                dockSpace.insertDock(fieldDock, wellscheduleDock, Qt.Horizontal, 0.4, false);
+                                dockSpace.insertFirst(fieldDock);
                         }
                     }
                 }
@@ -97,21 +107,38 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Списки")
+                width: 112
+
                 Row {
                     spacing: 6
-                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     Button {
-                        id: welsScheduleButton
+                        id: wellScheduleButton
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
                         onClicked: {
-                            if(wellscheduleDock.visible)
-                                wellscheduleDock.hide();
+                            if(wellScheduleDock.visible)
+                                wellScheduleDock.hide();
                             else
-                                dockSpace.insertDock(wellscheduleDock, fieldDock);
+                                dockSpace.insertDock(wellScheduleDock, wellsListDock, Qt.Horizontal, 0.2, false);
+                        }
+                    }
+
+                    Button {
+                        id: wellsListButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+
+                        onClicked: {
+                            if(wellsListDock.visible)
+                                wellsListDock.hide();
+                            else
+                                dockSpace.insertDock(wellsListDock, wellScheduleDock, Qt.Horizontal, 0.2, true);
                         }
                     }
                 }
@@ -125,9 +152,11 @@ ApplicationWindow {
             RibbonGroup {
                 title: qsTr("ОФП и КД (нефть вода)")
                 width: 170
+
                 Row {
                     spacing: 6
-                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     Button {
                         id: swofButton
@@ -155,6 +184,7 @@ ApplicationWindow {
                                 dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
                         }
                     }
+
                     Button {
                         width: icon.width + 12
                         height: icon.height + 12
@@ -163,15 +193,16 @@ ApplicationWindow {
                         onClicked: settingsForm.show();
                     }
                 }
-
             }
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
                 width: 170
+
                 Row {
                     spacing: 6
-                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     Button {
                         id: sgofButton
@@ -239,12 +270,15 @@ ApplicationWindow {
         RibbonTab {
             title: qsTr("Свойства пластовой жидкости")
             tabWidth: 200
+
             RibbonGroup {
                 title: qsTr("PVT нефти")
                 width: 170
+
                 Row {
                     spacing: 6
-                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     Button {
                         id: pvtoButton
@@ -288,9 +322,12 @@ ApplicationWindow {
             RibbonGroup {
                 title: qsTr("PVT газа")
                 width: 170
+
                 Row {
                     spacing: 6
-                    anchors { verticalCenter: parent.verticalCenter; left: parent.left; right: parent.right; leftMargin: 6; rightMargin: 6}
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
                     Button {
                         id: pvtgButton
                         width: icon.width + 12
@@ -382,7 +419,8 @@ ApplicationWindow {
             sfRegionList.model = createNumberArray(projectData.tabDIMS.ntSFUN);
             pvtRegionList.model = createNumberArray(projectData.tabDIMS.ntPVT);
 
-            wellschedule.prepare(projectData);
+            wellSchedule.prepare(projectData);
+            wellsList.prepare(projectData);
 
             loaderDialog.close();
         }
@@ -507,11 +545,19 @@ ApplicationWindow {
         }
 
         DockControl {
-            id: wellscheduleDock
+            id: wellScheduleDock
             dockTitle: qsTr("Расписание скважин")
             titleVisible: dockTitleVisible
 
-            WellScheduleView { id: wellschedule; anchors.fill: parent; }
+            WellScheduleView { id: wellSchedule; anchors.fill: parent; }
+        }
+
+        DockControl {
+            id: wellsListDock
+            dockTitle: qsTr("Список скважин")
+            titleVisible: dockTitleVisible
+
+            WellsListView { id: wellsList; anchors.fill: parent; }
         }
     }
 
@@ -522,8 +568,6 @@ ApplicationWindow {
 
     function createNumberArray(length)
     {
-        console.log(ProjectData.OPEN);
-
         var items = [];
         for(var i = 0; i < length; i++) items[i] = i+1;
         return items;
@@ -542,7 +586,8 @@ ApplicationWindow {
         pvtoChart.closeProject();
         pvtoTable.closeProject();
 
-        wellschedule.closeProject();
+        wellSchedule.closeProject();
+        wellsList.closeProject();
 
         sfRegionList.model = [];
         pvtRegionList.model = [];

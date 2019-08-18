@@ -92,17 +92,17 @@ Item {
 
                 LineSeries {
                     id: poPVTO
-                    name: qsTr("PO")
+                    name: qsTr("PO(RS)")
                 }
 
                 LineSeries {
                     id: boPVTO
-                    name: qsTr("BO")
+                    name: qsTr("BO(RS)")
                 }
 
                 LineSeries {
                     id: moPVTO
-                    name: qsTr("MO")
+                    name: qsTr("MO(RS)")
                 }
             }
         }
@@ -194,13 +194,14 @@ Item {
 
         poPVTO.clear();
         boPVTO.clear();
-        moPVTO.clear();
+        moPVTO.clear();               
 
         for(var i = 0; i < list.length; i++)
         {
-            poPVTO.append(list[i].pvto, list[i].po);
-            boPVTO.append(list[i].pvto, list[i].bo);
-            moPVTO.append(list[i].pvto, list[i].mo);
+            console.log(list[i].rs + ": " + list[i].po + ", " + list[i].bo + ", " + list[i].mo);
+            poPVTO.append(list[i].rs, list[i].po);
+            boPVTO.append(list[i].rs, list[i].bo);
+            moPVTO.append(list[i].rs, list[i].mo);
         }
     }
 }

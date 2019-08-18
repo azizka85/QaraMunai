@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(QDateTime date);
 
-    QList<WELSPECSData> WELSPECSList(QDateTime date);
+    QList<WELSPECSData> WELSPECSList(QVariant date);
 };
 
 }}}}

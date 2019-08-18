@@ -54,7 +54,7 @@ QStringList ReadFileHelper::ParseParams(QTextStream &sr, int nameIndex, bool can
         {
             int pos = line.indexOf("/");
 
-            temp += " " + line.mid(0, pos);
+            temp += " " + line.mid(0, pos+1);
             break;
         }
         else temp += " " + line;
