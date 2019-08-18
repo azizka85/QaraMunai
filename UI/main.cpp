@@ -17,7 +17,7 @@ using namespace QaraMunai::Model::Domain::Project;
 
 int main(int argc, char *argv[])
 {
-    bool isDesktop = false;
+    bool isDesktop = true;
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

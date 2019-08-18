@@ -198,7 +198,6 @@ Item {
 
         for(var i = 0; i < list.length; i++)
         {
-            console.log(list[i].rs + ": " + list[i].po + ", " + list[i].bo + ", " + list[i].mo);
             poPVTO.append(list[i].rs, list[i].po);
             boPVTO.append(list[i].rs, list[i].bo);
             moPVTO.append(list[i].rs, list[i].mo);

@@ -49,6 +49,6 @@ Item {
             poPVTO.append(list[i].rs, list[i].po);
             boPVTO.append(list[i].rs, list[i].bo);
             moPVTO.append(list[i].rs, list[i].mo);
-        }
+        }       
     }
 }
