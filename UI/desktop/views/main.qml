@@ -12,6 +12,8 @@ ApplicationWindow {
     id: mainWindow
     visible: true
     visibility: "Maximized"
+    width: 640
+    height: 480
     title: qsTr("Qara munai'")
 
     Ribbon {
@@ -83,11 +85,12 @@ ApplicationWindow {
                         width: 44
                         height: 44
 
-                        onClicked:
+                        onClicked: {
                             if(fieldDock.visible)
                                 fieldDock.hide();
                             else
                                 dockSpace.insertDock(fieldDock, wellscheduleDock, Qt.Horizontal, 0.4, false);
+                        }
                     }
                 }
             }
@@ -106,9 +109,9 @@ ApplicationWindow {
 
                         onClicked: {
                             if(wellscheduleDock.visible)
-                                wellscheduleDock.hide()
+                                wellscheduleDock.hide();
                             else
-                                dockSpace.insertDock(wellscheduleDock, fieldDock)
+                                dockSpace.insertDock(wellscheduleDock, fieldDock);
                         }
                     }
                 }
@@ -128,16 +131,16 @@ ApplicationWindow {
 
                     Button {
                         id: swofButton
-                        Label { text: qsTr("Показать")
-                                anchors { top: swofButton.bottom; topMargin: 4 }}
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                        onClicked: if(swofChartDock.visible)
-                                       swofChartDock.hide()
-                                   else
-                                       dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true)
+                        onClicked: {
+                            if(swofChartDock.visible)
+                                swofChartDock.hide()
+                             else
+                                dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true);
+                        }
                     }
 
                     Button {
@@ -145,10 +148,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                        onClicked: if(swofTableDock.visible)
-                                       swofTableDock.hide();
-                                   else
-                                       dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
+                        onClicked: {
+                            if(swofTableDock.visible)
+                                swofTableDock.hide();
+                            else
+                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
+                        }
                     }
                     Button {
                         width: icon.width + 12
@@ -174,10 +179,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                        onClicked: if(sgofChartDock.visible)
-                                       sgofChartDock.hide();
-                                   else
-                                       dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true);
+                        onClicked: {
+                            if(sgofChartDock.visible)
+                                sgofChartDock.hide();
+                            else
+                                dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true);
+                        }
                     }
 
                     Button {
@@ -186,10 +193,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                        onClicked: if(sgofTableDock.visible)
-                                       sgofTableDock.hide();
-                                   else
-                                       dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
+                        onClicked: {
+                            if(sgofTableDock.visible)
+                                sgofTableDock.hide();
+                            else
+                                dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
+                        }
                     }
 
                     Button {
@@ -243,10 +252,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                        onClicked:  if(pvtoChartDock.visible)
-                                        pvtoChartDock.hide();
-                                    else
-                                        dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true)
+                        onClicked: {
+                            if(pvtoChartDock.visible)
+                                pvtoChartDock.hide();
+                            else
+                                dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true);
+                        }
                     }
 
                     Button {
@@ -255,10 +266,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                        onClicked:  if(pvtoTableDock.visible)
-                                        pvtoTableDock.hide();
-                                    else
-                                        dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5)
+                        onClicked: {
+                            if(pvtoTableDock.visible)
+                                pvtoTableDock.hide();
+                            else
+                                dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5);
+                        }
                     }
 
                     Button {
@@ -284,10 +297,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
 
-                        onClicked:  if(pvtgChartDock.visible)
-                                        pvtgChartDock.hide();
-                                    else
-                                        dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true)
+                        onClicked: {
+                            if(pvtgChartDock.visible)
+                                pvtgChartDock.hide();
+                            else
+                                dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true);
+                        }
                     }
 
                     Button {
@@ -296,10 +311,12 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
-                        onClicked:  if(pvtgTableDock.visible)
-                                        pvtgTableDock.hide();
-                                    else
-                                        dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5)
+                        onClicked: {
+                            if(pvtgTableDock.visible)
+                                pvtgTableDock.hide();
+                            else
+                                dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5);
+                        }
                     }
 
                     Button {
@@ -375,7 +392,7 @@ ApplicationWindow {
         id: importDATAOFD
         title: qsTr("Открыть Eclipse файл")
         folder: Qt.resolvedUrl("./")
-        nameFilters: "DATA files(*.DATA)|*.DATA"
+        nameFilters: qsTr("DATA files(*.DATA)|*.DATA")
 
         onAccepted: {
             closeProject();
@@ -505,6 +522,8 @@ ApplicationWindow {
 
     function createNumberArray(length)
     {
+        console.log(ProjectData.OPEN);
+
         var items = [];
         for(var i = 0; i < length; i++) items[i] = i+1;
         return items;

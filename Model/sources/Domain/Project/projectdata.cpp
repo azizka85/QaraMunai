@@ -148,7 +148,7 @@ QVariantList ProjectData::DATES()
     QList<QDateTime> list = stratum.DATES();
     QVariantList result;
 
-    for (int i = 0; i < list.length(); i++) result.append((list[i]));
+    for (int i = 0; i < list.length(); i++) result.append(list[i].toString("dd.MM.yyyy"));
 
     return result;
 }

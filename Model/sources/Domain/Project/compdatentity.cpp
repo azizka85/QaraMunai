@@ -23,25 +23,48 @@ bool COMPDATEntity::exist()
     return false;
 }
 
-QVariantList COMPDATEntity::getList()
+QVariantList COMPDATEntity::getList(QDateTime date)
 {
     QVariantList compdatList;
 
-    QList<COMPDATData> list = COMPDATList();
+    QList<COMPDATData> list = COMPDATList(date);
 
-    for(int i = 0; i < list.length(); i++) compdatList.append(list[i].toMap());
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum wellStatusTypeEnum = metaObject.enumerator(metaObject.indexOfEnumerator("WellStatusType"));
+
+    for(int i = 0; i < list.length(); i++)
+    {
+        QVariantMap map = list[i].toMap();
+
+        map["wellStatus"] = QString(wellStatusTypeEnum.valueToKey(map["wellStatus"].toInt()));
+
+        compdatList.append(map);
+    }
 
     return compdatList;
 }
 
-QList<COMPDATData> COMPDATEntity::COMPDATList(){
+QList<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
     QObject* projectData = parent();
 
     if (projectData != nullptr)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded()) return project->Stratum().COMPDAT();
+        if(project->IsLoaded())
+        {
+            QList<COMPDATData> compdatList;
+
+            QList<COMPDATData> list = project->Stratum().COMPDAT();
+
+            for(int i = 0; i < list.length(); i++)
+            {
+                if(list[i].Date() == date) compdatList.append(list[i]);
+            }
+
+            return compdatList;
+        }
     }
 
     return QList<COMPDATData>();

@@ -80,7 +80,8 @@ Item {
 
     function hide()
     {
-        if(dockSpace != null) dockSpace.hideDock(dockItem);
+        if(dockWindow.visible === true) dockWindow.visible = false;
+        else if(dockSpace != null) dockSpace.hideDock(dockItem);
     }
 
     function unDock()

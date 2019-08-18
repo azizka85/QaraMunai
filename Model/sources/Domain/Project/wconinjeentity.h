@@ -1,9 +1,8 @@
 #ifndef WCONINJEENTITY_H
 #define WCONINJEENTITY_H
 
-
-
 #include <qobject.h>
+#include <qdatetime.h>
 #include <qlist.h>
 #include <qmap.h>
 
@@ -26,9 +25,9 @@ public:
     explicit WCONINJEEntity(QObject *parent = nullptr);
 
     Q_INVOKABLE bool exist();
-    Q_INVOKABLE QVariantList getList();
+    Q_INVOKABLE QVariantList getList(QDateTime date);
 
-    QList<WCONINJEData> WCONINJEList();
+    QList<WCONINJEData> WCONINJEList(QDateTime date);
 };
 
 }}}}

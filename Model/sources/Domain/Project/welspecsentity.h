@@ -2,6 +2,7 @@
 #define WELSPECSENTITY_H
 
 #include <qobject.h>
+#include <qdatetime.h>
 #include <qlist.h>
 #include <qmap.h>
 
@@ -24,9 +25,9 @@ public:
     explicit WELSPECSEntity(QObject *parent = nullptr);
 
     Q_INVOKABLE bool exist();
-    Q_INVOKABLE QVariantList getList();
+    Q_INVOKABLE QVariantList getList(QDateTime date);
 
-    QList<WELSPECSData> WELSPECSList();
+    QList<WELSPECSData> WELSPECSList(QDateTime date);
 };
 
 }}}}
