@@ -23,25 +23,40 @@ bool WELSPECSEntity::exist()
     return false;
 }
 
-QVariantList WELSPECSEntity::getList()
+QVariantList WELSPECSEntity::getList(QDateTime date)
 {
     QVariantList welspecsList;
 
-    QList<WELSPECSData> list = WELSPECSList();
+    QList<WELSPECSData> list = WELSPECSList(date);
 
     for(int i = 0; i < list.length(); i++) welspecsList.append(list[i].toMap());
 
     return welspecsList;
 }
 
-QList<WELSPECSData> WELSPECSEntity::WELSPECSList(){
+QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QVariant date)
+{
     QObject* projectData = parent();
 
     if (projectData != nullptr)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded()) return project->Stratum().WELSPECS();
+        if(project->IsLoaded())
+        {
+            QList<WELSPECSData> welspecsList;
+
+            QList<WELSPECSData> list = project->Stratum().WELSPECS();
+
+            if(date.isNull()) return list;
+
+            for(int i = 0; i < list.length(); i++)
+            {
+                if(list[i].Date() == date) welspecsList.append(list[i]);
+            }
+
+            return welspecsList;
+        }
     }
 
     return QList<WELSPECSData>();

@@ -1,8 +1,9 @@
 #ifndef WCONPRODENTITY_H
 #define WCONPRODENTITY_H
 
-
+#include <qmetaobject.h>
 #include <qobject.h>
+#include <qdatetime.h>
 #include <qlist.h>
 #include <qmap.h>
 
@@ -25,9 +26,9 @@ public:
     explicit WCONPRODEntity(QObject *parent = nullptr);
 
     Q_INVOKABLE bool exist();
-    Q_INVOKABLE QVariantList getList();
+    Q_INVOKABLE QVariantList getList(QDateTime date);
 
-    QList<WCONPRODData> WCONPRODList();
+    QList<WCONPRODData> WCONPRODList(QDateTime date);
 };
 
 }}}}

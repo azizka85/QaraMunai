@@ -23,25 +23,51 @@ bool WCONPRODEntity::exist()
     return false;
 }
 
-QVariantList WCONPRODEntity::getList()
+QVariantList WCONPRODEntity::getList(QDateTime date)
 {
     QVariantList wconprodList;
 
-    QList<WCONPRODData> list = WCONPRODList();
+    QList<WCONPRODData> list = WCONPRODList(date);
 
-    for(int i = 0; i < list.length(); i++) wconprodList.append(list[i].toMap());
+    QMetaObject metaObject = ProjectData::staticMetaObject;
+
+    QMetaEnum wellStatusTypeEnum = metaObject.enumerator(metaObject.indexOfEnumerator("WellStatusType"));
+    QMetaEnum wellControlModeEnum = metaObject.enumerator(metaObject.indexOfEnumerator("WellControlMode"));
+
+    for(int i = 0; i < list.length(); i++)
+    {
+        QVariantMap map = list[i].toMap();
+
+        map["wellStatus"] = QString(wellStatusTypeEnum.valueToKey(map["wellStatus"].toInt()));
+        map["wellControl"] = QString(wellControlModeEnum.valueToKey(map["wellControl"].toInt()));
+
+        wconprodList.append(map);
+    }
 
     return wconprodList;
 }
 
-QList<WCONPRODData> WCONPRODEntity::WCONPRODList(){
+QList<WCONPRODData> WCONPRODEntity::WCONPRODList(QDateTime date)
+{
     QObject* projectData = parent();
 
     if (projectData != nullptr)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded()) return project->Stratum().WCONPROD();
+        if(project->IsLoaded())
+        {
+            QList<WCONPRODData> wconprodList;
+
+            QList<WCONPRODData> list = project->Stratum().WCONPROD();
+
+            for(int i = 0; i < list.length(); i++)
+            {
+                if(list[i].Date() == date) wconprodList.append(list[i]);
+            }
+
+            return wconprodList;
+        }
     }
 
     return QList<WCONPRODData>();
