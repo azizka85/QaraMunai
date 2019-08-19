@@ -44,6 +44,7 @@
         <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>
         <file alias="WellsListView.qml">desktop/views/WellsListView.qml</file>
+        <file alias="StartPauseButtonsGroup.qml">desktop/views/StartPauseButtonsGroup.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
@@ -63,5 +64,13 @@
         <file alias="pavr.png">desktop/images/pavr.png</file>
         <file alias="volume_rate.png">desktop/images/volume_rate.png</file>
         <file alias="wc_eor.png">desktop/images/wc_eor.png</file>
+        <file alias="move_first_8x8.png">desktop/images/move_first_8x8.png</file>
+        <file alias="move_last_8x8.png">desktop/images/move_last_8x8.png</file>
+        <file alias="move_next_8x8.png">desktop/images/move_next_8x8.png</file>
+        <file alias="move_previous_8x8.png">desktop/images/move_previous_8x8.png</file>
+        <file alias="move_first.png">desktop/images/move_first.png</file>
+        <file alias="move_last.png">desktop/images/move_last.png</file>
+        <file alias="move_next.png">desktop/images/move_next.png</file>
+        <file alias="move_previous.png">desktop/images/move_previous.png</file>
     </qresource>
 </RCC>
