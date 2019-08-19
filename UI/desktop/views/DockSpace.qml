@@ -1,83 +1,134 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick 2.0
 
-Item {
+Item {   
+    default property alias controls: dsPrivate.children
+
     id: dockSpace
     width: parent.width
-    height: parent.height
+    height: parent.height    
 
-    function appendDock(dockControl)
+    Item {
+        readonly property int typeId: 0
+
+        id: spaceView
+        anchors.fill: parent
+    }
+
+    Item {
+        property var splitters: []
+
+        id: dsPrivate
+        visible: false
+    }
+
+    Component {
+        id: splitter
+
+        DockSplit { }
+    }
+
+    Component.onCompleted: {        
+        for(var i = 0; i < controls.length; i++) {
+            if(i > 0) dsPrivate.splitters.push(splitter.createObject(dockSpace));
+            controls[i].visible = false;
+            controls[i].dockSpace = dockSpace;
+        }
+    }
+
+    function hideDock(dock)
     {
-        if(dockControl.visible === false) {
-            if(dockSpace.children.length > 0) {
-
-                var dock = dockSpace.children[0];
-
-                while(dock.shareWith !== null) dock = dock.shareWith;
-
-                dock.shareWith = dockControl;
-                dockControl.visible = true;
-            }
-            else {
-                dockControl.parent = dockSpace;
-                dockControl.visible = true;
-            }
-        }
+        unSplit(dock);
+        freeDock(dock);
     }
 
-    function insertFirst(dockControl)
+    function unSplit(dock)
     {
-        if(dockControl.visible === false) {
-            var dock = null;
+        if(dock.visible === true)
+        {
+            var typeId = dock.parent.typeId;
 
-            if(dockSpace.children.length > 0) dock = dockSpace.children[0];
+            if(typeId > 0)
+            {
+                var splitter = dock.parent.parent.parent;
 
-            dockControl.shareWith = dock;
-            dockControl.parent = dockSpace;
-            dockControl.visible = true;
-        }
-    }
+                var share = typeId === 1 ? splitter.dock2.children[0] : splitter.dock1.children[0];
 
-    function hideAll() {
-        if(dockSpace.children.length > 0) {
+                share.parent = splitter.parent;
+                splitter.parent = dockSpace;
+                splitter.visible = false;
 
-            var dock = dockSpace.children[0];
-
-            while(dock.shareWith !== null) dock = dock.shareWith;
-
-            var shared = null;
-
-            do {
-                shared = dock.shared;
-                dock.hide();
-                dock = shared;
+                dsPrivate.splitters.push(splitter);
             }
-            while(shared !== null);
         }
     }
 
-    function insertDock(dock, shareWith, orientation, ratio, firstItem) {
+    function freeDock(dock)
+    {
+        dock.parent = dsPrivate;
+        dock.visible = false;
+    }
+
+    function insertFirst(dock, orientation, ratio, isFirst)
+    {
         if(orientation === undefined) orientation = Qt.Horizontal;
-        if(shareWith === undefined) shareWith = null;
         if(ratio === undefined) ratio = -1;
-        if(firstItem === undefined) firstItem = false;
+        if(isFirst === undefined) isFirst = false;
 
-        if(dock.visible === false) {
+        if(dock.visible === false)
+        {
+            if(spaceView.children.length > 0)
+            {
+                var splitter = getSplitter(dock, spaceView.children[0], isFirst, ratio, orientation);
 
-            if(shareWith !== null && shareWith.visible !== false && (shareWith.dockWindow.visible === false || shareWith.dockWindow === Window.window)) {
-                if(shareWith.shared !== null) {
-                    shareWith.shared.shareWith = dock;
-                }
-                else dock.parent = dockSpace;
-
-                dock.firstItem = firstItem;
-                dock.ratio = ratio;
-                dock.orientation = orientation;
-
-                dock.shareWith = shareWith;
+                splitter.parent = spaceView;
+                splitter.visible = true;
                 dock.visible = true;
+
+                splitter.resizeItems();
+            }
+            else
+            {
+                dock.parent = spaceView;
+                dock.visible = true;
+            }            
+        }
+    }
+
+    function insertDock(dock, share, orientation, ratio, isFirst)
+    {
+        if(orientation === undefined) orientation = Qt.Horizontal;
+        if(share === undefined) share = null;
+        if(ratio === undefined) ratio = -1;
+        if(isFirst === undefined) isFirst = false;
+
+        if(dock.visible === false)
+        {
+            if(share !== null && share.visible !== false && share.dockWindow.visible === false)
+            {
+                var shareParent = share.parent;
+
+                var splitter = getSplitter(dock, share, isFirst, ratio, orientation);
+
+                splitter.parent = shareParent;
+                splitter.visible = true;
+                dock.visible = true;
+
+                splitter.resizeItems();
             }
             else insertFirst(dock);
         }
+    }
+
+    function getSplitter(dock, share, isFirst, ratio, orientation)
+    {
+        var splitter = dsPrivate.splitters.pop();
+
+        splitter.ratio = ratio;
+        splitter.orientation = orientation;
+
+        dock.parent = isFirst ? splitter.dock1 : splitter.dock2;
+        share.parent = isFirst ? splitter.dock2 : splitter.dock1;
+
+        return splitter;
     }
 }

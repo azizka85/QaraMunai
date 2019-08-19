@@ -40,7 +40,7 @@ Item {
         id: ribbonContent
         anchors { left: parent.left; right: parent.right; top: ribbonBar.bottom; }
         currentIndex: ribbonBar.currentIndex
-        height: ribbonHeight - ribbonBar.height
+        height: ribbon.height - ribbonBar.height
     }
 
     function switchRibbonVisible()
