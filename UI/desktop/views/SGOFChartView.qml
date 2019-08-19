@@ -5,8 +5,8 @@ Item {
 
     ChartView {
         id: sgofChart
-        title: qsTr("ОФП и КД (газ-нефть)")
-        titleColor: "blue"
+//        title: qsTr("ОФП и КД (газ-нефть)")
+//        titleColor: "blue"
         titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
 

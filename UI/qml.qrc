@@ -56,5 +56,12 @@
         <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>
         <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
         <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
+        <file alias="pause-calculation-16x16.png">desktop/images/pause-calculation-16x16.png</file>
+        <file alias="run-calculation-16x16.png">desktop/images/run-calculation-16x16.png</file>
+        <file alias="stop-calculation-16x16.png">desktop/images/stop-calculation-16x16.png</file>
+        <file alias="flow_rate.png">desktop/images/flow_rate.png</file>
+        <file alias="pavr.png">desktop/images/pavr.png</file>
+        <file alias="volume_rate.png">desktop/images/volume_rate.png</file>
+        <file alias="wc_eor.png">desktop/images/wc_eor.png</file>
     </qresource>
 </RCC>

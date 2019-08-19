@@ -5,8 +5,8 @@ Item {
 
     ChartView {
         id: pvtgChart
-        title: qsTr("PVT газа")
-        titleColor: "blue"
+//        title: qsTr("PVT газа")
+//        titleColor: "blue"
         titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
 

@@ -93,7 +93,7 @@ ApplicationWindow {
                     Button {
                         id: fieldButton
                         width: 44
-                        height: 44                        
+                        height: 44
 
                         onClicked: {
                             if(fieldDock.visible)
@@ -167,7 +167,7 @@ ApplicationWindow {
                         onClicked: {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
-                             else
+                            else
                                 dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true);
                         }
                     }
@@ -188,7 +188,7 @@ ApplicationWindow {
                     Button {
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png" }
 
                         onClicked: settingsForm.show();
                     }
@@ -395,13 +395,92 @@ ApplicationWindow {
         RibbonTab {
             title: qsTr("Расчётные данные")
             tabWidth: 130
-        }
 
-        RibbonTab {
-            title: qsTr("Консоль")
-            tabWidth: 100
+            RibbonGroup {
+                title: qsTr("Функции расчета")
+                width: 162
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
+                    Button {
+                        id: runButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/run-calculation-16x16.png"; }
+                    }
+
+                    Button {
+                        id: pauseButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/pause-calculation-16x16.png"; }
+                    }
+
+                    Button {
+                        id: stopButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/stop-calculation-16x16.png"; }
+                    }
+                }
+            }
+
+            RibbonGroup {
+                title: qsTr("")
+                width: 212
+
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
+                    Button {
+                        id: watcutButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/wc_eor.png"}
+                    }
+                    Button {
+                        id: flowRateButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/flow_rate.png" }
+
+                    }
+                    Button {
+                        id: volumeRateButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/volume_rate.png" }
+
+                    }
+                    Button {
+                        id: wellPressureButton
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/pavr.png" }
+                    }
+                }
+            }
+
+            RibbonGroup {
+                title: qsTr("Результаты расчета")
+                width: 200
+
+                Slider {
+                    anchors { top: parent.top; right: parent.right; left: parent.left; topMargin: parent.height / 3; rightMargin: 6; leftMargin: 6;  }
+                }
+            }
         }
     }
+
+    RibbonTab {
+        title: qsTr("Консоль")
+        tabWidth: 100
+    }
+
     ProjectData {
         id: projectData
     }
@@ -485,7 +564,7 @@ ApplicationWindow {
             dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
             titleVisible: dockTitleVisible
 
-            SWOFChartView { id: swofChart; anchors.fill: parent; }
+            SWOFChartView { id: swofChart; anchors.fill: parent; onSettingsCalled: settingsForm.show()}
         }
 
         DockControl {
@@ -569,7 +648,7 @@ ApplicationWindow {
     function createNumberArray(length)
     {
         var items = [];
-        for(var i = 0; i < length; i++) items[i] = i+1;
+        for(var i = 0; i < length; ++i) items[i] = i+1;
         return items;
     }
 
