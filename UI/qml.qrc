@@ -64,7 +64,4 @@
         <file alias="volume_rate.png">desktop/images/volume_rate.png</file>
         <file alias="wc_eor.png">desktop/images/wc_eor.png</file>
     </qresource>
-    <qresource prefix="/">
-        <file>desktop/views/test.qml</file>
-    </qresource>
 </RCC>
