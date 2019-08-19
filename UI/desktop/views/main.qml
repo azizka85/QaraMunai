@@ -488,7 +488,7 @@ ApplicationWindow {
             dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
             titleVisible: dockTitleVisible
 
-            SWOFChartView { id: swofChart; anchors.fill: parent; }
+            SWOFChartView { id: swofChart; anchors.fill: parent; onSettingsCalled:  sgofSettingsForm}
         }
 
         DockControl {

@@ -1,13 +1,38 @@
 import QtQuick 2.12
 import QtCharts 2.3
-
+import QtQuick 2.0
+import QtQuick.Controls 1.4
 Item {
+    signal settingsCalled()
     ChartView {
         id: swofChart
         title: qsTr("ОФП и КД (нефть-вода)")
         titleColor: "blue"
         titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
+        ChartView.axisX: Text {
+            id: name
+            text: qsTr("Насыщенность воды")
+        }
+
+        MouseArea{
+            anchors.fill: parent
+            acceptedButtons: Qt.LeftButton|Qt.RightButton
+            onClicked: {
+                if(mouse.button & Qt.RightButton)
+                    settingsMenu.popup()
+            }
+        }
+
+        Menu{
+            id: settingsMenu
+            Action{
+                text: qsTr("Настройка графиков")
+                onTriggered: {
+                    settingsCalled()
+                }
+            }
+        }
 
         legend {
             visible: true
@@ -16,17 +41,17 @@ Item {
 
         LineSeries {
             id: krwSWOF
-            name: qsTr("KrW(SW)")
+            name: qsTr("Krw")
         }
 
         LineSeries {
             id: kroSWOF
-            name: qsTr("KrO(SW)")
+            name: qsTr("Krow")
         }
 
         LineSeries {
             id: pcSWOF
-            name: qsTr("Pc(SW)")
+            name: qsTr("Pcow")
         }
     }
 

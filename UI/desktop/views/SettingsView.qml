@@ -4,7 +4,7 @@ import QtQuick.Controls 1.4
 
 Window{
     visible: false
-    width: 500
+    width: 506
     height: 150
     title: qsTr("Настройка графиков")
     TableView {
@@ -17,50 +17,60 @@ Window{
         TableViewColumn {
             role: "name"
             title: "Название"
+            resizable: false
             width: 60
         }
 
         TableViewColumn {
             role: "show"
             title: "Отображение"
+            resizable: false
             width: 80
         }
 
         TableViewColumn {
             role: "linecolor"
             title: "Цвет \nлинии"
+            resizable: false
             width: 60
         }
 
         TableViewColumn {
             role: "linethck"
             title: "Толщина \nлинии"
+            resizable: false
             width: 60
         }
 
         TableViewColumn {
             role: "linedash"
             title: "Тип \nлинии"
+            resizable: false
             width: 60
         }
 
         TableViewColumn {
             role: "markercolor"
             title: "Цвет \nмаркера"
+            resizable: false
             width: 60
         }
 
         TableViewColumn {
             role: "markerthck"
             title: "Толщина \nмаркера"
+            resizable: false
             width: 60
         }
 
         TableViewColumn {
             role: "markerdash"
             title: "Тип \nмаркера"
+            resizable: true
             width: 60
         }
+
+
         Item {
 
             Text {
@@ -70,7 +80,6 @@ Window{
                 anchors.verticalCenter: parent.verticalCenter
                 elide: styleData.elideMode
                 text: styleData.value !== undefined ? styleData.value : ""
-                color: styleData.textColor
                 visible: !styleData.selected
             }
             Loader {
