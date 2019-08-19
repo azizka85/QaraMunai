@@ -2,7 +2,6 @@
 #define SWOFDATA_H
 
 #include <qvariant.h>
-#include <qvariant.h>
 
 #include <model_global.h>
 

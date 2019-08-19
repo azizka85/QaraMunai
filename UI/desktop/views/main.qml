@@ -190,7 +190,7 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png" }
 
-                        onClicked: settingsForm.show();
+                        onClicked: swofSettingsForm.show();
                     }
                 }
             }
@@ -237,7 +237,7 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
 
-                        onClicked: settingsForm.show();
+                        onClicked: sgofSettingsForm.show();
                     }
                 }
             }
@@ -258,6 +258,9 @@ ApplicationWindow {
 
                         swofChart.prepare(swofList);
                         swofTable.prepare(swofList);
+
+                        swofSettingsForm.prepare(swofChart);
+                        sgofSettingsForm.prepare(sgofList);
 
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
@@ -514,7 +517,7 @@ ApplicationWindow {
         onAccepted: {
             closeProject();
             loaderDialog.open();
-            projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""))
+            projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""));
         }
     }
 
@@ -641,10 +644,13 @@ ApplicationWindow {
     }
 
     SettingsView {
-        id: settingsForm
+        id: sgofSettingsForm
         visible: false
     }
-
+    SettingsView {
+        id: swofSettingsForm
+        visible: false
+    }
     function createNumberArray(length)
     {
         var items = [];

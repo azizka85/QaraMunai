@@ -3,11 +3,10 @@ import QtCharts 2.3
 import QtQuick.Controls 1.4
 
 Item {
-    signal settingsCalled()
     ChartView {
         id: swofChart
-//        title: qsTr("ОФП и КД (нефть-вода)")
-//        titleColor: "blue"
+        title: qsTr("ОФП и КД (нефть-вода)")
+        titleColor: "blue"
         titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
 
