@@ -26,7 +26,7 @@ Item {
     TreeView {
         id: treeView
         anchors { top: addGroupButton.bottom; left:  parent.left; right: parent.right; bottom: parent.bottom;
-                  topMargin: 30;  margins: 20 }
+            topMargin: 30;  margins: 20 }
 
         TableViewColumn {
             role: "group"
@@ -49,12 +49,12 @@ Item {
         var wellsList = projectData.welspecs.getList(); // Works
         var groupList = [];
         var result = [];
-        for(let i = 0; i < wellsList.length; i++){
+        for(var i = 0; i < wellsList.length; i++){
             var group = wellsList[i].wellGroup;
             if(!groupList.includes(group)) {
                 groupList.push(group);
                 var wells = [];
-                for(let j = 0; j < wellsList.length; j++){
+                for(var j = 0; j < wellsList.length; j++){
                     var res = wellsList[j].wellGroup === group;
                     if(res){
                         wells.push(wellsList[j].wellName);
