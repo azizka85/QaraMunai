@@ -4,6 +4,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
+import "."
 
 ApplicationWindow {
 
@@ -470,9 +471,44 @@ ApplicationWindow {
                 width: 200
 
                 Slider {
+                    id: slider
                     anchors { top: parent.top; right: parent.right; left: parent.left; topMargin: parent.height / 3; rightMargin: 6; leftMargin: 6;  }
-
+                    stepSize: 0;
                 }
+                StartPauseButtonsGroup {
+                    anchors { top: slider.bottom; horizontalCenter: parent.horizontalCenter; topMargin: 6 }
+                }
+
+//                Row {
+//                    anchors { top: slider.bottom; left: parent.left; topMargin: 6; verticalCenter: parent.verticalCenter }
+//                    spacing: 6
+
+//                    Button {
+//                        id: moveFirstButton
+//                        width: icon.width
+//                        height: icon.height
+//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_first_8x8.png" }
+//                    }
+//                    Button {
+//                        id: movePreviousButton
+//                        width: icon.width
+//                        height: icon.height
+//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_previous_8x8.png" }
+//                    }
+//                    Button {
+//                        id: toNextButton
+//                        width: icon.width
+//                        height: icon.height
+//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_next_8x8.png" }
+//                    }
+//                    Button {
+//                        id: toLastButton
+//                        width: icon.width
+//                        height: icon.height
+//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_last_8x8.png" }
+//                    }
+//                }
+
 
             }
         }
