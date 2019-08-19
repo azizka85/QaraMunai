@@ -51,4 +51,9 @@ Item {
             pcSGOF.append(list[i].sg, list[i].pc);
         }
     }
+
+    function getSeries()
+    {
+        return [krgSGOF, kroSGOF, pcSGOF];
+    }
 }

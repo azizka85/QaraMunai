@@ -10,10 +10,7 @@ Item {
         titleColor: "blue"
         titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
-        ChartView.axisX: Text {
-            id: name
-            text: qsTr("Насыщенность воды")
-        }
+
 
         MouseArea{
             anchors.fill: parent

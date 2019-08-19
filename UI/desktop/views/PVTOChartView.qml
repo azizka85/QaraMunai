@@ -14,20 +14,28 @@ Item {
             visible: true
             alignment: Qt.AlignBottom
         }
+        ValueAxis {
+             id: axisY
+             min: 14
+             max: 5000
+             tickCount: 6
 
+         }
         LineSeries {
+            axisY: axisY
             id: poPVTO
-            name: qsTr("PO(RS)")
+            name: qsTr("PO")
         }
 
         LineSeries {
+
             id: boPVTO
-            name: qsTr("BO(RS)")
+            name: qsTr("BO")
         }
 
         LineSeries {
             id: moPVTO
-            name: qsTr("MO(RS)")
+            name: qsTr("MO")
         }
     }
 

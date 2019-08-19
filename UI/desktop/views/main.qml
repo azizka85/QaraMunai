@@ -190,7 +190,7 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
 
-                        onClicked: swofSettingsForm.show();
+                        onClicked: settingsForm.show();
                     }
                 }
             }
@@ -237,7 +237,10 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
 
-                        onClicked: sgofSettingsForm.show();
+                        onClicked: {
+                            settingsForm.prepare(sgofChart.getSeries());
+                            settingsForm.show();
+                        }
                     }
                 }
             }
@@ -259,8 +262,8 @@ ApplicationWindow {
                         swofChart.prepare(swofList);
                         swofTable.prepare(swofList);
 
-                        swofSettingsForm.prepare(swofChart);
-                        sgofSettingsForm.prepare(sgofList);
+                        settingsForm.prepare(swofChart);
+                        settingsForm.prepare(sgofList);
 
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
@@ -488,7 +491,7 @@ ApplicationWindow {
             dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
             titleVisible: dockTitleVisible
 
-            SWOFChartView { id: swofChart; anchors.fill: parent; onSettingsCalled:  sgofSettingsForm}
+            SWOFChartView { id: swofChart; anchors.fill: parent; onSettingsCalled:  settingsForm}
         }
 
         DockControl {
@@ -565,13 +568,10 @@ ApplicationWindow {
     }
 
     SettingsView {
-        id: sgofSettingsForm
+        id: settingsForm
         visible: false
     }
-    SettingsView {
-        id: swofSettingsForm
-        visible: false
-    }
+
     function createNumberArray(length)
     {
         var items = [];
