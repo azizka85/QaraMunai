@@ -62,7 +62,7 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(COMPDATEntity* compdat READ COMPDAT)
     Q_PROPERTY(WCONPRODEntity* wconprod READ WCONPROD)
     Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)
-    Q_PROPERTY(QVariantList* datelist READ DATELIST)
+    Q_PROPERTY(QVariantList dates READ DATES)
 
 public:
     explicit ProjectData(QObject *parent = nullptr);
@@ -86,10 +86,6 @@ public:
     int Ny() const;
     int Nz() const;
 
-    Q_INVOKABLE double dx(int i, int j, int k);
-    Q_INVOKABLE double dy(int i, int j, int k);
-    Q_INVOKABLE double dz(int i, int j, int k);
-
     StratumData &Stratum();
 
     TABDIMSEntity* TABDIMS();
@@ -106,7 +102,7 @@ public:
     COMPDATEntity *COMPDAT();
     WCONPRODEntity *WCONPROD();
     WCONINJEEntity *WCONINJE();
-    QVariantList *DATELIST();
+    QVariantList DATES();
 
     void SetIsLoaded(const bool& isLoaded);
     void SetTitle(const QString& title);
@@ -162,7 +158,6 @@ private:
     COMPDATEntity *compdat;
     WCONPRODEntity *wconprod;
     WCONINJEEntity *wconinje;
-    QList<QDateTime> *datelist;
 };
 
 }}}}

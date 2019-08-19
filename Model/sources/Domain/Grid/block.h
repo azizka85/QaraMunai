@@ -16,7 +16,7 @@ namespace Model {
 namespace Domain {
 namespace Grid {
 
-class Block
+class MODELSHARED_EXPORT Block
 {
 public:
     Block();

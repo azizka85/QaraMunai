@@ -92,17 +92,17 @@ Item {
 
                 LineSeries {
                     id: pgPVTG
-                    name: qsTr("PG")
+                    name: qsTr("PG(RV)")
                 }
 
                 LineSeries {
                     id: bgPVTG
-                    name: qsTr("BG")
+                    name: qsTr("BG(RV)")
                 }
 
                 LineSeries {
                     id: mgPVTG
-                    name: qsTr("MG")
+                    name: qsTr("MG(RV)")
                 }
             }
         }
@@ -197,10 +197,10 @@ Item {
         mgPVTG.clear();
 
         for(var i = 0; i < list.length; i++)
-        {
-            pgPVTG.append(list[i].sg, list[i].pg);
-            bgPVTG.append(list[i].sg, list[i].bg);
-            mgPVTG.append(list[i].sg, list[i].mg);
+        {            
+            pgPVTG.append(list[i].rv, list[i].pg);
+            bgPVTG.append(list[i].rv, list[i].bg);
+            mgPVTG.append(list[i].rv, list[i].mg);
         }
     }
 }

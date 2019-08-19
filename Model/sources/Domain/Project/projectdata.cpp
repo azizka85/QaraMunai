@@ -77,30 +77,6 @@ int ProjectData::Nz() const
     return nz;
 }
 
-double ProjectData::dx(int i, int j, int k)
-{
-    if(stratum.DX().Count() > 0)
-        return stratum.DX()(i, j, k).toDouble();
-    else
-        return stratum.DXV()(i).toDouble();
-}
-
-double ProjectData::dy(int i, int j, int k)
-{
-    if(stratum.DY().Count() > 0)
-        return stratum.DY()(i, j, k).toDouble();
-    else
-        return stratum.DYV()(j).toDouble();
-}
-
-double ProjectData::dz(int i, int j, int k)
-{
-    if(stratum.DZ().Count() > 0)
-        return stratum.DZ()(i, j, k).toDouble();
-    else
-        return stratum.DZV()(k).toDouble();
-}
-
 
 StratumData &ProjectData::Stratum()
 {
@@ -167,13 +143,13 @@ WCONINJEEntity *ProjectData::WCONINJE()
     return wconinje;
 }
 
-QVariantList *ProjectData::DATELIST()
+QVariantList ProjectData::DATES()
 {
     QList<QDateTime> list = stratum.DATES();
-    QVariantList *result = new QVariantList();
-    for (int i = 0; i < list.length(); i++) {
-        result->append((list[i]));
-    }
+    QVariantList result;
+
+    for (int i = 0; i < list.length(); i++) result.append(list[i].toString("dd.MM.yyyy"));
+
     return result;
 }
 

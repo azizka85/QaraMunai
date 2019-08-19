@@ -268,6 +268,8 @@ void EclipseFileReader::ReadSTART(ProjectData *data, QTextStream &sr)
 
     data->SetStartDate(date);
 
+    data->Stratum().DATES().append(date);
+
     currentDate = date;
 }
 
@@ -1405,7 +1407,7 @@ void EclipseFileReader::ReadWCONPROD(ProjectData *data, QTextStream &sr)
 
     while (true)
     {
-        QStringList str = ReadFileHelper::ParseParams(sr, 9, 0);
+        QStringList str = ReadFileHelper::ParseParams(sr, 0, false);
         if (str.length() == 0) break;
 
         WCONPRODData wconprod;
@@ -1531,7 +1533,7 @@ void EclipseFileReader::ReadWCONINJH(ProjectData *data, QTextStream &sr)
 
     while (true)
     {
-        QStringList str = ReadFileHelper::ParseParams(sr, 5, 0);
+        QStringList str = ReadFileHelper::ParseParams(sr, 0, false);
         if (str.length() == 0) break;
 
         WCONINJHData wconinjh;
@@ -1556,7 +1558,7 @@ void EclipseFileReader::ReadWELTARG(ProjectData *data, QTextStream &sr)
 
     while (true)
     {
-        QStringList str = ReadFileHelper::ParseParams(sr, 5, 0);
+        QStringList str = ReadFileHelper::ParseParams(sr, 0, false);
         if (str.length() == 0) break;
 
         WELTARGData weltarg;

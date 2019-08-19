@@ -6,17 +6,7 @@ Item {
     property string title: "Title"
 
     id: ribbonGroup
-    width: {
-        let a = 0;
-        console.log(contents.length);
-        console.log(contents);
-        for(let i = 0; i < content.children[0].children.length; i++){
-            a+=content.children[0].children[i].width + 6;
-            console.log("width changed " + a);
-        }
-        console.log("width changed " + (a+12));
-        return a + 12;
-    }
+    width: 106
     height: parent.height
 
     Rectangle {
