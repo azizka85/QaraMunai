@@ -2,7 +2,6 @@ import QtQuick 2.12
 import QtCharts 2.3
 
 Item {
-
     ChartView {
         id: swofChart
         title: qsTr("ОФП и КД (нефть-вода)")
