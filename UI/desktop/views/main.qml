@@ -237,7 +237,10 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
 
-                        onClicked: sgofSettingsForm.show();
+                        onClicked: {
+                            sgofSettingsForm.prepare(sgofChart);
+                            sgofSettingsForm.show();
+                        }
                     }
                 }
             }

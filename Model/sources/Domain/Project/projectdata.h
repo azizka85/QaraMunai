@@ -50,6 +50,7 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(int nx READ Nx WRITE SetNx NOTIFY NxChanged)
     Q_PROPERTY(int ny READ Ny WRITE SetNy NOTIFY NyChanged)
     Q_PROPERTY(int nz READ Nz WRITE SetNz NOTIFY NzChanged)
+    Q_PROPERTY(QVariantList dates READ DATES)
     Q_PROPERTY(TABDIMSEntity* tabDIMS READ TABDIMS)
     Q_PROPERTY(EQLDIMSEntity* eqlDIMS READ EQLDIMS)
     Q_PROPERTY(ENDSCALEEntity* endSCALE READ ENDSCALE)
@@ -61,8 +62,7 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(WELSPECSEntity* welspecs READ WELSPECS)
     Q_PROPERTY(COMPDATEntity* compdat READ COMPDAT)
     Q_PROPERTY(WCONPRODEntity* wconprod READ WCONPROD)
-    Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)
-    Q_PROPERTY(QVariantList dates READ DATES)
+    Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)    
 
 public:
     explicit ProjectData(QObject *parent = nullptr);
@@ -86,6 +86,8 @@ public:
     int Ny() const;
     int Nz() const;
 
+    QVariantList DATES();
+
     Q_INVOKABLE double dx(int i, int j, int k);
     Q_INVOKABLE double dy(int i, int j, int k);
     Q_INVOKABLE double dz(int i, int j, int k);
@@ -105,8 +107,7 @@ public:
     WELSPECSEntity *WELSPECS();
     COMPDATEntity *COMPDAT();
     WCONPRODEntity *WCONPROD();
-    WCONINJEEntity *WCONINJE();
-    QVariantList DATES();
+    WCONINJEEntity *WCONINJE();    
 
     void SetIsLoaded(const bool& isLoaded);
     void SetTitle(const QString& title);

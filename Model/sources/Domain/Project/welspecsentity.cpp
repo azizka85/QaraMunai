@@ -23,7 +23,7 @@ bool WELSPECSEntity::exist()
     return false;
 }
 
-QVariantList WELSPECSEntity::getList(QDateTime date)
+QVariantList WELSPECSEntity::getList(QVariant date)
 {
     QVariantList welspecsList;
 

@@ -25,7 +25,7 @@ public:
     explicit WELSPECSEntity(QObject *parent = nullptr);
 
     Q_INVOKABLE bool exist();
-    Q_INVOKABLE QVariantList getList(QDateTime date);
+    Q_INVOKABLE QVariantList getList(QVariant date);
 
     QList<WELSPECSData> WELSPECSList(QVariant date);
 };

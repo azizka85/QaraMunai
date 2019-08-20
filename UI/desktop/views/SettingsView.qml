@@ -7,13 +7,12 @@ Window{
     width: 500
     height: 150
     title: qsTr("Настройка графиков")
+
     TableView {
         id: settings
         anchors.fill: parent
         model:largeModel
-        itemDelegate: {
-            return editableDelegate;
-        }
+
         TableViewColumn {
             role: "name"
             title: "Название"
@@ -61,102 +60,15 @@ Window{
             title: "Тип \nмаркера"
             width: 60
         }
-        Item {
 
-            Text {
-                width: parent.width
-                anchors.margins: 4
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                elide: styleData.elideMode
-                text: styleData.value !== undefined ? styleData.value : ""
-                color: styleData.textColor
-                visible: !styleData.selected
-            }
-            Loader {
-                id: loaderEditor
-                anchors.fill: parent
-                anchors.margins: 4
-                Connections {
-                    target: loaderEditor.item
-                    onAccepted: {
-                        if (typeof styleData.value === 'number')
-                            largeModel.setProperty(styleData.row, styleData.role, Number(parseFloat(loaderEditor.item.text).toFixed(0)))
-                        else
-                            largeModel.setProperty(styleData.row, styleData.role, loaderEditor.item.text)
-                    }
-                }
-                sourceComponent: styleData.selected ? editor : null
-                Component {
-                    id: editor
-                    TextInput {
-                        id: textinput
-                        color: styleData.textColor
-                        text: styleData.value
-                        MouseArea {
-                            id: mouseArea
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onClicked: textinput.forceActiveFocus()
-                        }
-                    }
-                }
-            }
-        }
     }
-    Item {
-        anchors.fill: parent
 
-        Component {
-            id: editableDelegate
-            Item {
-
-                Text {
-                    width: parent.width
-                    anchors.margins: 4
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    elide: styleData.elideMode
-                    text: styleData.value !== undefined ? styleData.value : ""
-                    color: styleData.textColor
-                    visible: !styleData.selected
-                }
-                Loader {
-                    id: loaderEditor
-                    anchors.fill: parent
-                    anchors.margins: 4
-                    Connections {
-                        target: loaderEditor.item
-                        onEditingFinished : {
-                            if (typeof styleData.value === 'number')
-                                largeModel.setProperty(styleData.row, styleData.role, Number(parseFloat(loaderEditor.item.text).toFixed(0)))
-                            else
-                                largeModel.setProperty(styleData.row, styleData.role, loaderEditor.item.text)
-                        }
-                    }
-                    sourceComponent: styleData.selected ? editor : null
-                    Component {
-                        id: editor
-                        TextInput {
-                            id: textinput
-                            color: styleData.textColor
-                            text: styleData.value
-                            MouseArea {
-                                id: mouseArea
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                onClicked: textinput.forceActiveFocus()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
     ListModel {
         id: largeModel
     }
-    function prepare(chart){
+
+    function prepare(chart)
+    {
         for (var i=0 ; i< chart.count; ++i)
             largeModel.append({"name": chart.series(i).name
                               ,"show": true
