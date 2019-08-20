@@ -1,10 +1,10 @@
-import QtQuick 2.12
+import QtQuick 2.13
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
-import "."
+import QtQuick.Controls.Styles 1.4
 
 ApplicationWindow {
 
@@ -19,11 +19,9 @@ ApplicationWindow {
 
     Ribbon {
         id: ribbon
-
         RibbonTab {
             title: qsTr("Файл")
             tabWidth: 60
-
             RibbonGroup {
                 title: qsTr("Файл")
                 width: 112
@@ -473,43 +471,78 @@ ApplicationWindow {
                 Slider {
                     id: slider
                     anchors { top: parent.top; right: parent.right; left: parent.left; topMargin: parent.height / 3; rightMargin: 6; leftMargin: 6;  }
-                    stepSize: 0;
+                    stepSize: 1;
+                    from: 0
+                    to: 100
                 }
-                StartPauseButtonsGroup {
-                    anchors { top: slider.bottom; horizontalCenter: parent.horizontalCenter; topMargin: 6 }
+
+                Row {
+                    property Button movePreviousButton: movePreviousButton
+                    property Button moveNextButton: moveNextButton
+
+                    id: buttonsRow
+                    anchors { top: slider.bottom; topMargin: 6; left: parent.left; leftMargin: 6 }
+                    spacing: 0
+
+                    Button {
+                        id: moveFirstButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_first.png" }
+                        onClicked: {
+                            slider.value = slider.from;
+                            movePreviousButton.checked = false;
+                            moveNextButton.checked = false;
+                        }
+
+                    }
+                    Button {
+                        id: movePreviousButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_previous.png" }
+                        checkable: true
+
+                        onCheckedChanged: {
+                            if(checked) {
+                                moveNextButton.checked = false;
+                            }
+                        }
+                    }
+                    Button {
+                        id: moveNextButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_next.png" }
+                        checkable: true
+                        onCheckedChanged:{
+                            if(checked){
+                                movePreviousButton.checked = false;
+                            }
+                        }
+                    }
+                    Button {
+                        id: moveLastButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_last.png" }
+                        onClicked: {
+                            slider.value = slider.to;
+                            movePreviousButton.checked = false;
+                            moveNextButton.checked = false;
+                        }
+                    }
                 }
 
-//                Row {
-//                    anchors { top: slider.bottom; left: parent.left; topMargin: 6; verticalCenter: parent.verticalCenter }
-//                    spacing: 6
-
-//                    Button {
-//                        id: moveFirstButton
-//                        width: icon.width
-//                        height: icon.height
-//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_first_8x8.png" }
-//                    }
-//                    Button {
-//                        id: movePreviousButton
-//                        width: icon.width
-//                        height: icon.height
-//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_previous_8x8.png" }
-//                    }
-//                    Button {
-//                        id: toNextButton
-//                        width: icon.width
-//                        height: icon.height
-//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_next_8x8.png" }
-//                    }
-//                    Button {
-//                        id: toLastButton
-//                        width: icon.width
-//                        height: icon.height
-//                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_last_8x8.png" }
-//                    }
-//                }
-
-
+                SpinBox {
+                    id: index
+                    anchors {   left: buttonsRow.right; right: parent.right; top: slider.bottom;
+                        leftMargin: 6; rightMargin: 6; topMargin: 6  }
+                    from: slider.from
+                    to: slider.to
+                    value: slider.value
+                    onValueChanged: slider.value = value
+                }
             }
         }
     }
