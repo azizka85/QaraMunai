@@ -1586,6 +1586,8 @@ void EclipseFileReader::ReadINCLUDE(ProjectData *data, QTextStream &sr, QString 
 
 void EclipseFileReader::ReadEQUALS(ProjectData *data, QTextStream &sr)
 {
+    Box3D rangeBox = box;
+
     while (true)
     {
         QStringList str = ReadFileHelper::ParseParams(sr, 0, true);
@@ -1594,16 +1596,18 @@ void EclipseFileReader::ReadEQUALS(ProjectData *data, QTextStream &sr)
         EQUALSData equals;
 
         equals.SetArrayName(str[0].replace("'", ""));
-        equals.SetValue(str[1].toDouble());
+        equals.SetValue(str[1].toDouble());        
 
-        equals.Box().SetI1(str.length() > 3 && str[2] != "1*" ? str[2].toInt() - 1 : box.I1());
-        equals.Box().SetI2(str.length() > 4 && str[3] != "1*" ? str[3].toInt() - 1 : box.I2());
+        equals.Box().SetI1(str.length() > 3 && str[2] != "1*" ? str[2].toInt() - 1 : rangeBox.I1());
+        equals.Box().SetI2(str.length() > 4 && str[3] != "1*" ? str[3].toInt() - 1 : rangeBox.I2());
 
-        equals.Box().SetJ1(str.length() > 5 && str[4] != "1*" ? str[4].toInt() - 1 : box.J1());
-        equals.Box().SetJ2(str.length() > 6 && str[5] != "1*" ? str[5].toInt() - 1 : box.J2());
+        equals.Box().SetJ1(str.length() > 5 && str[4] != "1*" ? str[4].toInt() - 1 : rangeBox.J1());
+        equals.Box().SetJ2(str.length() > 6 && str[5] != "1*" ? str[5].toInt() - 1 : rangeBox.J2());
 
-        equals.Box().SetK1(str.length() > 7 && str[6] != "1*" ? str[6].toInt() - 1 : box.K1());
-        equals.Box().SetK2(str.length() > 8 && str[7] != "1*" ? str[7].toInt() - 1 : box.K2());
+        equals.Box().SetK1(str.length() > 7 && str[6] != "1*" ? str[6].toInt() - 1 : rangeBox.K1());
+        equals.Box().SetK2(str.length() > 8 && str[7] != "1*" ? str[7].toInt() - 1 : rangeBox.K2());
+
+        rangeBox = equals.Box();
 
         data->Stratum().EQUALS().append(equals);
     }

@@ -48,6 +48,9 @@ SOURCES += \
     sources/Domain/Grid/box1d.cpp \
     sources/Domain/Grid/box2d.cpp \
     sources/Domain/Grid/box3d.cpp \
+    sources/Domain/Grid/line1d.cpp \
+    sources/Domain/Grid/line2d.cpp \
+    sources/Domain/Grid/line3d.cpp \
     sources/Domain/Grid/point2d.cpp \
     sources/Domain/Grid/point3d.cpp \
     sources/Domain/Project/blockpointsentity.cpp \
@@ -138,6 +141,9 @@ HEADERS += \
     sources/Domain/Grid/box1d.h \
     sources/Domain/Grid/box2d.h \
     sources/Domain/Grid/box3d.h \
+    sources/Domain/Grid/line1d.h \
+    sources/Domain/Grid/line2d.h \
+    sources/Domain/Grid/line3d.h \
     sources/Domain/Grid/point2d.h \
     sources/Domain/Grid/point3d.h \
     sources/Domain/Project/blockpointsentity.h \
