@@ -435,11 +435,11 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: watcutButton
-                        width: icon.width + 12
-                        height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/wc_eor.png"}
+
+                        title: qsTr("WatCut")
+                        iconSource: qsTr("qrc:/desktop/images/wc_eor.png")
                     }
                     Button {
                         id: flowRateButton
@@ -470,7 +470,7 @@ ApplicationWindow {
 
                 Slider {
                     id: slider
-                    anchors { top: parent.top; right: parent.right; left: parent.left; topMargin: parent.height / 3; rightMargin: 6; leftMargin: 6;  }
+                    anchors { top: parent.top; right: parent.right; left: parent.left; topMargin: parent.height / 4; rightMargin: 6; leftMargin: 6;  }
                     stepSize: 1;
                     from: 0
                     to: 100
