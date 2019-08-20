@@ -16,6 +16,10 @@ Item {
             id: wellPressureSeries
             name: qsTr("Ср. пластовое давление")
         }
+        Repeater {
+            LineSeries {
+            }
+        }
     }
 
 
