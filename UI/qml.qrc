@@ -44,7 +44,6 @@
         <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>
         <file alias="WellsListView.qml">desktop/views/WellsListView.qml</file>
-        <file alias="StartPauseButtonsGroup.qml">desktop/views/StartPauseButtonsGroup.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
