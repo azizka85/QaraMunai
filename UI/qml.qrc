@@ -44,6 +44,10 @@
         <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>
         <file alias="WellsListView.qml">desktop/views/WellsListView.qml</file>
+        <file alias="WaterCutView.qml">desktop/views/WaterCutView.qml</file>
+        <file alias="FlowRateView.qml">desktop/views/FlowRateView.qml</file>
+        <file alias="VolumeRateView.qml">desktop/views/VolumeRateView.qml</file>
+        <file alias="WellPressureView.qml">desktop/views/WellPressureView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
