@@ -8,7 +8,6 @@
 #include <endscaledata.h>
 #include <rockoptsdata.h>
 #include <tabdimsdata.h>
-#include <linearmatrix2d.h>
 #include <linearmatrix3d.h>
 #include <rsconstdata.h>
 #include <pvtodata.h>
@@ -80,7 +79,7 @@ public:
     ROCKOPTSData& ROCKOPTS();
     TABDIMSData& TABDIMS();
 
-    LinearMatrix2D& TOPS();
+    LinearMatrix3D& TOPS();
 
     LinearMatrix3D& DX();
     LinearMatrix3D& DY();
@@ -229,12 +228,7 @@ public:
 
     QList<WCONHISTData> &WCONHIST();
     QList<WCONINJHData> &WCONINJH();
-    QList<WELTARGData> &WELTARG();
-
-    QList<EQUALSData> &EQUALS();
-    QList<COPYData> &COPY();
-    QList<ADDData> &ADD();
-    QList<MULTIPLYData> &MULTIPLY();
+    QList<WELTARGData> &WELTARG();    
 
     LinearMatrix3D& DEPTH();
     LinearMatrix3D& PORV();
@@ -253,7 +247,7 @@ private:
     ROCKOPTSData rockOPTS;
     TABDIMSData tabDIMS;
 
-    LinearMatrix2D tops;
+    LinearMatrix3D tops;
 
     LinearMatrix3D dx, dy, dz;
 
@@ -350,12 +344,7 @@ private:
 
     QList<WCONHISTData> wconHIST;
     QList<WCONINJHData> wconINJH;
-    QList<WELTARGData> welTARG;
-
-    QList<EQUALSData> equals;
-    QList<COPYData> copy;
-    QList<ADDData> add;
-    QList<MULTIPLYData> multiply;
+    QList<WELTARGData> welTARG;    
 
     LinearMatrix3D depth, porv, tranX, tranY, tranZ;
 };

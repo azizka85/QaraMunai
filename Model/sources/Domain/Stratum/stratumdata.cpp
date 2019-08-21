@@ -30,7 +30,7 @@ TABDIMSData &StratumData::TABDIMS()
     return tabDIMS;
 }
 
-LinearMatrix2D &StratumData::TOPS()
+LinearMatrix3D &StratumData::TOPS()
 {
     return tops;
 }
@@ -613,26 +613,6 @@ QList<WCONINJHData> &StratumData::WCONINJH()
 QList<WELTARGData> &StratumData::WELTARG()
 {
     return welTARG;
-}
-
-QList<EQUALSData> &StratumData::EQUALS()
-{
-    return equals;
-}
-
-QList<COPYData> &StratumData::COPY()
-{
-    return copy;
-}
-
-QList<ADDData> &StratumData::ADD()
-{
-    return add;
-}
-
-QList<MULTIPLYData> &StratumData::MULTIPLY()
-{
-    return multiply;
 }
 
 LinearMatrix3D &StratumData::DEPTH()

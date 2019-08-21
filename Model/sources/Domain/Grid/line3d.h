@@ -1,6 +1,8 @@
 #ifndef LINE3D_H
 #define LINE3D_H
 
+#include <qvariant.h>
+
 #include <point3d.h>
 
 #include <model_global.h>
@@ -23,6 +25,8 @@ public:
     void SetP2(const Point3D& p2);
 
     void InitVariables();
+
+    QVariantMap toMap();
 
 private:
     Point3D p1, p2;

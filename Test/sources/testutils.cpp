@@ -4,7 +4,7 @@ TestUtils::TestUtils(QObject *parent) : QObject(parent) { }
 
 void TestUtils::TestLinearMatrix2D()
 {
-    Box2D box(0, 2, 0, 2);
+    Box3D box(0, 2, 0, 2, 0, 0);
 
     LinearMatrix2D linearMatrix2D;
 

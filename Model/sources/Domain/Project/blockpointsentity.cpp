@@ -39,11 +39,8 @@ void BlockPointsEntity::toFront()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        int nx = project->Nx();
-        int ny = project->Ny();
-
         if(project->IsLoaded() && project->Stratum().COORD().Count() > 0)
-            pointOrderStandard = CheckPointOrderStandard(project->Stratum().COORD(), project->Stratum().ZCORN(), nx, ny);
+            pointOrderStandard = project->CheckPointOrderStandard();
     }
 
     current.InitVariables();
@@ -156,8 +153,8 @@ Block &BlockPointsEntity::nextBlock()
             double dy = project->dy(i, j, k);
             double dz = project->dz(i, j, k);
 
-            if(project->Stratum().TOPS().Count() > 0) CalcBlockByBCG(project->Stratum().TOPS(), i, j, k, dx, dy, dz);
-            else if(project->Stratum().COORD().Count() > 0) CalcBlockByCPG(project->Stratum().COORD(), project->Stratum().ZCORN(), i, j, k, nx, ny);
+            if(project->Stratum().TOPS().Count() > 0) CalcBlockByBCG(project, i, j, k, dx, dy, dz);
+            else if(project->Stratum().COORD().Count() > 0) CalcBlockByCPG(project, i, j, k);
 
             cursor++;
         }
@@ -173,7 +170,7 @@ void BlockPointsEntity::initVariables()
     current.InitVariables();
 }
 
-void BlockPointsEntity::CalcBlockByBCG(LinearMatrix2D &tops, int i, int j, int k, double dx, double dy, double dz)
+void BlockPointsEntity::CalcBlockByBCG(ProjectData* project, int i, int j, int k, double dx, double dy, double dz)
 {
     double x1 = 0;
     double y1 = 0;
@@ -185,7 +182,7 @@ void BlockPointsEntity::CalcBlockByBCG(LinearMatrix2D &tops, int i, int j, int k
 
     if(k == 0)
     {
-        z1 = tops(i, j).toDouble();
+        z1 = project->tops(i, j).toDouble();
         z2 = z1 + dz;
     }
     else if(current.K() < k)
@@ -245,84 +242,7 @@ void BlockPointsEntity::CalcBlockByBCG(LinearMatrix2D &tops, int i, int j, int k
     current.P8().SetX(x2); current.P8().SetY(y2); current.P8().SetZ(z2);
 }
 
-bool BlockPointsEntity::CheckPointOrderStandard(LinearVector &coord, LinearVector &zcorn, int nx, int ny)
-{
-    Line3D coordLine;
-
-    Point3D p1, p2, p3, p4;
-
-    double d1, d2, d3, d4, d5, d6, d7, d8;
-
-    CalcBlockDepths(zcorn, 0, 0, 0, nx, ny, d1, d2, d3, d4, d5, d6, d7, d8);
-
-    CalcCoordLine(coord, 0, 0, nx, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d1, p1);
-
-    CalcCoordLine(coord, 1, 0, nx, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d2, p2);
-
-    CalcCoordLine(coord, 0, 1, nx, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d3, p3);
-
-    CalcCoordLine(coord, 1, 1, nx, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d4, p4);
-
-    return p1.X() <= p2.X() &&
-            p3.X() <= p4.X() &&
-            p1.Y() <= p3.Y() &&
-            p2.Y() <= p4.Y();
-}
-
-void BlockPointsEntity::CalcCoordLine(LinearVector &coord, int i, int j, int nx, Line3D &coordLine)
-{
-    int cur = (j*(nx + 1) + i)*6;
-
-    double x1 = coord(cur + 0).toDouble();
-    double y1 = coord(cur + 1).toDouble();
-    double z1 = coord(cur + 2).toDouble();
-
-    double x2 = coord(cur + 3).toDouble();
-    double y2 = coord(cur + 4).toDouble();
-    double z2 = coord(cur + 5).toDouble();
-
-    coordLine.P1().SetX(x1);
-    coordLine.P1().SetY(y1);
-    coordLine.P1().SetZ(z1);
-
-    coordLine.P2().SetX(x2);
-    coordLine.P2().SetY(y2);
-    coordLine.P2().SetZ(z2);
-}
-
-void BlockPointsEntity::CalcBlockDepths(LinearVector &zcorn, int i, int j, int k, int nx, int ny,
-                                        double& d1, double& d2, double& d3, double& d4, double& d5, double& d6, double& d7, double& d8)
-{
-    int cur = k*nx*ny + j*nx + 2*i;
-
-    d1 = zcorn(cur + 0).toDouble();
-    d2 = zcorn(cur + 1).toDouble();
-
-    cur = k*nx*ny + 2*j*nx + 2*i;
-
-    d3 = zcorn(cur + 0).toDouble();
-    d4 = zcorn(cur + 1).toDouble();
-
-    cur = 2*k*nx*ny + j*nx + 2*i;
-
-    d5 = zcorn(cur + 0).toDouble();
-    d6 = zcorn(cur + 1).toDouble();
-
-    cur = 2*k*nx*ny + 2*j*nx + 2*i;
-
-    d7 = zcorn(cur + 0).toDouble();
-    d8 = zcorn(cur + 1).toDouble();
-}
-
-void BlockPointsEntity::CalcBlockByCPG(LinearVector &coord, LinearVector &zcorn, int i, int j, int k, int nx, int ny)
+void BlockPointsEntity::CalcBlockByCPG(ProjectData *project, int i, int j, int k)
 {
     current.SetI(i);
     current.SetJ(j);
@@ -332,48 +252,48 @@ void BlockPointsEntity::CalcBlockByCPG(LinearVector &coord, LinearVector &zcorn,
 
     double d1, d2, d3, d4, d5, d6, d7, d8;
 
-    CalcBlockDepths(zcorn, i, j, k, nx, ny, d1, d2, d3, d4, d5, d6, d7, d8);
+    project->CalcBlockDepths(i, j, k, d1, d2, d3, d4, d5, d6, d7, d8);
 
     if(pointOrderStandard)
     {
-        CalcCoordLine(coord, i, j, nx, coordLine);
+        project->CalcCoordLine(i, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d1, current.P1());
         MathHelper::IntersectZPlane(coordLine, d5, current.P5());
 
-        CalcCoordLine(coord, i+1, j, nx, coordLine);
+        project->CalcCoordLine(i+1, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d2, current.P2());
         MathHelper::IntersectZPlane(coordLine, d6, current.P6());
 
-        CalcCoordLine(coord, i, j+1, nx, coordLine);
+        project->CalcCoordLine(i, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d3, current.P3());
         MathHelper::IntersectZPlane(coordLine, d7, current.P7());
 
-        CalcCoordLine(coord, i+1, j+1, nx, coordLine);
+        project->CalcCoordLine(i+1, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d4, current.P4());
         MathHelper::IntersectZPlane(coordLine, d8, current.P8());
     }
     else
     {
-        CalcCoordLine(coord, i, j, nx, coordLine);
+        project->CalcCoordLine(i, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d1, current.P8());
         MathHelper::IntersectZPlane(coordLine, d5, current.P4());
 
-        CalcCoordLine(coord, i+1, j, nx, coordLine);
+        project->CalcCoordLine(i+1, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d2, current.P7());
         MathHelper::IntersectZPlane(coordLine, d6, current.P3());
 
-        CalcCoordLine(coord, i, j+1, nx, coordLine);
+        project->CalcCoordLine(i, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d3, current.P6());
         MathHelper::IntersectZPlane(coordLine, d7, current.P2());
 
-        CalcCoordLine(coord, i+1, j+1, nx, coordLine);
+        project->CalcCoordLine(i+1, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d4, current.P5());
         MathHelper::IntersectZPlane(coordLine, d8, current.P1());

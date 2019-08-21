@@ -5,6 +5,7 @@
 #include <qvariant.h>
 #include <qdatetime.h>
 
+#include <line3d.h>
 #include <stratumdata.h>
 #include <tabdimsentity.h>
 #include <eqldimsentity.h>
@@ -13,16 +14,26 @@
 
 #include <swofentity.h>
 #include <sgofentity.h>
+
 #include <pvtoentity.h>
 #include <pvtgentity.h>
+
 #include <welspecsentity.h>
 #include <compdatentity.h>
 #include <wconprodentity.h>
 #include <wconinjeentity.h>
 
+#include <copyentity.h>
+#include <addentity.h>
+#include <equalsentity.h>
+#include <multiplyentity.h>
+
+#include <mathhelper.h>
+
 #include <model_global.h>
 
 using namespace QaraMunai::Model::Domain::Stratum;
+using namespace QaraMunai::Model::Helpers;
 
 namespace QaraMunai {
 namespace Model {
@@ -39,6 +50,7 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_ENUMS(WellStatusType)
     Q_ENUMS(WellControlMode)
     Q_ENUMS(FluidType)
+    Q_ENUMS(ArrayNames)
 
     Q_PROPERTY(bool isLoaded READ IsLoaded WRITE SetIsLoaded NOTIFY IsLoadedChanged)
     Q_PROPERTY(QString title READ Title WRITE SetTitle NOTIFY TitleChanged)
@@ -62,7 +74,11 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(WELSPECSEntity* welspecs READ WELSPECS)
     Q_PROPERTY(COMPDATEntity* compdat READ COMPDAT)
     Q_PROPERTY(WCONPRODEntity* wconprod READ WCONPROD)
-    Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)    
+    Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)
+    Q_PROPERTY(COPYEntity* copy READ COPY)
+    Q_PROPERTY(ADDEntity* add READ ADD)
+    Q_PROPERTY(EQUALSEntity* equals READ EQUALS)
+    Q_PROPERTY(MULTIPLYEntity *multiply READ MULTIPLY)
 
 public:
     explicit ProjectData(QObject *parent = nullptr);
@@ -73,6 +89,10 @@ public:
     enum WellStatusType { AUTO = 0, OPEN = 1, STOP = 2, SHUT = 3 };
     enum WellControlMode { ORAT = 0, WRAT = 1, GRAT = 2, LRAT = 3, RESV = 4, BHP = 5, RATE = 6 };
     enum FluidType { WATER = 0, GAS = 1, OIL = 2 };
+    enum ArrayNames { TOPS, DX, DY, DZ, ACTNUM, MULTPV, PERMX, PERMY, PERMZ, PORO, NTG, DZNET, MULTX, MULTY, MULTZ, MULTXm, MULTYm, MULTZm,
+                      MINPVV, SWATINIT, SWCR, ISWCR, SWL, ISWL, SWLPC, ISWLPC, SWU, ISWU, SGCR, ISGCR, SGL, ISGL, SGLPC, ISGLPC, PCG, IPCG,
+                      PCW, IPCW, KRO, IKRO, KRORW, IKRORW, KRORG, IKRORG, KRW, IKRW, KRWR, IKRWR, KRG, IKRG, KRGR, IKRGR, PVTNUM, SATNUM,
+                      EQLNUM, ENDNUM, PRESSURE, SWAT, SGAS, PBUB, RS, DEPTH, PORV, TRANX, TRANY, TRANZ };
 
     bool IsLoaded() const;
     QString Title() const;
@@ -88,9 +108,21 @@ public:
 
     QVariantList DATES();
 
-    Q_INVOKABLE double dx(int i, int j, int k);
-    Q_INVOKABLE double dy(int i, int j, int k);
-    Q_INVOKABLE double dz(int i, int j, int k);
+    Q_INVOKABLE QVariant dx(int i, int j, int k);
+    Q_INVOKABLE QVariant dy(int i, int j, int k);
+    Q_INVOKABLE QVariant dz(int i, int j, int k);
+
+    Q_INVOKABLE QVariant tops(int i, int j);
+
+    Q_INVOKABLE QVariantMap coordLine(int i, int j);
+    Q_INVOKABLE QVariantMap blockDepths(int i, int j, int k, int nx, int ny);
+
+    bool CalcCoordLine(int i, int j, Line3D& coordLine);
+    bool CalcBlockDepths(int i, int j, int k, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
+    bool CheckPointOrderStandard();
+
+    LinearMatrix3D& GetArray(ArrayNames name);
+    LinearMatrix3D& GetArrayByName(QString arrayName);
 
     StratumData &Stratum();
 
@@ -102,12 +134,19 @@ public:
 
     SWOFEntity *SWOF();
     SGOFEntity *SGOF();
+
     PVTOEntity *PVTO();
     PVTGEntity *PVTG();
+
     WELSPECSEntity *WELSPECS();
     COMPDATEntity *COMPDAT();
     WCONPRODEntity *WCONPROD();
-    WCONINJEEntity *WCONINJE();    
+    WCONINJEEntity *WCONINJE();
+
+    COPYEntity *COPY();
+    ADDEntity *ADD();
+    EQUALSEntity *EQUALS();
+    MULTIPLYEntity *MULTIPLY();
 
     void SetIsLoaded(const bool& isLoaded);
     void SetTitle(const QString& title);
@@ -159,10 +198,16 @@ private:
 
     PVTOEntity *pvto;
     PVTGEntity *pvtg;
+
     WELSPECSEntity *welspecs;
     COMPDATEntity *compdat;
     WCONPRODEntity *wconprod;
     WCONINJEEntity *wconinje;
+
+    COPYEntity *copy;
+    ADDEntity *add;
+    EQUALSEntity *equals;
+    MULTIPLYEntity *multiply;
 };
 
 }}}}

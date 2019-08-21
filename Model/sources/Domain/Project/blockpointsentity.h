@@ -7,7 +7,6 @@
 #include <block.h>
 #include <line3d.h>
 #include <linearvector.h>
-#include <linearmatrix2d.h>
 #include <mathhelper.h>
 #include <unithelper.h>
 
@@ -47,13 +46,8 @@ private:
     Block current;
     bool pointOrderStandard;
 
-    void CalcBlockByBCG(LinearMatrix2D &tops, int i, int j, int k, double dx, double dy, double dz);
-
-    bool CheckPointOrderStandard(LinearVector &coord, LinearVector &zcorn, int nx, int ny);
-    void CalcCoordLine(LinearVector &coord, int i, int j, int nx, Line3D& coordLine);
-    void CalcBlockDepths(LinearVector &zcorn, int i, int j, int k, int nx, int ny,
-                         double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
-    void CalcBlockByCPG(LinearVector &coord, LinearVector &zcorn, int i, int j, int k, int nx, int ny);
+    void CalcBlockByBCG(ProjectData* project, int i, int j, int k, double dx, double dy, double dz);
+    void CalcBlockByCPG(ProjectData* project, int i, int j, int k);
 };
 
 }}}}

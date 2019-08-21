@@ -42,4 +42,14 @@ void Line3D::InitVariables()
     p2.InitVariables();
 }
 
+QVariantMap Line3D::toMap()
+{
+    QVariantMap map;
+
+    map["p1"] = p1.toMap();
+    map["p2"] = p2.toMap();
+
+    return map;
+}
+
 }}}}

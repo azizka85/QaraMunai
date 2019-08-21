@@ -45,17 +45,16 @@ SOURCES += \
     sources/DAO/asyncfilereader.cpp \
     sources/DAO/eclipsefilereader.cpp \
     sources/Domain/Grid/block.cpp \
-    sources/Domain/Grid/box1d.cpp \
-    sources/Domain/Grid/box2d.cpp \
     sources/Domain/Grid/box3d.cpp \
-    sources/Domain/Grid/line1d.cpp \
-    sources/Domain/Grid/line2d.cpp \
     sources/Domain/Grid/line3d.cpp \
-    sources/Domain/Grid/point2d.cpp \
     sources/Domain/Grid/point3d.cpp \
+    sources/Domain/Project/addentity.cpp \
     sources/Domain/Project/blockpointsentity.cpp \
     sources/Domain/Project/compdatentity.cpp \
+    sources/Domain/Project/copyentity.cpp \
     sources/Domain/Project/defaultvalues.cpp \
+    sources/Domain/Project/equalsentity.cpp \
+    sources/Domain/Project/multiplyentity.cpp \
     sources/Domain/Project/projectdata.cpp \
     sources/Domain/Project/pvtgentity.cpp \
     sources/Domain/Project/pvtoentity.cpp \
@@ -118,7 +117,6 @@ SOURCES += \
     sources/Helpers/Eclipse/readfilehelper.cpp \
     sources/Helpers/mathhelper.cpp \
     sources/Helpers/unithelper.cpp \
-    sources/Utils/linearmatrix2d.cpp \
     sources/Utils/linearmatrix3d.cpp \
     sources/Utils/linearvector.cpp \
     sources/Utils/subarray.cpp \
@@ -138,17 +136,16 @@ HEADERS += \
     sources/DAO/idatafilereader.h \
     sources/DAO/idatafilewriter.h \
     sources/Domain/Grid/block.h \
-    sources/Domain/Grid/box1d.h \
-    sources/Domain/Grid/box2d.h \
     sources/Domain/Grid/box3d.h \
-    sources/Domain/Grid/line1d.h \
-    sources/Domain/Grid/line2d.h \
     sources/Domain/Grid/line3d.h \
-    sources/Domain/Grid/point2d.h \
     sources/Domain/Grid/point3d.h \
+    sources/Domain/Project/addentity.h \
     sources/Domain/Project/blockpointsentity.h \
     sources/Domain/Project/compdatentity.h \
+    sources/Domain/Project/copyentity.h \
     sources/Domain/Project/defaultvalues.h \
+    sources/Domain/Project/equalsentity.h \
+    sources/Domain/Project/multiplyentity.h \
     sources/Domain/Project/projectdata.h \
     sources/Domain/Project/pvtgentity.h \
     sources/Domain/Project/pvtoentity.h \
@@ -211,7 +208,6 @@ HEADERS += \
     sources/Helpers/Eclipse/readfilehelper.h \
     sources/Helpers/mathhelper.h \
     sources/Helpers/unithelper.h \
-    sources/Utils/linearmatrix2d.h \
     sources/Utils/linearmatrix3d.h \
     sources/Utils/linearvector.h \
     sources/Utils/subarray.h \

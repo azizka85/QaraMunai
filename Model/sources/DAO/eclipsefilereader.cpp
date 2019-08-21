@@ -78,7 +78,7 @@ void EclipseFileReader::ReadFile(ProjectData *data, const QString &filePath, QMe
             case GRID: break;
             case INIT: break;
             case GRIDFILE: ReadFileHelper::IgnoreParams(sr); break;
-            case TOPS: ReadFileHelper::Read2DArray(sr, box, data->Stratum().TOPS()); break;
+            case TOPS: ReadFileHelper::Read3DArray(sr, box, data->Stratum().TOPS()); break;
             case DX: ReadFileHelper::Read3DArray(sr, box, data->Stratum().DX()); break;
             case DY: ReadFileHelper::Read3DArray(sr, box, data->Stratum().DY()); break;
             case DZ: ReadFileHelper::Read3DArray(sr, box, data->Stratum().DZ()); break;
@@ -1658,7 +1658,7 @@ void EclipseFileReader::ReadCOPY(ProjectData *data, QTextStream &sr)
         copy.Box().SetK1(str.length() > 7 && str[6] != "1*" ? str[6].toInt() - 1 : box.K1());
         copy.Box().SetK2(str.length() > 8 && str[7] != "1*" ? str[7].toInt() - 1 : box.K2());
 
-        data->Stratum().COPY().append(copy);
+        data->COPY()->AddCopy(copy);
     }
 }
 

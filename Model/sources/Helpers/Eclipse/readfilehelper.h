@@ -7,11 +7,8 @@
 #include <qtextstream.h>
 #include <qdatetime.h>
 
-#include <box1d.h>
-#include <box2d.h>
 #include <box3d.h>
 #include <linearvector.h>
-#include <linearmatrix2d.h>
 #include <linearmatrix3d.h>
 
 #include <model_global.h>
@@ -37,8 +34,7 @@ public:
     static QStringList GetNextLineWords(QTextStream &stream);
     static bool IsYes(QString &str);
     static void FillVector(QTextStream &sr, LinearVector &linearVector);
-    static void ReadVector(QTextStream &sr, const Box1D &box, LinearVector &linearVector);
-    static void Read2DArray(QTextStream &sr, const Box2D &box, LinearMatrix2D &linearMatrix2D);
+    static void ReadVector(QTextStream &sr, const Box3D &box, LinearVector &linearVector);
     static void Read3DArray(QTextStream &sr, const Box3D &box, LinearMatrix3D &linearMatrix3D);
 };
 
