@@ -162,7 +162,7 @@ ApplicationWindow {
                         id: swofButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil_water.png"; }
 
                         onClicked: {
                             if(swofChartDock.visible)
@@ -175,7 +175,7 @@ ApplicationWindow {
                     Button {
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
 
                         onClicked: {
                             if(swofTableDock.visible)
@@ -190,7 +190,10 @@ ApplicationWindow {
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
 
-                        onClicked: settingsForm.show();
+                        onClicked: {
+                            settingsForm.prepare(swofChart.getSeries());
+                            settingsForm.show();
+                        }
                     }
                 }
             }
@@ -208,7 +211,7 @@ ApplicationWindow {
                         id: sgofButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas_oil.png"; }
 
                         onClicked: {
                             if(sgofChartDock.visible)
@@ -222,7 +225,7 @@ ApplicationWindow {
                         id: sgofTableButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas_oil.png"; }
 
                         onClicked: {
                             if(sgofTableDock.visible)
@@ -290,7 +293,7 @@ ApplicationWindow {
                         id: pvtoButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil.png"; }
 
                         onClicked: {
                             if(pvtoChartDock.visible)
@@ -304,7 +307,7 @@ ApplicationWindow {
                         id: pvtoTableButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil.png"; }
 
                         onClicked: {
                             if(pvtoTableDock.visible)
@@ -338,7 +341,7 @@ ApplicationWindow {
                         id: pvtgButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
 
                         onClicked: {
                             if(pvtgChartDock.visible)
@@ -352,7 +355,7 @@ ApplicationWindow {
                         id: pvtgTableButton
                         width: icon.width + 12
                         height: icon.height + 12
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
 
                         onClicked: {
                             if(pvtgTableDock.visible)
@@ -491,7 +494,7 @@ ApplicationWindow {
             dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
             titleVisible: dockTitleVisible
 
-            SWOFChartView { id: swofChart; anchors.fill: parent; onSettingsCalled:  settingsForm}
+            SWOFChartView { id: swofChart; anchors.fill: parent;}
         }
 
         DockControl {
@@ -583,6 +586,8 @@ ApplicationWindow {
     {
         mainWindow.title =  qsTr("Qara munai'");
 
+        settingsForm.closeProject();
+
         swofChart.closeProject();
         swofTable.closeProject();
 
@@ -600,4 +605,5 @@ ApplicationWindow {
 
         projectData.initVariables();
     }
+
 }

@@ -1,5 +1,6 @@
-import QtQuick 2.12
+import QtQuick 2.6
 import QtCharts 2.3
+import QtQuick.Controls 2.1
 
 Item {
 
@@ -55,5 +56,24 @@ Item {
     function getSeries()
     {
         return [krgSGOF, kroSGOF, pcSGOF];
+    }
+
+    Menu{
+        id: settingsMenu
+        MenuItem{
+            text: "Настройка графиков"
+            onClicked: {
+                settingsForm.show()
+            }
+        }
+    }
+
+    MouseArea{
+        anchors.fill: parent
+        acceptedButtons: Qt.LeftButton|Qt.RightButton
+        onClicked: {
+            if(mouse.button & Qt.RightButton)
+                settingsMenu.popup()
+        }
     }
 }

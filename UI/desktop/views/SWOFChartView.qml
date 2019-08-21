@@ -1,35 +1,12 @@
-import QtQuick 2.12
+import QtQuick 2.6
 import QtCharts 2.3
-import QtQuick 2.0
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+
 Item {
-    signal settingsCalled()
+
     ChartView {
         id: swofChart
-        title: qsTr("ОФП и КД (нефть-вода)")
-        titleColor: "blue"
-        titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
-
-
-        MouseArea{
-            anchors.fill: parent
-            acceptedButtons: Qt.LeftButton|Qt.RightButton
-            onClicked: {
-                if(mouse.button & Qt.RightButton)
-                    settingsMenu.popup()
-            }
-        }
-
-        Menu{
-            id: settingsMenu
-            Action{
-                text: qsTr("Настройка графиков")
-                onTriggered: {
-                    settingsCalled()
-                }
-            }
-        }
 
         legend {
             visible: true
@@ -39,19 +16,41 @@ Item {
         LineSeries {
             id: krwSWOF
             name: qsTr("Krw")
+            axisX: ValueAxis{
+                min: 0
+                max: 1
+                tickCount: 6
+                labelFormat: "%.1f"
+                titleText: "Насыщенность воды, д.ед."
+            }
+            axisY: ValueAxis{
+                min: 0
+                max: 1
+                tickCount: 6
+                 labelFormat: "%.1f"
+                titleText: "Отн. фазовые проницаемости, д.ед. "
+            }
+            style: "SolidLine"
         }
 
         LineSeries {
             id: kroSWOF
             name: qsTr("Krow")
+            style: "SolidLine"
         }
 
         LineSeries {
             id: pcSWOF
             name: qsTr("Pcow")
+            axisYRight:  ValueAxis{
+                tickCount: 6
+                gridVisible: false
+                 labelFormat: "%.1f"
+                titleText: "Капиллярное давление, Psia"
+            }
+            style: "SolidLine"
         }
     }
-
 
     function closeProject()
     {
@@ -71,6 +70,30 @@ Item {
             krwSWOF.append(list[i].sw, list[i].krw);
             kroSWOF.append(list[i].sw, list[i].kro);
             pcSWOF.append(list[i].sw, list[i].pc);
+        }
+    }
+
+    function getSeries()
+    {
+        return [krwSWOF, kroSWOF, pcSWOF];
+    }
+
+    Menu{
+        id: settingsMenu
+        MenuItem{
+            text: "Настройка графиков"
+            onClicked: {
+                settingsForm.show()
+            }
+        }
+    }
+
+    MouseArea{
+        anchors.fill: parent
+        acceptedButtons: Qt.LeftButton|Qt.RightButton
+        onClicked: {
+            if(mouse.button & Qt.RightButton)
+                settingsMenu.popup()
         }
     }
 }
