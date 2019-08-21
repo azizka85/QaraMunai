@@ -6,9 +6,6 @@ Item {
 
     ChartView {
         id: pvtgChart
-        title: qsTr("PVT газа")
-        titleColor: "blue"
-        titleFont { pixelSize: 14; bold: true }
         anchors.fill: parent
 
         legend {
@@ -19,16 +16,65 @@ Item {
         LineSeries {
             id: pgPVTG
             name: qsTr("PG(RV)")
+            visible: false
+            axisX: ValueAxis{
+                titleText:qsTr("Давление, Psia")
+                color: "Black"
+
+                min: 0
+                max: 4000
+                tickCount: 6
+                labelFormat: "%.0f"
+
+
+                minorTickCount: 4
+                minorGridVisible: true
+                minorGridLineColor: "gainsboro"
+
+                gridVisible: true
+                gridLineColor: "silver"
+            }
+
+            axisY: ValueAxis{
+                titleText:qsTr("Объем. коэф. газа (RB/MSCF)")
+                color: "Black"
+
+                min: 0
+                max: 179
+                tickCount: 6
+                labelFormat: "%.1f"
+
+                minorTickCount: 4
+                minorGridVisible: true
+                minorGridLineColor: "gainsboro"
+
+                gridVisible: true
+                gridLineColor: "silver"
+            }
+            style: "SolidLine"
         }
 
         LineSeries {
             id: bgPVTG
-            name: qsTr("BG(RV)")
+            name: qsTr("Bg")
+            style: "SolidLine"
         }
 
         LineSeries {
             id: mgPVTG
-            name: qsTr("MG(RV)")
+            name: qsTr("Mg")
+            axisYRight:  ValueAxis{
+                titleText: qsTr("Вязк. газа (ср.)")
+                color: "Black"
+
+                min: 0
+                max: 0.02
+                tickCount: 6
+                labelFormat: "%.3f"
+
+                gridVisible: false
+            }
+            style: "SolidLine"
         }
     }
 

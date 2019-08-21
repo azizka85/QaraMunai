@@ -9,7 +9,6 @@ Window {
     width: 506
     height: 100
     title: qsTr("Настройка графиков")
-
     TableView {
         id: settings
         anchors.fill: parent

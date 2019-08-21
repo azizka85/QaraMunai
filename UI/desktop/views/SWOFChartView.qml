@@ -16,19 +16,40 @@ Item {
         LineSeries {
             id: krwSWOF
             name: qsTr("Krw")
+            color: "mediumseagreen"
+            width: 2
             axisX: ValueAxis{
+                titleText:qsTr("Насыщенность воды, д.ед.")
+                color: "Black"
+
                 min: 0
                 max: 1
                 tickCount: 6
                 labelFormat: "%.1f"
-                titleText: "Насыщенность воды, д.ед."
+
+                minorTickCount: 4
+                minorGridVisible: true
+                minorGridLineColor: "gainsboro"
+
+                gridVisible: true
+                gridLineColor: "silver"
             }
+
             axisY: ValueAxis{
+                titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
+                color: "Black"
+
                 min: 0
                 max: 1
                 tickCount: 6
-                 labelFormat: "%.1f"
-                titleText: "Отн. фазовые проницаемости, д.ед. "
+                labelFormat: "%.1f"
+
+                minorTickCount: 4
+                minorGridVisible: true
+                minorGridLineColor: "gainsboro"
+
+                gridVisible: true
+                gridLineColor: "silver"
             }
             style: "SolidLine"
         }
@@ -36,17 +57,24 @@ Item {
         LineSeries {
             id: kroSWOF
             name: qsTr("Krow")
+            color: "mediumpurple"
+            width: 2
             style: "SolidLine"
         }
 
         LineSeries {
             id: pcSWOF
             name: qsTr("Pcow")
+            color: "orange"
+            width: 2
             axisYRight:  ValueAxis{
+                titleText: qsTr("Капиллярное давление, Psia")
+                color: "Black"
+
                 tickCount: 6
+                labelFormat: "%.1f"
+
                 gridVisible: false
-                 labelFormat: "%.1f"
-                titleText: "Капиллярное давление, Psia"
             }
             style: "SolidLine"
         }
@@ -83,6 +111,7 @@ Item {
         MenuItem{
             text: "Настройка графиков"
             onClicked: {
+
                 settingsForm.show()
             }
         }

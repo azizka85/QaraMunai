@@ -10,25 +10,29 @@ Item {
         TableViewColumn {
             role: "sg"
             title: "SG"
-            width: 100
+            width: sgofList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "krg"
             title: "KrG"
-            width: 100
+            width: sgofList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "kro"
             title: "KrO"
-            width: 100
+            width: sgofList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "pc"
             title: "Pc"
-            width: 100
+            width: sgofList.width/4
+            resizable: false
         }
     }
 

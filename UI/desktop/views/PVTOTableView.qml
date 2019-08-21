@@ -10,25 +10,29 @@ Item {
         TableViewColumn {
             role: "rs"
             title: "RS"
-            width: 100
+            width: pvtoList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "po"
             title: "PO"
-            width: 100
+            width: pvtoList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "bo"
             title: "BO"
-            width: 100
+            width: pvtoList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "mo"
             title: "MO"
-            width: 100
+            width: pvtoList.width/4
+            resizable: false
         }
     }
 

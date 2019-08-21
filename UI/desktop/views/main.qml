@@ -18,7 +18,6 @@ ApplicationWindow {
 
     Ribbon {
         id: ribbon
-
         RibbonTab {
             title: qsTr("Файл")
             tabWidth: 60
@@ -150,7 +149,7 @@ ApplicationWindow {
             tabWidth: 150
 
             RibbonGroup {
-                title: qsTr("ОФП и КД (нефть вода)")
+                title: qsTr("ОФП и КД (нефть-вода)")
                 width: 170
 
                 Row {
@@ -162,26 +161,28 @@ ApplicationWindow {
                         id: swofButton
                         width: icon.width + 12
                         height: icon.height + 12
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil_water.png"; }
 
                         onClicked: {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
                              else
-                                dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true);
+                                dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.45, true);
                         }
                     }
 
                     Button {
                         width: icon.width + 12
                         height: icon.height + 12
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
 
                         onClicked: {
                             if(swofTableDock.visible)
                                 swofTableDock.hide();
                             else
-                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.5);
+                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
                         }
                     }
 
@@ -211,13 +212,14 @@ ApplicationWindow {
                         id: sgofButton
                         width: icon.width + 12
                         height: icon.height + 12
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas_oil.png"; }
 
                         onClicked: {
                             if(sgofChartDock.visible)
                                 sgofChartDock.hide();
                             else
-                                dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.5, true);
+                                dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.45, true);
                         }
                     }
 
@@ -225,13 +227,14 @@ ApplicationWindow {
                         id: sgofTableButton
                         width: icon.width + 12
                         height: icon.height + 12
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas_oil.png"; }
 
                         onClicked: {
                             if(sgofTableDock.visible)
                                 sgofTableDock.hide();
                             else
-                                dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.5);
+                                dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.55);
                         }
                     }
 
@@ -299,7 +302,7 @@ ApplicationWindow {
                             if(pvtoChartDock.visible)
                                 pvtoChartDock.hide();
                             else
-                                dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.5, true);
+                                dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.45, true);
                         }
                     }
 
@@ -313,7 +316,7 @@ ApplicationWindow {
                             if(pvtoTableDock.visible)
                                 pvtoTableDock.hide();
                             else
-                                dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.5);
+                                dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.55);
                         }
                     }
 
@@ -347,7 +350,7 @@ ApplicationWindow {
                             if(pvtgChartDock.visible)
                                 pvtgChartDock.hide();
                             else
-                                dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.5, true);
+                                dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.45, true);
                         }
                     }
 
@@ -361,7 +364,7 @@ ApplicationWindow {
                             if(pvtgTableDock.visible)
                                 pvtgTableDock.hide();
                             else
-                                dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.5);
+                                dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
                         }
                     }
 
@@ -491,66 +494,62 @@ ApplicationWindow {
 
         DockControl {
             id: swofChartDock
-            dockTitle: qsTr("Графики - Функции насыщенности - нефть-вода")
+            dockTitle: qsTr("ОФП и КД (нефть-вода)")
             titleVisible: dockTitleVisible
-
+            width: mainWindow.width/4;
             SWOFChartView { id: swofChart; anchors.fill: parent;}
         }
 
         DockControl {
             id: swofTableDock
-            dockTitle: qsTr("Таблица - Функции насыщенности - нефть-вода")
-            titleVisible: dockTitleVisible
-
-            SWOFTableView { id: swofTable; anchors.fill: parent; }
+            titleVisible: false
+            width: mainWindow.width/4
+            SWOFTableView { id: swofTable; anchors.fill: parent;}
         }
 
         DockControl {
             id: sgofChartDock
-            dockTitle: qsTr("Графики - Функции насыщенности - газ-нефть")
+            dockTitle: qsTr("ОФП и КД (газ-нефть)")
             titleVisible: dockTitleVisible
-
-            SGOFChartView { id: sgofChart; anchors.fill: parent; }
+            width: mainWindow.width/4
+            SGOFChartView { id: sgofChart; anchors.fill: parent}
         }
 
         DockControl {
             id: sgofTableDock
-            dockTitle: qsTr("Таблица - Функции насыщенности - газ-нефть")
-            titleVisible: dockTitleVisible
-
-            SGOFTableView { id: sgofTable; anchors.fill: parent; }
+            titleVisible: false
+            width: mainWindow.width/4
+            SGOFTableView { id: sgofTable; anchors.fill: parent;}
         }
 
         DockControl {
             id: pvtoChartDock
-            dockTitle: qsTr("Графики - Свойства пластовой жидкости - нефть")
+            dockTitle: qsTr("PVT нефти")
             titleVisible: dockTitleVisible
-
-            PVTOChartView { id: pvtoChart; anchors.fill: parent; }
+            width: mainWindow.width/4
+            PVTOChartView { id: pvtoChart; anchors.fill: parent;}
         }
 
         DockControl {
             id: pvtoTableDock
-            dockTitle: qsTr("Таблица - Свойства пластовой жидкости - нефть")
-            titleVisible: dockTitleVisible
-
-            PVTOTableView { id: pvtoTable; anchors.fill: parent; }
+            titleVisible: false
+            width: mainWindow.width/4
+            PVTOTableView { id: pvtoTable; anchors.fill: parent;}
         }
 
         DockControl {
             id: pvtgChartDock
-            dockTitle: qsTr("Графики - Свойства пластовой жидкости - газ")
+            dockTitle: qsTr("PVT газа")
             titleVisible: dockTitleVisible
-
-            PVTGChartView { id: pvtgChart; anchors.fill: parent; }
+            width: mainWindow.width/4
+            PVTGChartView { id: pvtgChart; anchors.fill: parent;}
         }
 
         DockControl {
             id: pvtgTableDock
-            dockTitle: qsTr("Таблица - Свойства пластовой жидкости - газ")
-            titleVisible: dockTitleVisible
-
-            PVTGTableView { id: pvtgTable; anchors.fill: parent; }
+            titleVisible: false
+            width: mainWindow.width/4
+            PVTGTableView { id: pvtgTable; anchors.fill: parent;}
         }
 
         DockControl {
@@ -573,6 +572,7 @@ ApplicationWindow {
     SettingsView {
         id: settingsForm
         visible: false
+        con
     }
 
     function createNumberArray(length)

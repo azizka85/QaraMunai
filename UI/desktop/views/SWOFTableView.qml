@@ -10,25 +10,29 @@ Item {
         TableViewColumn {
             role: "sw"
             title: "SW"
-            width: 100
+            width: swofList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "krw"
             title: "KrW"
-            width: 100
+            width: swofList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "kro"
             title: "KrO"
-            width: 100
+            width: swofList.width/4
+            resizable: false
         }
 
         TableViewColumn {
             role: "pc"
             title: "Pc"
-            width: 100
+            width: swofList.width/4
+            resizable: false
         }
     }
 
