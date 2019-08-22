@@ -13,24 +13,6 @@ Item {
             alignment: Qt.AlignBottom
         }
 
-        Menu {
-            id: menu
-            Action {
-                text: qsTr("Настройка")
-                onTriggered: {
-                    settingsCalled();
-                }
-            }
-        }
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton|Qt.LeftButton
-            onClicked: {
-                if(mouse.button&Qt.RightButton){
-                    menu.popup();
-                }
-            }
-        }
 
         LineSeries {
             id: krwSWOF
