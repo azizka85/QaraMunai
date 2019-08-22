@@ -17,7 +17,7 @@ bool WELSPECSEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().WELSPECS().length() > 0;
+        return project->Loaded() && project->Stratum().WELSPECS().length() > 0;
     }
 
     return false;
@@ -42,7 +42,7 @@ QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QVariant date)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->Loaded())
         {
             QList<WELSPECSData> welspecsList;
 

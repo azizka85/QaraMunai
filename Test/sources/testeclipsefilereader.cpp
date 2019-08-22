@@ -13,7 +13,7 @@ void TestEclipseFileReader::TestValidateLoad()
 
     ValidateInitialization(data);
 
-    eclipseReader.load(&data, "D:\\Workspace\\Qt\\QaraMunai\\Data\\OPMKBTU_TEST01 - Weltarg — No MULTPV\\OPMKBTU_TEST01.DATA");
+    eclipseReader.load(&data, "D:\\Workspace\\GitHub\\QaraMunai\\Data\\OPMKBTU_TEST01 - Weltarg — No MULTPV\\OPMKBTU_TEST01.DATA");
 
     ValidateLoad(data);
 }

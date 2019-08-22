@@ -34,6 +34,11 @@ public:
     Q_INVOKABLE double depth();
     Q_INVOKABLE double porosity();
     Q_INVOKABLE double ntg();
+    Q_INVOKABLE int pvtNUM();
+    Q_INVOKABLE double soil();
+    Q_INVOKABLE double swat();
+    Q_INVOKABLE double sgas();
+    Q_INVOKABLE double pressure();
     Q_INVOKABLE double poreVolume();
     Q_INVOKABLE double oilVolume();
 
@@ -46,8 +51,8 @@ private:
     Block current;
     bool pointOrderStandard;
 
-    void CalcBlockByBCG(ProjectData* project, int i, int j, int k, double dx, double dy, double dz);
-    void CalcBlockByCPG(ProjectData* project, int i, int j, int k);
+    void CalcBlockByBCG(ProjectData* project);
+    void CalcBlockByCPG(ProjectData* project);
 };
 
 }}}}

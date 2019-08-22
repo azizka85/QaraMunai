@@ -17,7 +17,7 @@ bool SGOFEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().SGOF().length() > 0;
+        return project->Loaded() && project->Stratum().SGOF().length() > 0;
     }
 
     return false;
@@ -42,7 +42,7 @@ QList<SGOFData> SGOFEntity::SGOFList(int region)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && project->Stratum().SGOF().length() > region) return project->Stratum().SGOF()[region];
+        if(project->Loaded() && project->Stratum().SGOF().length() > region) return project->Stratum().SGOF()[region];
     }
 
     return QList<SGOFData>();

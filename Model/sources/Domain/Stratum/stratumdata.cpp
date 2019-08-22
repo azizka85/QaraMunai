@@ -806,11 +806,6 @@ void StratumData::InitVariables()
     wconINJH.clear();
     welTARG.clear();
 
-    equals.clear();
-    copy.clear();
-    add.clear();
-    multiply.clear();
-
     depth.Clear();
     porv.Clear();
     tranX.Clear();

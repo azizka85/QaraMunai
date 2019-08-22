@@ -17,7 +17,7 @@ bool WCONINJEEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().WCONINJE().length() > 0;
+        return project->Loaded() && project->Stratum().WCONINJE().length() > 0;
     }
 
     return false;
@@ -56,7 +56,7 @@ QList<WCONINJEData> WCONINJEEntity::WCONINJEList(QDateTime date){
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->Loaded())
         {
             QList<WCONINJEData> wconinjeList;
 

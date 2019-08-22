@@ -17,7 +17,7 @@ bool BlockPointsEntity::hasNext()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && cursor < project->Nx()*project->Ny()*project->Nz()) return true;
+        if(project->Loaded() && cursor < project->Nx()*project->Ny()*project->Nz()) return true;
     }
 
     return false;
@@ -39,8 +39,7 @@ void BlockPointsEntity::toFront()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && project->Stratum().COORD().Count() > 0)
-            pointOrderStandard = project->CheckPointOrderStandard();
+        pointOrderStandard = project->CheckPointOrderStandard();
     }
 
     current.InitVariables();
@@ -54,7 +53,7 @@ double BlockPointsEntity::cellVolume()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded()) {
+        if(project->Loaded()) {
 
             QVariant val = project->Stratum().MULTPV()(current.I(), current.J(), current.K());
 
@@ -75,15 +74,19 @@ double BlockPointsEntity::depth()
 
 double BlockPointsEntity::porosity()
 {
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->poro(current.I(), current.J(), current.K());
+    }
+
     return 0;
 }
 
 double BlockPointsEntity::ntg()
-{
-    return 0;
-}
-
-double BlockPointsEntity::poreVolume()
 {
     QObject* projectData = parent();
 
@@ -91,10 +94,49 @@ double BlockPointsEntity::poreVolume()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded()) return cellVolume()*porosity()*ntg();
+        if(project->Loaded()) return project->ntg(current.I(), current.J(), current.K());
     }
 
-    return  0;
+    return 0;
+}
+
+int BlockPointsEntity::pvtNUM()
+{
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->pvtNUM(current.I(), current.J(), current.K());
+    }
+
+    return -1;
+}
+
+double BlockPointsEntity::soil()
+{
+    return 1 - swat() - sgas();
+}
+
+double BlockPointsEntity::swat()
+{
+    return 0;
+}
+
+double BlockPointsEntity::sgas()
+{
+    return 0;
+}
+
+double BlockPointsEntity::pressure()
+{
+    return 0;
+}
+
+double BlockPointsEntity::poreVolume()
+{
+    return cellVolume()*porosity()*ntg();
 }
 
 double BlockPointsEntity::oilVolume()
@@ -105,7 +147,7 @@ double BlockPointsEntity::oilVolume()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->Loaded())
         {
             QMetaObject metaObject = ProjectData::staticMetaObject;
 
@@ -115,11 +157,11 @@ double BlockPointsEntity::oilVolume()
 
             double cv = UnitHelper::ConvertVolume(static_cast<ProjectData::UnitType>(unit), ProjectData::LAB, 1, unitsEnum).toDouble();
 
-            QVariant val = project->Stratum().PVTNUM()(current.I(), current.J(), current.K());
+            int pvtNum = pvtNUM();
 
-            int pvtNum = val.isNull() ? 1 : val.toInt();
+            double bo = DataHelper::CalculateBoFromPVT(project->Stratum(), pressure(), pvtNum);
 
-
+            return cv*poreVolume()*(1 - swat())/bo;
         }
     }
 
@@ -138,7 +180,7 @@ Block &BlockPointsEntity::nextBlock()
         int ny = project->Ny();
         int nz = project->Nz();
 
-        if(project->IsLoaded() && cursor < nx*ny*nz)
+        if(project->Loaded() && cursor < nx*ny*nz)
         {
             int c = cursor;
 
@@ -149,12 +191,12 @@ Block &BlockPointsEntity::nextBlock()
             int j = c/nx;
             int i = c - j*nx;
 
-            double dx = project->dx(i, j, k);
-            double dy = project->dy(i, j, k);
-            double dz = project->dz(i, j, k);
+            current.SetI(i);
+            current.SetJ(j);
+            current.SetK(k);
 
-            if(project->Stratum().TOPS().Count() > 0) CalcBlockByBCG(project, i, j, k, dx, dy, dz);
-            else if(project->Stratum().COORD().Count() > 0) CalcBlockByCPG(project, i, j, k);
+            if(project->BlockCentered()) CalcBlockByBCG(project);
+            else CalcBlockByCPG(project);
 
             cursor++;
         }
@@ -170,7 +212,7 @@ void BlockPointsEntity::initVariables()
     current.InitVariables();
 }
 
-void BlockPointsEntity::CalcBlockByBCG(ProjectData* project, int i, int j, int k, double dx, double dy, double dz)
+void BlockPointsEntity::CalcBlockByBCG(ProjectData* project)
 {
     double x1 = 0;
     double y1 = 0;
@@ -180,9 +222,17 @@ void BlockPointsEntity::CalcBlockByBCG(ProjectData* project, int i, int j, int k
     double y2 = 0;
     double z2 = 0;
 
+    int i = current.I();
+    int j = current.J();
+    int k = current.K();
+
+    double dx = project->dx(i, j, k);
+    double dy = project->dy(i, j, k);
+    double dz = project->dz(i, j, k);
+
     if(k == 0)
     {
-        z1 = project->tops(i, j).toDouble();
+        z1 = project->tops(i, j);
         z2 = z1 + dz;
     }
     else if(current.K() < k)
@@ -228,10 +278,6 @@ void BlockPointsEntity::CalcBlockByBCG(ProjectData* project, int i, int j, int k
         x2 = current.P2().X();
     }
 
-    current.SetI(i);
-    current.SetJ(j);
-    current.SetK(k);
-
     current.P1().SetX(x1); current.P1().SetY(y1); current.P1().SetZ(z1);
     current.P2().SetX(x2); current.P2().SetY(y1); current.P2().SetZ(z1);
     current.P3().SetX(x1); current.P3().SetY(y2); current.P3().SetZ(z1);
@@ -242,15 +288,15 @@ void BlockPointsEntity::CalcBlockByBCG(ProjectData* project, int i, int j, int k
     current.P8().SetX(x2); current.P8().SetY(y2); current.P8().SetZ(z2);
 }
 
-void BlockPointsEntity::CalcBlockByCPG(ProjectData *project, int i, int j, int k)
+void BlockPointsEntity::CalcBlockByCPG(ProjectData *project)
 {
-    current.SetI(i);
-    current.SetJ(j);
-    current.SetK(k);
-
     Line3D coordLine;
 
     double d1, d2, d3, d4, d5, d6, d7, d8;
+
+    int i = current.I();
+    int j = current.J();
+    int k = current.K();
 
     project->CalcBlockDepths(i, j, k, d1, d2, d3, d4, d5, d6, d7, d8);
 

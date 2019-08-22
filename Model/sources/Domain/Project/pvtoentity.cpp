@@ -17,7 +17,7 @@ bool PVTOEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().PVTO().length() > 0;
+        return project->Loaded() && project->Stratum().PVTO().length() > 0;
     }
 
     return false;
@@ -42,7 +42,7 @@ QList<PVTOData> PVTOEntity::PVTOList(int region)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && project->Stratum().PVTO().length() > region) return project->Stratum().PVTO()[region];
+        if(project->Loaded() && project->Stratum().PVTO().length() > region) return project->Stratum().PVTO()[region];
     }
 
     return QList<PVTOData>();

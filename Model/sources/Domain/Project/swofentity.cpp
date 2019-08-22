@@ -17,7 +17,7 @@ bool SWOFEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().SWOF().length() > 0;
+        return project->Loaded() && project->Stratum().SWOF().length() > 0;
     }
 
     return false;
@@ -42,7 +42,7 @@ QList<SWOFData> SWOFEntity::SWOFList(int region)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && project->Stratum().SWOF().length() > region) return project->Stratum().SWOF()[region];
+        if(project->Loaded() && project->Stratum().SWOF().length() > region) return project->Stratum().SWOF()[region];
     }
 
     return QList<SWOFData>();

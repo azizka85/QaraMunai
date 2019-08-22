@@ -115,6 +115,7 @@ SOURCES += \
     sources/Domain/Stratum/welspecsdata.cpp \
     sources/Domain/Stratum/weltargdata.cpp \
     sources/Helpers/Eclipse/readfilehelper.cpp \
+    sources/Helpers/datahelper.cpp \
     sources/Helpers/mathhelper.cpp \
     sources/Helpers/unithelper.cpp \
     sources/Utils/linearmatrix3d.cpp \
@@ -206,6 +207,7 @@ HEADERS += \
     sources/Domain/Stratum/welspecsdata.h \
     sources/Domain/Stratum/weltargdata.h \
     sources/Helpers/Eclipse/readfilehelper.h \
+    sources/Helpers/datahelper.h \
     sources/Helpers/mathhelper.h \
     sources/Helpers/unithelper.h \
     sources/Utils/linearmatrix3d.h \

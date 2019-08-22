@@ -17,7 +17,7 @@ bool WCONPRODEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().WCONPROD().length() > 0;
+        return project->Loaded() && project->Stratum().WCONPROD().length() > 0;
     }
 
     return false;
@@ -55,7 +55,7 @@ QList<WCONPRODData> WCONPRODEntity::WCONPRODList(QDateTime date)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->Loaded())
         {
             QList<WCONPRODData> wconprodList;
 

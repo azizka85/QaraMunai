@@ -17,7 +17,7 @@ bool PVTGEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().PVTO().length() > 0;
+        return project->Loaded() && project->Stratum().PVTO().length() > 0;
     }
 
     return false;
@@ -42,7 +42,7 @@ QList<PVTGData> PVTGEntity::PVTGList(int region)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && project->Stratum().PVTG().length() > region) return project->Stratum().PVTG()[region];
+        if(project->Loaded() && project->Stratum().PVTG().length() > region) return project->Stratum().PVTG()[region];
     }
 
     return QList<PVTGData>();

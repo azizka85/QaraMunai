@@ -32,7 +32,7 @@ ProjectData::ProjectData(QObject *parent) : QObject(parent)
     initVariables();
 }
 
-bool ProjectData::IsLoaded() const
+bool ProjectData::Loaded() const
 {
     return isLoaded;
 }
@@ -82,257 +82,174 @@ int ProjectData::Nz() const
     return nz;
 }
 
-QVariant ProjectData::dx(int i, int j, int k)
+bool ProjectData::BlockCentered() const
 {
-    QVariant val;
+    return isBlockCentered;
+}
+
+double ProjectData::dx(int i, int j, int k)
+{
+    double val = 0;
 
     if(stratum.DX().Box().Contains(i, j, k))
         val = stratum.DX()(i, j, k).toDouble();
-    else if(stratum.DXV().Count() > i)
+
+    if(stratum.DXV().Count() > i)
         val = stratum.DXV()(i).toDouble();
-    else
-    {
-        QList<int> indexes = equals->GetIndexes("DX");
 
-        if(indexes.length() > 0)
-        {
-            for(int i = 0; i < indexes.length(); i++)
-            {
-                EQUALSData& data = equals->EQUALS()[indexes[i]];
+    QVariant value = DataHelper::GetEQUALSData(equals, "DX", i, j, k);
 
-                if(data.Box().Contains(i, j, k))
-                {
-                    val = data.Value();
+    val = !value.isNull() ? value.toDouble() : val;
 
-                    break;
-                }
-            }
-        }
-        else
-        {
-            indexes = copy->GetIndexes("DX");
+    value = DataHelper::GetCOPYData(copy, stratum, "DX", i, j, k);
 
-            if(indexes.length() > 0)
-            {
-                for(int i = 0; i < indexes.length(); i++)
-                {
-                    COPYData& data = copy->COPY()[indexes[i]];
+    val = !value.isNull() ? value.toDouble() : val;
 
-                    if(data.Box().Contains(i, j, k))
-                    {
-                        LinearMatrix3D &array = GetArrayByName(data.SOURCE());
+    DataHelper::MULTIPLYValue(multiply, "DX", val, i, j, k);
 
-                        val = array(i, j, k);
-
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    QList<int> indexes = multiply->GetIndexes("DX");
-
-    if(indexes.length() > 0)
-    {
-        for(int i = 0; i < indexes.length(); i++)
-        {
-            MULTIPLYData& data = multiply->MULTIPLY()[indexes[i]];
-
-            if(data.Box().Contains(i, j, k))
-            {
-                val = val.toDouble() * data.Mult();
-            }
-        }
-    }
-
-    indexes = add->GetIndexes("DX");
-
-    if(indexes.length() > 0)
-    {
-        for(int i = 0; i < indexes.length(); i++)
-        {
-            ADDData& data = add->ADD()[indexes[i]];
-
-            if(data.Box().Contains(i, j, k))
-            {
-                val = val.toDouble() + data.Value();
-            }
-        }
-    }
+    DataHelper::ADDValue(add, "DX", val, i, j, k);
 
     return val;
 }
 
-QVariant ProjectData::dy(int i, int j, int k)
+double ProjectData::dy(int i, int j, int k)
 {
-    QVariant val;
+    double val = 0;
 
     if(stratum.DY().Box().Contains(i, j, k))
         val = stratum.DY()(i, j, k).toDouble();
-    else if(stratum.DYV().Count() > j)
+
+    if(stratum.DYV().Count() > j)
         val = stratum.DYV()(j).toDouble();
-    else
-    {
-        QList<int> indexes = equals->GetIndexes("DY");
 
-        if(indexes.length() > 0)
-        {
-            for(int i = 0; i < indexes.length(); i++)
-            {
-                EQUALSData& data = equals->EQUALS()[indexes[i]];
+    QVariant value = DataHelper::GetEQUALSData(equals, "DY", i, j, k);
 
-                if(data.Box().Contains(i, j, k))
-                {
-                    val = data.Value();
+    val = !value.isNull() ? value.toDouble() : val;
 
-                    break;
-                }
-            }
-        }
-        else
-        {
-            indexes = copy->GetIndexes("DY");
+    value = DataHelper::GetCOPYData(copy, stratum, "DY", i, j, k);
 
-            if(indexes.length() > 0)
-            {
-                for(int i = 0; i < indexes.length(); i++)
-                {
-                    COPYData& data = copy->COPY()[indexes[i]];
+    val = !value.isNull() ? value.toDouble() : val;
 
-                    if(data.Box().Contains(i, j, k))
-                    {
-                        LinearMatrix3D &array = GetArrayByName(data.SOURCE());
+    DataHelper::MULTIPLYValue(multiply, "DY", val, i, j, k);
 
-                        val = array(i, j, k);
-
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    QList<int> indexes = multiply->GetIndexes("DY");
-
-    if(indexes.length() > 0)
-    {
-        for(int i = 0; i < indexes.length(); i++)
-        {
-            MULTIPLYData& data = multiply->MULTIPLY()[indexes[i]];
-
-            if(data.Box().Contains(i, j, k))
-            {
-                val = val.toDouble() * data.Mult();
-            }
-        }
-    }
-
-    indexes = add->GetIndexes("DY");
-
-    if(indexes.length() > 0)
-    {
-        for(int i = 0; i < indexes.length(); i++)
-        {
-            ADDData& data = add->ADD()[indexes[i]];
-
-            if(data.Box().Contains(i, j, k))
-            {
-                val = val.toDouble() + data.Value();
-            }
-        }
-    }
+    DataHelper::ADDValue(add, "DY", val, i, j, k);
 
     return val;
 }
 
-QVariant ProjectData::dz(int i, int j, int k)
+double ProjectData::dz(int i, int j, int k)
 {
-    QVariant val;
+    double val = 0;
 
     if(stratum.DZ().Box().Contains(i, j, k))
         val = stratum.DZ()(i, j, k).toDouble();
-    else if(stratum.DZV().Count() > k)
+
+    if(stratum.DZV().Count() > k)
         val = stratum.DZV()(k).toDouble();
-    else
-    {
-        QList<int> indexes = equals->GetIndexes("DZ");
 
-        if(indexes.length() > 0)
-        {
-            for(int i = 0; i < indexes.length(); i++)
-            {
-                EQUALSData& data = equals->EQUALS()[indexes[i]];
+    QVariant value = DataHelper::GetEQUALSData(equals, "DZ", i, j, k);
 
-                if(data.Box().Contains(i, j, k))
-                {
-                    val = data.Value();
+    val = !value.isNull() ? value.toDouble() : val;
 
-                    break;
-                }
-            }
-        }
-        else
-        {
-            indexes = copy->GetIndexes("DZ");
+    value = DataHelper::GetCOPYData(copy, stratum, "DZ", i, j, k);
 
-            if(indexes.length() > 0)
-            {
-                for(int i = 0; i < indexes.length(); i++)
-                {
-                    COPYData& data = copy->COPY()[indexes[i]];
+    val = !value.isNull() ? value.toDouble() : val;
 
-                    if(data.Box().Contains(i, j, k))
-                    {
-                        LinearMatrix3D &array = GetArrayByName(data.SOURCE());
+    DataHelper::MULTIPLYValue(multiply, "DZ", val, i, j, k);
 
-                        val = array(i, j, k);
-
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    QList<int> indexes = multiply->GetIndexes("DZ");
-
-    if(indexes.length() > 0)
-    {
-        for(int i = 0; i < indexes.length(); i++)
-        {
-            MULTIPLYData& data = multiply->MULTIPLY()[indexes[i]];
-
-            if(data.Box().Contains(i, j, k))
-            {
-                val = val.toDouble() * data.Mult();
-            }
-        }
-    }
-
-    indexes = add->GetIndexes("DZ");
-
-    if(indexes.length() > 0)
-    {
-        for(int i = 0; i < indexes.length(); i++)
-        {
-            ADDData& data = add->ADD()[indexes[i]];
-
-            if(data.Box().Contains(i, j, k))
-            {
-                val = val.toDouble() + data.Value();
-            }
-        }
-    }
+    DataHelper::ADDValue(add, "DZ", val, i, j, k);
 
     return val;
 }
 
-QVariant ProjectData::tops(int i, int j)
+double ProjectData::tops(int i, int j)
 {
+    double val = 0;
+
     if(stratum.TOPS().Box().Contains(i, j, 0))
-        return stratum.TOPS()(i, j, 0);
-    else return QVariant();
+        val = stratum.TOPS()(i, j, 0).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "TOPS", i, j, 0);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "TOPS", i, j, 0);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "TOPS", val, i, j, 0);
+
+    DataHelper::ADDValue(add, "TOPS", val, i, j, 0);
+
+    return val;
+}
+
+double ProjectData::poro(int i, int j, int k)
+{
+    double val = 0;
+
+    if(stratum.PORO().Box().Contains(i, j, k))
+        val = stratum.PORO()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "PORO", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "PORO", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "PORO", val, i, j, k);
+
+    DataHelper::ADDValue(add, "PORO", val, i, j, k);
+
+    return val;
+}
+
+double ProjectData::ntg(int i, int j, int k)
+{
+    double val = 0;
+
+    if(stratum.NTG().Box().Contains(i, j, k))
+        val = stratum.NTG()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "NTG", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "NTG", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "NTG", val, i, j, k);
+
+    DataHelper::ADDValue(add, "NTG", val, i, j, k);
+
+    return val;
+}
+
+int ProjectData::pvtNUM(int i, int j, int k)
+{
+    int val = -1;
+
+    if(stratum.PVTNUM().Box().Contains(i, j, k))
+        val = stratum.PVTNUM()(i, j, k).toInt();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "PVTNUM", i, j, k);
+
+    val = !value.isNull() ? value.toInt() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "PVTNUM", i, j, k);
+
+    val = !value.isNull() ? value.toInt() : val;
+
+    double addValue = 0;
+
+    DataHelper::ADDValue(add, "PVTNUM", addValue, i, j, k);
+
+    val += addValue;
+
+    return val;
 }
 
 QVariantMap ProjectData::coordLine(int i, int j)
@@ -344,7 +261,7 @@ QVariantMap ProjectData::coordLine(int i, int j)
     return line.toMap();
 }
 
-QVariantMap ProjectData::blockDepths(int i, int j, int k, int nx, int ny)
+QVariantMap ProjectData::blockDepths(int i, int j, int k)
 {
     double d1, d2, d3, d4, d5, d6, d7, d8;
 
@@ -438,91 +355,6 @@ bool ProjectData::CheckPointOrderStandard()
             p2.Y() <= p4.Y();
 }
 
-LinearMatrix3D &ProjectData::GetArray(ArrayNames name)
-{
-    switch (name)
-    {
-        case TOPS: return stratum.TOPS();
-        case DX: return stratum.DX();
-        case DY: return stratum.DY();
-        case DZ: return stratum.DZ();
-        case ACTNUM: return stratum.ACTNUM();
-        case MULTPV: return stratum.MULTPV();
-        case PERMX: return stratum.PERMX();
-        case PERMY: return stratum.PERMY();
-        case PERMZ: return stratum.PERMZ();
-        case PORO: return stratum.PORO();
-        case NTG: return stratum.NTG();
-        case DZNET: return stratum.DZNET();
-        case MULTX: return stratum.MULTX();
-        case MULTY: return stratum.MULTY();
-        case MULTZ: return stratum.MULTZ();
-        case MULTXm: return stratum.MULTXm();
-        case MULTYm: return stratum.MULTYm();
-        case MULTZm: return stratum.MULTZm();
-        case MINPVV: return stratum.MINPVV();
-        case SWATINIT: return stratum.SWATINIT();
-        case SWCR: return stratum.SWCR();
-        case ISWCR: return stratum.ISWCR();
-        case SWL: return stratum.SWL();
-        case ISWL: return stratum.ISWL();
-        case SWLPC: return stratum.SWLPC();
-        case ISWLPC: return stratum.ISWLPC();
-        case SWU: return stratum.SWU();
-        case ISWU: return stratum.ISWU();
-        case SGCR: return stratum.SGCR();
-        case ISGCR: return stratum.ISGCR();
-        case SGL: return stratum.SGL();
-        case ISGL: return stratum.ISGL();
-        case SGLPC: return stratum.SGLPC();
-        case ISGLPC: return stratum.ISGLPC();
-        case PCG: return stratum.PCG();
-        case IPCG: return stratum.IPCG();
-        case PCW: return stratum.PCW();
-        case IPCW: return stratum.IPCW();
-        case KRO: return stratum.KRO();
-        case IKRO: return stratum.IKRO();
-        case KRORW: return stratum.KRORW();
-        case IKRORW: return stratum.IKRORW();
-        case KRORG: return stratum.KRORG();
-        case IKRORG: return stratum.IKRORG();
-        case KRW: return stratum.KRW();
-        case IKRW: return stratum.IKRW();
-        case KRWR: return stratum.KRWR();
-        case IKRWR: return stratum.IKRWR();
-        case KRG: return stratum.KRG();
-        case IKRG: return stratum.IKRG();
-        case KRGR: return stratum.KRGR();
-        case IKRGR: return stratum.IKRGR();
-        case PVTNUM: return stratum.PVTNUM();
-        case SATNUM: return stratum.SATNUM();
-        case EQLNUM: return stratum.EQLNUM();
-        case ENDNUM: return stratum.ENDNUM();
-        case PRESSURE: return stratum.PRESSURE();
-        case SWAT: return stratum.SWAT();
-        case SGAS: return stratum.SGAS();
-        case PBUB: return stratum.PBUB();
-        case RS: return stratum.RS();
-        case DEPTH: return stratum.DEPTH();
-        case PORV: return stratum.PORV();
-        case TRANX: return stratum.TRANX();
-        case TRANY: return stratum.TRANY();
-        case TRANZ: return stratum.TRANZ();
-    }
-}
-
-LinearMatrix3D &ProjectData::GetArrayByName(QString arrayName)
-{
-    QMetaEnum casesEnum = staticMetaObject.enumerator(staticMetaObject.indexOfEnumerator("ArrayNames"));
-
-    arrayName = arrayName.replace('-', 'm')
-                            .replace('+', 'p');
-
-    int name = casesEnum.keyToValue(arrayName.toLatin1());
-
-    return GetArray(static_cast<ArrayNames>(name));
-}
-
 StratumData &ProjectData::Stratum()
 {
     return stratum;
@@ -593,6 +425,11 @@ COPYEntity *ProjectData::COPY()
     return copy;
 }
 
+ADDEntity *ProjectData::ADD()
+{
+    return add;
+}
+
 EQUALSEntity *ProjectData::EQUALS()
 {
     return equals;
@@ -613,11 +450,11 @@ QVariantList ProjectData::DATES()
     return result;
 }
 
-void ProjectData::SetIsLoaded(const bool &isLoaded)
+void ProjectData::SetLoaded(const bool &isLoaded)
 {
     this->isLoaded = isLoaded;
 
-    IsLoadedChanged();
+    LoadedChanged();
 }
 
 void ProjectData::SetTitle(const QString &title)
@@ -683,9 +520,16 @@ void ProjectData::SetNz(int nz)
     NzChanged();
 }
 
+void ProjectData::SetBlockCentered(bool isBlockCentered)
+{
+    this->isBlockCentered = isBlockCentered;
+
+    BlockCenteredChanged();
+}
+
 void ProjectData::initVariables()
 {
-    SetIsLoaded(false);
+    SetLoaded(false);
 
     SetTitle("");
     SetStartDate(QDateTime::currentDateTime());
@@ -698,6 +542,8 @@ void ProjectData::initVariables()
     SetNx(0);
     SetNy(0);
     SetNz(0);
+
+    SetBlockCentered(false);
 
     stratum.InitVariables();
 

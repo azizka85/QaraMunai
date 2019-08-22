@@ -124,7 +124,7 @@ ApplicationWindow {
                             if(wellScheduleDock.visible)
                                 wellScheduleDock.hide();
                             else
-                                dockSpace.insertDock(wellScheduleDock, wellsListDock, Qt.Horizontal, 0.2, false);
+                                dockSpace.insertDock(wellScheduleDock, wellsListDock, Qt.Horizontal, 0.8, true);
                         }
                     }
 
@@ -138,7 +138,7 @@ ApplicationWindow {
                             if(wellsListDock.visible)
                                 wellsListDock.hide();
                             else
-                                dockSpace.insertDock(wellsListDock, wellScheduleDock, Qt.Horizontal, 0.2, true);
+                                dockSpace.insertDock(wellsListDock, wellScheduleDock, Qt.Horizontal, 0.8, false);
                         }
                     }
                 }

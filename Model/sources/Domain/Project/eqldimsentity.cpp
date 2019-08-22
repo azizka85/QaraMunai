@@ -22,7 +22,7 @@ QVariant EQLDIMSEntity::NTEQUL() const
 
         QVariant ntEQUL = project->Stratum().EQLDIMS().NTEQUL();
 
-        if(project->IsLoaded() && ntEQUL.isNull()) ntEQUL = DefaultValues::EQLDIMS_NTEQUL;
+        if(project->Loaded() && ntEQUL.isNull()) ntEQUL = DefaultValues::EQLDIMS_NTEQUL;
 
         return ntEQUL;
     }

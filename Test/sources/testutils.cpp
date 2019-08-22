@@ -2,62 +2,62 @@
 
 TestUtils::TestUtils(QObject *parent) : QObject(parent) { }
 
-void TestUtils::TestLinearMatrix2D()
+void TestUtils::TestLinearMatrix3D()
 {
     Box3D box(0, 2, 0, 2, 0, 0);
 
-    LinearMatrix2D linearMatrix2D;
+    LinearMatrix3D linearMatrix3D;
 
-    linearMatrix2D.SetBox(box);
+    linearMatrix3D.SetBox(box);
 
-    int nx = linearMatrix2D.Nx();
+    int nx = linearMatrix3D.Nx();
 
     VERIFY(nx == 3, "Nx of LinearMatrix2D must be equal 3");
 
-    linearMatrix2D.Add(23.45);
-    linearMatrix2D.AddInterval(4, 38.97);
-    linearMatrix2D.AddInterval(3, 12.45);
-    linearMatrix2D.Add(1.39);
+    linearMatrix3D.Add(23.45);
+    linearMatrix3D.AddInterval(4, 38.97);
+    linearMatrix3D.AddInterval(3, 12.45);
+    linearMatrix3D.Add(1.39);
 
-    int count = linearMatrix2D.Count();
+    int count = linearMatrix3D.Count();
 
     VERIFY(count == nx*nx, "Number of LinearMatrix2D elements must be equal to nx*nx");
 
-    double val = linearMatrix2D(0, 0).toDouble();
+    double val = linearMatrix3D(0, 0, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 23.45), "Element with [0,0] indexes must be equal to 23.45");
 
-    val = linearMatrix2D(1, 1).toDouble();
+    val = linearMatrix3D(1, 1, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 38.97), "Element with [1,1] indexes must be equal to 38.97");
 
-    val = linearMatrix2D(1, 2).toDouble();
+    val = linearMatrix3D(1, 2, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 12.45), "Element with [1,2] indexes must be equal to 12.45");
 
-    val = linearMatrix2D(2, 2).toDouble();
+    val = linearMatrix3D(2, 2, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 1.39), "Element with [2,2] indexes must be equal to 1.39");
 
-    linearMatrix2D.Box().SetI1(10);
-    linearMatrix2D.Box().SetI2(12);
+    linearMatrix3D.Box().SetI1(10);
+    linearMatrix3D.Box().SetI2(12);
 
-    linearMatrix2D.Box().SetJ1(10);
-    linearMatrix2D.Box().SetJ2(12);
+    linearMatrix3D.Box().SetJ1(10);
+    linearMatrix3D.Box().SetJ2(12);
 
-    val = linearMatrix2D(10, 10).toDouble();
+    val = linearMatrix3D(10, 10, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 23.45), "Element with [10,10] indexes must be equal to 23.45");
 
-    val = linearMatrix2D(11, 11).toDouble();
+    val = linearMatrix3D(11, 11, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 38.97), "Element with [11,11] indexes must be equal to 38.97");
 
-    val = linearMatrix2D(11, 12).toDouble();
+    val = linearMatrix3D(11, 12, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 12.45), "Element with [11,12] indexes must be equal to 12.45");
 
-    val = linearMatrix2D(12, 12).toDouble();
+    val = linearMatrix3D(12, 12, 0).toDouble();
 
     VERIFY(ISEQUAL(val, 1.39), "Element with [12,12] indexes must be equal to 1.39");
 

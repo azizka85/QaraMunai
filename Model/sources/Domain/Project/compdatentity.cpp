@@ -17,7 +17,7 @@ bool COMPDATEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().COMPDAT().length() > 0;
+        return project->Loaded() && project->Stratum().COMPDAT().length() > 0;
     }
 
     return false;
@@ -52,7 +52,7 @@ QList<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->Loaded())
         {
             QList<COMPDATData> compdatList;
 

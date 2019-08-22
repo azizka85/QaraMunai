@@ -78,7 +78,7 @@ void EclipseFileReader::ReadFile(ProjectData *data, const QString &filePath, QMe
             case GRID: break;
             case INIT: break;
             case GRIDFILE: ReadFileHelper::IgnoreParams(sr); break;
-            case TOPS: ReadFileHelper::Read3DArray(sr, box, data->Stratum().TOPS()); break;
+            case TOPS: ReadFileHelper::Read3DArray(sr, box, data->Stratum().TOPS()); data->SetBlockCentered(true); break;
             case DX: ReadFileHelper::Read3DArray(sr, box, data->Stratum().DX()); break;
             case DY: ReadFileHelper::Read3DArray(sr, box, data->Stratum().DY()); break;
             case DZ: ReadFileHelper::Read3DArray(sr, box, data->Stratum().DZ()); break;
@@ -243,7 +243,7 @@ void EclipseFileReader::ReadFile(ProjectData *data, const QString &filePath, QMe
         }
     }
 
-    data->SetIsLoaded(true);
+    data->SetLoaded(true);
 
     file.close();
 }
@@ -1609,7 +1609,9 @@ void EclipseFileReader::ReadEQUALS(ProjectData *data, QTextStream &sr)
 
         rangeBox = equals.Box();
 
-        data->Stratum().EQUALS().append(equals);
+        if(equals.ArrayName() == "TOPS") data->SetBlockCentered(true);
+
+        data->EQUALS()->AddEQUALS(equals);
     }
 }
 
@@ -1658,6 +1660,8 @@ void EclipseFileReader::ReadCOPY(ProjectData *data, QTextStream &sr)
         copy.Box().SetK1(str.length() > 7 && str[6] != "1*" ? str[6].toInt() - 1 : box.K1());
         copy.Box().SetK2(str.length() > 8 && str[7] != "1*" ? str[7].toInt() - 1 : box.K2());
 
+        if(copy.DESTINATION() == "TOPS") data->SetBlockCentered(true);
+
         data->COPY()->AddCopy(copy);
     }
 }
@@ -1683,7 +1687,7 @@ void EclipseFileReader::ReadADD(ProjectData *data, QTextStream &sr)
         add.Box().SetK1(str.length() > 7 && str[6] != "1*" ? str[6].toInt() - 1 : box.K1());
         add.Box().SetK2(str.length() > 8 && str[7] != "1*" ? str[7].toInt() - 1 : box.K2());
 
-        data->Stratum().ADD().append(add);
+        data->ADD()->AddADD(add);
     }
 }
 
@@ -1708,7 +1712,7 @@ void EclipseFileReader::ReadMULTIPLY(ProjectData *data, QTextStream &sr)
         multiply.Box().SetK1(str.length() > 7 && str[6] != "1*" ? str[6].toInt() - 1 : box.K1());
         multiply.Box().SetK2(str.length() > 8 && str[7] != "1*" ? str[7].toInt() - 1 : box.K2());
 
-        data->Stratum().MULTIPLY().append(multiply);
+        data->MULTIPLY()->AddMULTIPLY(multiply);
     }
 }
 

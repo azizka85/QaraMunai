@@ -29,6 +29,7 @@
 #include <multiplyentity.h>
 
 #include <mathhelper.h>
+#include <datahelper.h>
 
 #include <model_global.h>
 
@@ -52,7 +53,7 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_ENUMS(FluidType)
     Q_ENUMS(ArrayNames)
 
-    Q_PROPERTY(bool isLoaded READ IsLoaded WRITE SetIsLoaded NOTIFY IsLoadedChanged)
+    Q_PROPERTY(bool loaded READ Loaded WRITE SetLoaded NOTIFY LoadedChanged)
     Q_PROPERTY(QString title READ Title WRITE SetTitle NOTIFY TitleChanged)
     Q_PROPERTY(QDateTime startDate READ StartDate WRITE SetStartDate NOTIFY StartDateChanged)
     Q_PROPERTY(QVariant unit READ Unit WRITE SetUnit NOTIFY UnitChanged)
@@ -62,6 +63,7 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(int nx READ Nx WRITE SetNx NOTIFY NxChanged)
     Q_PROPERTY(int ny READ Ny WRITE SetNy NOTIFY NyChanged)
     Q_PROPERTY(int nz READ Nz WRITE SetNz NOTIFY NzChanged)
+    Q_PROPERTY(bool blockCentered READ BlockCentered WRITE SetBlockCentered NOTIFY BlockCenteredChanged)
     Q_PROPERTY(QVariantList dates READ DATES)
     Q_PROPERTY(TABDIMSEntity* tabDIMS READ TABDIMS)
     Q_PROPERTY(EQLDIMSEntity* eqlDIMS READ EQLDIMS)
@@ -94,7 +96,7 @@ public:
                       PCW, IPCW, KRO, IKRO, KRORW, IKRORW, KRORG, IKRORG, KRW, IKRW, KRWR, IKRWR, KRG, IKRG, KRGR, IKRGR, PVTNUM, SATNUM,
                       EQLNUM, ENDNUM, PRESSURE, SWAT, SGAS, PBUB, RS, DEPTH, PORV, TRANX, TRANY, TRANZ };
 
-    bool IsLoaded() const;
+    bool Loaded() const;
     QString Title() const;
     QDateTime StartDate() const;
     QVariant Unit() const;
@@ -106,23 +108,27 @@ public:
     int Ny() const;
     int Nz() const;
 
+    bool BlockCentered() const;
+
     QVariantList DATES();
 
-    Q_INVOKABLE QVariant dx(int i, int j, int k);
-    Q_INVOKABLE QVariant dy(int i, int j, int k);
-    Q_INVOKABLE QVariant dz(int i, int j, int k);
+    Q_INVOKABLE double dx(int i, int j, int k);
+    Q_INVOKABLE double dy(int i, int j, int k);
+    Q_INVOKABLE double dz(int i, int j, int k);
 
-    Q_INVOKABLE QVariant tops(int i, int j);
+    Q_INVOKABLE double tops(int i, int j);
+
+    Q_INVOKABLE double poro(int i, int j, int k);
+    Q_INVOKABLE double ntg(int i, int j, int k);
+
+    Q_INVOKABLE int pvtNUM(int i, int j, int k);
 
     Q_INVOKABLE QVariantMap coordLine(int i, int j);
-    Q_INVOKABLE QVariantMap blockDepths(int i, int j, int k, int nx, int ny);
+    Q_INVOKABLE QVariantMap blockDepths(int i, int j, int k);
 
     bool CalcCoordLine(int i, int j, Line3D& coordLine);
     bool CalcBlockDepths(int i, int j, int k, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
     bool CheckPointOrderStandard();
-
-    LinearMatrix3D& GetArray(ArrayNames name);
-    LinearMatrix3D& GetArrayByName(QString arrayName);
 
     StratumData &Stratum();
 
@@ -148,7 +154,7 @@ public:
     EQUALSEntity *EQUALS();
     MULTIPLYEntity *MULTIPLY();
 
-    void SetIsLoaded(const bool& isLoaded);
+    void SetLoaded(const bool& isLoaded);
     void SetTitle(const QString& title);
     void SetStartDate(const QDateTime& startDate);
     void SetUnit(const QVariant& unit);
@@ -160,10 +166,12 @@ public:
     void SetNy(int ny);
     void SetNz(int nz);
 
+    void SetBlockCentered(bool isBlockCentered);
+
     Q_INVOKABLE void initVariables();
 
 signals:
-    void IsLoadedChanged();
+    void LoadedChanged();
     void TitleChanged();
     void StartDateChanged();
     void UnitChanged();
@@ -175,6 +183,8 @@ signals:
     void NyChanged();
     void NzChanged();
 
+    void BlockCenteredChanged();
+
 private:
     bool isLoaded;
     QString title;
@@ -184,6 +194,7 @@ private:
     QVariant temperatureOption;
     QVariant numRES;
     int nx, ny, nz;
+    bool isBlockCentered;
 
     StratumData stratum;
 
