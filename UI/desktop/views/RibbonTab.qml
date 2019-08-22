@@ -13,8 +13,8 @@ Item {
     Rectangle {
         id: content
         anchors.fill: parent
-        border { width: 1; color: "lightgray" }
-
+//        border { width: 1; color: "lightgray" }
+        color: 'lightgray'
         Row {
             id: groups
             anchors.fill: parent
