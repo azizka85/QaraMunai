@@ -32,7 +32,8 @@ INCLUDEPATH += sources \
                 ../Model/sources/Helpers/Eclipse
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        settingsmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -50,3 +51,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lModel
+
+HEADERS += \
+    settingsmodel.h
