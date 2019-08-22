@@ -13,6 +13,7 @@ Item {
             alignment: Qt.AlignBottom
         }
 
+
         LineSeries {
             id: krwSWOF
             name: qsTr("Krw")
