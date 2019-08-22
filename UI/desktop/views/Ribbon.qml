@@ -2,7 +2,7 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.12
 
-Item {
+Rectangle {
     default property alias contents: ribbonContent.children
 
     property real ribbonHeight: 120
@@ -10,19 +10,28 @@ Item {
     id: ribbon
     width: parent.width
     height: ribbonHeight
+        color: 'white'
+        border.color: 'transparent'
 
     TabBar {
         id: ribbonBar
         anchors { top: parent.top; left: parent.left }
-
+        background: Rectangle {
+            border.color: 'transparent'
+        }
+        height: 25
+        contentHeight: 25
         Repeater {
             model: contents
 
             TabButton {
                 text: modelData.title
                 width: modelData.tabWidth
-
+                down: false
                 onDoubleClicked: switchRibbonVisible()
+                background: Rectangle {
+                    color: parent.checked ? 'lightgray' : 'transparent'
+                }
             }
         }
     }

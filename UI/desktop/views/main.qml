@@ -1,9 +1,10 @@
-import QtQuick 2.12
+import QtQuick 2.13
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
+import QtQuick.Controls.Styles 1.4
 
 ApplicationWindow {
 
@@ -18,10 +19,10 @@ ApplicationWindow {
 
     Ribbon {
         id: ribbon
+        ribbonHeight: 100
         RibbonTab {
             title: qsTr("Файл")
             tabWidth: 60
-
             RibbonGroup {
                 title: qsTr("Файл")
                 width: 112
@@ -31,20 +32,14 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: eclipseButton
-                        width: icon.width + 12
-                        height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-eclipse-32x32.png"; }
-
                         onClicked: importDATAOFD.open()
                     }
 
-                    Button {
-                        width: icon.width + 12
-                        height: icon.height + 12
+                    MyButton {
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-exit-32x32.ico"; }
-
                         onClicked: closeProject()
                     }
                 }
@@ -53,24 +48,21 @@ ApplicationWindow {
             RibbonGroup {
                 title: qsTr("Настройки")
                 width: 112
-
                 Row {
                     spacing: 6
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: fullScreenButton
                         width: 44
                         height: 44
-
                         onClicked: mainWindow.visibility = mainWindow.visibility === Window.Maximized ? "FullScreen" : "Maximized"
                     }
 
-                    Button {
+                    MyButton {
                         width: 44
                         height: 44
-
                         onClicked: dockTitleVisible = !dockTitleVisible
                     }
                 }
@@ -89,11 +81,10 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: fieldButton
                         width: 44
-                        height: 44                        
-
+                        height: 44
                         onClicked: {
                             if(fieldDock.visible)
                                 fieldDock.hide();
@@ -113,12 +104,9 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: wellScheduleButton
-                        width: icon.width + 12
-                        height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
-
                         onClicked: {
                             if(wellScheduleDock.visible)
                                 wellScheduleDock.hide();
@@ -127,10 +115,10 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
+                    MyButton {
                         id: wellsListButton
-                        width: icon.width + 12
-                        height: icon.height + 12
+
+
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
 
                         onClicked: {
@@ -157,8 +145,9 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: swofButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         checkable: true
@@ -178,6 +167,19 @@ ApplicationWindow {
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
 
+=======
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        onClicked: {
+                            if(swofChartDock.visible)
+                                swofChartDock.hide()
+                            else
+                                dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.5, true);
+                        }
+                    }
+
+                    MyButton {
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(swofTableDock.visible)
                                 swofTableDock.hide();
@@ -186,6 +188,7 @@ ApplicationWindow {
                         }
                     }
 
+<<<<<<< HEAD
                     Button {
                         width: icon.width + 12
                         height: icon.height + 12
@@ -195,6 +198,11 @@ ApplicationWindow {
                             settingsForm.prepare(swofChart.getSeries());
                             settingsForm.show();
                         }
+=======
+                    MyButton {
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png" }
+                        onClicked: settingsForm.show();
+>>>>>>> origin/Asilzhan's
                     }
                 }
             }
@@ -208,13 +216,17 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: sgofButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas_oil.png"; }
 
+=======
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(sgofChartDock.visible)
                                 sgofChartDock.hide();
@@ -223,13 +235,17 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
+                    MyButton {
                         id: sgofTableButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas_oil.png"; }
 
+=======
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(sgofTableDock.visible)
                                 sgofTableDock.hide();
@@ -238,15 +254,17 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
-                        width: icon.width + 12
-                        height: icon.height + 12
+                    MyButton {
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+<<<<<<< HEAD
 
                         onClicked: {
                             settingsForm.prepare(sgofChart.getSeries());
                             settingsForm.show();
                         }
+=======
+                        onClicked: settingsForm.show();
+>>>>>>> origin/Asilzhan's
                     }
                 }
             }
@@ -268,9 +286,12 @@ ApplicationWindow {
                         swofChart.prepare(swofList);
                         swofTable.prepare(swofList);
 
+<<<<<<< HEAD
                         settingsForm.prepare(swofChart);
                         settingsForm.prepare(sgofList);
 
+=======
+>>>>>>> origin/Asilzhan's
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
 
@@ -292,12 +313,16 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: pvtoButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil.png"; }
 
+=======
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(pvtoChartDock.visible)
                                 pvtoChartDock.hide();
@@ -306,12 +331,16 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
+                    MyButton {
                         id: pvtoTableButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil.png"; }
 
+=======
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(pvtoTableDock.visible)
                                 pvtoTableDock.hide();
@@ -320,12 +349,9 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
+                    MyButton {
                         checkable: true
-                        width: icon.width + 12
-                        height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
-
                         onClicked: settingsForm.show();
                     }
                 }
@@ -340,12 +366,16 @@ ApplicationWindow {
                     leftPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
-                    Button {
+                    MyButton {
                         id: pvtgButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
 
+=======
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(pvtgChartDock.visible)
                                 pvtgChartDock.hide();
@@ -354,12 +384,19 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
+                    MyButton {
                         id: pvtgTableButton
+<<<<<<< HEAD
                         width: icon.width + 12
                         height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
 
+=======
+                        padding: 6
+                        leftPadding: 6;
+                        rightPadding: 6
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
+>>>>>>> origin/Asilzhan's
                         onClicked: {
                             if(pvtgTableDock.visible)
                                 pvtgTableDock.hide();
@@ -368,12 +405,9 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
+                    MyButton {
                         checkable: true
-                        width: icon.width + 12
-                        height: icon.height + 12
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
-
                         onClicked: settingsForm.show();
                     }
                 }
@@ -407,6 +441,143 @@ ApplicationWindow {
         RibbonTab {
             title: qsTr("Расчётные данные")
             tabWidth: 130
+
+            RibbonGroup {
+                title: qsTr("Функции расчета")
+                width: 162
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
+                    MyButton {
+                        id: runButton
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/run-calculation-16x16.png"; }
+                    }
+
+                    MyButton {
+                        id: pauseButton
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/pause-calculation-16x16.png"; }
+                    }
+
+                    MyButton {
+                        id: stopButton
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/stop-calculation-16x16.png"; }
+                    }
+                }
+            }
+
+            RibbonGroup {
+                title: qsTr("")
+                width: 212
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
+                    MyButton {
+                        id: watercutButton
+                        checkable: true
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/wc_eor.png" }
+                    }
+                    MyButton {
+                        id: flowRateButto
+                        checkable: true
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/flow_rate.png" }
+                    }
+                    MyButton {
+                        id: volumeRateButton
+                        checkable: true
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/volume_rate.png" }
+                    }
+                    MyButton {
+                        id: wellPressureButton
+                        checkable: true
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/pavr.png" }
+                    }
+                }
+            }
+
+            RibbonGroup {
+                title: qsTr("Результаты расчета")
+                width: 200
+
+                Slider {
+                    id: slider
+                    anchors { bottom: buttonsRow.top; right: parent.right; left: parent.left; bottomMargin: 6; rightMargin: 6; leftMargin: 6;  }
+                    stepSize: 1;
+                    from: 0
+                    to: 100
+                }
+
+                Row {
+                    property MyButton movePreviousButton: movePreviousButton
+                    property MyButton moveNextButton: moveNextButton
+
+                    id: buttonsRow
+                    anchors { bottom: parent.bottom; bottomMargin: 6; left: parent.left; leftMargin: 6 }
+                    spacing: 0
+
+                    MyButton {
+                        id: moveFirstButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_first.png" }
+                        onClicked: {
+                            slider.value = slider.from;
+                            movePreviousButton.checked = false;
+                            moveNextButton.checked = false;
+                        }
+
+                    }
+                    MyButton {
+                        id: movePreviousButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_previous.png" }
+                        checkable: true
+
+                        onCheckedChanged: {
+                            if(checked) {
+                                moveNextButton.checked = false;
+                            }
+                        }
+                    }
+                    MyButton {
+                        id: moveNextButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_next.png" }
+                        checkable: true
+                        onCheckedChanged:{
+                            if(checked){
+                                movePreviousButton.checked = false;
+                            }
+                        }
+                    }
+                    MyButton {
+                        id: moveLastButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_last.png" }
+                        onClicked: {
+                            slider.value = slider.to;
+                            movePreviousButton.checked = false;
+                            moveNextButton.checked = false;
+                        }
+                    }
+                }
+
+                SpinBox {
+                    id: index
+                    anchors {   left: buttonsRow.right; right: parent.right; top: slider.bottom;
+                        leftMargin: 6; rightMargin: 6; topMargin: 6  }
+                    from: slider.from
+                    to: slider.to
+                    value: slider.value
+                    onValueChanged: slider.value = value
+                }
+            }
         }
 
         RibbonTab {
@@ -447,7 +618,7 @@ ApplicationWindow {
         onAccepted: {
             closeProject();
             loaderDialog.open();
-            projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""));
+            projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""))
         }
     }
 
@@ -577,7 +748,7 @@ ApplicationWindow {
     function createNumberArray(length)
     {
         var items = [];
-        for(var i = 0; i < length; i++) items[i] = i+1;
+        for(var i = 0; i < length; ++i) items[i] = i+1;
         return items;
     }
 
