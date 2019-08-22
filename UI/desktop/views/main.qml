@@ -658,7 +658,6 @@ ApplicationWindow {
     SettingsView {
         id: settingsForm
         visible: false
-        con
     }
 
     function createNumberArray(length)
