@@ -19,13 +19,13 @@ ApplicationWindow {
 
     Ribbon {
         id: ribbon
-        ribbonHeight: 100
+        ribbonHeight: 118
         RibbonTab {
             title: qsTr("Файл")
             tabWidth: 60
             RibbonGroup {
                 title: qsTr("Файл")
-                width: 112
+                width: 136
 
                 Row {
                     spacing: 6
@@ -47,7 +47,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Настройки")
-                width: 112
+                width: 136
                 Row {
                     spacing: 6
                     leftPadding: 6
@@ -83,6 +83,7 @@ ApplicationWindow {
 
                     MyButton {
                         id: fieldButton
+                        checkable: true
                         width: 44
                         height: 44
                         onClicked: {
@@ -97,7 +98,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Списки")
-                width: 112
+                width: 136
 
                 Row {
                     spacing: 6
@@ -106,6 +107,7 @@ ApplicationWindow {
 
                     MyButton {
                         id: wellScheduleButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
                         onClicked: {
                             if(wellScheduleDock.visible)
@@ -117,10 +119,8 @@ ApplicationWindow {
 
                     MyButton {
                         id: wellsListButton
-
-
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-tablegrid-32x32.png"; }
-
                         onClicked: {
                             if(wellsListDock.visible)
                                 wellsListDock.hide();
@@ -134,19 +134,20 @@ ApplicationWindow {
 
         RibbonTab {
             title: qsTr("Функции насыщенности")
-            tabWidth: 150
+            tabWidth: 200
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (нефть-вода)")
-                width: 170
+                width: 136
 
                 Row {
                     spacing: 6
                     leftPadding: 6
-                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6 }
 
                     MyButton {
                         id: swofButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
                         onClicked: {
                             if(swofChartDock.visible)
@@ -157,6 +158,7 @@ ApplicationWindow {
                     }
 
                     MyButton {
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
                         onClicked: {
                             if(swofTableDock.visible)
@@ -165,19 +167,12 @@ ApplicationWindow {
                                 dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
                         }
                     }
-
-                    MyButton {
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png" }
-                        onClicked: {
-                            swofChart.settingsView.show();
-                        }
-                    }
                 }
             }
 
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
-                width: 170
+                width: 136
 
                 Row {
                     spacing: 6
@@ -186,6 +181,7 @@ ApplicationWindow {
 
                     MyButton {
                         id: sgofButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas_oil.png"; }
                         onClicked: {
                             if(sgofChartDock.visible)
@@ -196,22 +192,13 @@ ApplicationWindow {
                     }
 
                     MyButton {
-                        id: sgofTableButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas_oil.png"; }
                         onClicked: {
                             if(sgofTableDock.visible)
                                 sgofTableDock.hide();
                             else
                                 dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.55);
-                        }
-                    }
-
-                    MyButton {
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
-
-                        onClicked: {
-                            settingsForm.prepare(sgofChart.getSeries());
-                            settingsForm.show();
                         }
                     }
                 }
@@ -233,10 +220,6 @@ ApplicationWindow {
 
                         swofChart.prepare(swofList);
                         swofTable.prepare(swofList);
-
-//                        settingsForm.prepare(swofChart);
-//                        settingsForm.prepare(sgofList);
-
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
 
@@ -251,7 +234,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("PVT нефти")
-                width: 170
+                width: 136
 
                 Row {
                     spacing: 6
@@ -260,6 +243,7 @@ ApplicationWindow {
 
                     MyButton {
                         id: pvtoButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil.png"; }
                         onClicked: {
                             if(pvtoChartDock.visible)
@@ -270,7 +254,7 @@ ApplicationWindow {
                     }
 
                     MyButton {
-                        id: pvtoTableButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil.png"; }
                         onClicked: {
                             if(pvtoTableDock.visible)
@@ -279,18 +263,12 @@ ApplicationWindow {
                                 dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.55);
                         }
                     }
-
-                    MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
-                        onClicked: settingsForm.show();
-                    }
                 }
             }
 
             RibbonGroup {
                 title: qsTr("PVT газа")
-                width: 170
+                width: 136
 
                 Row {
                     spacing: 6
@@ -309,7 +287,6 @@ ApplicationWindow {
                     }
 
                     MyButton {
-                        id: pvtgTableButton
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
                         onClicked: {
                             if(pvtgTableDock.visible)
@@ -317,12 +294,6 @@ ApplicationWindow {
                             else
                                 dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
                         }
-                    }
-
-                    MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
-                        onClicked: settingsForm.show();
                     }
                 }
             }
@@ -354,11 +325,11 @@ ApplicationWindow {
 
         RibbonTab {
             title: qsTr("Расчётные данные")
-            tabWidth: 130
+            tabWidth: 136
 
             RibbonGroup {
                 title: qsTr("Функции расчета")
-                width: 162
+                width: 196
                 Row {
                     spacing: 6
                     leftPadding: 6
@@ -383,7 +354,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("")
-                width: 212
+                width: 260
                 Row {
                     spacing: 6
                     leftPadding: 6

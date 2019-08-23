@@ -12,11 +12,12 @@ Item {
         legend {
             visible: true
             alignment: Qt.AlignBottom
-            model:[krwSWOF,kroSWOF,pcSWOF]
         }
 
 
         LineSeries {
+            property alias markerSize: kroSWOFS.markerSize
+
             id: krwSWOF
             name: qsTr("Krw")
             color: "mediumseagreen"
@@ -57,7 +58,7 @@ Item {
             style: "SolidLine"
         }
 
-        ScatterSeries{
+        ScatterSeries{                      
             id:krwSWOFS
             markerSize: 10
             color: krwSWOF.color
@@ -131,7 +132,7 @@ Item {
             text: "Настройка графиков"
             onClicked: {
 
-                settingsForm.show()
+                settingsView.show()
             }
         }
     }

@@ -18,6 +18,7 @@ Rectangle {
         anchors { top: parent.top; left: parent.left }
         background: Rectangle {
             border.color: 'transparent'
+            border { color: 'black'; width: 2 }
         }
         height: 25
         contentHeight: 25
@@ -50,6 +51,7 @@ Rectangle {
         anchors { left: parent.left; right: parent.right; top: ribbonBar.bottom; }
         currentIndex: ribbonBar.currentIndex
         height: ribbon.height - ribbonBar.height
+        anchors.topMargin: 0
     }
 
     function switchRibbonVisible()
