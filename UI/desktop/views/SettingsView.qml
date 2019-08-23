@@ -53,7 +53,7 @@ Window {
                 color: modelData.color
                 onColorChanged: modelData.color=color
 
-                MouseArea{
+                MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         console.log("ModelData color = " + modelData.color);
@@ -83,6 +83,12 @@ Window {
             title: "Толщина \nлинии"
             resizable: false
             width: 60
+            delegate: TextInput {
+                anchors.fill: parent
+                text: modelData.width
+                onTextChanged: if(acceptableInput) modelData.width = text
+                validator: IntValidator{bottom: 1; top: 10}
+            }
         }
 
         TableViewColumn {
@@ -114,26 +120,8 @@ Window {
         }
     }
 
-    function prepare(series){
-        settings.model = [];
-        settings.model = series;
-    }
-
     function closeProject()
     {
         settings.model = [];
-    }
-
-
-
-    ColorDialog {
-        title: "Please choose a color"
-        onAccepted: {
-            console.log("You chose: " + colorDialog.color)
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-        Component.onCompleted: visible = false
     }
 }
