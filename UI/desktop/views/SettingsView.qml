@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.0
 
 Window {
     visible: false
-    width: 506
+    width: 509
     height: 100
     title: qsTr("Настройка графиков")
     TableView {
@@ -42,15 +42,25 @@ Window {
             title: "Цвет \nлинии"
             resizable: false
             width: 60
-            delegate: Rectangle{
+            delegate: Rectangle {
                 anchors.fill: parent
                 color: modelData.color
-                onColorChanged: modelData.color=color
+                ColorDialog {
+                    id: colorDialog
+                    onColorChanged:  currentColor =  color
+                }
+
+                Binding {
+                    target: modelData;
+                    property: "color"
+                    value: colorDialog.color
+                }
 
                 MouseArea{
                     anchors.fill: parent
                     onClicked: colorDialog.open()
                 }
+
             }
         }
 
@@ -85,7 +95,7 @@ Window {
         TableViewColumn {
             role: "markerdash"
             title: "Тип \nмаркера"
-            resizable: true
+            resizable: false
             width: 60
         }
     }
@@ -98,19 +108,5 @@ Window {
     function closeProject()
     {
         settings.model = [];
-    }
-
-
-
-    ColorDialog {
-        id: colorDialog
-        title: "Please choose a color"
-        onAccepted: {
-            console.log("You chose: " + colorDialog.color)
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-        Component.onCompleted: visible = false
     }
 }

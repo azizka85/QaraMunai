@@ -1,7 +1,6 @@
 import QtQuick 2.6
 import QtCharts 2.3
 import QtQuick.Controls 2.1
-
 Item {
 
     ChartView {
@@ -10,7 +9,7 @@ Item {
 
         legend {
             visible: true
-            alignment: Qt.AlignBottom
+            alignment:Qt.AlignBottom
         }
 
         LineSeries {
@@ -51,6 +50,7 @@ Item {
                 gridLineColor: "silver"
             }
             style: "SolidLine"
+            capStyle:"FlatCap"
         }
 
         LineSeries {
@@ -59,6 +59,7 @@ Item {
             color: "mediumpurple"
             width: 2
             style: "SolidLine"
+            capStyle:"FlatCap"
         }
 
         LineSeries {
@@ -78,6 +79,8 @@ Item {
                 gridVisible: false
             }
             style: "SolidLine"
+            capStyle:"SquareCap"
+
         }
     }
 

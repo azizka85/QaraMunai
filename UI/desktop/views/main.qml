@@ -147,7 +147,7 @@ ApplicationWindow {
 
                     MyButton {
                         id: swofButton
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil_water.png"; }
                         onClicked: {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
@@ -169,7 +169,13 @@ ApplicationWindow {
                     MyButton {
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png" }
                         onClicked: {
-                            settingsForm.prepare(swofChart.getSeries());
+                            let series = swofChart.getSeries();
+                            settingsForm.prepare(series);
+                            console.log("Prepared started")
+                            for(let i = 0; i< series.length; i++){
+                                console.log("Name: " + series[i].name + " | Visible: " + series[i].visible);
+                            }
+
                             settingsForm.show();
                         }
                     }
