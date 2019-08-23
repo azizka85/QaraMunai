@@ -33,7 +33,6 @@ INCLUDEPATH += sources \
 
 SOURCES += \
         main.cpp \
-        settingsmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -52,5 +51,4 @@ DISTFILES +=
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lModel
 
-HEADERS += \
-    settingsmodel.h
+HEADERS +=

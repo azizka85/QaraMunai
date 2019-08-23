@@ -9,6 +9,8 @@ Window {
     width: 506
     height: 100
     title: qsTr("Настройка графиков")
+    property alias model: settings.model
+
     TableView {
         id: settings
         anchors.fill: parent
@@ -29,10 +31,14 @@ Window {
             title: "Отображение"
             resizable: false
             width: 80
-            delegate: CheckBox {
+            delegate: Rectangle {
                 anchors.fill: parent
-                checked: modelData.visible
-                onCheckedStateChanged: modelData.visible = checked
+                color: 'transparent'
+                CheckBox {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    checked: modelData.visible
+                    onCheckedStateChanged: modelData.visible = checked
+                }
             }
         }
 
@@ -41,14 +47,33 @@ Window {
             title: "Цвет \nлинии"
             resizable: false
             width: 60
-            delegate: Rectangle{
+            delegate: Rectangle {
+                id: rect
                 anchors.fill: parent
                 color: modelData.color
                 onColorChanged: modelData.color=color
 
                 MouseArea{
                     anchors.fill: parent
-                    onClicked: colorDialog.open()
+                    onClicked: {
+                        console.log("ModelData color = " + modelData.color);
+                        colorDialog.open();
+                    }
+                }
+
+                ColorDialog {
+                    id: colorDialog
+                    color: rect.color
+                    title: "Please choose a color"
+                    onCurrentColorChanged: {
+                        modelData.color = currentColor
+                    }
+
+                    onAccepted: {
+                        modelData.color = color
+                    }
+
+                    Component.onCompleted: visible = false
                 }
             }
         }
@@ -102,7 +127,6 @@ Window {
 
 
     ColorDialog {
-        id: colorDialog
         title: "Please choose a color"
         onAccepted: {
             console.log("You chose: " + colorDialog.color)
