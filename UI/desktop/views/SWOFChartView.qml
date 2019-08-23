@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtCharts 2.3
+import QtCharts 2.13
 import QtQuick.Controls 2.1
 
 Item {
@@ -11,6 +11,7 @@ Item {
         legend {
             visible: true
             alignment: Qt.AlignBottom
+            model:[krwSWOF,kroSWOF,pcSWOF]
         }
 
 
@@ -55,12 +56,26 @@ Item {
             style: "SolidLine"
         }
 
-        LineSeries {
+        ScatterSeries{
+            id:krwSWOFS
+            markerSize: 10
+            color: krwSWOF.color
+            markerShape: ScatterSeries.MarkerShapeRectangle
+        }
+
+        LineSeries{
             id: kroSWOF
             name: qsTr("Krow")
             color: "mediumpurple"
             width: 2
             style: "SolidLine"
+        }
+
+        ScatterSeries{
+            id:kroSWOFS
+            markerSize: 10
+            color: kroSWOF.color
+            markerShape: ScatterSeries.MarkerShapeCircle
         }
 
         LineSeries {
@@ -86,6 +101,8 @@ Item {
         krwSWOF.clear();
         kroSWOF.clear();
         pcSWOF.clear();
+        kroSWOFS.clear();
+        krwSWOFS.clear();
     }
 
     function prepare(list)
@@ -93,12 +110,16 @@ Item {
         krwSWOF.clear();
         kroSWOF.clear();
         pcSWOF.clear();
+        kroSWOFS.clear();
+        krwSWOFS.clear();
 
         for(var i = 0; i < list.length; i++)
         {
             krwSWOF.append(list[i].sw, list[i].krw);
             kroSWOF.append(list[i].sw, list[i].kro);
             pcSWOF.append(list[i].sw, list[i].pc);
+            kroSWOFS.append(list[i].sw, list[i].kro);
+            krwSWOFS.append(list[i].sw, list[i].krw);
         }
     }
 

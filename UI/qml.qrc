@@ -61,7 +61,6 @@
         <file alias="icon-left-24x24.png">desktop/images/icon-left-24x24.png</file>
         <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
         <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
-<<<<<<< HEAD
         <file alias="icon_linechart_gas.png">desktop/images/icon_linechart_gas.png</file>
         <file alias="icon_linechart_gas_oil.png">desktop/images/icon_linechart_gas_oil.png</file>
         <file alias="icon_linechart_oil.png">desktop/images/icon_linechart_oil.png</file>

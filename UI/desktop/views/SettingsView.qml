@@ -5,6 +5,7 @@ import QtCharts 2.3
 import QtQuick.Dialogs 1.0
 
 Window {
+
     visible: false
     width: 506
     height: 100
@@ -45,72 +46,86 @@ Window {
             delegate: Rectangle{
                 anchors.fill: parent
                 color: modelData.color
-                onColorChanged: modelData.color=color
+                onColorChanged: modelData.color = color
 
-                MouseArea{
+                MouseArea {
                     anchors.fill: parent
-                    onClicked: colorDialog.open()
+
+                    onClicked: {
+                        colorDialog.rect = parent;
+                        colorDialog.open();
+                    }
                 }
+            }
+}
+
+            TableViewColumn {
+                role: "width"
+                title: "Толщина \nлинии"
+                resizable: false
+                width: 60
+                delegate: TextInput {
+                    anchors.fill: parent
+                    text: modelData.width
+                    onTextChanged: modelData.width = text
+                }
+            }
+
+            TableViewColumn {
+                role: "style"
+                title: "Тип \nлинии"
+                resizable: false
+                width: 60
+            }
+
+            TableViewColumn {
+                role: "markercolor"
+                title: "Цвет \nмаркера"
+                resizable: false
+                width: 60
+            }
+
+            TableViewColumn {
+                role: "markerthck"
+                title: "Толщина \nмаркера"
+                resizable: false
+                width: 60
+            }
+
+            TableViewColumn {
+                role: "markerdash"
+                title: "Тип \nмаркера"
+                resizable: true
+                width: 60
             }
         }
 
-        TableViewColumn {
-            role: "width"
-            title: "Толщина \nлинии"
-            resizable: false
-            width: 60
+        function prepare(series){
+            settings.model = [];
+            settings.model = series;
         }
 
-        TableViewColumn {
-            role: "linedash"
-            title: "Тип \nлинии"
-            resizable: false
-            width: 60
+        function closeProject()
+        {
+            settings.model = [];
         }
 
-        TableViewColumn {
-            role: "markercolor"
-            title: "Цвет \nмаркера"
-            resizable: false
-            width: 60
+
+        ColorDialog {
+            property Rectangle rect: null
+
+            id: colorDialog
+            title: qsTr("Choose color")
+            color: rect != null ? rect.color : "white"
+
+            onAccepted: {
+                rect.color = color;
+                close();
+            }
         }
 
-        TableViewColumn {
-            role: "markerthck"
-            title: "Толщина \nмаркера"
-            resizable: false
-            width: 60
-        }
-
-        TableViewColumn {
-            role: "markerdash"
-            title: "Тип \nмаркера"
-            resizable: true
-            width: 60
+        ComboBox{
+            id: styleBox
+            model: [qsTr("Solid"), qsTr("Dash"), qsTr("Dot"), qsTr("DashDot"), qsTr("DashDotDot"), qsTr("NotSet")]
         }
     }
-
-    function prepare(series){
-        settings.model = [];
-        settings.model = series;
-    }
-
-    function closeProject()
-    {
-        settings.model = [];
-    }
-
-
-
-    ColorDialog {
-        id: colorDialog
-        title: "Please choose a color"
-        onAccepted: {
-            console.log("You chose: " + colorDialog.color)
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-        Component.onCompleted: visible = false
-    }
-}
