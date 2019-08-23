@@ -601,6 +601,6 @@ ApplicationWindow {
         sfRegionList.model = [];
         pvtRegionList.model = [];
 
-        projectData.initVariables();
+        projectData.initVariables();       
     }
 }

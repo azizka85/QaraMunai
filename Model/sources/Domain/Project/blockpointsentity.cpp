@@ -116,21 +116,99 @@ int BlockPointsEntity::pvtNUM()
 
 double BlockPointsEntity::soil()
 {
-    return 1 - swat() - sgas();
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->soil(current.I(), current.J(), current.K());
+    }
+
+    return 0;
 }
 
 double BlockPointsEntity::swat()
 {
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->swat(current.I(), current.J(), current.K());
+    }
+
     return 0;
 }
 
 double BlockPointsEntity::sgas()
 {
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->sgas(current.I(), current.J(), current.K());
+    }
+
     return 0;
 }
 
 double BlockPointsEntity::pressure()
 {
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->pressure(current.I(), current.J(), current.K());
+    }
+
+    return 0;
+}
+
+double BlockPointsEntity::pw()
+{
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->pw(current.I(), current.J(), current.K());
+    }
+
+    return 0;
+}
+
+double BlockPointsEntity::rs()
+{
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->rs(current.I(), current.J(), current.K(), depth());
+    }
+
+    return 0;
+}
+
+double BlockPointsEntity::pBUB()
+{
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) return project->pBub(current.I(), current.J(), current.K(), depth());
+    }
+
     return 0;
 }
 

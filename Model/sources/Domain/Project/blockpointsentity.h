@@ -39,6 +39,9 @@ public:
     Q_INVOKABLE double swat();
     Q_INVOKABLE double sgas();
     Q_INVOKABLE double pressure();
+    Q_INVOKABLE double pw();
+    Q_INVOKABLE double rs();
+    Q_INVOKABLE double pBUB();
     Q_INVOKABLE double poreVolume();
     Q_INVOKABLE double oilVolume();
 

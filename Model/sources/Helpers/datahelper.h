@@ -14,6 +14,10 @@
 
 #include <model_global.h>
 
+#define EPSILON 1E-15
+
+#define ISEQUAL(val1, val2) ((val1 - val2 < EPSILON) && (val1 - val2 > -EPSILON))
+
 using namespace QaraMunai::Model::Domain::Stratum;
 using namespace QaraMunai::Model::Domain::Project;
 using namespace QaraMunai::Model::Utils;
@@ -33,9 +37,17 @@ public:
     static void ADDValue(ADDEntity* add, QString arrayName, double &val, int i, int j, int k);
 
     static int GetPVTLength(StratumData& stratum, int pvtNum);
+    static double GetRSFromPVT(StratumData& stratum, int pvtNum, int rowNum = -1);
     static double GetPoFromPVT(StratumData& stratum, int pvtNum, int rowNum);
     static double GetBoFromPVT(StratumData& stratum, int pvtNum, int rowNum);
+    static double CalculateRSBubFromPVT(StratumData& stratum, int pvtNum);
+    static double CalculateRSFromPVT(StratumData& stratum, double p, int pvtNum);
+    static double CalculatePBubFromPVT(StratumData& stratum, int pvtNum);
+    static double CalculatePoFromPVT(StratumData& stratum, double rs, int pvtNum);
     static double CalculateBoFromPVT(StratumData& stratum, double p, int pvtNum);
+
+    static double CalculateRSFromRSVD(StratumData& stratum, double depth, int eqlNum);
+    static double CalculatePBubFromPBVD(StratumData& stratum, double depth, int eqlNum);
 };
 
 }}}

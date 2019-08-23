@@ -118,13 +118,39 @@ public:
 
     Q_INVOKABLE double tops(int i, int j);
 
+    Q_INVOKABLE double depth(int i, int j, int k);
+
     Q_INVOKABLE double poro(int i, int j, int k);
     Q_INVOKABLE double ntg(int i, int j, int k);
+    Q_INVOKABLE bool actnum(int i, int j, int k, double poreVolume = -1);
+
+    Q_INVOKABLE double multX(int i, int j, int k);
+    Q_INVOKABLE double multXm(int i, int j, int k);
+    Q_INVOKABLE double multY(int i, int j, int k);
+    Q_INVOKABLE double multYm(int i, int j, int k);
+    Q_INVOKABLE double multZ(int i, int j, int k);
+    Q_INVOKABLE double multZm(int i, int j, int k);
+
+    Q_INVOKABLE double tranX(int i, int j, int k, double poreVolume = -1);
+
+    Q_INVOKABLE double permX(int i, int j, int k);
+    Q_INVOKABLE double permY(int i, int j, int k);
+    Q_INVOKABLE double permZ(int i, int j, int k);
 
     Q_INVOKABLE int pvtNUM(int i, int j, int k);
+    Q_INVOKABLE int eqlNUM(int i, int j, int k);
+
+    Q_INVOKABLE double rs(int i, int j, int k, double depth = 0);
+    Q_INVOKABLE double pBub(int i, int j, int k, double depth = 0);
 
     Q_INVOKABLE QVariantMap coordLine(int i, int j);
     Q_INVOKABLE QVariantMap blockDepths(int i, int j, int k);
+
+    Q_INVOKABLE double pressure(int i, int j, int k);
+    Q_INVOKABLE double pw(int i, int j, int k);
+    Q_INVOKABLE double swat(int i, int j, int k);
+    Q_INVOKABLE double soil(int i, int j, int k);
+    Q_INVOKABLE double sgas(int i, int j, int k);
 
     bool CalcCoordLine(int i, int j, Line3D& coordLine);
     bool CalcBlockDepths(int i, int j, int k, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);

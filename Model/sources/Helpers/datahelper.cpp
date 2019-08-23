@@ -187,6 +187,13 @@ int DataHelper::GetPVTLength(StratumData &stratum, int pvtNum)
     return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum].length() : stratum.PVDO()[pvtNum].length();
 }
 
+double DataHelper::GetRSFromPVT(StratumData &stratum, int pvtNum, int rowNum)
+{
+    return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum][rowNum].RS() :
+                                         stratum.RSCONSTT().length() > 0 ? stratum.RSCONSTT()[pvtNum].RS() :
+                                                                           stratum.RSCONST().RS();
+}
+
 double DataHelper::GetPoFromPVT(StratumData &stratum, int pvtNum, int rowNum)
 {
     return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum][rowNum].PO() : stratum.PVDO()[pvtNum][rowNum].PO();
@@ -195,6 +202,112 @@ double DataHelper::GetPoFromPVT(StratumData &stratum, int pvtNum, int rowNum)
 double DataHelper::GetBoFromPVT(StratumData &stratum, int pvtNum, int rowNum)
 {
     return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum][rowNum].BO() : stratum.PVDO()[pvtNum][rowNum].BO();
+}
+
+double DataHelper::CalculateRSBubFromPVT(StratumData &stratum, int pvtNum)
+{
+    if(stratum.PVTO().length() > 0)
+    {
+        int rowsCount = GetPVTLength(stratum, pvtNum);
+
+        double rsLast = GetRSFromPVT(stratum, pvtNum, rowsCount-1);
+
+        double rs = rsLast;
+        int r = rowsCount-1;
+
+        while (r >= 0 && ISEQUAL(rs, rsLast))
+        {
+            r--;
+
+            rs = GetRSFromPVT(stratum, pvtNum, r);
+        }
+
+        r++;
+
+        return GetRSFromPVT(stratum, pvtNum, r);
+    }
+
+    return GetRSFromPVT(stratum, pvtNum);
+}
+
+double DataHelper::CalculateRSFromPVT(StratumData &stratum, double p, int pvtNum)
+{
+    int a = 0;
+    int b = GetPVTLength(stratum, pvtNum) - 1;
+
+    while (b - a > 1)
+    {
+        int r = (a + b) / 2;
+
+        double cp = GetPoFromPVT(stratum, pvtNum, r);
+
+        if (cp > p) b = r;
+        else a = r;
+    }
+
+    double bp = GetPoFromPVT(stratum, pvtNum, b);
+    double ap = GetPoFromPVT(stratum, pvtNum, a);
+
+    double k1 = (bp - p) / (bp - ap);
+    double k2 = (p - ap) / (bp - ap);
+
+    double aRS = GetRSFromPVT(stratum, pvtNum, a);
+    double bRS = GetRSFromPVT(stratum, pvtNum, b);
+
+    return aRS * k1 + bRS * k2;
+}
+
+double DataHelper::CalculatePBubFromPVT(StratumData &stratum, int pvtNum)
+{
+    if(stratum.PVTO().length() > 0)
+    {
+        int rowsCount = GetPVTLength(stratum, pvtNum);
+
+        double rsLast = GetRSFromPVT(stratum, pvtNum, rowsCount-1);
+
+        double rs = rsLast;
+        int r = rowsCount-1;
+
+        while (r >= 0 && ISEQUAL(rs, rsLast))
+        {
+            r--;
+
+            rs = GetRSFromPVT(stratum, pvtNum, r);
+        }
+
+        r++;
+
+        return GetPoFromPVT(stratum, pvtNum, r);
+    }
+
+    return 0;
+}
+
+double DataHelper::CalculatePoFromPVT(StratumData &stratum, double rs, int pvtNum)
+{
+    int a = 0;
+    int b = GetPVTLength(stratum, pvtNum) - 1;
+
+    while (b - a > 1)
+    {
+        int r = (a + b) / 2;
+
+        double cRS = GetRSFromPVT(stratum, pvtNum, r);
+
+        if (cRS > rs) b = r;
+        else a = r;
+    }
+
+    double aRS = GetRSFromPVT(stratum, pvtNum, a);
+    double bRS = GetRSFromPVT(stratum, pvtNum, b);
+
+    double k1 = (bRS - rs) / (bRS - aRS);
+    double k2 = (rs - aRS) / (bRS - aRS);
+
+    double bp = GetPoFromPVT(stratum, pvtNum, b);
+    double ap = GetPoFromPVT(stratum, pvtNum, a);
+
+    return ap * k1 + bp * k2;
 }
 
 double DataHelper::CalculateBoFromPVT(StratumData &stratum, double p, int pvtNum)
@@ -222,6 +335,60 @@ double DataHelper::CalculateBoFromPVT(StratumData &stratum, double p, int pvtNum
     double bBo = GetBoFromPVT(stratum, pvtNum, b);
 
     return aBo * k1 + bBo * k2;
+}
+
+double DataHelper::CalculateRSFromRSVD(StratumData &stratum, double depth, int eqlNum)
+{
+    int a = 0;
+    int b = stratum.RSVD()[eqlNum].length() - 1;
+
+    while (b - a > 1)
+    {
+        int r = (a + b) / 2;
+
+        double cDepth = stratum.RSVD()[eqlNum][r].Depth();
+
+        if (cDepth > depth) b = r;
+        else a = r;
+    }
+
+    double bDepth = stratum.RSVD()[eqlNum][b].Depth();
+    double aDepth = stratum.RSVD()[eqlNum][a].Depth();
+
+    double k1 = (bDepth - depth) / (bDepth - aDepth);
+    double k2 = (depth - aDepth) / (bDepth - aDepth);
+
+    double aRS = stratum.RSVD()[eqlNum][a].RS();
+    double bRS = stratum.RSVD()[eqlNum][b].RS();
+
+    return aRS * k1 + bRS * k2;
+}
+
+double DataHelper::CalculatePBubFromPBVD(StratumData &stratum, double depth, int eqlNum)
+{
+    int a = 0;
+    int b = stratum.PBVD()[eqlNum].length() - 1;
+
+    while (b - a > 1)
+    {
+        int r = (a + b) / 2;
+
+        double cDepth = stratum.PBVD()[eqlNum][r].Depth();
+
+        if (cDepth > depth) b = r;
+        else a = r;
+    }
+
+    double bDepth = stratum.PBVD()[eqlNum][b].Depth();
+    double aDepth = stratum.PBVD()[eqlNum][a].Depth();
+
+    double k1 = (bDepth - depth) / (bDepth - aDepth);
+    double k2 = (depth - aDepth) / (bDepth - aDepth);
+
+    double ap = stratum.PBVD()[eqlNum][a].PBub();
+    double bp = stratum.PBVD()[eqlNum][b].PBub();
+
+    return ap * k1 + bp * k2;
 }
 
 }}}
