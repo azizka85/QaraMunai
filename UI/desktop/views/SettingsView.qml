@@ -14,6 +14,9 @@ Window {
     TableView {
         id: settings
         anchors.fill: parent
+
+
+
         TableViewColumn {
             role: "name"
             title: "Название"
@@ -49,6 +52,7 @@ Window {
             width: 60
             delegate: Rectangle {
                 id: rect
+                radius: 3
                 anchors.fill: parent
                 color: modelData.color
                 onColorChanged: modelData.color=color
@@ -68,11 +72,9 @@ Window {
                     onCurrentColorChanged: {
                         modelData.color = currentColor
                     }
-
                     onAccepted: {
                         modelData.color = color
                     }
-
                     Component.onCompleted: visible = false
                 }
             }
@@ -88,35 +90,23 @@ Window {
                 text: modelData.width
                 onTextChanged: if(acceptableInput) modelData.width = text
                 validator: IntValidator{bottom: 1; top: 10}
+                horizontalAlignment: Text.AlignHCenter
             }
         }
 
         TableViewColumn {
             role: "linedash"
-            title: "Тип \nлинии"
+            title: "Тип линии"
             resizable: false
-            width: 60
-        }
+            width: 115
+            delegate: ComboBox {
+                currentIndex: modelData.style
+                anchors.fill: parent
+                height: currentText.height
+                model: PenStyles {}
+                onCurrentTextChanged: modelData.style = currentIndex
+            }
 
-        TableViewColumn {
-            role: "markercolor"
-            title: "Цвет \nмаркера"
-            resizable: false
-            width: 60
-        }
-
-        TableViewColumn {
-            role: "markerthck"
-            title: "Толщина \nмаркера"
-            resizable: false
-            width: 60
-        }
-
-        TableViewColumn {
-            role: "markerdash"
-            title: "Тип \nмаркера"
-            resizable: true
-            width: 60
         }
     }
 
