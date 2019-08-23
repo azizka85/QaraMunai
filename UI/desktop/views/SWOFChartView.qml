@@ -3,6 +3,7 @@ import QtCharts 2.13
 import QtQuick.Controls 2.1
 
 Item {
+    property alias settingsView: settingsView
 
     ChartView {
         id: swofChart
@@ -66,7 +67,7 @@ Item {
         LineSeries{
             id: kroSWOF
             name: qsTr("Krow")
-            color: "mediumpurple"
+            color: "red"
             width: 2
             style: "SolidLine"
         }
@@ -123,12 +124,8 @@ Item {
         }
     }
 
-    function getSeries()
-    {
-        return [krwSWOF, kroSWOF, pcSWOF];
-    }
 
-    Menu{
+    Menu {
         id: settingsMenu
         MenuItem{
             text: "Настройка графиков"
@@ -139,7 +136,7 @@ Item {
         }
     }
 
-    MouseArea{
+    MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton|Qt.RightButton
         onClicked: {
@@ -147,4 +144,11 @@ Item {
                 settingsMenu.popup()
         }
     }
+
+    SettingsView {
+        id: settingsView
+        visible: false
+        model: [krwSWOF, kroSWOF, pcSWOF]
+    }
 }
+

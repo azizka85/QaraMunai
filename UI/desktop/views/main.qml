@@ -169,8 +169,7 @@ ApplicationWindow {
                     MyButton {
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png" }
                         onClicked: {
-                            settingsForm.prepare(swofChart.getSeries());
-                            settingsForm.show();
+                            swofChart.settingsView.show();
                         }
                     }
                 }
@@ -235,8 +234,8 @@ ApplicationWindow {
                         swofChart.prepare(swofList);
                         swofTable.prepare(swofList);
 
-                        settingsForm.prepare(swofChart);
-                        settingsForm.prepare(sgofList);
+//                        settingsForm.prepare(swofChart);
+//                        settingsForm.prepare(sgofList);
 
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
@@ -655,11 +654,6 @@ ApplicationWindow {
         }
     }
 
-    SettingsView {
-        id: settingsForm
-        visible: false
-    }
-
     function createNumberArray(length)
     {
         var items = [];
@@ -670,8 +664,6 @@ ApplicationWindow {
     function closeProject()
     {
         mainWindow.title =  qsTr("Qara munai'");
-
-        settingsForm.closeProject();
 
         swofChart.closeProject();
         swofTable.closeProject();
