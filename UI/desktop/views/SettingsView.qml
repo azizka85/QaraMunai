@@ -16,6 +16,8 @@ Window {
         id: settings
         anchors.fill: parent
 
+
+
         TableViewColumn {
             role: "name"
             title: "Название"
@@ -51,6 +53,7 @@ Window {
             width: 60
             delegate: Rectangle {
                 id: rect
+                radius: 3
                 anchors.fill: parent
                 color: modelData.color
                 onColorChanged: modelData.color = color
@@ -70,69 +73,46 @@ Window {
                     onCurrentColorChanged: {
                         modelData.color = currentColor
                     }
-
                     onAccepted: {
                         modelData.color = color
                     }
-
                     Component.onCompleted: visible = false
                 }
             }
 }
 
-            TableViewColumn {
-                role: "width"
-                title: "Толщина \nлинии"
-                resizable: false
-                width: 60
-                delegate: TextInput {
-                    anchors.fill: parent
-                    text: modelData.width
-                    onTextChanged: modelData.width = text
-                }
-            }
-
-            TableViewColumn {
-                role: "style"
-                title: "Тип \nлинии"
-                resizable: false
-                width: 60
-            }
-
-            TableViewColumn {
-                role: "markercolor"
-                title: "Цвет \nмаркера"
-                resizable: false
-                width: 60
-            }
-
-            TableViewColumn {
-                role: "markerthck"
-                title: "Толщина \nмаркера"
-                resizable: false
-                width: 60
-            }
-
-            TableViewColumn {
-                role: "markerdash"
-                title: "Тип \nмаркера"
-                resizable: true
-                width: 60
+        TableViewColumn {
+            role: "width"
+            title: "Толщина \nлинии"
+            resizable: false
+            width: 60
+            delegate: TextInput {
+                anchors.fill: parent
+                text: modelData.width
+                onTextChanged: if(acceptableInput) modelData.width = text
+                validator: IntValidator{bottom: 1; top: 10}
+                horizontalAlignment: Text.AlignHCenter
             }
         }
 
-        function prepare(series){
-            settings.model = [];
-            settings.model = series;
-        }
+        TableViewColumn {
+            role: "linedash"
+            title: "Тип линии"
+            resizable: false
+            width: 115
+            delegate: ComboBox {
+                currentIndex: modelData.style
+                anchors.fill: parent
+                height: currentText.height
+                model: PenStyles {}
+                onCurrentTextChanged: modelData.style = currentIndex
+            }
 
-        function closeProject()
-        {
-            settings.model = [];
-        }
-
-        ComboBox{
-            id: styleBox
-            model: [qsTr("Solid"), qsTr("Dash"), qsTr("Dot"), qsTr("DashDot"), qsTr("DashDotDot"), qsTr("NotSet")]
         }
     }
+
+    function closeProject()
+    {
+        settings.model = [];
+    }
+}
