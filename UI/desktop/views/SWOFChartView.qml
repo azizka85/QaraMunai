@@ -39,7 +39,7 @@ Item {
                 gridLineColor: "silver"
             }
 
-            axisY: ValueAxis{
+            axisY: ValueAxis {
                 titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
                 color: "Black"
 
@@ -58,14 +58,14 @@ Item {
             style: "SolidLine"
         }
 
-        ScatterSeries{                      
+        ScatterSeries {
             id:krwSWOFS
             markerSize: 10
             color: krwSWOF.color
             markerShape: ScatterSeries.MarkerShapeRectangle
         }
 
-        LineSeries{
+        LineSeries {
             id: kroSWOF
             name: qsTr("Krow")
             color: "red"
@@ -73,7 +73,7 @@ Item {
             style: "SolidLine"
         }
 
-        ScatterSeries{
+        ScatterSeries {
             id:kroSWOFS
             markerSize: 10
             color: kroSWOF.color
@@ -128,10 +128,9 @@ Item {
 
     Menu {
         id: settingsMenu
-        MenuItem{
+        MenuItem {
             text: "Настройка графиков"
             onClicked: {
-
                 settingsView.show()
             }
         }
