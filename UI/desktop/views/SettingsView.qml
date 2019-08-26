@@ -5,18 +5,16 @@ import QtCharts 2.3
 import QtQuick.Dialogs 1.0
 
 Window {
+    property alias model: settings.model
 
     visible: false
-    width: 506
-    height: 100
+    width: 498
+    height: 110
     title: qsTr("Настройка графиков")
-    property alias model: settings.model
 
     TableView {
         id: settings
         anchors.fill: parent
-
-
 
         TableViewColumn {
             role: "name"
@@ -79,7 +77,7 @@ Window {
                     Component.onCompleted: visible = false
                 }
             }
-}
+        }
 
         TableViewColumn {
             role: "width"
@@ -96,7 +94,7 @@ Window {
         }
 
         TableViewColumn {
-            role: "linedash"
+            //role: "linedash"
             title: "Тип линии"
             resizable: false
             width: 115
@@ -107,7 +105,55 @@ Window {
                 model: PenStyles {}
                 onCurrentTextChanged: modelData.style = currentIndex
             }
+        }
 
+        TableViewColumn {
+            role: "markerSize"
+            title: "Толщина \nмаркера"
+            resizable: false
+            width: 60
+            delegate: TextInput {
+                anchors.fill: parent
+                text: modelData.markerSize
+                onTextChanged: if(acceptableInput) modelData.markerSize = text
+                validator: IntValidator{bottom: 1; top: 10}
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+        TableViewColumn {
+            role: "markerColor"
+            title: "Цвет \nмаркера"
+            resizable: false
+            width: 60
+            delegate: Rectangle {
+                id: rect2
+                radius: 3
+                anchors.fill: parent
+                color: modelData.markerColor
+                onColorChanged: modelData.markerColor = color
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("ModelData color = " + modelData.color);
+                        colorDialog2.open();
+                    }
+                }
+
+                ColorDialog {
+                    id: colorDialog2
+                    color: rect2.color
+                    title: "Please choose a color"
+                    onCurrentColorChanged: {
+                        modelData.markerColor = currentColor
+                    }
+                    onAccepted: {
+                        modelData.markerColor = color
+                    }
+                    Component.onCompleted: visible = false
+                }
+            }
         }
     }
 
