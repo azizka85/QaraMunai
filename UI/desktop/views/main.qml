@@ -17,6 +17,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("Qara munai'")
 
+
     Ribbon {
         id: ribbon
         ribbonHeight: 118
@@ -43,7 +44,12 @@ ApplicationWindow {
                         onClicked: closeProject()
                     }
                 }
+
+                RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
 
             RibbonGroup {
                 title: qsTr("Настройки")
@@ -67,6 +73,8 @@ ApplicationWindow {
                     }
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
         }
 
         RibbonTab {
@@ -95,6 +103,8 @@ ApplicationWindow {
                     }
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
 
             RibbonGroup {
                 title: qsTr("Списки")
@@ -130,6 +140,9 @@ ApplicationWindow {
                     }
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
         }
 
         RibbonTab {
@@ -170,6 +183,8 @@ ApplicationWindow {
                 }
             }
 
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
             RibbonGroup {
                 title: qsTr("ОФП и КД (газ-нефть)")
                 width: 136
@@ -204,6 +219,8 @@ ApplicationWindow {
                 }
             }
 
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
             RibbonGroup {
                 title: qsTr("Регионы")
                 width: 62
@@ -226,7 +243,11 @@ ApplicationWindow {
                     }
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
         }
+
+        RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
 
         RibbonTab {
             title: qsTr("Свойства пластовой жидкости")
@@ -266,6 +287,8 @@ ApplicationWindow {
                 }
             }
 
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
             RibbonGroup {
                 title: qsTr("PVT газа")
                 width: 136
@@ -298,6 +321,8 @@ ApplicationWindow {
                 }
             }
 
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
             RibbonGroup {
                 title: qsTr("Регионы")
                 width: 62
@@ -321,6 +346,8 @@ ApplicationWindow {
                     }
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
         }
 
         RibbonTab {
@@ -352,6 +379,8 @@ ApplicationWindow {
                 }
             }
 
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
             RibbonGroup {
                 title: qsTr("")
                 width: 260
@@ -382,6 +411,8 @@ ApplicationWindow {
                     }
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
 
             RibbonGroup {
                 title: qsTr("Результаты расчета")
@@ -463,6 +494,8 @@ ApplicationWindow {
                     onValueChanged: slider.value = value
                 }
             }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
         }
 
         RibbonTab {
