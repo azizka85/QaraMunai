@@ -45,8 +45,6 @@ ApplicationWindow {
                     }
                 }
 
-                RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
-
             }
 
             RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
@@ -161,7 +159,7 @@ ApplicationWindow {
                     MyButton {
                         id: swofButton
                         checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon-linechart-32x32.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil_water.png"; }
                         onClicked: {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
