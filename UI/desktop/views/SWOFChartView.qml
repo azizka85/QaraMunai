@@ -14,9 +14,9 @@ Item {
             alignment: Qt.AlignBottom
         }
 
-
         LineSeries {
-            property alias markerSize: kroSWOFS.markerSize
+            property alias markerSize: krwSWOF2.markerSize
+            property alias markerColor: krwSWOF2.color
 
             id: krwSWOF
             name: qsTr("Krw")
@@ -58,26 +58,15 @@ Item {
             style: "SolidLine"
         }
 
-        ScatterSeries {
-            id:krwSWOFS
-            markerSize: 10
-            color: krwSWOF.color
-            markerShape: ScatterSeries.MarkerShapeRectangle
-        }
+        LineSeries{
+            property alias markerSize: kroSWOF2.markerSize
+            property alias markerColor: kroSWOF2.color
 
-        LineSeries {
             id: kroSWOF
             name: qsTr("Krow")
-            color: "red"
+            color: "mediumpurple"
             width: 2
             style: "SolidLine"
-        }
-
-        ScatterSeries {
-            id:kroSWOFS
-            markerSize: 10
-            color: kroSWOF.color
-            markerShape: ScatterSeries.MarkerShapeCircle
         }
 
         LineSeries {
@@ -96,6 +85,22 @@ Item {
             }
             style: "SolidLine"
         }
+
+        ScatterSeries{
+            id:krwSWOF2
+            markerSize: 8
+            visible: krwSWOF.visible
+            color: "mediumseagreen"
+            markerShape: ScatterSeries.MarkerShapeRectangle
+        }
+
+        ScatterSeries{
+            id:kroSWOF2
+            markerSize: 8
+            visible: kroSWOF.visible
+            color: "mediumpurple"
+            markerShape: ScatterSeries.MarkerShapeCircle
+        }
     }
 
     function closeProject()
@@ -103,8 +108,8 @@ Item {
         krwSWOF.clear();
         kroSWOF.clear();
         pcSWOF.clear();
-        kroSWOFS.clear();
-        krwSWOFS.clear();
+        krwSWOF2.clear();
+        kroSWOF2.clear();
     }
 
     function prepare(list)
@@ -112,19 +117,18 @@ Item {
         krwSWOF.clear();
         kroSWOF.clear();
         pcSWOF.clear();
-        kroSWOFS.clear();
-        krwSWOFS.clear();
+        krwSWOF2.clear();
+        kroSWOF2.clear();
 
         for(var i = 0; i < list.length; i++)
         {
             krwSWOF.append(list[i].sw, list[i].krw);
             kroSWOF.append(list[i].sw, list[i].kro);
             pcSWOF.append(list[i].sw, list[i].pc);
-            kroSWOFS.append(list[i].sw, list[i].kro);
-            krwSWOFS.append(list[i].sw, list[i].krw);
+            kroSWOF2.append(list[i].sw, list[i].kro);
+            krwSWOF2.append(list[i].sw, list[i].krw);
         }
     }
-
 
     Menu {
         id: settingsMenu
