@@ -10,15 +10,16 @@ Rectangle {
     id: ribbon
     width: parent.width
     height: ribbonHeight
-        color: 'white'
-        border.color: 'transparent'
+    color: 'white'
+    border.color: 'transparent'
 
     TabBar {
         id: ribbonBar
         anchors { top: parent.top; left: parent.left }
         background: Rectangle {
-            border.color: 'transparent'
-            border { color: 'black'; width: 2 }
+            color: 'white'
+            width: ribbon.width
+//            border { color: 'black'; width: 2 }
         }
         height: 25
         contentHeight: 25
@@ -31,7 +32,8 @@ Rectangle {
                 down: false
                 onDoubleClicked: switchRibbonVisible()
                 background: Rectangle {
-                    color: parent.checked ? 'lightgray' : 'transparent'
+
+                    color: parent.checked ? '#f3f3f3' : 'white'
                 }
             }
         }

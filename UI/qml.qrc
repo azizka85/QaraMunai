@@ -50,6 +50,7 @@
         <file alias="WellPressureView.qml">desktop/views/WellPressureView.qml</file>
         <file alias="MyButton.qml">desktop/views/MyButton.qml</file>
         <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>
+        <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
@@ -85,13 +86,5 @@
         <file alias="move_last.png">desktop/images/move_last.png</file>
         <file alias="move_next.png">desktop/images/move_next.png</file>
         <file alias="move_previous.png">desktop/images/move_previous.png</file>
-        <file alias="icon_linechart_gas.png">desktop/images/icon_linechart_gas.png</file>
-        <file alias="icon_linechart_gas_oil.png">desktop/images/icon_linechart_gas_oil.png</file>
-        <file alias="icon_linechart_oil.png">desktop/images/icon_linechart_oil.png</file>
-        <file alias="icon_linechart_oil_water.png">desktop/images/icon_linechart_oil_water.png</file>
-        <file alias="icon_table_gas.png">desktop/images/icon_table_gas.png</file>
-        <file alias="icon_table_gas_oil.png">desktop/images/icon_table_gas_oil.png</file>
-        <file alias="icon_table_oil.png">desktop/images/icon_table_oil.png</file>
-        <file alias="icon_table_oil_water.png">desktop/images/icon_table_oil_water.png</file>
     </qresource>
 </RCC>

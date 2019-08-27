@@ -139,7 +139,7 @@ Item {
 
     Menu {
         id: settingsMenu
-        MenuItem{
+        MenuItem {
             text: "Настройка графиков"
             onClicked: {
                 settingsView.show()
@@ -162,4 +162,3 @@ Item {
         model: [krwSWOF, kroSWOF, pcSWOF]
     }
 }
-
