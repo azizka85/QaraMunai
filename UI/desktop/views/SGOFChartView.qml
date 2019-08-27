@@ -17,71 +17,34 @@ Item {
         LineSeries {
             property alias markerSize: krgSGOF2.markerSize
             property alias markerColor: krgSGOF2.color
+
             id: krgSGOF
             name: qsTr("Krg")
             color: "mediumseagreen"
+            axisX: axisX
+            axisY: axisY
             width: 2
-            axisX: ValueAxis{
-                titleText: qsTr("Насыщенность газа, д.ед.")
-                color: "Black"
-
-                min: 0
-                max: 1
-                tickCount: 6
-                labelFormat: "%.1f"
-
-                minorTickCount: 4
-                minorGridVisible: true
-                minorGridLineColor: "gainsboro"
-
-                gridVisible: true
-                gridLineColor: "silver"
-            }
-            axisY: ValueAxis{
-                titleText:qsTr("Отн. фазовые проницаемости, д.ед. ")
-                color: "Black"
-
-                min: 0
-                max: 1
-                tickCount: 6
-                labelFormat: "%.1f"
-
-                minorTickCount: 4
-                minorGridVisible: true
-                minorGridLineColor: "gainsboro"
-
-                gridVisible: true
-                gridLineColor: "silver"
-            }
             style: "SolidLine"
         }
-
         LineSeries {
             property alias markerSize: kroSGOF2.markerSize
             property alias markerColor: kroSGOF2.color
+
             id: kroSGOF
             name: qsTr("Krog")
             color: "mediumpurple"
+            axisX: axisX
+            axisY: axisY
             width: 2
             style: "SolidLine"
         }
-
         LineSeries {
             id: pcSGOF
             name: qsTr("Pcog")
             color: "orange"
+            axisX: axisX
+            axisYRight: axisY2
             width: 2
-            axisYRight:  ValueAxis{
-                titleText:qsTr("Капиллярное давление, Psia")
-                color: "Black"
-
-                min: 0
-                max: 4
-                tickCount: 6
-                labelFormat: "%.1f"
-
-                gridVisible: false
-            }
             style: "SolidLine"
         }
 
@@ -89,16 +52,62 @@ Item {
             id: krgSGOF2
             markerSize: 8
             visible: krgSGOF.visible
-            color: krgSGOF.color
+            color: "mediumseagreen"
             markerShape: ScatterSeries.MarkerShapeRectangle
         }
-
         ScatterSeries{
             id:kroSGOF2
             markerSize: 8
             visible: kroSGOF.visible
-            color: kroSGOF.color
+            color: "mediumpurple"
             markerShape: ScatterSeries.MarkerShapeCircle
+        }
+
+        ValueAxis{
+            id: axisX
+            titleText: qsTr("Насыщенность газа, д.ед.")
+            color: "Black"
+
+            min: 0
+            max: 1
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
+        }
+        ValueAxis{
+            id: axisY
+            titleText:qsTr("Отн. фазовые проницаемости, д.ед. ")
+            color: "Black"
+
+            min: 0
+            max: 1
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
+        }
+        ValueAxis{
+            id: axisY2
+            titleText:qsTr("Капиллярное давление, Psia")
+            color: "Black"
+
+            min: 0
+            max: 4
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            gridVisible: false
         }
     }
 
@@ -127,11 +136,6 @@ Item {
             krgSGOF2.append(list[i].sg, list[i].krg);
             kroSGOF2.append(list[i].sg, list[i].kro);
         }
-    }
-
-    function getSeries()
-    {
-        return [krgSGOF, kroSGOF, pcSGOF];
     }
 
     Menu{

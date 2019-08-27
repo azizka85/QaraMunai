@@ -21,43 +21,11 @@ Item {
             id: krwSWOF
             name: qsTr("Krw")
             color: "mediumseagreen"
+            axisX: axisX
+            axisY: axisY
             width: 2
-            axisX: ValueAxis{
-                titleText:qsTr("Насыщенность воды, д.ед.")
-                color: "Black"
-
-                min: 0
-                max: 1
-                tickCount: 6
-                labelFormat: "%.1f"
-
-                minorTickCount: 4
-                minorGridVisible: true
-                minorGridLineColor: "gainsboro"
-
-                gridVisible: true
-                gridLineColor: "silver"
-            }
-
-            axisY: ValueAxis{
-                titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
-                color: "Black"
-
-                min: 0
-                max: 1
-                tickCount: 6
-                labelFormat: "%.1f"
-
-                minorTickCount: 4
-                minorGridVisible: true
-                minorGridLineColor: "gainsboro"
-
-                gridVisible: true
-                gridLineColor: "silver"
-            }
             style: "SolidLine"
         }
-
         LineSeries{
             property alias markerSize: kroSWOF2.markerSize
             property alias markerColor: kroSWOF2.color
@@ -65,24 +33,18 @@ Item {
             id: kroSWOF
             name: qsTr("Krow")
             color: "mediumpurple"
+            axisX: axisX
+            axisY: axisY
             width: 2
             style: "SolidLine"
         }
-
         LineSeries {
             id: pcSWOF
             name: qsTr("Pcow")
             color: "orange"
+            axisX: axisX
+            axisYRight: axisY2
             width: 2
-            axisYRight:  ValueAxis{
-                titleText: qsTr("Капиллярное давление, Psia")
-                color: "Black"
-
-                tickCount: 6
-                labelFormat: "%.1f"
-
-                gridVisible: false
-            }
             style: "SolidLine"
         }
 
@@ -93,7 +55,6 @@ Item {
             color: "mediumseagreen"
             markerShape: ScatterSeries.MarkerShapeRectangle
         }
-
         ScatterSeries{
             id:kroSWOF2
             markerSize: 8
@@ -101,6 +62,52 @@ Item {
             color: "mediumpurple"
             markerShape: ScatterSeries.MarkerShapeCircle
         }
+
+        ValueAxis{
+            id: axisX
+            titleText:qsTr("Насыщенность воды, д.ед.")
+            color: "Black"
+
+            min: 0
+            max: 1
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
+        }
+        ValueAxis{
+            id: axisY
+            titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
+            color: "Black"
+
+            min: 0
+            max: 1
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
+        }
+        ValueAxis{
+            id: axisY2
+            titleText: qsTr("Капиллярное давление, Psia")
+            color: "Black"
+
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            gridVisible: false
+        }
+
     }
 
     function closeProject()

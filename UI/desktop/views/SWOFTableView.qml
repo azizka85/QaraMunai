@@ -9,28 +9,28 @@ Item {
 
         TableViewColumn {
             role: "sw"
-            title: "SW"
+            title: "Sw"
             width: swofList.width/4
             resizable: false
         }
 
         TableViewColumn {
             role: "krw"
-            title: "KrW"
+            title: "Krw"
             width: swofList.width/4
             resizable: false
         }
 
         TableViewColumn {
             role: "kro"
-            title: "KrO"
+            title: "Krow"
             width: swofList.width/4
             resizable: false
         }
 
         TableViewColumn {
             role: "pc"
-            title: "Pc"
+            title: "Pcow"
             width: swofList.width/4
             resizable: false
         }
