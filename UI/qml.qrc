@@ -50,7 +50,6 @@
         <file alias="WellPressureView.qml">desktop/views/WellPressureView.qml</file>
         <file alias="MyButton.qml">desktop/views/MyButton.qml</file>
         <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>
-        <file alias="LineScatterSeries.qml">desktop/views/LineScatterSeries.qml</file>
         <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">

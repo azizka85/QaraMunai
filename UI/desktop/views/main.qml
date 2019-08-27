@@ -245,8 +245,6 @@ ApplicationWindow {
             RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
         }
 
-        RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
-
         RibbonTab {
             title: qsTr("Свойства пластовой жидкости")
             tabWidth: 200
