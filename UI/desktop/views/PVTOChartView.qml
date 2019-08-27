@@ -13,6 +13,10 @@ Item {
             visible: true
             alignment: Qt.AlignBottom
         }
+        margins.top: 0
+        margins.bottom: 0
+        margins.left: 0
+        margins.right: 0
 
         LineSeries {
             property alias markerSize: poPVTO2.markerSize

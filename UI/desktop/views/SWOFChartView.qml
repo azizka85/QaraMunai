@@ -11,13 +11,18 @@ Item {
 
         legend {
             visible: true
-            alignment: Qt.AlignBottom
+            alignment: Qt.AlignTop
+            //model:[krwSWOF, kroSWOF, pcSWOF]
         }
+          margins.top: 0
+          margins.bottom: 0
+          margins.left: 0
+          margins.right: 0
 
         LineSeries {
             property alias markerSize: krwSWOF2.markerSize
             property alias markerColor: krwSWOF2.color
-
+            property alias markerShape: krwSWOF2.markerShape
             id: krwSWOF
             name: qsTr("Krw")
             color: "mediumseagreen"
@@ -29,7 +34,7 @@ Item {
         LineSeries{
             property alias markerSize: kroSWOF2.markerSize
             property alias markerColor: kroSWOF2.color
-
+            property alias markerShape: kroSWOF2.markerShape
             id: kroSWOF
             name: qsTr("Krow")
             color: "mediumpurple"
@@ -39,6 +44,9 @@ Item {
             style: "SolidLine"
         }
         LineSeries {
+            property alias markerSize: pcSWOF2.markerSize
+            property alias markerColor: pcSWOF2.color
+            property alias markerShape: pcSWOF2.markerShape
             id: pcSWOF
             name: qsTr("Pcow")
             color: "orange"
@@ -61,6 +69,14 @@ Item {
             visible: kroSWOF.visible
             color: "mediumpurple"
             markerShape: ScatterSeries.MarkerShapeCircle
+        }
+
+        ScatterSeries{
+            id:pcSWOF2
+            markerSize: 8
+            visible: pcSWOF.visible
+            color: "red"
+            markerShape: ScatterSeries.MarkerShapeFromSeries
         }
 
         ValueAxis{
@@ -107,7 +123,6 @@ Item {
 
             gridVisible: false
         }
-
     }
 
     function closeProject()
@@ -117,6 +132,7 @@ Item {
         pcSWOF.clear();
         krwSWOF2.clear();
         kroSWOF2.clear();
+        pcSWOF2.clear();
     }
 
     function prepare(list)
@@ -126,6 +142,7 @@ Item {
         pcSWOF.clear();
         krwSWOF2.clear();
         kroSWOF2.clear();
+        pcSWOF2.clear();
 
         for(var i = 0; i < list.length; i++)
         {
@@ -134,6 +151,7 @@ Item {
             pcSWOF.append(list[i].sw, list[i].pc);
             kroSWOF2.append(list[i].sw, list[i].kro);
             krwSWOF2.append(list[i].sw, list[i].krw);
+            pcSWOF2.append(list[i].sw, list[i].pc);
         }
     }
 

@@ -16,21 +16,21 @@ Item {
 
         TableViewColumn {
             role: "pg"
-            title: "PG"
+            title: "P"
             width: pvtgList.width/4
             resizable: false
         }
 
         TableViewColumn {
             role: "bg"
-            title: "BG"
+            title: "Bg"
             width: pvtgList.width/4
             resizable: false
         }
 
         TableViewColumn {
             role: "mg"
-            title: "MG"
+            title: "Mg"
             width: pvtgList.width/4
             resizable: false
         }

@@ -13,13 +13,17 @@ Item {
             visible: true
             alignment: Qt.AlignBottom
         }
+        margins.top: 0
+        margins.bottom: 0
+        margins.left: 0
+        margins.right: 0
 
         LineSeries {
             property alias markerSize: pgPVTG2.markerSize
             property alias markerColor: pgPVTG2.color
 
             id: pgPVTG
-            name: qsTr("PG(RV)")
+            name: qsTr("PG")
             color: "mediumseagreen"
             axisX: axisX
             axisY: axisY

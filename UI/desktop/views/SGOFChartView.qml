@@ -14,6 +14,11 @@ Item {
             alignment: Qt.AlignBottom
         }
 
+        margins.top: 0
+        margins.bottom: 0
+        margins.left: 0
+        margins.right: 0
+
         LineSeries {
             property alias markerSize: krgSGOF2.markerSize
             property alias markerColor: krgSGOF2.color

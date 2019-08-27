@@ -8,7 +8,7 @@ Window {
     property alias model: settings.model
 
     visible: false
-    width: 498
+    width: 613
     height: 110
     title: qsTr("Настройка графиков")
 
@@ -94,7 +94,7 @@ Window {
         }
 
         TableViewColumn {
-            //role: "linedash"
+            role: "linedash"
             title: "Тип линии"
             resizable: false
             width: 115
@@ -104,20 +104,6 @@ Window {
                 height: currentText.height
                 model: PenStyles {}
                 onCurrentTextChanged: modelData.style = currentIndex
-            }
-        }
-
-        TableViewColumn {
-            role: "markerSize"
-            title: "Толщина \nмаркера"
-            resizable: false
-            width: 60
-            delegate: TextInput {
-                anchors.fill: parent
-                text: modelData.markerSize
-                onTextChanged: if(acceptableInput) modelData.markerSize = text
-                validator: IntValidator{bottom: 1; top: 10}
-                horizontalAlignment: Text.AlignHCenter
             }
         }
 
@@ -153,6 +139,34 @@ Window {
                     }
                     Component.onCompleted: visible = false
                 }
+            }
+        }
+
+        TableViewColumn {
+            role: "markerSize"
+            title: "Толщина \nмаркера"
+            resizable: false
+            width: 60
+            delegate: TextInput {
+                anchors.fill: parent
+                text: modelData.markerSize
+                onTextChanged: if(acceptableInput) modelData.markerSize = text
+                validator: IntValidator{bottom: 1; top: 10}
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+        TableViewColumn {
+            role: "markerShape"
+            title: "Тип линии"
+            resizable: false
+            width: 115
+            delegate: ComboBox {
+                currentIndex: modelData.markerShape
+                anchors.fill: parent
+                height: currentText.height
+                model: MarkerShape {}
+                onCurrentTextChanged: modelData.markerShape = currentIndex
             }
         }
     }
