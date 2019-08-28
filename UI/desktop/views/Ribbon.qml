@@ -39,7 +39,7 @@ Rectangle {
         }
     }
 
-    Button {
+    MyButton {
         width: icon.width
         height: icon.height
         anchors { right: parent.right; top: parent.top; margins: 3 }

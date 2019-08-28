@@ -360,17 +360,17 @@ ApplicationWindow {
 
                     MyButton {
                         id: runButton
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/run-calculation-16x16.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_start_button.png"; }
                     }
 
                     MyButton {
                         id: pauseButton
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/pause-calculation-16x16.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_pause_button.png"; }
                     }
 
                     MyButton {
                         id: stopButton
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/stop-calculation-16x16.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_stop_button.png"; }
                     }
                 }
             }

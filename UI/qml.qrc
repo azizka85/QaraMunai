@@ -86,5 +86,8 @@
         <file alias="move_last.png">desktop/images/move_last.png</file>
         <file alias="move_next.png">desktop/images/move_next.png</file>
         <file alias="move_previous.png">desktop/images/move_previous.png</file>
+        <file alias="icon_start_button.png">desktop/images/icon_start_button.png</file>
+        <file alias="icon_pause_button.png">desktop/images/icon_pause_button.png</file>
+        <file alias="icon_stop_button.png">desktop/images/icon_stop_button.png</file>
     </qresource>
 </RCC>
