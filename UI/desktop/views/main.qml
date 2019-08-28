@@ -573,7 +573,6 @@ ApplicationWindow {
             id: fieldDock
             dockTitle: qsTr("Поле")
             titleVisible: dockTitleVisible
-
             FieldView { id: field; anchors.fill: parent; }
         }
 
@@ -581,14 +580,12 @@ ApplicationWindow {
             id: swofChartDock
             dockTitle: qsTr("ОФП и КД (нефть-вода)")
             titleVisible: dockTitleVisible
-            width: mainWindow.width/4;
             SWOFChartView { id: swofChart; anchors.fill: parent;}
         }
 
         DockControl {
             id: swofTableDock
             titleVisible: false
-            width: mainWindow.width/4
             SWOFTableView { id: swofTable; anchors.fill: parent;}
         }
 
@@ -596,14 +593,12 @@ ApplicationWindow {
             id: sgofChartDock
             dockTitle: qsTr("ОФП и КД (газ-нефть)")
             titleVisible: dockTitleVisible
-            width: mainWindow.width/4
             SGOFChartView { id: sgofChart; anchors.fill: parent}
         }
 
         DockControl {
             id: sgofTableDock
             titleVisible: false
-            width: mainWindow.width/4
             SGOFTableView { id: sgofTable; anchors.fill: parent;}
         }
 
@@ -611,14 +606,12 @@ ApplicationWindow {
             id: pvtoChartDock
             dockTitle: qsTr("PVT нефти")
             titleVisible: dockTitleVisible
-            width: mainWindow.width/4
             PVTOChartView { id: pvtoChart; anchors.fill: parent;}
         }
 
         DockControl {
             id: pvtoTableDock
             titleVisible: false
-            width: mainWindow.width/4
             PVTOTableView { id: pvtoTable; anchors.fill: parent;}
         }
 
@@ -626,14 +619,12 @@ ApplicationWindow {
             id: pvtgChartDock
             dockTitle: qsTr("PVT газа")
             titleVisible: dockTitleVisible
-            width: mainWindow.width/4
             PVTGChartView { id: pvtgChart; anchors.fill: parent;}
         }
 
         DockControl {
             id: pvtgTableDock
             titleVisible: false
-            width: mainWindow.width/4
             PVTGTableView { id: pvtgTable; anchors.fill: parent;}
         }
 

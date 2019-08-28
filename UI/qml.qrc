@@ -51,6 +51,7 @@
         <file alias="MyButton.qml">desktop/views/MyButton.qml</file>
         <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>
         <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
+        <file>MarkerShape.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>

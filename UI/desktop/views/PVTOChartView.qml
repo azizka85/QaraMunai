@@ -3,18 +3,73 @@ import QtCharts 2.3
 import QtQuick.Controls 2.1
 
 Item {
+    property alias settingsView: settingsView
 
     ChartView {
         id: pvtoChart
         anchors.fill: parent
+
         legend {
             visible: true
             alignment: Qt.AlignBottom
         }
+        margins.top: 0
+        margins.bottom: 0
+        margins.left: 0
+        margins.right: 0
+
+        LineSeries {
+            property alias markerSize: poPVTO2.markerSize
+            property alias markerColor: poPVTO2.color
+
+            id: poPVTO
+            name: qsTr("Rso")
+            color:"mediumseagreen"
+            axisX: axisX
+            axisYRight: axisY2
+            width: 2
+            style: "SolidLine"
+        }
+        LineSeries {
+            property alias markerSize: boPVTO2.markerSize
+            property alias markerColor: boPVTO2.color
+
+            id: boPVTO
+            name: qsTr("Bo")
+            color:"mediumpurple"
+            axisX: axisX
+            axisY: axisY
+            width: 2
+            style: "SolidLine"
+        }
+        LineSeries {
+            id: moPVTO
+            name: qsTr("Mo")
+            color: "orange"
+            axisX: axisX
+            axisY: axisY
+            width: 2
+            style: "SolidLine"
+        }
+
+        ScatterSeries{
+            id:poPVTO2
+            markerSize: 8
+            visible: poPVTO.visible
+            color: "mediumseagreen"
+            markerShape: ScatterSeries.MarkerShapeCircle
+        }
+        ScatterSeries{
+            id:boPVTO2
+            markerSize: 8
+            visible: boPVTO.visible
+            color: "mediumpurple"
+            markerShape: ScatterSeries.MarkerShapeCircle
+        }
 
         ValueAxis {
-            id: axisX
-            titleText:qsTr("Растворимость газа (MSCF/STB)")
+            id: axisY
+            titleText:qsTr("Объем. коэф. нефти (RB/STB), Вязкость нефти (cp.)")
             color: "Black"
 
             min: 0
@@ -31,6 +86,18 @@ Item {
         }
         ValueAxis {
             id: axisY2
+            titleText: qsTr("Растворимость газа (MSCF/STB)")
+            color: "Black"
+
+            min: 0
+            max: 2
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            gridVisible: false
+        }
+        ValueAxis {
+            id: axisX
             titleText:qsTr("Давление, Psia")
             color: "Black"
 
@@ -47,62 +114,7 @@ Item {
             gridVisible: true
             gridLineColor: "silver"
         }
-        ValueAxis {
-            id: axisY
-            titleText: qsTr("Вязкость нефти")
-            color: "Black"
 
-            min: 0
-            max: 2
-            tickCount: 6
-            labelFormat: "%.1f"
-
-            gridVisible: false
-        }
-
-        LineSeries {
-            id: poPVTO
-            name: qsTr("Po")
-            color:"mediumseagreen"
-            axisYRight: axisY2
-            axisX: axisX
-            style: "SolidLine"
-        }
-
-        LineSeries {
-            id: boPVTO
-            name: qsTr("Bo")
-            color:"mediumpurple"
-            axisY: axisY
-            axisX: axisX
-            style: "SolidLine"
-
-        }
-
-        LineSeries {
-            id: moPVTO
-            name: qsTr("Mo")
-            color: "orange"
-            axisY: axisY
-            axisX: axisX
-            style: "SolidLine"
-        }
-
-        ScatterSeries{
-            id:poPVTO2
-            markerSize: 8
-            visible: poPVTO.visible
-            color: "mediumseagreen"
-            markerShape: ScatterSeries.MarkerShapeCircle
-        }
-
-        ScatterSeries{
-            id:boPVTO2
-            markerSize: 8
-            visible: boPVTO.visible
-            color: "mediumpurple"
-            markerShape: ScatterSeries.MarkerShapeCircle
-        }
     }
 
     function closeProject()
@@ -137,7 +149,7 @@ Item {
         MenuItem{
             text: "Настройка графиков"
             onClicked: {
-                settingsForm.show()
+                settingsView.show()
             }
         }
     }
@@ -149,5 +161,11 @@ Item {
             if(mouse.button & Qt.RightButton)
                 settingsMenu.popup()
         }
+    }
+
+    SettingsView {
+        id: settingsView
+        visible: false
+        model: [poPVTO, boPVTO, moPVTO]
     }
 }
