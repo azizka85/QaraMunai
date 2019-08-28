@@ -1,23 +1,21 @@
 import QtQuick 2.6
 import QtCharts 2.13
 import QtQuick.Controls 2.1
+import QtQuick.Dialogs 1.3
 
 Item {
     property alias settingsView: settingsView
 
     ChartView {
+        property var seriesList: [];
+
         id: swofChart
         anchors.fill: parent
 
-        legend {
-            visible: true
-            alignment: Qt.AlignTop
-            //model:[krwSWOF, kroSWOF, pcSWOF]
-        }
-          margins.top: 0
-          margins.bottom: 0
-          margins.left: 0
-          margins.right: 0
+        margins.top: 0
+        margins.bottom: 0
+        margins.left: 0
+        margins.right: 0
 
         LineSeries {
             property alias markerSize: krwSWOF2.markerSize
@@ -31,7 +29,7 @@ Item {
             width: 2
             style: "SolidLine"
         }
-        LineSeries{
+        LineSeries {
             property alias markerSize: kroSWOF2.markerSize
             property alias markerColor: kroSWOF2.color
             property alias markerShape: kroSWOF2.markerShape
@@ -55,7 +53,7 @@ Item {
             width: 2
             style: "SolidLine"
         }
-
+        Component.onCompleted: seriesList.push(pcSWOF)
         ScatterSeries{
             id:krwSWOF2
             markerSize: 8
@@ -163,7 +161,30 @@ Item {
                 settingsView.show()
             }
         }
+
+        // Дұрыстау керек
+        MenuItem {
+            id: captureMenuItem
+            text: "Сделать снимок"
+            property variant asad : ["gh"]
+            onClicked: {
+                swofChart.grabToImage(function(result){ asad.push(result);console.log(asad[1]); captureFileDialog.open(); });
+            }
+        }
     }
+    FileDialog {
+        id: captureFileDialog
+        title: "Выберите расположение изображения"
+        folder: shortcuts.pictures
+        nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+        selectExisting: false
+        defaultSuffix: 'png'
+        onAccepted: {
+            close();
+            captureMenuItem.asad[1].saveToFile(captureFileDialog.fileUrl);
+        }
+    }
+
 
     MouseArea {
         anchors.fill: parent

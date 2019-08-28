@@ -227,7 +227,7 @@ ApplicationWindow {
                     id: sfRegionList
                     anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 5 }
                     font.pixelSize: 14
-
+                    flat: true
                     onCurrentIndexChanged: {
 
                         var swofList = projectData.swof.getList(sfRegionList.currentIndex);
@@ -323,11 +323,11 @@ ApplicationWindow {
                 title: qsTr("Регионы")
                 width: 62
 
-                ComboBox {
+                MyComboBox {
                     id: pvtRegionList
                     anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 5 }
                     font.pixelSize: 14
-
+                    width: 60
                     onCurrentIndexChanged: {
 
                         var pvtoList = projectData.pvto.getList(pvtRegionList.currentIndex);
