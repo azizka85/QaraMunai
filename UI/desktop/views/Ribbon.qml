@@ -19,7 +19,7 @@ Rectangle {
         background: Rectangle {
             color: 'white'
             width: ribbon.width
-//            border { color: 'black'; width: 2 }
+//          border { color: 'black'; width: 2 }
         }
         height: 25
         contentHeight: 25

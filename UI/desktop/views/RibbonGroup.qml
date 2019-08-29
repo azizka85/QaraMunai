@@ -4,7 +4,7 @@ Item {
     default property alias contents: content.children
     property int contentMargins: 0
     property string title: "Title"
-
+    property var font: text.font
     id: ribbonGroup
     width: 106
     height: parent.height
@@ -15,18 +15,17 @@ Item {
         Rectangle {
             id: content
             anchors { left: parent.left; right: parent.right; top: parent.top; bottom: footerPanel.top }
-//            border { width: 1; color: "lightgray" }
             color: '#f3f3f3'
         }
 
         Rectangle {
             id: footerPanel
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-//            border { width: 1; color: "lightgray" }
             height: 14
             color: '#f3f3f3'
 
             Text {
+                id: text
                 anchors.centerIn: parent
                 font { pixelSize: 11 }
                 text: title
