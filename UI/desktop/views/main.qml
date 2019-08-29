@@ -7,7 +7,6 @@ import QaraMunai.Model.DAO 1.0
 import QtQuick.Controls.Styles 1.4
 
 ApplicationWindow {
-
     property bool dockTitleVisible: true
 
     id: mainWindow
@@ -16,7 +15,6 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("Qara munai'")
-
 
     Ribbon {
         id: ribbon

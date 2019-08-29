@@ -10,11 +10,12 @@ Item {
 
         id: swofChart
         anchors.fill: parent
+        legend.alignment: Qt.AlignTop
 
-        margins.top: 0
-        margins.bottom: 0
-        margins.left: 0
-        margins.right: 0
+          margins.top: 0
+          margins.bottom: 0
+          margins.left: 0
+          margins.right: 0
 
         LineSeries {
             property alias markerSize: krwSWOF2.markerSize
