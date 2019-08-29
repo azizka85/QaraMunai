@@ -8,20 +8,25 @@ Item {
     ChartView {
         id: sgofChart
         anchors.fill: parent
-
-        legend {
-            visible: true
-            alignment: Qt.AlignBottom
-        }
+        legend.alignment: Qt.AlignTop
 
         margins.top: 0
         margins.bottom: 0
         margins.left: 0
         margins.right: 0
 
+        Rectangle{
+            width: 60
+            height: 10
+            color: "white"
+            anchors { top: sgofChart.top; right:sgofChart.right; topMargin: 23; rightMargin: sgofChart.width/2-82 }
+        }
+
         LineSeries {
             property alias markerSize: krgSGOF2.markerSize
             property alias markerColor: krgSGOF2.color
+            property alias markerShape: krgSGOF2.markerShape
+
 
             id: krgSGOF
             name: qsTr("Krg")
@@ -34,6 +39,7 @@ Item {
         LineSeries {
             property alias markerSize: kroSGOF2.markerSize
             property alias markerColor: kroSGOF2.color
+            property alias markerShape: kroSGOF2.markerShape
 
             id: kroSGOF
             name: qsTr("Krog")
@@ -44,6 +50,10 @@ Item {
             style: "SolidLine"
         }
         LineSeries {
+            property alias markerSize: pcSGOF2.markerSize
+            property alias markerColor: pcSGOF2.color
+            property alias markerShape: pcSGOF2.markerShape
+
             id: pcSGOF
             name: qsTr("Pcog")
             color: "orange"
@@ -58,6 +68,8 @@ Item {
             markerSize: 8
             visible: krgSGOF.visible
             color: "mediumseagreen"
+            axisX: axisX
+            axisY: axisY
             markerShape: ScatterSeries.MarkerShapeRectangle
         }
         ScatterSeries{
@@ -65,6 +77,17 @@ Item {
             markerSize: 8
             visible: kroSGOF.visible
             color: "mediumpurple"
+            axisX: axisX
+            axisY: axisY
+            markerShape: ScatterSeries.MarkerShapeCircle
+        }
+        ScatterSeries{
+            id:pcSGOF2
+            markerSize: 8
+            visible: pcSGOF.visible
+            color: "red"
+            axisX: axisX
+            axisYRight: axisY2
             markerShape: ScatterSeries.MarkerShapeCircle
         }
 
@@ -123,6 +146,7 @@ Item {
         pcSGOF.clear();
         krgSGOF2.clear();
         kroSGOF2.clear();
+        pcSGOF2.clear();
     }
 
     function prepare(list)
@@ -132,14 +156,16 @@ Item {
         pcSGOF.clear();
         krgSGOF2.clear();
         kroSGOF2.clear();
+        pcSGOF2.clear();
 
         for(var i = 0; i < list.length; i++)
         {
             krgSGOF.append(list[i].sg, list[i].krg);
-            kroSGOF.append(list[i].sg, list[i].kro);
-            pcSGOF.append(list[i].sg, list[i].pc);
             krgSGOF2.append(list[i].sg, list[i].krg);
+            kroSGOF.append(list[i].sg, list[i].kro);
             kroSGOF2.append(list[i].sg, list[i].kro);
+            pcSGOF.append(list[i].sg, list[i].pc);
+            pcSGOF2.append(list[i].sg, list[i].pc);
         }
     }
 

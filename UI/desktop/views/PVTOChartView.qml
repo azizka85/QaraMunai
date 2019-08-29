@@ -8,21 +8,26 @@ Item {
     ChartView {
         id: pvtoChart
         anchors.fill: parent
+        legend.alignment: Qt.AlignTop
 
-        legend {
-            visible: true
-            alignment: Qt.AlignBottom
-        }
         margins.top: 0
         margins.bottom: 0
         margins.left: 0
         margins.right: 0
 
-        LineSeries {
-            property alias markerSize: poPVTO2.markerSize
-            property alias markerColor: poPVTO2.color
+        Rectangle{
+            width: 50
+            height: 10
+            color: "white"
+            anchors { top: pvtoChart.top; right:pvtoChart.right; topMargin: 23; rightMargin: pvtoChart.width/2-72 }
+        }
 
-            id: poPVTO
+        LineSeries {
+            property alias markerSize: rsPVTO2.markerSize
+            property alias markerColor: rsPVTO2.color
+            property alias markerShape: rsPVTO2.markerShape
+
+            id: rsPVTO
             name: qsTr("Rso")
             color:"mediumseagreen"
             axisX: axisX
@@ -33,6 +38,7 @@ Item {
         LineSeries {
             property alias markerSize: boPVTO2.markerSize
             property alias markerColor: boPVTO2.color
+            property alias markerShape: boPVTO2.markerShape
 
             id: boPVTO
             name: qsTr("Bo")
@@ -43,6 +49,10 @@ Item {
             style: "SolidLine"
         }
         LineSeries {
+            property alias markerSize: moPVTO2.markerSize
+            property alias markerColor: moPVTO2.color
+            property alias markerShape: moPVTO2.markerShape
+
             id: moPVTO
             name: qsTr("Mo")
             color: "orange"
@@ -53,49 +63,33 @@ Item {
         }
 
         ScatterSeries{
-            id:poPVTO2
+            id:rsPVTO2
             markerSize: 8
-            visible: poPVTO.visible
+            visible: rsPVTO.visible
+            axisX: axisX
+            axisYRight: axisY2
             color: "mediumseagreen"
-            markerShape: ScatterSeries.MarkerShapeCircle
+            markerShape: ScatterSeries.MarkerShapeRectangle
         }
         ScatterSeries{
             id:boPVTO2
             markerSize: 8
             visible: boPVTO.visible
             color: "mediumpurple"
+            axisX: axisX
+            axisY: axisY
+            markerShape: ScatterSeries.MarkerShapeCircle
+        }
+        ScatterSeries{
+            id:moPVTO2
+            markerSize: 8
+            visible: moPVTO.visible
+            color: "red"
+            axisX: axisX
+            axisY: axisY
             markerShape: ScatterSeries.MarkerShapeCircle
         }
 
-        ValueAxis {
-            id: axisY
-            titleText:qsTr("Объем. коэф. нефти (RB/STB), Вязкость нефти (cp.)")
-            color: "Black"
-
-            min: 0
-            max: 1.5
-            tickCount: 6
-            labelFormat: "%.1f"
-
-            minorTickCount: 4
-            minorGridVisible: true
-            minorGridLineColor: "gainsboro"
-
-            gridVisible: true
-            gridLineColor: "silver"
-        }
-        ValueAxis {
-            id: axisY2
-            titleText: qsTr("Растворимость газа (MSCF/STB)")
-            color: "Black"
-
-            min: 0
-            max: 2
-            tickCount: 6
-            labelFormat: "%.1f"
-
-            gridVisible: false
-        }
         ValueAxis {
             id: axisX
             titleText:qsTr("Давление, Psia")
@@ -114,33 +108,64 @@ Item {
             gridVisible: true
             gridLineColor: "silver"
         }
+        ValueAxis {
+            id: axisY
+            titleText:qsTr("Объем. коэф. нефти (RB/STB), Вязкость нефти (cp.)")
+            color: "Black"
 
+            min: 0
+            max: 1.25
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
+        }
+        ValueAxis {
+            id: axisY2
+            titleText: qsTr("Растворимость газа (MSCF/STB)")
+            color: "Black"
+
+            min: 0
+            max: 1.6
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            gridVisible: false
+        }
     }
 
     function closeProject()
     {
-        poPVTO.clear();
+        rsPVTO.clear();
+        rsPVTO2.clear();
         boPVTO.clear();
-        moPVTO.clear();
-        poPVTO2.clear();
         boPVTO2.clear();
+        moPVTO.clear();
+        moPVTO2.clear();
     }
 
     function prepare(list)
     {
-        poPVTO.clear();
+        rsPVTO.clear();
         boPVTO.clear();
         moPVTO.clear();
-        poPVTO2.clear();
+        rsPVTO2.clear();
         boPVTO2.clear();
+        moPVTO2.clear();
 
         for(var i = 0; i < list.length; i++)
         {
-            poPVTO.append(list[i].rs, list[i].po);
-            boPVTO.append(list[i].rs, list[i].bo);
-            moPVTO.append(list[i].rs, list[i].mo);
-            poPVTO2.append(list[i].rs,list[i].po);
-            boPVTO2.append(list[i].rs,list[i].bo);
+            rsPVTO.append(list[i].po, list[i].rs);
+            rsPVTO2.append(list[i].po,list[i].rs);
+            boPVTO.append(list[i].po, list[i].bo);
+            boPVTO2.append(list[i].po,list[i].bo);
+            moPVTO.append(list[i].po, list[i].mo);
+            moPVTO2.append(list[i].po, list[i].mo);
         }
     }
 
@@ -166,6 +191,6 @@ Item {
     SettingsView {
         id: settingsView
         visible: false
-        model: [poPVTO, boPVTO, moPVTO]
+        model: [rsPVTO, boPVTO, moPVTO]
     }
 }

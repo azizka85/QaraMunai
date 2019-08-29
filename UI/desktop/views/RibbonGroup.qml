@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     default property alias contents: content.children
-    property int contentMargins: 3
+    property int contentMargins: 0
     property string title: "Title"
 
     id: ribbonGroup
@@ -23,7 +23,7 @@ Item {
             id: footerPanel
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
 //            border { width: 1; color: "lightgray" }
-            height: 20
+            height: 14
             color: '#f3f3f3'
 
             Text {
