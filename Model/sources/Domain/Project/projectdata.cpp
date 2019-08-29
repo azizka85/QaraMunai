@@ -93,7 +93,7 @@ bool ProjectData::BlockCentered() const
 
 double ProjectData::dx(int i, int j, int k)
 {
-    double val = 0;
+    double val = GetBlock(i, j, k).DX();
 
     if(stratum.DX().Box().Contains(i, j, k))
         val = stratum.DX()(i, j, k).toDouble();
@@ -118,7 +118,7 @@ double ProjectData::dx(int i, int j, int k)
 
 double ProjectData::dy(int i, int j, int k)
 {
-    double val = 0;
+    double val = GetBlock(i, j, k).DY();
 
     if(stratum.DY().Box().Contains(i, j, k))
         val = stratum.DY()(i, j, k).toDouble();
@@ -143,7 +143,7 @@ double ProjectData::dy(int i, int j, int k)
 
 double ProjectData::dz(int i, int j, int k)
 {
-    double val = 0;
+    double val = GetBlock(i, j, k).DZ();
 
     if(stratum.DZ().Box().Contains(i, j, k))
         val = stratum.DZ()(i, j, k).toDouble();
@@ -188,9 +188,31 @@ double ProjectData::tops(int i, int j)
     return val;
 }
 
+QVariant ProjectData::block(int i, int j, int k)
+{
+    return GetBlock(i, j, k).toMap();
+}
+
 double ProjectData::depth(int i, int j, int k)
 {
-    return 0;
+    double val = GetBlock(i, j, k).Depth();
+
+    if(stratum.DEPTH().Box().Contains(i, j, k))
+        val = stratum.DEPTH()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "DEPTH", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "DEPTH", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "DEPTH", val, i, j, k);
+
+    DataHelper::ADDValue(add, "DEPTH", val, i, j, k);
+
+    return val;
 }
 
 double ProjectData::poro(int i, int j, int k)
@@ -237,9 +259,9 @@ double ProjectData::ntg(int i, int j, int k)
     return val;
 }
 
-bool ProjectData::actnum(int i, int j, int k, double poreVolume)
+bool ProjectData::actnum(int i, int j, int k)
 {
-    bool val = true;
+    bool val = true;   
 
     if(stratum.ACTNUM().Box().Contains(i, j, k))
         val = stratum.ACTNUM()(i, j, k).toBool();
@@ -247,10 +269,6 @@ bool ProjectData::actnum(int i, int j, int k, double poreVolume)
     if(ISEQUAL(poro(i, j, k), 0)) val = false;
 
     if(ISEQUAL(ntg(i, j, k), 0)) val = false;
-
-    if(val && poreVolume >= 0 && stratum.MINPVV().Count() > 0) val = poreVolume > stratum.MINPVV()(i, j, k).toDouble();
-
-    if(val && poreVolume >= 0) val = poreVolume > stratum.MINPV();
 
     return val;
 }
@@ -387,38 +405,76 @@ double ProjectData::multZm(int i, int j, int k)
     return val;
 }
 
-double ProjectData::tranX(int i, int j, int k, double poreVolume)
+double ProjectData::tranX(int i, int j, int k)
 {
     double val = 0;
 
-    if(stratum.TRANX().Box().Contains(i, j, k)) val = stratum.TRANX()(i, j, k).toDouble();
-    else
-    {
-        QVariant equalsValue = DataHelper::GetEQUALSData(equals, "TRANX", i, j, k);
-        QVariant copyValue = DataHelper::GetCOPYData(copy, stratum, "TRANX", i, j, k);
+    if(stratum.TRANX().Box().Contains(i, j, k))
+        val = stratum.TRANX()(i, j, k).toDouble();
 
-        if(!equalsValue.isNull()) val = equalsValue.toDouble();
-        else if(!copyValue.isNull()) val = copyValue.toDouble();
-        else
-        {
-            int u = unit.isNull() ? DefaultValues::Unit : unit.toInt();
+    QVariant value = DataHelper::GetEQUALSData(equals, "TRANX", i, j, k);
 
-            double Kc = UnitHelper::DarcyTable[u];
+    val = !value.isNull() ? value.toDouble() : val;
 
-            double dxc = dx(i, j, k);
-            double dyc = dy(i, j, k);
-            double dzc = dz(i, j, k);
+    value = DataHelper::GetCOPYData(copy, stratum, "TRANX", i, j, k);
 
-            if(isBlockCentered)
-            {
+    val = !value.isNull() ? value.toDouble() : val;
 
-            }
-            else
-            {
+    DataHelper::MULTIPLYValue(multiply, "TRANX", val, i, j, k);
 
-            }
-        }
-    }
+    DataHelper::ADDValue(add, "TRANX", val, i, j, k);
+
+    val = val * multX(i, j, k) * multXm(i, j, k);
+
+    return val;
+}
+
+double ProjectData::tranY(int i, int j, int k)
+{
+    double val = 0;
+
+    if(stratum.TRANY().Box().Contains(i, j, k))
+        val = stratum.TRANY()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "TRANY", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "TRANY", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "TRANY", val, i, j, k);
+
+    DataHelper::ADDValue(add, "TRANY", val, i, j, k);
+
+    val = val * multY(i, j, k) * multYm(i, j, k);
+
+    return val;
+}
+
+double ProjectData::tranZ(int i, int j, int k)
+{
+    double val = 0;
+
+    if(stratum.TRANZ().Box().Contains(i, j, k))
+        val = stratum.TRANZ()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "TRANZ", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "TRANZ", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "TRANZ", val, i, j, k);
+
+    DataHelper::ADDValue(add, "TRANZ", val, i, j, k);
+
+    val = val * multZ(i, j, k) * multZm(i, j, k);
+
+    return val;
 }
 
 double ProjectData::permX(int i, int j, int k)
@@ -535,16 +591,20 @@ int ProjectData::eqlNUM(int i, int j, int k)
     return val;
 }
 
-double ProjectData::rs(int i, int j, int k, double depth)
+double ProjectData::rs(int i, int j, int k)
 {
+    double cDepth = depth(i, j, k);
+
     if(stratum.RS().Count() > 0) return stratum.RS()(i, j, k).toDouble();
     else if(stratum.PBUB().Count()) return DataHelper::CalculateRSFromPVT(stratum, stratum.PBUB()(i, j, k).toDouble(), pvtNUM(i, j, k));
-    else if(stratum.RSVD().length() > 0) return DataHelper::CalculateRSFromRSVD(stratum, depth, eqlNUM(i, j, k));
+    else if(stratum.RSVD().length() > 0) return DataHelper::CalculateRSFromRSVD(stratum, cDepth, eqlNUM(i, j, k));
     else return DataHelper::CalculateRSBubFromPVT(stratum, pvtNUM(i, j, k));
 }
 
-double ProjectData::pBub(int i, int j, int k, double depth)
+double ProjectData::pBub(int i, int j, int k)
 {
+    double cDepth = depth(i, j, k);
+
     if(stratum.PBUB().Count() > 0) return stratum.PBUB()(i, j, k).toDouble();
     else if(stratum.RS().Count() > 0)
     {
@@ -554,7 +614,7 @@ double ProjectData::pBub(int i, int j, int k, double depth)
 
         return p;
     }
-    else if(stratum.PBVD().length() > 0) return DataHelper::CalculatePBubFromPBVD(stratum, depth, eqlNUM(i, j, k));
+    else if(stratum.PBVD().length() > 0) return DataHelper::CalculatePBubFromPBVD(stratum, cDepth, eqlNUM(i, j, k));
     else return DataHelper::CalculatePBubFromPVT(stratum, pvtNUM(i, j, k));
 }
 
@@ -579,17 +639,38 @@ QVariantMap ProjectData::blockDepths(int i, int j, int k)
 
 double ProjectData::pressure(int i, int j, int k)
 {
-    return 0;
-}
+    double val = 0;
 
-double ProjectData::pw(int i, int j, int k)
-{
-    return 0;
+    if(stratum.PRESSURE().Box().Contains(i, j, k))
+        val = stratum.PRESSURE()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "PRESSURE", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "PRESSURE", val, i, j, k);
+
+    DataHelper::ADDValue(add, "PRESSURE", val, i, j, k);
+
+    return val;
 }
 
 double ProjectData::swat(int i, int j, int k)
 {
-    return 0;
+    double val = 0;
+
+    if(stratum.SWAT().Box().Contains(i, j, k))
+        val = stratum.SWAT()(i, j, k).toDouble();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "SWAT", i, j, k);
+
+    val = !value.isNull() ? value.toDouble() : val;
+
+    DataHelper::MULTIPLYValue(multiply, "SWAT", val, i, j, k);
+
+    DataHelper::ADDValue(add, "SWAT", val, i, j, k);
+
+    return val;
 }
 
 double ProjectData::soil(int i, int j, int k)
@@ -599,7 +680,17 @@ double ProjectData::soil(int i, int j, int k)
 
 double ProjectData::sgas(int i, int j, int k)
 {
-    return 0;
+    double val = 0;
+
+    if(stratum.SGAS().Box().Contains(i, j, k))
+        val = stratum.SGAS()(i, j, k).toDouble();
+
+    return val;
+}
+
+Block ProjectData::GetBlock(int i, int j, int k)
+{
+    return Block();
 }
 
 bool ProjectData::CalcCoordLine(int i, int j, Line3D &coordLine)
@@ -684,6 +775,11 @@ bool ProjectData::CheckPointOrderStandard()
             p3.X() <= p4.X() &&
             p1.Y() <= p3.Y() &&
             p2.Y() <= p4.Y();
+}
+
+bool ProjectData::PointOrderStandard()
+{
+    return pointOrderStandard;
 }
 
 StratumData &ProjectData::Stratum()
@@ -785,6 +881,8 @@ void ProjectData::SetLoaded(const bool &isLoaded)
 {
     this->isLoaded = isLoaded;
 
+    if(!isBlockCentered) pointOrderStandard = CheckPointOrderStandard();
+
     LoadedChanged();
 }
 
@@ -853,15 +951,13 @@ void ProjectData::SetNz(int nz)
 
 void ProjectData::SetBlockCentered(bool isBlockCentered)
 {
-    this->isBlockCentered = isBlockCentered;
+    this->isBlockCentered = isBlockCentered;    
 
     BlockCenteredChanged();
 }
 
 void ProjectData::initVariables()
 {
-    SetLoaded(false);
-
     SetTitle("");
     SetStartDate(QDateTime::currentDateTime());
     SetUnit(QVariant());
@@ -872,9 +968,7 @@ void ProjectData::initVariables()
 
     SetNx(0);
     SetNy(0);
-    SetNz(0);
-
-    SetBlockCentered(false);
+    SetNz(0);    
 
     stratum.InitVariables();
 
@@ -884,10 +978,19 @@ void ProjectData::initVariables()
 
     rockOPTS->initVariables();
 
+    compdat->Clear();
+    wconinje->Clear();
+    wconprod->Clear();
+    welspecs->Clear();
+
     copy->Clear();
     add->Clear();
     equals->Clear();
     multiply->Clear();
+
+    SetBlockCentered(false);
+
+    SetLoaded(false);
 }
 
 }}}}

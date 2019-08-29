@@ -1363,7 +1363,7 @@ void EclipseFileReader::ReadWELSPECS(ProjectData *data, QTextStream &sr)
 
         wData.SetDate(currentDate);
 
-        data->Stratum().WELSPECS().append(wData);
+        data->WELSPECS()->AddWELSPECS(wData);
     }
 }
 
@@ -1394,7 +1394,7 @@ void EclipseFileReader::ReadCOMPDAT(ProjectData *data, QTextStream &sr)
 
         compdat.SetDate(currentDate);
 
-        data->Stratum().COMPDAT().append(compdat);
+        data->COMPDAT()->AddCOMPDAT(compdat);
     }
 }
 
@@ -1424,7 +1424,7 @@ void EclipseFileReader::ReadWCONPROD(ProjectData *data, QTextStream &sr)
 
         wconprod.SetDate(currentDate);
 
-        data->Stratum().WCONPROD().append(wconprod);
+        data->WCONPROD()->AddWCONPROD(wconprod);
     }
 }
 
@@ -1453,7 +1453,7 @@ void EclipseFileReader::ReadWCONINJE(ProjectData *data, QTextStream &sr)
 
         wconinje.SetDate(currentDate);
 
-        data->Stratum().WCONINJE().append(wconinje);
+        data->WCONINJE()->AddWCONINJE(wconinje);
     }
 }
 

@@ -25,10 +25,22 @@ class MODELSHARED_EXPORT WCONPRODEntity : public QObject
 public:
     explicit WCONPRODEntity(QObject *parent = nullptr);
 
+    QList<WCONPRODData> &WCONPROD();
+
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(QDateTime date);
 
     QList<WCONPRODData> WCONPRODList(QDateTime date);
+
+    QList<int> GetIndexes(QDateTime date);
+
+    void AddWCONPROD(WCONPRODData &data);
+
+    void Clear();
+
+private:
+    QMap<QDateTime, QList<int>> dateIndexes;
+    QList<WCONPRODData> wconPROD;
 };
 
 }}}}

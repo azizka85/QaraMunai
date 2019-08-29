@@ -24,10 +24,22 @@ class MODELSHARED_EXPORT COMPDATEntity : public QObject
 public:
     explicit COMPDATEntity(QObject *parent = nullptr);
 
+    QList<COMPDATData> &COMPDAT();
+
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(QDateTime date);
 
+    QList<int> GetIndexes(QDateTime date);
+
     QList<COMPDATData> COMPDATList(QDateTime date);
+
+    void AddCOMPDAT(COMPDATData &data);
+
+    void Clear();
+
+private:
+    QList<COMPDATData> compDAT;
+    QMap<QDateTime, QList<int>> dateIndexes;
 };
 
 }}}}

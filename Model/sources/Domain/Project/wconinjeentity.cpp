@@ -9,6 +9,11 @@ namespace Project {
 
 WCONINJEEntity::WCONINJEEntity(QObject *parent) : QObject (parent) { }
 
+QList<WCONINJEData> &WCONINJEEntity::WCONINJE()
+{
+    return wconINJE;
+}
+
 bool WCONINJEEntity::exist()
 {
     QObject* projectData = parent();
@@ -17,7 +22,7 @@ bool WCONINJEEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->Loaded() && project->Stratum().WCONINJE().length() > 0;
+        return project->Loaded() && wconINJE.length() > 0;
     }
 
     return false;
@@ -60,18 +65,37 @@ QList<WCONINJEData> WCONINJEEntity::WCONINJEList(QDateTime date){
         {
             QList<WCONINJEData> wconinjeList;
 
-            QList<WCONINJEData> list = project->Stratum().WCONINJE();
+            QList<int> indexes = GetIndexes(date);
 
-            for(int i = 0; i < list.length(); i++)
-            {
-                if(list[i].Date() == date) wconinjeList.append(list[i]);
-            }
+            for(int i = 0; i < indexes.length(); i++) wconinjeList.append(wconINJE[indexes[i]]);
 
             return wconinjeList;
         }
     }
 
     return QList<WCONINJEData>();
+}
+
+QList<int> WCONINJEEntity::GetIndexes(QDateTime date)
+{
+    return dateIndexes.contains(date) ? dateIndexes[date] : QList<int>();
+}
+
+void WCONINJEEntity::AddWCONINJE(WCONINJEData &data)
+{
+    QDateTime date = data.Date();
+
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QList<int>();
+
+    dateIndexes[date].append(wconINJE.length());
+
+    wconINJE.append(data);
+}
+
+void WCONINJEEntity::Clear()
+{
+    dateIndexes.clear();
+    wconINJE.clear();
 }
 
 

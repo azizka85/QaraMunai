@@ -37,6 +37,11 @@ public:
     Point3D& P8();
 
     double Volume();
+    double Depth();
+
+    double DX();
+    double DY();
+    double DZ();
 
     void SetI(const int& i);
     void SetJ(const int& j);

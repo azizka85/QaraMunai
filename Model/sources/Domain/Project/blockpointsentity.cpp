@@ -30,19 +30,7 @@ QVariantMap BlockPointsEntity::next()
 
 void BlockPointsEntity::toFront()
 {
-    cursor = 0;
-    pointOrderStandard = true;
-
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        pointOrderStandard = project->CheckPointOrderStandard();
-    }
-
-    current.InitVariables();
+    initVariables();
 }
 
 double BlockPointsEntity::cellVolume()
@@ -66,13 +54,7 @@ double BlockPointsEntity::cellVolume()
     return 0;
 }
 
-double BlockPointsEntity::depth()
-{
-    return (current.P1().Z() + current.P2().Z() + current.P3().Z() + current.P4().Z() +
-            current.P5().Z() + current.P6().Z() + current.P7().Z() + current.P8().Z()) / 8;
-}
-
-double BlockPointsEntity::porosity()
+double BlockPointsEntity::tranX()
 {
     QObject* projectData = parent();
 
@@ -80,13 +62,100 @@ double BlockPointsEntity::porosity()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded()) return project->poro(current.I(), current.J(), current.K());
+        if(project->Loaded())
+        {
+            int u = project->Unit().isNull() ? DefaultValues::Unit : project->Unit().toInt();
+
+            double Kc = UnitHelper::DarcyTable[u];
+
+            double dxc = project->dx(current.I(), current.J(), current.K());
+            double dyc = project->dy(current.I(), current.J(), current.K());
+            double dzc = project->dz(current.I(), current.J(), current.K());
+            double ntgc = project->ntg(current.I(), current.J(), current.K());
+            double depthc = project->depth(current.I(), current.J(), current.K());
+            double permXc = project->permX(current.I(), current.J(), current.K());
+
+            double dxl = project->dx(current.I()-1, current.J(), current.K());
+            double dyl = project->dy(current.I()-1, current.J(), current.K());
+            double dzl = project->dz(current.I()-1, current.J(), current.K());
+            double ntgl = project->ntg(current.I()-1, current.J(), current.K());
+            double depthl = project->depth(current.I()-1, current.J(), current.K());
+            double permXl = project->permX(current.I()-1, current.J(), current.K());
+
+            if(project->BlockCentered())
+            {
+                if (project->actnum(current.I(), current.J(), current.K()) && project->actnum(current.I() - 1, current.J(), current.K()))
+                {
+                    double dx1 = dxl;
+                    double dy1 = dyl;
+                    double dz1 = dzl;
+                    double ntg1 = ntgl;
+                    double depth1 = depthl;
+                    double permx1 = permXl;
+
+                    double dx2 = dxc;
+                    double dy2 = dyc;
+                    double dz2 = dzc;
+                    double ntg2 = ntgc;
+                    double depth2 = depthc;
+                    double permx2 = permXc;
+
+                    double A = (dx1 * dy1 * dz1 * ntg1 + dx2 * dy2 * dz2 * ntg2) / (dx1 + dx2);
+                    double D = ((dx1 + dx2) * (dx1 + dx2) / 4) / ((dx1 + dx2) * (dx1 + dx2) / 4 + (depth1 - depth2) * (depth1 - depth2));
+                    double B = (dx1 / permx1 + dx2 / permx2) / 2;
+
+                    return Kc * A * D / B;
+                }
+            }
+            else
+            {
+                Point3D myBlockCenter = MathHelper::GetMassCenter(current.P1(), current.P2(), current.P3(), current.P4(),
+                                                                  current.P5(), current.P6(), current.P7(), current.P8());
+
+                if (project->actnum(current.I(), current.J(), current.K()) && project->actnum(current.I() - 1, current.J(), current.K()))
+                {
+                    Plane contactPlane(current.P1(), current.P3(), current.P5());
+
+                    Point3D contactAreaCenter;
+
+                    Block lBlock = project->GetBlock(current.I()-1, current.J(), current.K());
+
+                    double a = MathHelper::GetContactArea(current.P5(), current.P1(), current.P7(), current.P3(),
+                                                            lBlock.P6(), lBlock.P2(), lBlock.P8(), lBlock.P4(), contactAreaCenter);
+
+                    Point3D hisBlockCenter = MathHelper::GetMassCenter(lBlock.P1(), lBlock.P2(), lBlock.P3(), lBlock.P4(),
+                                                                       lBlock.P5(), lBlock.P6(), lBlock.P7(), lBlock.P8());
+
+                    Point3D pc1 = contactAreaCenter;
+                    Point3D pc2 = contactAreaCenter;
+
+                    Point3D d1 = MathHelper::Subtract(pc1, myBlockCenter);
+                    Point3D d2 = MathHelper::Subtract(pc2, hisBlockCenter);
+
+                    Plane planeYZ = MathHelper::PlaneYZ();
+                    Plane planeXZ = MathHelper::PlaneXZ();
+                    Plane planeXY = MathHelper::PlaneXY();
+
+                    double ax = a * MathHelper::CosBetweenPlanes(contactPlane, planeYZ);
+                    double ay = a * MathHelper::CosBetweenPlanes(contactPlane, planeXZ);
+                    double az = a * MathHelper::CosBetweenPlanes(contactPlane, planeXY);
+
+                    double koef1 = (ax * qAbs(d1.X()) + ay * qAbs(d1.Y()) + az * qAbs(d1.Z())) / (d1.X() * d1.X() + d1.Y() * d1.Y() + d1.Z() * d1.Z());
+                    double koef2 = (ax * qAbs(d2.X()) + ay * qAbs(d2.Y()) + az * qAbs(d2.Z())) / (d2.X() * d2.X() + d2.Y() * d2.Y() + d2.Z() * d2.Z());
+
+                    double tx = Kc * 1.0 / (1.0 / (permXc * ntgc * koef1) + 1.0 / (permXl * ntgl * koef2));
+
+
+                    return ISEQUAL(a, 0) ? 0 : tx;
+                }
+            }
+        }
     }
 
     return 0;
 }
 
-double BlockPointsEntity::ntg()
+double BlockPointsEntity::tranY()
 {
     QObject* projectData = parent();
 
@@ -94,13 +163,100 @@ double BlockPointsEntity::ntg()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded()) return project->ntg(current.I(), current.J(), current.K());
+        if(project->Loaded())
+        {
+            int u = project->Unit().isNull() ? DefaultValues::Unit : project->Unit().toInt();
+
+            double Kc = UnitHelper::DarcyTable[u];
+
+            double dxc = project->dx(current.I(), current.J(), current.K());
+            double dyc = project->dy(current.I(), current.J(), current.K());
+            double dzc = project->dz(current.I(), current.J(), current.K());
+            double ntgc = project->ntg(current.I(), current.J(), current.K());
+            double depthc = project->depth(current.I(), current.J(), current.K());
+            double permYc = project->permY(current.I(), current.J(), current.K());
+
+            double dxd = project->dx(current.I(), current.J()-1, current.K());
+            double dyd = project->dy(current.I(), current.J()-1, current.K());
+            double dzd = project->dz(current.I(), current.J()-1, current.K());
+            double ntgd = project->ntg(current.I(), current.J()-1, current.K());
+            double depthd = project->depth(current.I(), current.J()-1, current.K());
+            double permYd = project->permY(current.I(), current.J()-1, current.K());
+
+            if(project->BlockCentered())
+            {
+                if (project->actnum(current.I(), current.J(), current.K()) && project->actnum(current.I(), current.J() - 1, current.K()))
+                {
+                    double dx1 = dxd;
+                    double dy1 = dyd;
+                    double dz1 = dzd;
+                    double ntg1 = ntgd;
+                    double depth1 = depthd;
+                    double permy1 = permYd;
+
+                    double dx2 = dxc;
+                    double dy2 = dyc;
+                    double dz2 = dzc;
+                    double ntg2 = ntgc;
+                    double depth2 = depthc;
+                    double permy2 = permYc;
+
+                    double A = (dx1 * dy1 * dz1 * ntg1 + dx2 * dy2 * dz2 * ntg2) / (dy1 + dy2);
+                    double D = ((dy1 + dy2) * (dy1 + dy2) / 4) / ((dy1 + dy2) * (dy1 + dy2) / 4 + (depth1 - depth2) * (depth1 - depth2));
+                    double B = (dy1 / permy1 + dy2 / permy2) / 2;
+
+                    return Kc * A * D / B;
+                }
+            }
+            else
+            {
+                Point3D myBlockCenter = MathHelper::GetMassCenter(current.P1(), current.P2(), current.P3(), current.P4(),
+                                                                  current.P5(), current.P6(), current.P7(), current.P8());
+
+                if (project->actnum(current.I(), current.J(), current.K()) && project->actnum(current.I(), current.J() - 1, current.K()))
+                {
+                    Plane contactPlane(current.P1(), current.P2(), current.P6());
+
+                    Point3D contactAreaCenter;
+
+                    Block dBlock = project->GetBlock(current.I(), current.J()-1, current.K());
+
+                    double a = MathHelper::GetContactArea(current.P5(), current.P1(), current.P6(), current.P2(),
+                                                            dBlock.P7(), dBlock.P3(), dBlock.P8(), dBlock.P4(), contactAreaCenter);
+
+                    Point3D hisBlockCenter = MathHelper::GetMassCenter(dBlock.P1(), dBlock.P2(), dBlock.P3(), dBlock.P4(),
+                                                                       dBlock.P5(), dBlock.P6(), dBlock.P7(), dBlock.P8());
+
+                    Point3D pc1 = contactAreaCenter;
+                    Point3D pc2 = contactAreaCenter;
+
+                    Point3D d1 = MathHelper::Subtract(pc1, myBlockCenter);
+                    Point3D d2 = MathHelper::Subtract(pc2, hisBlockCenter);
+
+                    Plane planeYZ = MathHelper::PlaneYZ();
+                    Plane planeXZ = MathHelper::PlaneXZ();
+                    Plane planeXY = MathHelper::PlaneXY();
+
+                    double ax = a * MathHelper::CosBetweenPlanes(contactPlane, planeYZ);
+                    double ay = a * MathHelper::CosBetweenPlanes(contactPlane, planeXZ);
+                    double az = a * MathHelper::CosBetweenPlanes(contactPlane, planeXY);
+
+                    double koef1 = (ax * qAbs(d1.X()) + ay * qAbs(d1.Y()) + az * qAbs(d1.Z())) / (d1.X() * d1.X() + d1.Y() * d1.Y() + d1.Z() * d1.Z());
+                    double koef2 = (ax * qAbs(d2.X()) + ay * qAbs(d2.Y()) + az * qAbs(d2.Z())) / (d2.X() * d2.X() + d2.Y() * d2.Y() + d2.Z() * d2.Z());
+
+                    double ty = Kc * 1.0 / (1.0 / (permYc * ntgc * koef1) + 1.0 / (permYd * ntgd * koef2));
+
+
+                    return ISEQUAL(a, 0) ? 0 : ty;
+                }
+            }
+        }
     }
 
     return 0;
 }
 
-int BlockPointsEntity::pvtNUM()
+double BlockPointsEntity::tranZ()
 {
     QObject* projectData = parent();
 
@@ -108,113 +264,162 @@ int BlockPointsEntity::pvtNUM()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded()) return project->pvtNUM(current.I(), current.J(), current.K());
+        if(project->Loaded())
+        {
+            int u = project->Unit().isNull() ? DefaultValues::Unit : project->Unit().toInt();
+
+            double Kc = UnitHelper::DarcyTable[u];
+
+            double dxc = project->dx(current.I(), current.J(), current.K());
+            double dyc = project->dy(current.I(), current.J(), current.K());
+            double dzc = project->dz(current.I(), current.J(), current.K());
+            double permZc = project->permZ(current.I(), current.J(), current.K());
+
+            double dxb = project->dx(current.I(), current.J(), current.K()-1);
+            double dyb = project->dy(current.I(), current.J(), current.K()-1);
+            double dzb = project->dz(current.I(), current.J(), current.K()-1);
+            double permZb = project->permZ(current.I(), current.J(), current.K()-1);
+
+            if(project->BlockCentered())
+            {
+                if (project->actnum(current.I(), current.J(), current.K()) && project->actnum(current.I(), current.J(), current.K() - 1))
+                {
+                    double dx1 = dxb;
+                    double dy1 = dyb;
+                    double dz1 = dzb;
+                    double permz1 = permZb;
+
+                    double dx2 = dxc;
+                    double dy2 = dyc;
+                    double dz2 = dzc;
+                    double permz2 = permZc;
+
+                    double A = (dx1 * dy1 * dz1 + dx2 * dy2 * dz2) / (dz1 + dz2);
+                    double B = (dz1 / permz1 + dz2 / permz2) / 2;
+
+                    return Kc * A / B;
+                }
+            }
+            else
+            {
+                Point3D myBlockCenter = MathHelper::GetMassCenter(current.P1(), current.P2(), current.P3(), current.P4(),
+                                                                  current.P5(), current.P6(), current.P7(), current.P8());
+
+                if (project->actnum(current.I(), current.J(), current.K()) && project->actnum(current.I(), current.J(), current.K() - 1))
+                {
+                    Plane contactPlane(current.P1(), current.P2(), current.P4());
+
+                    QList<Point3D> p = { current.P1(), current.P2(), current.P4(), current.P3() };
+
+                    Point3D contactAreaCenter = MathHelper::GetAveragePoint(p);
+
+                    Block bBlock = project->GetBlock(current.I(), current.J(), current.K()-1);
+
+                    double a = MathHelper::GetTetragonArea(current.P1(), current.P2(), current.P4(), current.P3());
+
+                    Point3D hisBlockCenter = MathHelper::GetMassCenter(bBlock.P1(), bBlock.P2(), bBlock.P3(), bBlock.P4(),
+                                                                       bBlock.P5(), bBlock.P6(), bBlock.P7(), bBlock.P8());
+
+                    Point3D pc1 = contactAreaCenter;
+                    Point3D pc2 = contactAreaCenter;
+
+                    Point3D d1 = MathHelper::Subtract(pc1, myBlockCenter);
+                    Point3D d2 = MathHelper::Subtract(pc2, hisBlockCenter);
+
+                    Plane planeYZ = MathHelper::PlaneYZ();
+                    Plane planeXZ = MathHelper::PlaneXZ();
+                    Plane planeXY = MathHelper::PlaneXY();
+
+                    double ax = a * MathHelper::CosBetweenPlanes(contactPlane, planeYZ);
+                    double ay = a * MathHelper::CosBetweenPlanes(contactPlane, planeXZ);
+                    double az = a * MathHelper::CosBetweenPlanes(contactPlane, planeXY);
+
+                    double koef1 = (ax * qAbs(d1.X()) + ay * qAbs(d1.Y()) + az * qAbs(d1.Z())) / (d1.X() * d1.X() + d1.Y() * d1.Y() + d1.Z() * d1.Z());
+                    double koef2 = (ax * qAbs(d2.X()) + ay * qAbs(d2.Y()) + az * qAbs(d2.Z())) / (d2.X() * d2.X() + d2.Y() * d2.Y() + d2.Z() * d2.Z());
+
+                    double tz = Kc * 1.0 / (1.0 / (permZc * koef1) + 1.0 / (permZb * koef2));
+
+
+                    return ISEQUAL(a, 0) ? 0 : tz;
+                }
+            }
+        }
     }
 
-    return -1;
+    return 0;
+}
+
+bool BlockPointsEntity::actnum()
+{
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) {
+
+            bool val = project->actnum(current.I(), current.J(), current.K());
+
+            double cPoreVolume = poreVolume();
+
+            if(val && cPoreVolume >= 0 && project->Stratum().MINPVV().Count() > 0)
+                val = cPoreVolume > project->Stratum().MINPVV()(current.I(), current.J(), current.K()).toDouble();
+
+            if(val && cPoreVolume >= 0) val = cPoreVolume > project->Stratum().MINPV();
+        }
+    }
+
+    return false;
 }
 
 double BlockPointsEntity::soil()
 {
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->soil(current.I(), current.J(), current.K());
-    }
-
     return 0;
 }
 
 double BlockPointsEntity::swat()
 {
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->swat(current.I(), current.J(), current.K());
-    }
-
     return 0;
 }
 
 double BlockPointsEntity::sgas()
 {
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->sgas(current.I(), current.J(), current.K());
-    }
-
     return 0;
 }
 
 double BlockPointsEntity::pressure()
 {
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->pressure(current.I(), current.J(), current.K());
-    }
-
     return 0;
 }
 
 double BlockPointsEntity::pw()
 {
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->pw(current.I(), current.J(), current.K());
-    }
-
-    return 0;
-}
-
-double BlockPointsEntity::rs()
-{
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->rs(current.I(), current.J(), current.K(), depth());
-    }
-
-    return 0;
-}
-
-double BlockPointsEntity::pBUB()
-{
-    QObject* projectData = parent();
-
-    if (projectData != nullptr)
-    {
-        ProjectData* project = static_cast<ProjectData*>(projectData);
-
-        if(project->Loaded()) return project->pBub(current.I(), current.J(), current.K(), depth());
-    }
-
     return 0;
 }
 
 double BlockPointsEntity::poreVolume()
 {
-    return cellVolume()*porosity()*ntg();
+    QObject* projectData = parent();
+
+    if (projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        if(project->Loaded()) {
+
+            QVariant val = project->Stratum().MULTPV()(current.I(), current.J(), current.K());
+
+            double mult = val.isNull() ? 1 : val.toDouble();
+
+            double porosity = project->poro(current.I(), current.J(), current.K());
+            double ntg = project->ntg(current.I(), current.J(), current.K());
+
+            return mult * current.Volume() * porosity * ntg;
+        }
+    }
+
+    return 0;
 }
 
 double BlockPointsEntity::oilVolume()
@@ -235,7 +440,7 @@ double BlockPointsEntity::oilVolume()
 
             double cv = UnitHelper::ConvertVolume(static_cast<ProjectData::UnitType>(unit), ProjectData::LAB, 1, unitsEnum).toDouble();
 
-            int pvtNum = pvtNUM();
+            int pvtNum = project->pvtNUM(current.I(), current.J(), current.K());
 
             double bo = DataHelper::CalculateBoFromPVT(project->Stratum(), pressure(), pvtNum);
 
@@ -269,12 +474,8 @@ Block &BlockPointsEntity::nextBlock()
             int j = c/nx;
             int i = c - j*nx;
 
-            current.SetI(i);
-            current.SetJ(j);
-            current.SetK(k);
-
-            if(project->BlockCentered()) CalcBlockByBCG(project);
-            else CalcBlockByCPG(project);
+            if(project->BlockCentered()) CalcBlockByBCG(project, i, j, k);
+            else CalcBlockByCPG(project, i, j, k);
 
             cursor++;
         }
@@ -286,11 +487,10 @@ Block &BlockPointsEntity::nextBlock()
 void BlockPointsEntity::initVariables()
 {
     cursor = 0;
-    pointOrderStandard = true;
     current.InitVariables();
 }
 
-void BlockPointsEntity::CalcBlockByBCG(ProjectData* project)
+void BlockPointsEntity::CalcBlockByBCG(ProjectData* project, int i, int j, int k)
 {
     double x1 = 0;
     double y1 = 0;
@@ -299,10 +499,6 @@ void BlockPointsEntity::CalcBlockByBCG(ProjectData* project)
     double x2 = 0;
     double y2 = 0;
     double z2 = 0;
-
-    int i = current.I();
-    int j = current.J();
-    int k = current.K();
 
     double dx = project->dx(i, j, k);
     double dy = project->dy(i, j, k);
@@ -356,6 +552,10 @@ void BlockPointsEntity::CalcBlockByBCG(ProjectData* project)
         x2 = current.P2().X();
     }
 
+    current.SetI(i);
+    current.SetJ(j);
+    current.SetK(k);
+
     current.P1().SetX(x1); current.P1().SetY(y1); current.P1().SetZ(z1);
     current.P2().SetX(x2); current.P2().SetY(y1); current.P2().SetZ(z1);
     current.P3().SetX(x1); current.P3().SetY(y2); current.P3().SetZ(z1);
@@ -366,19 +566,19 @@ void BlockPointsEntity::CalcBlockByBCG(ProjectData* project)
     current.P8().SetX(x2); current.P8().SetY(y2); current.P8().SetZ(z2);
 }
 
-void BlockPointsEntity::CalcBlockByCPG(ProjectData *project)
+void BlockPointsEntity::CalcBlockByCPG(ProjectData *project, int i, int j, int k)
 {
     Line3D coordLine;
 
     double d1, d2, d3, d4, d5, d6, d7, d8;
 
-    int i = current.I();
-    int j = current.J();
-    int k = current.K();
-
     project->CalcBlockDepths(i, j, k, d1, d2, d3, d4, d5, d6, d7, d8);
 
-    if(pointOrderStandard)
+    current.SetI(i);
+    current.SetJ(j);
+    current.SetK(k);
+
+    if(project->PointOrderStandard())
     {
         project->CalcCoordLine(i, j, coordLine);
 

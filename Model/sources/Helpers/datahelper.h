@@ -17,6 +17,7 @@
 #define EPSILON 1E-15
 
 #define ISEQUAL(val1, val2) ((val1 - val2 < EPSILON) && (val1 - val2 > -EPSILON))
+#define SQR(a) ((a)*(a));
 
 using namespace QaraMunai::Model::Domain::Stratum;
 using namespace QaraMunai::Model::Domain::Project;

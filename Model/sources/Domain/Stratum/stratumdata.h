@@ -219,11 +219,6 @@ public:
 
     DIMPESData& DIMPES();
 
-    QList<WELSPECSData> &WELSPECS();
-    QList<COMPDATData> &COMPDAT();
-    QList<WCONPRODData> &WCONPROD();
-    QList<WCONINJEData> &WCONINJE();
-
     QList<QDateTime> &DATES();
 
     QList<WCONHISTData> &WCONHIST();
@@ -334,11 +329,6 @@ private:
     QList<AQUFETPData> aquFETP;
 
     DIMPESData dimpes;
-
-    QList<WELSPECSData> welSPECS;
-    QList<COMPDATData> compDAT;
-    QList<WCONPRODData> wconPROD;
-    QList<WCONINJEData> wconINJE;
 
     QList<QDateTime> dates;
 

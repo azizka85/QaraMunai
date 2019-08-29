@@ -9,6 +9,11 @@ namespace Project {
 
 WCONPRODEntity::WCONPRODEntity(QObject *parent) : QObject (parent) { }
 
+QList<WCONPRODData> &WCONPRODEntity::WCONPROD()
+{
+    return wconPROD;
+}
+
 bool WCONPRODEntity::exist()
 {
     QObject* projectData = parent();
@@ -17,7 +22,7 @@ bool WCONPRODEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->Loaded() && project->Stratum().WCONPROD().length() > 0;
+        return project->Loaded() && wconPROD.length() > 0;
     }
 
     return false;
@@ -59,18 +64,37 @@ QList<WCONPRODData> WCONPRODEntity::WCONPRODList(QDateTime date)
         {
             QList<WCONPRODData> wconprodList;
 
-            QList<WCONPRODData> list = project->Stratum().WCONPROD();
+            QList<int> indexes = GetIndexes(date);
 
-            for(int i = 0; i < list.length(); i++)
-            {
-                if(list[i].Date() == date) wconprodList.append(list[i]);
-            }
+            for(int i = 0; i < indexes.length(); i++) wconprodList.append(wconPROD[indexes[i]]);
 
             return wconprodList;
         }
     }
 
     return QList<WCONPRODData>();
+}
+
+QList<int> WCONPRODEntity::GetIndexes(QDateTime date)
+{
+    return dateIndexes.contains(date) ? dateIndexes[date] : QList<int>();
+}
+
+void WCONPRODEntity::AddWCONPROD(WCONPRODData &data)
+{
+    QDateTime date = data.Date();
+
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QList<int>();
+
+    dateIndexes[date].append(wconPROD.length());
+
+    wconPROD.append(data);
+}
+
+void WCONPRODEntity::Clear()
+{
+    dateIndexes.clear();
+    wconPROD.clear();
 }
 
 

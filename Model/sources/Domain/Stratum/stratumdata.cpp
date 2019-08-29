@@ -575,26 +575,6 @@ DIMPESData &StratumData::DIMPES()
     return dimpes;
 }
 
-QList<WELSPECSData> &StratumData::WELSPECS()
-{
-    return welSPECS;
-}
-
-QList<COMPDATData> &StratumData::COMPDAT()
-{
-    return compDAT;
-}
-
-QList<WCONPRODData> &StratumData::WCONPROD()
-{
-    return wconPROD;
-}
-
-QList<WCONINJEData> &StratumData::WCONINJE()
-{
-    return wconINJE;
-}
-
 QList<QDateTime> &StratumData::DATES()
 {
     return dates;
@@ -794,11 +774,6 @@ void StratumData::InitVariables()
     aquFETP.clear();
 
     dimpes.InitVariables();
-
-    welSPECS.clear();
-    compDAT.clear();
-    wconPROD.clear();
-    wconINJE.clear();
 
     dates.clear();
 

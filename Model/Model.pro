@@ -49,7 +49,6 @@ SOURCES += \
     sources/Domain/Grid/line3d.cpp \
     sources/Domain/Grid/point3d.cpp \
     sources/Domain/Project/addentity.cpp \
-    sources/Domain/Project/blockpointsentity.cpp \
     sources/Domain/Project/compdatentity.cpp \
     sources/Domain/Project/copyentity.cpp \
     sources/Domain/Project/defaultvalues.cpp \
@@ -129,7 +128,9 @@ SOURCES += \
     sources/Domain/Stratum/eqldimsdata.cpp \
     sources/Domain/Stratum/rockoptsdata.cpp \
     sources/Domain/Stratum/tabdimsdata.cpp \
-    sources/Domain/Project/swofentity.cpp
+    sources/Domain/Project/swofentity.cpp \
+    sources/Domain/Project/blockpointsentity.cpp \
+    sources/Domain/Grid/plane.cpp
 
 HEADERS += \
     sources/DAO/asyncfilereader.h \
@@ -141,7 +142,6 @@ HEADERS += \
     sources/Domain/Grid/line3d.h \
     sources/Domain/Grid/point3d.h \
     sources/Domain/Project/addentity.h \
-    sources/Domain/Project/blockpointsentity.h \
     sources/Domain/Project/compdatentity.h \
     sources/Domain/Project/copyentity.h \
     sources/Domain/Project/defaultvalues.h \
@@ -222,4 +222,6 @@ HEADERS += \
     sources/Domain/Stratum/eqldimsdata.h \
     sources/Domain/Stratum/rockoptsdata.h \
     sources/Domain/Stratum/tabdimsdata.h \
-    sources/Domain/Project/swofentity.h
+    sources/Domain/Project/swofentity.h \
+    sources/Domain/Project/blockpointsentity.h \
+    sources/Domain/Grid/plane.h

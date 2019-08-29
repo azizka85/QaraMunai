@@ -94,22 +94,11 @@ Item {
 
     function prepare(projectData)
     {
-        var wellsList = projectData.welspecs.getList(null);
-
-        var groups = {};
-
-        for(var i = 0; i < wellsList.length; i++)
-        {
-            var group = wellsList[i].wellGroup;
-
-            if(!groups.hasOwnProperty(group)) groups[group] = [];
-
-            groups[group].push(wellsList[i]);
-        }
+        var groups = projectData.welspecs.getData();
 
         var treeModel = [];
 
-        for(group in groups)
+        for(var group in groups)
         {
             treeModel.push({ group: group, nodes: groups[group] });
         }

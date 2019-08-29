@@ -24,10 +24,26 @@ class MODELSHARED_EXPORT WELSPECSEntity : public QObject
 public:
     explicit WELSPECSEntity(QObject *parent = nullptr);
 
-    Q_INVOKABLE bool exist();
-    Q_INVOKABLE QVariantList getList(QVariant date);
+    QList<WELSPECSData> &WELSPECS();
 
-    QList<WELSPECSData> WELSPECSList(QVariant date);
+    Q_INVOKABLE bool exist();
+    Q_INVOKABLE QVariantList getList(QDateTime date);
+    Q_INVOKABLE QVariantMap getData();
+
+    QList<WELSPECSData> WELSPECSList(QDateTime date);
+    QMap<QString, QList<WELSPECSData>> WELSPECSGroupList();
+
+    QList<int> GetDateIndexes(QDateTime date);
+    QList<int> GetGroupIndexes(QString group);
+
+    void AddWELSPECS(WELSPECSData &data);
+
+    void Clear();
+
+private:
+    QMap<QDateTime, QList<int>> dateIndexes;
+    QMap<QString, QList<int>> groupIndexes;
+    QList<WELSPECSData> welSPECS;
 };
 
 }}}}
