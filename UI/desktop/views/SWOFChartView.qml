@@ -17,10 +17,18 @@ Item {
           margins.left: 0
           margins.right: 0
 
+          Rectangle{
+              width: 55
+              height: 15
+              color: "white"
+              anchors { top: swofChart.top; right:swofChart.right; topMargin: 21; rightMargin: swofChart.width/2-85 }
+          }
+
         LineSeries {
             property alias markerSize: krwSWOF2.markerSize
             property alias markerColor: krwSWOF2.color
             property alias markerShape: krwSWOF2.markerShape
+
             id: krwSWOF
             name: qsTr("Krw")
             color: "mediumseagreen"
@@ -33,11 +41,13 @@ Item {
             property alias markerSize: kroSWOF2.markerSize
             property alias markerColor: kroSWOF2.color
             property alias markerShape: kroSWOF2.markerShape
+
             id: kroSWOF
             name: qsTr("Krow")
             color: "mediumpurple"
             axisX: axisX
             axisY: axisY
+            axisYRight: axisY2
             width: 2
             style: "SolidLine"
         }
@@ -45,6 +55,7 @@ Item {
             property alias markerSize: pcSWOF2.markerSize
             property alias markerColor: pcSWOF2.color
             property alias markerShape: pcSWOF2.markerShape
+
             id: pcSWOF
             name: qsTr("Pcow")
             color: "orange"
@@ -58,6 +69,8 @@ Item {
             markerSize: 8
             visible: krwSWOF.visible
             color: "mediumseagreen"
+            axisX: axisX
+            axisY: axisY
             markerShape: ScatterSeries.MarkerShapeRectangle
         }
         ScatterSeries{
@@ -65,14 +78,18 @@ Item {
             markerSize: 8
             visible: kroSWOF.visible
             color: "mediumpurple"
+            axisX: axisX
+            axisY: axisY
             markerShape: ScatterSeries.MarkerShapeCircle
         }
-
         ScatterSeries{
             id:pcSWOF2
             markerSize: 8
             visible: pcSWOF.visible
             color: "red"
+            axisX: axisX
+            axisYRight: axisY2
+            markerShape: ScatterSeries.MarkerShapeCircle
         }
 
         ValueAxis{
@@ -124,29 +141,29 @@ Item {
     function closeProject()
     {
         krwSWOF.clear();
-        kroSWOF.clear();
-        pcSWOF.clear();
         krwSWOF2.clear();
+        kroSWOF.clear();
         kroSWOF2.clear();
+        pcSWOF.clear();
         pcSWOF2.clear();
     }
 
     function prepare(list)
     {
         krwSWOF.clear();
-        kroSWOF.clear();
-        pcSWOF.clear();
         krwSWOF2.clear();
+        kroSWOF.clear();
         kroSWOF2.clear();
+        pcSWOF.clear();
         pcSWOF2.clear();
 
         for(var i = 0; i < list.length; i++)
         {
             krwSWOF.append(list[i].sw, list[i].krw);
-            kroSWOF.append(list[i].sw, list[i].kro);
-            pcSWOF.append(list[i].sw, list[i].pc);
-            kroSWOF2.append(list[i].sw, list[i].kro);
             krwSWOF2.append(list[i].sw, list[i].krw);
+            kroSWOF.append(list[i].sw, list[i].kro);
+            kroSWOF2.append(list[i].sw, list[i].kro);
+            pcSWOF.append(list[i].sw, list[i].pc);
             pcSWOF2.append(list[i].sw, list[i].pc);
         }
     }

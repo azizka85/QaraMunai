@@ -4,11 +4,12 @@ import QtQuick.Controls 1.4
 import QtCharts 2.3
 import QtQuick.Dialogs 1.0
 
+
 Window {
     property alias model: settings.model
 
     visible: false
-    width: 613
+    width: 568
     height: 110
     title: qsTr("Настройка графиков")
 
@@ -19,18 +20,21 @@ Window {
         TableViewColumn {
             role: "name"
             title: "Название"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 60
-            delegate: TextInput {
-                anchors.fill: parent
-                text: modelData.name
-                onTextChanged: modelData.name = text
-            }
+//            delegate: TextInput {
+//                anchors.fill: parent
+//                text: modelData.name
+//                onTextChanged: modelData.name = text
+//                horizontalAlignment: Text.AlignHCenter
+//            }
         }
 
         TableViewColumn {
             role: "visible"
             title: "Отображение"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 80
             delegate: Rectangle {
@@ -47,6 +51,7 @@ Window {
         TableViewColumn {
             role: "color"
             title: "Цвет \nлинии"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 60
             delegate: Rectangle {
@@ -82,6 +87,7 @@ Window {
         TableViewColumn {
             role: "width"
             title: "Толщина \nлинии"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 60
             delegate: TextInput {
@@ -96,8 +102,9 @@ Window {
         TableViewColumn {
             role: "linedash"
             title: "Тип линии"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
-            width: 115
+            width: 100
             delegate: ComboBox {
                 currentIndex: modelData.style
                 anchors.fill: parent
@@ -110,6 +117,7 @@ Window {
         TableViewColumn {
             role: "markerColor"
             title: "Цвет \nмаркера"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 60
             delegate: Rectangle {
@@ -144,7 +152,8 @@ Window {
 
         TableViewColumn {
             role: "markerSize"
-            title: "Толщина \nмаркера"
+            title: "Толщина \nмаркера" 
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 60
             delegate: TextInput {
@@ -159,8 +168,9 @@ Window {
         TableViewColumn {
             role: "markerShape"
             title: "Тип линии"
+            horizontalAlignment: Text.AlignHCenter
             resizable: false
-            width: 115
+            width: 85
             delegate: ComboBox {
                 currentIndex: modelData.markerShape
                 anchors.fill: parent

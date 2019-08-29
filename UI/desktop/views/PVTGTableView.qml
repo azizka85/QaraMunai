@@ -8,30 +8,23 @@ Item {
         anchors.fill: parent
 
         TableViewColumn {
-            role: "rv"
-            title: "RV"
-            width: pvtgList.width/4
-            resizable: false
-        }
-
-        TableViewColumn {
             role: "pg"
             title: "P"
-            width: pvtgList.width/4
+            width: pvtgList.width/3
             resizable: false
         }
 
         TableViewColumn {
             role: "bg"
             title: "Bg"
-            width: pvtgList.width/4
+            width: pvtgList.width/3
             resizable: false
         }
 
         TableViewColumn {
             role: "mg"
             title: "Mg"
-            width: pvtgList.width/4
+            width: pvtgList.width/3
             resizable: false
         }
     }

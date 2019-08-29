@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Layouts 1.13
 
 ApplicationWindow {
     property bool dockTitleVisible: true
@@ -18,17 +19,18 @@ ApplicationWindow {
 
     Ribbon {
         id: ribbon
-        ribbonHeight: 118
+        ribbonHeight: 94
         RibbonTab {
             title: qsTr("Файл")
             tabWidth: 60
             RibbonGroup {
                 title: qsTr("Файл")
-                width: 136
+                width:  106
 
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -49,10 +51,11 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Настройки")
-                width: 136
+                width:  106
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -83,6 +86,7 @@ ApplicationWindow {
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -104,11 +108,12 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Списки")
-                width: 136
+                width:  106
 
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -146,12 +151,13 @@ ApplicationWindow {
             tabWidth: 200
 
             RibbonGroup {
-                title: qsTr("ОФП и КД (нефть-вода)")
-                width: 136
+                title: qsTr("Нефть-вода")
+                width:  106
 
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6 }
 
                     MyButton {
@@ -182,12 +188,13 @@ ApplicationWindow {
             RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
 
             RibbonGroup {
-                title: qsTr("ОФП и КД (газ-нефть)")
-                width: 136
+                title: qsTr("Газ-нефть")
+                width: 106
 
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -249,11 +256,12 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("PVT нефти")
-                width: 136
+                width:  106
 
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -285,15 +293,17 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("PVT газа")
-                width: 136
+                width:  106
 
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
                         id: pvtgButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
                         onClicked: {
                             if(pvtgChartDock.visible)
@@ -304,12 +314,72 @@ ApplicationWindow {
                     }
 
                     MyButton {
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
                         onClicked: {
                             if(pvtgTableDock.visible)
                                 pvtgTableDock.hide();
                             else
                                 dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
+                        }
+                    }
+                }
+            }
+
+            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
+
+            RibbonGroup {
+
+                width:  106
+
+                Column {
+                    leftPadding: 0
+                    MyButton {
+                        id: pvtwButton
+                        checkable: true
+                        width: 100
+                        height:18
+                        text: "PVTW воды"
+                        display: AbstractButton.TextBesideIcon
+                        icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
+                        onClicked: {
+                            if(pvtgChartDock.visible)
+                                pvtgChartDock.hide();
+                            else
+                                dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.45, true);
+                        }
+                    }
+
+                    MyButton {
+                        id: poroda
+                        checkable: true
+                        anchors.right: parent.right
+                        width: 100
+                        height:18
+                        text: "Порода"
+                        display: AbstractButton.TextBesideIcon
+                        icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_table_gas.png" }
+                        onClicked: {
+                            if(pvtgTableDock.visible)
+                                pvtgTableDock.hide();
+                            else
+                                dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
+                        }
+                    }
+
+                    MyButton {
+                        id: density
+                        checkable: true
+                        width: 100
+                        height:18
+                        text: "Плотности"
+                        display: AbstractButton.TextBesideIcon
+                        icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_table_oil.png"; }
+                        onClicked: {
+                            if(pvtoTableDock.visible)
+                                pvtoTableDock.hide();
+                            else
+                                dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.55);
                         }
                     }
                 }
@@ -345,14 +415,15 @@ ApplicationWindow {
 
         RibbonTab {
             title: qsTr("Расчётные данные")
-            tabWidth: 136
+            tabWidth:  106
 
             RibbonGroup {
                 title: qsTr("Функции расчета")
-                width: 196
+                width: 156
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -367,11 +438,13 @@ ApplicationWindow {
 
                     MyButton {
                         id: pauseButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_pause_button.png"; }
                     }
 
                     MyButton {
                         id: stopButton
+                        checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_stop_button.png"; }
                     }
                 }
@@ -381,10 +454,11 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("")
-                width: 260
+                width: 206
                 Row {
                     spacing: 6
                     leftPadding: 6
+                    rightPadding: 6
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {

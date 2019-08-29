@@ -8,28 +8,20 @@ Item {
     ChartView {
         id: pvtgChart
         anchors.fill: parent
+        legend.alignment: Qt.AlignTop
 
-        legend {
-            visible: true
-            alignment: Qt.AlignBottom
-        }
         margins.top: 0
         margins.bottom: 0
         margins.left: 0
         margins.right: 0
 
-        LineSeries {
-            property alias markerSize: pgPVTG2.markerSize
-            property alias markerColor: pgPVTG2.color
-
-            id: pgPVTG
-            name: qsTr("PG")
-            color: "mediumseagreen"
-            axisX: axisX
-            axisY: axisY
-            width: 2
-            style: "SolidLine"
-            visible: false
+        Rectangle{
+            width: 50
+            height: 10
+            color: "white"
+//              anchors{right: legend.right}
+            x:swofChart.width/1.935
+                y:swofChart.height*0.025
         }
         LineSeries {
             property alias markerSize: bgPVTG2.markerSize
@@ -37,7 +29,7 @@ Item {
 
             id: bgPVTG
             name: qsTr("Bg")
-            color:"mediumpurple"
+            color:"mediumseagreen"
             axisX: axisX
             axisY: axisY
             width: 2
@@ -46,30 +38,34 @@ Item {
         LineSeries {
             id: mgPVTG
             name: qsTr("Mg")
-            color: "orange"
+            color: "mediumpurple"
             axisX: axisX
-            axisY: axisY
+            axisYRight: axisY2
             width: 2
             style: "SolidLine"
         }
     }
 
     ScatterSeries{
-        id:pgPVTG2
-        markerSize: 8
-        visible: pgPVTG.visible
-        color: "mediumseagreen"
-        markerShape: ScatterSeries.MarkerShapeCircle
-    }
-    ScatterSeries{
         id:bgPVTG2
         markerSize: 8
         visible: bgPVTG.visible
+        color: "mediumseagreen"
+        axisX: axisX
+        axisY: axisY
+        markerShape: ScatterSeries.MarkerShapeCircle
+    }
+    ScatterSeries{
+        id:mgPVTG2
+        markerSize: 8
+        visible: mgPVTG.visible
         color: "mediumpurple"
+        axisX: axisX
+        axisYRight: axisY2
         markerShape: ScatterSeries.MarkerShapeCircle
     }
 
-ValueAxis{
+    ValueAxis{
         id: axisX
         titleText:qsTr("Давление, Psia")
         color: "Black"
@@ -87,8 +83,7 @@ ValueAxis{
         gridVisible: true
         gridLineColor: "silver"
     }
-
- ValueAxis{
+    ValueAxis{
         id:axisY
         titleText:qsTr("Объем. коэф. газа (RB/MSCF)")
         color: "Black"
@@ -105,43 +100,40 @@ ValueAxis{
         gridVisible: true
         gridLineColor: "silver"
     }
-ValueAxis{
-     id: axisY2
-     titleText: qsTr("Вязк. газа (ср.)")
-     color: "Black"
+    ValueAxis{
+        id: axisY2
+        titleText: qsTr("Вязк. газа (ср.)")
+        color: "Black"
 
-     min: 0
-     max: 0.02
-     tickCount: 6
-     labelFormat: "%.3f"
+        min: 0
+        max: 0.02
+        tickCount: 6
+        labelFormat: "%.3f"
 
-     gridVisible: false
- }
+        gridVisible: false
+    }
 
     function closeProject()
     {
-        pgPVTG.clear();
         bgPVTG.clear();
-        mgPVTG.clear();
-        pgPVTG2.clear();
         bgPVTG2.clear();
+        mgPVTG.clear();
+        mgPVTG2.clear();
     }
 
     function prepare(list)
     {
-        pgPVTG.clear();
         bgPVTG.clear();
-        mgPVTG.clear();
-        pgPVTG2.clear();
         bgPVTG2.clear();
+        mgPVTG.clear();
+        mgPVTG2.clear();
 
         for(var i = 0; i < list.length; i++)
         {
-            pgPVTG.append(list[i].rv, list[i].pg);
-            bgPVTG.append(list[i].rv, list[i].bg);
-            mgPVTG.append(list[i].rv, list[i].mg);
-            pgPVTG2.append(list[i].rv, list[i].pg);
-            bgPVTG2.append(list[i].rv, list[i].bg);
+            bgPVTG.append(list[i].pg, list[i].bg);
+            bgPVTG2.append(list[i].pg, list[i].bg);
+            mgPVTG.append(list[i].pg, list[i].mg);
+            mgPVTG2.append(list[i].pg, list[i].mg);
         }
     }
 
@@ -167,6 +159,6 @@ ValueAxis{
     SettingsView {
         id: settingsView
         visible: false
-        model: [pgPVTG, bgPVTG, mgPVTG]
+        model: [bgPVTG, mgPVTG]
     }
 }
