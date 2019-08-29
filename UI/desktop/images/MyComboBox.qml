@@ -1,48 +1,82 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.5
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 ComboBox {
     id: control
-//    width: 50
+    width: 80
     delegate: ItemDelegate {
         contentItem:
             Text {
-            text: modelData
-            font: control.font
-            elide: Text.ElideMiddle
-            verticalAlignment: Text.AlignVCenter
+                text: modelData
+                font: control.font
+                elide: Text.ElideMiddle
+                verticalAlignment: Text.AlignVCenter
         }
         highlighted: control.highlightedIndex === index
     }
-//    indicator:  Image {
-//        width: height; height: control.height / 2;
-//        source: "qrc:/desktop/images/arrow-down-16x16.png"
-//        anchors { right: control.right; verticalCenter: control.verticalCenter; rightMargin: 2 }
-//    }
+
     contentItem: Text {
         text: "Регион №" + control.displayText
-        font: control.font
-
         verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideMiddle
-        horizontalAlignment: Text.AlignHCenter
-        anchors.rightMargin: 4
+        anchors { centerIn: parent; rightMargin: 4 }
+        font: control.font
     }
 
     background: Rectangle {
-//        implicitWidth: control.width + 12
-//        implicitHeight: control.height + 8
-        color: control.visualFocus || hovered ? '#bbbbbb' : 'transparent'
-//        border { width: 1; color: '#bbbbbb' }
+        width: control.width
+        implicitHeight: control.height + 8
+        color: hovered || popup.visible ? '#bbbbbb' : 'transparent'
         MouseArea {
             id: ma
             anchors.fill: parent
             hoverEnabled: true
+            onClicked: {
+                popup.visible = !popup.visible
+                if(popup.visible){
+                    opacityAnimation.start();
+                }
+            }
+
         }
+
         states: [State {
-            name: "hovered"
-            when: ma.containsMouse
-        }]
+                name: "hovered"
+                when: ma.containsMouse
+            } ]
+    }
+
+    popup: Popup {
+        id: popup
+        y: control.height - 1
+        width: control.width
+        implicitHeight: contentItem.implicitHeight
+        padding: 1
+        NumberAnimation on opacity {
+            id: opacityAnimation
+            from: 0
+            to: 100
+            duration: 50
+            running: popup.visible
+        }
+        NumberAnimation on height {
+            id: heightAnimation
+            from: 0
+            to: list.implicitHeight + 2
+            duration: 50
+            running:  popup.visible
+        }
+        contentItem: ListView {
+            id: list
+            clip: true
+            implicitHeight: contentHeight
+            model: control.delegateModel
+            currentIndex: control.highlightedIndex
+            ScrollIndicator.vertical: ScrollIndicator { }
+        }
+        background: Rectangle {
+            border.color: "lightgray"
+            radius: 2
+        }
     }
 
 }
