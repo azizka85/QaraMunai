@@ -88,7 +88,7 @@ Window {
                 anchors.fill: parent
                 text: modelData.width
                 onTextChanged: if(acceptableInput) modelData.width = text
-                validator: IntValidator{bottom: 1; top: 10}
+                validator: IntValidator{ bottom: 1; top: 10 }
                 horizontalAlignment: Text.AlignHCenter
             }
         }
@@ -151,7 +151,7 @@ Window {
                 anchors.fill: parent
                 text: modelData.markerSize
                 onTextChanged: if(acceptableInput) modelData.markerSize = text
-                validator: IntValidator{bottom: 1; top: 10}
+                validator: IntValidator { bottom: 1; top: 10 }
                 horizontalAlignment: Text.AlignHCenter
             }
         }
