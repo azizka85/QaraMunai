@@ -17,13 +17,6 @@ Item {
           margins.left: 0
           margins.right: 0
 
-          Rectangle{
-              width: 55
-              height: 15
-              color: "white"
-              anchors { top: swofChart.top; right:swofChart.right; topMargin: 21; rightMargin: swofChart.width/2-85 }
-          }
-
         LineSeries {
             property alias markerSize: krwSWOF2.markerSize
             property alias markerColor: krwSWOF2.color
