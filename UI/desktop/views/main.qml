@@ -321,13 +321,12 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Регионы")
-                width: 62
-
+                width: 112
                 MyComboBox {
                     id: pvtRegionList
                     anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 5 }
-                    font.pixelSize: 14
-                    width: 60
+                    width: 100
+                    font { pixelSize: 11 }
                     onCurrentIndexChanged: {
 
                         var pvtoList = projectData.pvto.getList(pvtRegionList.currentIndex);
@@ -360,6 +359,11 @@ ApplicationWindow {
 
                     MyButton {
                         id: runButton
+                        checkable: true
+                        onClicked: if(checked){
+                                       testMdodel.next();
+                                   }
+
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_start_button.png"; }
                     }
 
@@ -389,21 +393,48 @@ ApplicationWindow {
                         id: watercutButton
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/wc_eor.png" }
+                        onClicked: if(waterCutDock.visible)
+                                       waterCutDock.hide();
+                                   else
+                                       dockSpace.insertDock(waterCutDock, pvtgChartDock, Qt.Horizontal, 0.55);
+
                     }
                     MyButton {
                         id: flowRateButto
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/flow_rate.png" }
+                        onClicked: if(flowRateDock.visible)
+                                       flowRateDock.hide();
+                                   else
+                                       dockSpace.insertDock(flowRateDock, waterCutDock, Qt.Horizontal, 0.55);
                     }
                     MyButton {
                         id: volumeRateButton
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/volume_rate.png" }
+                        onClicked: if(volumeRateDock.visible)
+                                       volumeRateDock.hide();
+                                   else
+                                       dockSpace.insertDock(volumeRateDock, flowRateDock, Qt.Horizontal, 0.55);
                     }
                     MyButton {
                         id: wellPressureButton
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/pavr.png" }
+                        onClicked: if(wellPressureDock.visible)
+                                       wellPressureDock.hide();
+                                   else
+                                       dockSpace.insertDock(wellPressureDock, volumeRateDock, Qt.Horizontal, 0.55);
+                    }
+                }
+                TestModel {
+                    id: testMdodel
+                    onIPropChanged: {
+                        console.log("WaterCut Changed! " + testMdodel.list);
+                        for(let i = 0; i < testMdodel.list.count; i++) {
+                            console.log(i + ")" + testMdodel.list.get(i).index + " | " + testMdodel.list.get(i).xx);
+                        }
+                        waterCut.prepare(testMdodel.list);
                     }
                 }
             }
@@ -626,6 +657,27 @@ ApplicationWindow {
             id: pvtgTableDock
             titleVisible: false
             PVTGTableView { id: pvtgTable; anchors.fill: parent;}
+        }
+
+        DockControl {
+            id: waterCutDock
+            titleVisible: false
+            WaterCutView { id: waterCut; anchors.fill: parent;}
+        }
+        DockControl {
+            id: flowRateDock
+            titleVisible: false
+            FlowRateView { id: flowRate; anchors.fill: parent;}
+        }
+        DockControl {
+            id: volumeRateDock
+            titleVisible: false
+            VolumeRateView { id: volumeRate; anchors.fill: parent;}
+        }
+        DockControl {
+            id: wellPressureDock
+            titleVisible: false
+            WellPressureView { id: wellPressure; anchors.fill: parent;}
         }
 
         DockControl {
