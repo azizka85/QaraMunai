@@ -7,7 +7,6 @@ Item {
     property alias settingsView: settingsView
 
     ChartView {
-        property var seriesList: [];
 
         id: swofChart
         anchors.fill: parent
@@ -53,7 +52,6 @@ Item {
             width: 2
             style: "SolidLine"
         }
-        Component.onCompleted: seriesList.push(pcSWOF)
         ScatterSeries{
             id:krwSWOF2
             markerSize: 8
@@ -74,7 +72,6 @@ Item {
             markerSize: 8
             visible: pcSWOF.visible
             color: "red"
-            markerShape: ScatterSeries.MarkerShapeFromSeries
         }
 
         ValueAxis{
