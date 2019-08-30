@@ -27,14 +27,14 @@ QVariantList PVTOEntity::getList(int region)
 {
     QVariantList pvtoList;
 
-    QList<PVTOData> list = PVTOList(region);
+    QVector<PVTOData> list = PVTOList(region);
 
     for(int i = 0; i < list.length(); i++) pvtoList.append(list[i].toMap());
 
     return pvtoList;
 }
 
-QList<PVTOData> PVTOEntity::PVTOList(int region)
+QVector<PVTOData> PVTOEntity::PVTOList(int region)
 {
     QObject* projectData = parent();
 
@@ -45,7 +45,7 @@ QList<PVTOData> PVTOEntity::PVTOList(int region)
         if(project->Loaded() && project->Stratum().PVTO().length() > region) return project->Stratum().PVTO()[region];
     }
 
-    return QList<PVTOData>();
+    return QVector<PVTOData>();
 }
 
 

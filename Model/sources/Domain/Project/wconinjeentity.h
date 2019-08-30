@@ -3,7 +3,7 @@
 
 #include <qobject.h>
 #include <qdatetime.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <wconinjedata.h>
@@ -24,22 +24,22 @@ class MODELSHARED_EXPORT WCONINJEEntity : public QObject
 public:
     explicit WCONINJEEntity(QObject *parent = nullptr);
 
-    QList<WCONINJEData> &WCONINJE();
+    QVector<WCONINJEData> &WCONINJE();
 
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(QDateTime date);
 
-    QList<WCONINJEData> WCONINJEList(QDateTime date);
+    QVector<WCONINJEData> WCONINJEList(QDateTime date);
 
-    QList<int> GetIndexes(QDateTime date);
+    QVector<int> GetIndexes(QDateTime date);
 
     void AddWCONINJE(WCONINJEData& data);
 
     void Clear();
 
 private:
-    QMap<QDateTime, QList<int>> dateIndexes;
-    QList<WCONINJEData> wconINJE;
+    QMap<QDateTime, QVector<int>> dateIndexes;
+    QVector<WCONINJEData> wconINJE;
 };
 
 }}}}

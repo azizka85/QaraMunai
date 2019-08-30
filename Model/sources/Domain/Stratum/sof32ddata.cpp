@@ -10,12 +10,12 @@ SOF32DData::SOF32DData()
     InitVariables();
 }
 
-QList<double> &SOF32DData::SW()
+QVector<double> &SOF32DData::SW()
 {
     return sw;
 }
 
-QList<SOF32DKrOData> &SOF32DData::SOF32DKrO()
+QVector<SOF32DKrOData> &SOF32DData::SOF32DKrO()
 {
     return sof32dKrO;
 }

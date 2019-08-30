@@ -27,14 +27,14 @@ QVariantList SWOFEntity::getList(int region)
 {
     QVariantList swofList;
 
-    QList<SWOFData> list = SWOFList(region);
+    QVector<SWOFData> list = SWOFList(region);
 
     for(int i = 0; i < list.length(); i++) swofList.append(list[i].toMap());
 
     return swofList;
 }
 
-QList<SWOFData> SWOFEntity::SWOFList(int region)
+QVector<SWOFData> SWOFEntity::SWOFList(int region)
 {
     QObject* projectData = parent();
 
@@ -45,7 +45,7 @@ QList<SWOFData> SWOFEntity::SWOFList(int region)
         if(project->Loaded() && project->Stratum().SWOF().length() > region) return project->Stratum().SWOF()[region];
     }
 
-    return QList<SWOFData>();
+    return QVector<SWOFData>();
 }
 
 }}}}

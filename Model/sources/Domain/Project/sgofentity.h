@@ -2,7 +2,7 @@
 #define SGOFENTITY_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <sgofdata.h>
@@ -26,7 +26,7 @@ public:
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(int region);
 
-    QList<SGOFData> SGOFList(int region);
+    QVector<SGOFData> SGOFList(int region);
 };
 
 }}}}

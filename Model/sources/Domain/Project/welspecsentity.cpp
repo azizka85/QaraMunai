@@ -9,7 +9,7 @@ namespace Project {
 
 WELSPECSEntity::WELSPECSEntity(QObject *parent) : QObject (parent) { }
 
-QList<WELSPECSData> &WELSPECSEntity::WELSPECS()
+QVector<WELSPECSData> &WELSPECSEntity::WELSPECS()
 {
     return welSPECS;
 }
@@ -32,7 +32,7 @@ QVariantList WELSPECSEntity::getList(QDateTime date)
 {
     QVariantList welspecsList;
 
-    QList<WELSPECSData> list = WELSPECSList(date);
+    QVector<WELSPECSData> list = WELSPECSList(date);
 
     for(int i = 0; i < list.length(); i++) welspecsList.append(list[i].toMap());
 
@@ -43,7 +43,7 @@ QVariantMap WELSPECSEntity::getData()
 {
     QVariantMap welSPECSData;
 
-    QMap<QString, QList<WELSPECSData>> data = WELSPECSGroupList();
+    QMap<QString, QVector<WELSPECSData>> data = WELSPECSGroupList();
 
     QList<QString> keys = data.keys();
 
@@ -53,7 +53,7 @@ QVariantMap WELSPECSEntity::getData()
 
         QVariantList welSPECSList;
 
-        QList<WELSPECSData> list = data[key];
+        QVector<WELSPECSData> list = data[key];
 
         for(int j = 0; j < list.length(); j++) welSPECSList.append(list[j].toMap());
 
@@ -63,7 +63,7 @@ QVariantMap WELSPECSEntity::getData()
     return welSPECSData;
 }
 
-QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
+QVector<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
 {
     QObject* projectData = parent();
 
@@ -73,9 +73,9 @@ QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
 
         if(project->Loaded())
         {
-            QList<WELSPECSData> welspecsList;
+            QVector<WELSPECSData> welspecsList;
 
-            QList<int> indexes = GetDateIndexes(date);
+            QVector<int> indexes = GetDateIndexes(date);
 
             for(int i = 0; i < indexes.length(); i++) welspecsList.append(welSPECS[indexes[i]]);
 
@@ -83,10 +83,10 @@ QList<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
         }
     }
 
-    return QList<WELSPECSData>();
+    return QVector<WELSPECSData>();
 }
 
-QMap<QString, QList<WELSPECSData> > WELSPECSEntity::WELSPECSGroupList()
+QMap<QString, QVector<WELSPECSData> > WELSPECSEntity::WELSPECSGroupList()
 {
     QObject* projectData = parent();
 
@@ -96,7 +96,7 @@ QMap<QString, QList<WELSPECSData> > WELSPECSEntity::WELSPECSGroupList()
 
         if(project->Loaded())
         {
-            QMap<QString, QList<WELSPECSData>> welSPECSData;
+            QMap<QString, QVector<WELSPECSData>> welSPECSData;
 
             QList<QString> keys = groupIndexes.keys();
 
@@ -104,9 +104,9 @@ QMap<QString, QList<WELSPECSData> > WELSPECSEntity::WELSPECSGroupList()
             {
                 QString key = keys[i];
 
-                welSPECSData[key] = QList<WELSPECSData>();
+                welSPECSData[key] = QVector<WELSPECSData>();
 
-                QList<int> indexes = groupIndexes[key];
+                QVector<int> indexes = groupIndexes[key];
 
                 for(int j = 0; j < indexes.length(); j++) welSPECSData[key].append(welSPECS[indexes[j]]);
             }
@@ -115,17 +115,17 @@ QMap<QString, QList<WELSPECSData> > WELSPECSEntity::WELSPECSGroupList()
         }
     }
 
-    return QMap<QString, QList<WELSPECSData> >();
+    return QMap<QString, QVector<WELSPECSData> >();
 }
 
-QList<int> WELSPECSEntity::GetDateIndexes(QDateTime date)
+QVector<int> WELSPECSEntity::GetDateIndexes(QDateTime date)
 {
-    return dateIndexes.contains(date) ? dateIndexes[date] : QList<int>();
+    return dateIndexes.contains(date) ? dateIndexes[date] : QVector<int>();
 }
 
-QList<int> WELSPECSEntity::GetGroupIndexes(QString group)
+QVector<int> WELSPECSEntity::GetGroupIndexes(QString group)
 {
-    return groupIndexes.contains(group) ? groupIndexes[group] : QList<int>();
+    return groupIndexes.contains(group) ? groupIndexes[group] : QVector<int>();
 }
 
 void WELSPECSEntity::AddWELSPECS(WELSPECSData &data)
@@ -133,8 +133,8 @@ void WELSPECSEntity::AddWELSPECS(WELSPECSData &data)
     QDateTime date = data.Date();
     QString group = data.WellGroup();
 
-    if(!dateIndexes.contains(date)) dateIndexes[date] = QList<int>();
-    if(!groupIndexes.contains(group)) groupIndexes[group] = QList<int>();
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
+    if(!groupIndexes.contains(group)) groupIndexes[group] = QVector<int>();
 
     dateIndexes[date].append(welSPECS.length());
     groupIndexes[group].append(welSPECS.length());

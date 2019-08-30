@@ -160,17 +160,17 @@ RSCONSTData &StratumData::RSCONST()
     return rsCONST;
 }
 
-QList<RSCONSTData> &StratumData::RSCONSTT()
+QVector<RSCONSTData> &StratumData::RSCONSTT()
 {
     return rsCONSTT;
 }
 
-QList<QList<PVTOData> > &StratumData::PVTO()
+QVector<QVector<PVTOData> > &StratumData::PVTO()
 {
     return pvto;
 }
 
-QList<QList<PVCOData> > &StratumData::PVCO()
+QVector<QVector<PVCOData> > &StratumData::PVCO()
 {
     return pvco;
 }
@@ -180,97 +180,97 @@ PMAXData &StratumData::PMAX()
     return pmax;
 }
 
-QList<PVCDOData> &StratumData::PVCDO()
+QVector<PVCDOData> &StratumData::PVCDO()
 {
     return pvcdo;
 }
 
-QList<QList<PVDOData> > &StratumData::PVDO()
+QVector<QVector<PVDOData> > &StratumData::PVDO()
 {
     return pvdo;
 }
 
-QList<PVTWData> &StratumData::PVTW()
+QVector<PVTWData> &StratumData::PVTW()
 {
     return pvtw;
 }
 
-QList<QList<PVDGData> > &StratumData::PVDG()
+QVector<QVector<PVDGData> > &StratumData::PVDG()
 {
     return pvdg;
 }
 
-QList<QList<PVTGData> > &StratumData::PVTG()
+QVector<QVector<PVTGData> > &StratumData::PVTG()
 {
     return pvtg;
 }
 
-QList<ROCKData> &StratumData::ROCK()
+QVector<ROCKData> &StratumData::ROCK()
 {
     return rock;
 }
 
-QList<DENSITYData> &StratumData::DENSITY()
+QVector<DENSITYData> &StratumData::DENSITY()
 {
     return density;
 }
 
-QList<GRAVITYData> &StratumData::GRAVITY()
+QVector<GRAVITYData> &StratumData::GRAVITY()
 {
     return gravity;
 }
 
-QList<QList<SWOFData> > &StratumData::SWOF()
+QVector<QVector<SWOFData> > &StratumData::SWOF()
 {
     return swof;
 }
 
-QList<QList<SGOFData>> &StratumData::SGOF()
+QVector<QVector<SGOFData> > &StratumData::SGOF()
 {
     return sgof;
 }
 
-QList<QList<SGWFNData>> &StratumData::SGWFN()
+QVector<QVector<SGWFNData> > &StratumData::SGWFN()
 {
     return sgwfn;
 }
 
-QList<QList<SLGOFData> > &StratumData::SLGOF()
+QVector<QVector<SLGOFData> > &StratumData::SLGOF()
 {
     return slgof;
 }
 
-QList<QList<SOF2Data> > &StratumData::SOF2()
+QVector<QVector<SOF2Data> > &StratumData::SOF2()
 {
     return sof2;
 }
 
-QList<QList<SOF3Data> > &StratumData::SOF3()
+QVector<QVector<SOF3Data> > &StratumData::SOF3()
 {
     return sof3;
 }
 
-QList<SOF32DData> &StratumData::SOF32D()
+QVector<SOF32DData> &StratumData::SOF32D()
 {
     return sof32d;
 }
 
-QList<QList<SWFNData> > &StratumData::SWFN()
+QVector<QVector<SWFNData> > &StratumData::SWFN()
 {
     return swfn;
 }
 
-QList<QList<SGFNData> > &StratumData::SGFN()
+QVector<QVector<SGFNData> > &StratumData::SGFN()
 {
     return sgfn;
 }
 
-QList<QList<SOMGASData> > &StratumData::SOMGAS()
+QVector<QVector<SOMGASData> > &StratumData::SOMGAS()
 {
     return somgas;
 }
 
-QList<QList<SOMWATData> > &StratumData::SOMWAT()
+QVector<QVector<SOMWATData> > &StratumData::SOMWAT()
 {
     return somwat;
 }
@@ -370,7 +370,7 @@ LinearMatrix3D &StratumData::IPCW()
     return ipcw;
 }
 
-QList<PPCWMAXData> &StratumData::PPCWMAX()
+QVector<PPCWMAXData> &StratumData::PPCWMAX()
 {
     return ppcwMAX;
 }
@@ -445,22 +445,22 @@ LinearMatrix3D &StratumData::IKRGR()
     return ikrgr;
 }
 
-QList<QList<ENKRVDData> > &StratumData::ENKRVD()
+QVector<QVector<ENKRVDData> > &StratumData::ENKRVD()
 {
     return enkrvd;
 }
 
-QList<QList<ENPCVDData> > &StratumData::ENPCVD()
+QVector<QVector<ENPCVDData> > &StratumData::ENPCVD()
 {
     return enpcvd;
 }
 
-QList<QList<ENSPCVDData> > &StratumData::ENSPCVD()
+QVector<QVector<ENSPCVDData> > &StratumData::ENSPCVD()
 {
     return enspcvd;
 }
 
-QList<QVariant> &StratumData::SCALELIM()
+QVector<QVariant> &StratumData::SCALELIM()
 {
     return scalelim;
 }
@@ -470,27 +470,27 @@ QVariant StratumData::SCALECRS()
     return scleCRS;
 }
 
-QList<QList<SPECHEATData> > &StratumData::SPECHEAT()
+QVector<QVector<SPECHEATData> > &StratumData::SPECHEAT()
 {
     return specheat;
 }
 
-QList<QList<SPECROCKData> > &StratumData::SPECROCK()
+QVector<QVector<SPECROCKData> > &StratumData::SPECROCK()
 {
     return specrock;
 }
 
-QList<VISCREFData> &StratumData::VISCREF()
+QVector<VISCREFData> &StratumData::VISCREF()
 {
     return viscREF;
 }
 
-QList<QList<OILVISCTData> > &StratumData::OILVISCT()
+QVector<QVector<OILVISCTData> > &StratumData::OILVISCT()
 {
     return oilVISCT;
 }
 
-QList<QList<WATVISCTData> > &StratumData::WATVISCT()
+QVector<QVector<WATVISCTData> > &StratumData::WATVISCT()
 {
     return watVISCT;
 }
@@ -515,22 +515,22 @@ LinearMatrix3D &StratumData::ENDNUM()
     return endnum;
 }
 
-QList<EQUILData> &StratumData::EQUIL()
+QVector<EQUILData> &StratumData::EQUIL()
 {
     return equil;
 }
 
-QList<QList<RSVDData> > &StratumData::RSVD()
+QVector<QVector<RSVDData> > &StratumData::RSVD()
 {
     return rsvd;
 }
 
-QList<QList<PBVDData> > &StratumData::PBVD()
+QVector<QVector<PBVDData> > &StratumData::PBVD()
 {
     return pbvd;
 }
 
-QList<QList<PRVDData> > &StratumData::PRVD()
+QVector<QVector<PRVDData> > &StratumData::PRVD()
 {
     return prvd;
 }
@@ -560,12 +560,12 @@ LinearMatrix3D &StratumData::RS()
     return rs;
 }
 
-QList<AQUANCONData> &StratumData::AQUANCON()
+QVector<AQUANCONData> &StratumData::AQUANCON()
 {
     return aquanCON;
 }
 
-QList<AQUFETPData> &StratumData::AQUFETP()
+QVector<AQUFETPData> &StratumData::AQUFETP()
 {
     return aquFETP;
 }
@@ -575,22 +575,22 @@ DIMPESData &StratumData::DIMPES()
     return dimpes;
 }
 
-QList<QDateTime> &StratumData::DATES()
+QVector<QDateTime> &StratumData::DATES()
 {
     return dates;
 }
 
-QList<WCONHISTData> &StratumData::WCONHIST()
+QVector<WCONHISTData> &StratumData::WCONHIST()
 {
     return wconHIST;
 }
 
-QList<WCONINJHData> &StratumData::WCONINJH()
+QVector<WCONINJHData> &StratumData::WCONINJH()
 {
     return wconINJH;
 }
 
-QList<WELTARGData> &StratumData::WELTARG()
+QVector<WELTARGData> &StratumData::WELTARG()
 {
     return welTARG;
 }

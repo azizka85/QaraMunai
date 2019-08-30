@@ -2,7 +2,7 @@
 #define COPYENTITY_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <copydata.h>
@@ -23,17 +23,17 @@ class MODELSHARED_EXPORT COPYEntity : public QObject
 public:
     explicit COPYEntity(QObject *parent = nullptr);
 
-    QList<COPYData>& COPY();
+    QVector<COPYData>& COPY();
 
     void AddCopy(COPYData& copyData);
 
-    QList<int> GetIndexes(QString destName);
+    QVector<int> GetIndexes(QString destName);
 
     void Clear();
 
 private:
-    QList<COPYData> copy;
-    QMap<QString, QList<int>> destNameIndexes;
+    QVector<COPYData> copy;
+    QMap<QString, QVector<int>> destNameIndexes;
 };
 
 }}}}

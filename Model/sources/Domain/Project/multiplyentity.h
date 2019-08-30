@@ -2,7 +2,7 @@
 #define MULTIPLYENTITY_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <multiplydata.h>
@@ -23,17 +23,17 @@ class MODELSHARED_EXPORT MULTIPLYEntity : public QObject
 public:
     explicit MULTIPLYEntity(QObject *parent = nullptr);
 
-    QList<MULTIPLYData> &MULTIPLY();
+    QVector<MULTIPLYData> &MULTIPLY();
 
     void AddMULTIPLY(MULTIPLYData& multiplyData);
 
-    QList<int> GetIndexes(QString name);
+    QVector<int> GetIndexes(QString name);
 
     void Clear();
 
 private:
-    QList<MULTIPLYData> multiply;
-    QMap<QString, QList<int>> nameIndexes;
+    QVector<MULTIPLYData> multiply;
+    QMap<QString, QVector<int>> nameIndexes;
 };
 
 }}}}

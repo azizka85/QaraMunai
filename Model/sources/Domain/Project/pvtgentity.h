@@ -2,7 +2,7 @@
 #define PVTGENTITY_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <pvtgdata.h>
@@ -26,7 +26,7 @@ public:
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(int region);
 
-    QList<PVTGData> PVTGList(int region);
+    QVector<PVTGData> PVTGList(int region);
 };
 
 }}}}

@@ -9,7 +9,7 @@ namespace Project {
 
 COMPDATEntity::COMPDATEntity(QObject *parent) : QObject (parent) { }
 
-QList<COMPDATData> &COMPDATEntity::COMPDAT()
+QVector<COMPDATData> &COMPDATEntity::COMPDAT()
 {
     return compDAT;
 }
@@ -32,7 +32,7 @@ QVariantList COMPDATEntity::getList(QDateTime date)
 {
     QVariantList compdatList;
 
-    QList<COMPDATData> list = COMPDATList(date);
+    QVector<COMPDATData> list = COMPDATList(date);
 
     QMetaObject metaObject = ProjectData::staticMetaObject;
 
@@ -50,12 +50,12 @@ QVariantList COMPDATEntity::getList(QDateTime date)
     return compdatList;
 }
 
-QList<int> COMPDATEntity::GetIndexes(QDateTime date)
+QVector<int> COMPDATEntity::GetIndexes(QDateTime date)
 {
-    return dateIndexes.contains(date) ? dateIndexes[date] : QList<int>();
+    return dateIndexes.contains(date) ? dateIndexes[date] : QVector<int>();
 }
 
-QList<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
+QVector<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
     QObject* projectData = parent();
 
     if (projectData != nullptr)
@@ -64,9 +64,9 @@ QList<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
 
         if(project->Loaded())
         {
-            QList<COMPDATData> compdatList;
+            QVector<COMPDATData> compdatList;
 
-            QList<int> indexes = GetIndexes(date);
+            QVector<int> indexes = GetIndexes(date);
 
             for(int i = 0; i < indexes.length(); i++) compdatList.append(compDAT[indexes[i]]);
 
@@ -74,14 +74,14 @@ QList<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
         }
     }
 
-    return QList<COMPDATData>();
+    return QVector<COMPDATData>();
 }
 
 void COMPDATEntity::AddCOMPDAT(COMPDATData &data)
 {
     QDateTime date = data.Date();
 
-    if(!dateIndexes.contains(date)) dateIndexes[date] = QList<int>();
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
 
     dateIndexes[date].append(compDAT.length());
 

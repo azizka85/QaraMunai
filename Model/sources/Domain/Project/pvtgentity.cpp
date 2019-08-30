@@ -27,14 +27,14 @@ QVariantList PVTGEntity::getList(int region)
 {
     QVariantList pvtgList;
 
-    QList<PVTGData> list = PVTGList(region);
+    QVector<PVTGData> list = PVTGList(region);
 
     for(int i = 0; i < list.length(); i++) pvtgList.append(list[i].toMap());
 
     return pvtgList;
 }
 
-QList<PVTGData> PVTGEntity::PVTGList(int region)
+QVector<PVTGData> PVTGEntity::PVTGList(int region)
 {
     QObject* projectData = parent();
 
@@ -45,7 +45,7 @@ QList<PVTGData> PVTGEntity::PVTGList(int region)
         if(project->Loaded() && project->Stratum().PVTG().length() > region) return project->Stratum().PVTG()[region];
     }
 
-    return QList<PVTGData>();
+    return QVector<PVTGData>();
 }
 
 

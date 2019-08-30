@@ -7,7 +7,7 @@ namespace Project {
 
 EQUALSEntity::EQUALSEntity(QObject *parent) : QObject(parent) { }
 
-QList<EQUALSData> &EQUALSEntity::EQUALS()
+QVector<EQUALSData> &EQUALSEntity::EQUALS()
 {
     return equals;
 }
@@ -16,14 +16,14 @@ void EQUALSEntity::AddEQUALS(EQUALSData &equalsData)
 {
     QString name = equalsData.ArrayName();
 
-    if(!nameIndexes.contains(name)) nameIndexes[name] = QList<int>();
+    if(!nameIndexes.contains(name)) nameIndexes[name] = QVector<int>();
 
     nameIndexes[name].append(equals.length());
 
     equals.append(equalsData);
 }
 
-QList<int> EQUALSEntity::GetIndexes(QString name)
+QVector<int> EQUALSEntity::GetIndexes(QString name)
 {
     return nameIndexes[name];
 }

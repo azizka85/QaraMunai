@@ -2,7 +2,7 @@
 #define ADDENTITY_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <adddata.h>
@@ -23,17 +23,17 @@ class MODELSHARED_EXPORT ADDEntity : public QObject
 public:
     explicit ADDEntity(QObject *parent = nullptr);
 
-    QList<ADDData> &ADD();
+    QVector<ADDData> &ADD();
 
     void AddADD(ADDData& addData);
 
-    QList<int> GetIndexes(QString name);
+    QVector<int> GetIndexes(QString name);
 
     void Clear();
 
 private:
-    QList<ADDData> add;
-    QMap<QString, QList<int>> nameIndexes;
+    QVector<ADDData> add;
+    QMap<QString, QVector<int>> nameIndexes;
 };
 
 }}}}

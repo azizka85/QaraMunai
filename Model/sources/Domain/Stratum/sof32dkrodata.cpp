@@ -15,7 +15,7 @@ double SOF32DKrOData::SG()
     return sg;
 }
 
-QList<double> &SOF32DKrOData::KrO()
+QVector<double> &SOF32DKrOData::KrO()
 {
     return kro;
 }

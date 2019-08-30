@@ -100,7 +100,7 @@ QVariant DataHelper::GetEQUALSData(EQUALSEntity *equals, QString arrayName, int 
 {
     QVariant val;
 
-    QList<int> indexes = equals->GetIndexes(arrayName);
+    QVector<int> indexes = equals->GetIndexes(arrayName);
 
     if(indexes.length() > 0)
     {
@@ -124,7 +124,7 @@ QVariant DataHelper::GetCOPYData(COPYEntity *copy, StratumData& stratum, QString
 {
     QVariant val;
 
-    QList<int> indexes = copy->GetIndexes(arrayName);
+    QVector<int> indexes = copy->GetIndexes(arrayName);
 
     if(indexes.length() > 0)
     {
@@ -148,7 +148,7 @@ QVariant DataHelper::GetCOPYData(COPYEntity *copy, StratumData& stratum, QString
 
 void DataHelper::MULTIPLYValue(MULTIPLYEntity *multiply, QString arrayName, double &val, int i, int j, int k)
 {
-    QList<int> indexes = multiply->GetIndexes(arrayName);
+    QVector<int> indexes = multiply->GetIndexes(arrayName);
 
     if(indexes.length() > 0)
     {
@@ -166,7 +166,7 @@ void DataHelper::MULTIPLYValue(MULTIPLYEntity *multiply, QString arrayName, doub
 
 void DataHelper::ADDValue(ADDEntity *add, QString arrayName, double &val, int i, int j, int k)
 {
-    QList<int> indexes = add->GetIndexes(arrayName);
+    QVector<int> indexes = add->GetIndexes(arrayName);
 
     if(indexes.length() > 0)
     {

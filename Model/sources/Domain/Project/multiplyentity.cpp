@@ -7,7 +7,7 @@ namespace Project {
 
 MULTIPLYEntity::MULTIPLYEntity(QObject *parent) : QObject(parent) {  }
 
-QList<MULTIPLYData> &MULTIPLYEntity::MULTIPLY()
+QVector<MULTIPLYData> &MULTIPLYEntity::MULTIPLY()
 {
     return multiply;
 }
@@ -16,14 +16,14 @@ void MULTIPLYEntity::AddMULTIPLY(MULTIPLYData &multiplyData)
 {
     QString name = multiplyData.ArrayName();
 
-    if(!nameIndexes.contains(name)) nameIndexes[name] = QList<int>();
+    if(!nameIndexes.contains(name)) nameIndexes[name] = QVector<int>();
 
     nameIndexes[name].append(multiply.length());
 
     multiply.append(multiplyData);
 }
 
-QList<int> MULTIPLYEntity::GetIndexes(QString name)
+QVector<int> MULTIPLYEntity::GetIndexes(QString name)
 {
     return nameIndexes[name];
 }

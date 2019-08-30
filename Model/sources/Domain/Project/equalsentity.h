@@ -2,7 +2,7 @@
 #define EQUALSENTITY_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <equalsdata.h>
@@ -23,17 +23,17 @@ class MODELSHARED_EXPORT EQUALSEntity : public QObject
 public:
     explicit EQUALSEntity(QObject *parent = nullptr);
 
-    QList<EQUALSData> &EQUALS();
+    QVector<EQUALSData> &EQUALS();
 
     void AddEQUALS(EQUALSData &equalsData);
 
-    QList<int> GetIndexes(QString name);
+    QVector<int> GetIndexes(QString name);
 
     void Clear();
 
 private:
-    QList<EQUALSData> equals;
-    QMap<QString, QList<int>> nameIndexes;
+    QVector<EQUALSData> equals;
+    QMap<QString, QVector<int>> nameIndexes;
 };
 
 }}}}

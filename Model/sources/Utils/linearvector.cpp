@@ -79,7 +79,7 @@ QVariant LinearVector::Search(int index)
             {
                 int subIndex = subArray->Index();
 
-                QList<QVariant> &list = subArray->List();
+                QVector<QVariant> &list = subArray->List();
 
                 subIndex = index - subIndex;
 

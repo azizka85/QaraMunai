@@ -4,7 +4,7 @@
 #include <typeinfo.h>
 
 #include <qvariant.h>
-#include <qlist.h>
+#include <qvector.h>
 
 #include <box3d.h>
 #include <subarray.h>
@@ -37,7 +37,7 @@ public:
 private:
     Box3D box;
     int index;    
-    QList<SubArray> data;
+    QVector<SubArray> data;
 
     int SearchDataIndex(int index);
     int BinarySearch(int l, int r, int index);

@@ -383,7 +383,7 @@ void EclipseFileReader::ReadPVTO(ProjectData *data, QTextStream &sr)
 
     for (int reg = 0; reg < ntPVT; reg++)
     {
-       QList<PVTOData> pvtoList;
+       QVector<PVTOData> pvtoList;
 
         while (true)
         {
@@ -417,7 +417,7 @@ void EclipseFileReader::ReadPVCO(ProjectData *data, QTextStream &sr)
 
     for (int reg = 0; reg < ntPVT; reg++)
     {
-        QList<PVCOData> pvcoList;
+        QVector<PVCOData> pvcoList;
 
         QStringList str = ReadFileHelper::ParseParams(sr);
 
@@ -479,7 +479,7 @@ void EclipseFileReader::ReadPVDO(ProjectData *data, QTextStream &sr)
 
     for (int reg = 0; reg < ntPVT; reg++)
     {
-        QList<PVDOData> pvdoList;
+        QVector<PVDOData> pvdoList;
 
         QStringList str = ReadFileHelper::ParseParams(sr);
 
@@ -524,7 +524,7 @@ void EclipseFileReader::ReadPVDG(ProjectData *data, QTextStream &sr)
 
     for (int reg = 0; reg < ntPVT; reg++)
     {
-        QList<PVDGData> pvdgList;
+        QVector<PVDGData> pvdgList;
 
         QStringList str = ReadFileHelper::ParseParams(sr);
 
@@ -549,7 +549,7 @@ void EclipseFileReader::ReadPVTG(ProjectData *data, QTextStream &sr)
 
     for (int reg = 0; reg < ntPVT; reg++)
     {
-        QList<PVTGData> pvtgList;
+        QVector<PVTGData> pvtgList;
 
         while (true)
         {
@@ -676,7 +676,7 @@ void EclipseFileReader::ReadSWOF(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SWOFData> swofList;
+        QVector<SWOFData> swofList;
 
         for (int i = 0; i < (str.length() - 1) / 4; i++)
         {
@@ -702,7 +702,7 @@ void EclipseFileReader::ReadSGOF(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SGOFData> sgofList;
+        QVector<SGOFData> sgofList;
 
         for (int i = 0; i < (str.length() - 1) / 4; i++)
         {
@@ -728,7 +728,7 @@ void EclipseFileReader::ReadSGWFN(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SGWFNData> sgwfnList;
+        QVector<SGWFNData> sgwfnList;
 
         for (int i = 0; i < (str.length() - 1) / 4; i++)
         {
@@ -754,7 +754,7 @@ void EclipseFileReader::ReadSLGOF(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SLGOFData> slgofList;
+        QVector<SLGOFData> slgofList;
 
         for (int i = 0; i < (str.length() - 1) / 4; i++)
         {
@@ -780,7 +780,7 @@ void EclipseFileReader::ReadSOF2(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SOF2Data> sof2List;
+        QVector<SOF2Data> sof2List;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -804,7 +804,7 @@ void EclipseFileReader::ReadSOF3(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SOF3Data> sof3List;
+        QVector<SOF3Data> sof3List;
 
         for (int i = 0; i < (str.length() - 1) / 3; i++)
         {
@@ -862,7 +862,7 @@ void EclipseFileReader::ReadSWFN(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SWFNData> swfnList;
+        QVector<SWFNData> swfnList;
 
         for (int i = 0; i < (str.length() - 1) / 3; i++)
         {
@@ -887,7 +887,7 @@ void EclipseFileReader::ReadSGFN(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SGFNData> sgfnList;
+        QVector<SGFNData> sgfnList;
 
         for (int i = 0; i < (str.length() - 1) / 3; i++)
         {
@@ -912,7 +912,7 @@ void EclipseFileReader::ReadSOMGAS(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SOMGASData> somgasList;
+        QVector<SOMGASData> somgasList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -936,7 +936,7 @@ void EclipseFileReader::ReadSOMWAT(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SOMWATData> somwatList;
+        QVector<SOMWATData> somwatList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -976,7 +976,7 @@ void EclipseFileReader::ReadENKRVD(ProjectData *data, QTextStream &sr)
 
     for (int nt = 0; nt < ntENDP; nt++)
     {
-        QList<ENKRVDData> enkrvdList;
+        QVector<ENKRVDData> enkrvdList;
 
         QStringList str = ReadFileHelper::ParseParams(sr);
 
@@ -1006,7 +1006,7 @@ void EclipseFileReader::ReadENPCVD(ProjectData *data, QTextStream &sr)
 
     for (int nt = 0; nt < ntENDP; nt++)
     {
-        QList<ENPCVDData> enpcvdList;
+        QVector<ENPCVDData> enpcvdList;
 
         QStringList str = ReadFileHelper::ParseParams(sr);
 
@@ -1033,7 +1033,7 @@ void EclipseFileReader::ReadENSPCVD(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<ENSPCVDData> enspcvdList;
+        QVector<ENSPCVDData> enspcvdList;
 
         for (int i = 0; i < (str.length() - 1) / 3; i++)
         {
@@ -1081,7 +1081,7 @@ void EclipseFileReader::ReadSPECHEAT(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SPECHEATData> specHEATList;
+        QVector<SPECHEATData> specHEATList;
 
         for (int i = 0; i < (str.length() - 1) / 4; i++)
         {
@@ -1107,7 +1107,7 @@ void EclipseFileReader::ReadSPECROCK(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<SPECROCKData> specROCKList;
+        QVector<SPECROCKData> specROCKList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -1149,7 +1149,7 @@ void EclipseFileReader::ReadOILVISCT(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<OILVISCTData> oilVISCTList;
+        QVector<OILVISCTData> oilVISCTList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -1173,7 +1173,7 @@ void EclipseFileReader::ReadWATVISCT(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<WATVISCTData> watVISCTList;
+        QVector<WATVISCTData> watVISCTList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -1219,7 +1219,7 @@ void EclipseFileReader::ReadRSVD(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<RSVDData> rsvdList;
+        QVector<RSVDData> rsvdList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -1243,7 +1243,7 @@ void EclipseFileReader::ReadPBVD(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<PBVDData> pbvdList;
+        QVector<PBVDData> pbvdList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
@@ -1267,7 +1267,7 @@ void EclipseFileReader::ReadPRVD(ProjectData *data, QTextStream &sr)
     {
         QStringList str = ReadFileHelper::ParseParams(sr);
 
-        QList<PRVDData> prvdList;
+        QVector<PRVDData> prvdList;
 
         for (int i = 0; i < (str.length() - 1) / 2; i++)
         {
