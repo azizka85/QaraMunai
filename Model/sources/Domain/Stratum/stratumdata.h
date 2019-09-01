@@ -210,6 +210,7 @@ public:
 
     LinearMatrix3D &PRESSURE();
     LinearMatrix3D &SWAT();
+    LinearMatrix3D &SOIL();
     LinearMatrix3D &SGAS();
     LinearMatrix3D &PBUB();
     LinearMatrix3D &RS();
@@ -323,7 +324,7 @@ private:
     QVector<QVector<PBVDData>> pbvd;
     QVector<QVector<PRVDData>> prvd;
 
-    LinearMatrix3D pressure, swat, sgas, pbub, rs;
+    LinearMatrix3D pressure, swat, soil, sgas, pbub, rs;
 
     QVector<AQUANCONData> aquanCON;
     QVector<AQUFETPData> aquFETP;

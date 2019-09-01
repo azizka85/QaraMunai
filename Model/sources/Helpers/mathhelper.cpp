@@ -288,6 +288,8 @@ double MathHelper::GetContactArea(Point3D &a1Up, Point3D &a1Down, Point3D &b1Up,
     if (points.length() == 6) return MathHelper::GetHexagonArea(points[0], points[1], points[2], points[3], points[4], points[5]);
 
     if (points.length() > 6) return 0;
+
+    return 0;
 }
 
 }}}

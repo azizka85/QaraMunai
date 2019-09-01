@@ -129,7 +129,6 @@ SOURCES += \
     sources/Domain/Stratum/rockoptsdata.cpp \
     sources/Domain/Stratum/tabdimsdata.cpp \
     sources/Domain/Project/swofentity.cpp \
-    sources/Domain/Project/blockpointsentity.cpp \
     sources/Domain/Grid/plane.cpp
 
 HEADERS += \
@@ -223,5 +222,4 @@ HEADERS += \
     sources/Domain/Stratum/rockoptsdata.h \
     sources/Domain/Stratum/tabdimsdata.h \
     sources/Domain/Project/swofentity.h \
-    sources/Domain/Project/blockpointsentity.h \
     sources/Domain/Grid/plane.h

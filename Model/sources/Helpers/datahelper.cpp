@@ -70,6 +70,7 @@ LinearMatrix3D &DataHelper::GetArray(StratumData &stratum, int name)
         case ProjectData::ArrayNames::ENDNUM: return stratum.ENDNUM();
         case ProjectData::ArrayNames::PRESSURE: return stratum.PRESSURE();
         case ProjectData::ArrayNames::SWAT: return stratum.SWAT();
+        case ProjectData::ArrayNames::SOIL: return stratum.SOIL();
         case ProjectData::ArrayNames::SGAS: return stratum.SGAS();
         case ProjectData::ArrayNames::PBUB: return stratum.PBUB();
         case ProjectData::ArrayNames::RS: return stratum.RS();

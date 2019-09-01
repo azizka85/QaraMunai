@@ -2,9 +2,11 @@
 #define DATAHELPER_H
 
 #include <qvariant.h>
+#include <qvector.h>
 
 #include <linearmatrix3d.h>
 
+#include <projectdata.h>
 #include <stratumdata.h>
 
 #include <equalsentity.h>

@@ -571,10 +571,12 @@ ApplicationWindow {
         id: sgofSettingsForm
         visible: false
     }
+
     SettingsView {
         id: swofSettingsForm
         visible: false
     }
+
     function createNumberArray(length)
     {
         var items = [];
@@ -602,5 +604,5 @@ ApplicationWindow {
         pvtRegionList.model = [];
 
         projectData.initVariables();       
-    }
+    }        
 }

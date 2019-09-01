@@ -1,3 +1,5 @@
+#include <datahelper.h>
+
 #include "testutils.h"
 
 TestUtils::TestUtils(QObject *parent) : QObject(parent) { }

@@ -7,7 +7,9 @@
 
 #include <block.h>
 #include <line3d.h>
+
 #include <stratumdata.h>
+
 #include <tabdimsentity.h>
 #include <eqldimsentity.h>
 #include <endscaleentity.h>
@@ -29,13 +31,9 @@
 #include <equalsentity.h>
 #include <multiplyentity.h>
 
-#include <mathhelper.h>
-#include <datahelper.h>
-
 #include <model_global.h>
 
 using namespace QaraMunai::Model::Domain::Stratum;
-using namespace QaraMunai::Model::Helpers;
 
 namespace QaraMunai {
 namespace Model {
@@ -95,7 +93,7 @@ public:
     enum ArrayNames { TOPS, DX, DY, DZ, ACTNUM, MULTPV, PERMX, PERMY, PERMZ, PORO, NTG, DZNET, MULTX, MULTY, MULTZ, MULTXm, MULTYm, MULTZm,
                       MINPVV, SWATINIT, SWCR, ISWCR, SWL, ISWL, SWLPC, ISWLPC, SWU, ISWU, SGCR, ISGCR, SGL, ISGL, SGLPC, ISGLPC, PCG, IPCG,
                       PCW, IPCW, KRO, IKRO, KRORW, IKRORW, KRORG, IKRORG, KRW, IKRW, KRWR, IKRWR, KRG, IKRG, KRGR, IKRGR, PVTNUM, SATNUM,
-                      EQLNUM, ENDNUM, PRESSURE, SWAT, SGAS, PBUB, RS, DEPTH, PORV, TRANX, TRANY, TRANZ };
+                      EQLNUM, ENDNUM, PRESSURE, SWAT, SOIL, SGAS, PBUB, RS, DEPTH, PORV, TRANX, TRANY, TRANZ };
 
     bool Loaded() const;
     QString Title() const;
@@ -119,13 +117,22 @@ public:
 
     Q_INVOKABLE double tops(int i, int j);
 
-    Q_INVOKABLE QVariant block(int i, int j, int k);
-
     Q_INVOKABLE double depth(int i, int j, int k);
+
+    Q_INVOKABLE QVariant block(int i, int j, int k, double x0 = 0, double y0 = 0, double z0 = 0);
 
     Q_INVOKABLE double poro(int i, int j, int k);
     Q_INVOKABLE double ntg(int i, int j, int k);
     Q_INVOKABLE bool actnum(int i, int j, int k);
+
+    Q_INVOKABLE double cellVolume(int i, int j, int k);
+
+    Q_INVOKABLE double tranX(int i, int j, int k, double z0, double zm1);
+    Q_INVOKABLE double tranY(int i, int j, int k, double z0, double zm1);
+    Q_INVOKABLE double tranZ(int i, int j, int k);
+
+    Q_INVOKABLE double poreVolume(int i, int j, int k);
+    Q_INVOKABLE double oilVolume(int i, int j, int k);
 
     Q_INVOKABLE double multX(int i, int j, int k);
     Q_INVOKABLE double multXm(int i, int j, int k);
@@ -133,10 +140,6 @@ public:
     Q_INVOKABLE double multYm(int i, int j, int k);
     Q_INVOKABLE double multZ(int i, int j, int k);
     Q_INVOKABLE double multZm(int i, int j, int k);
-
-    Q_INVOKABLE double tranX(int i, int j, int k);
-    Q_INVOKABLE double tranY(int i, int j, int k);
-    Q_INVOKABLE double tranZ(int i, int j, int k);
 
     Q_INVOKABLE double permX(int i, int j, int k);
     Q_INVOKABLE double permY(int i, int j, int k);
@@ -156,14 +159,16 @@ public:
     Q_INVOKABLE double soil(int i, int j, int k);
     Q_INVOKABLE double sgas(int i, int j, int k);
 
-    Block GetBlock(int i, int j, int k);
-
     bool CalcCoordLine(int i, int j, Line3D& coordLine);
     bool CalcBlockDepths(int i, int j, int k, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
 
     bool CheckPointOrderStandard();
 
     bool PointOrderStandard();
+
+    Block GetBlock(int i, int j, int k, double x0 = 0, double y0 = 0, double z0 = 0);
+    Block CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k);
+    Block CalcBlockByCPG(int i, int j, int k);
 
     StratumData &Stratum();
 

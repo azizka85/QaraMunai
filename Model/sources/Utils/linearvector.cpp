@@ -93,6 +93,8 @@ QVariant LinearVector::Search(int index)
 
 void LinearVector::Clear()
 {
+    index = 0;
+
     data.clear();
 }
 

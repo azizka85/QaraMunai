@@ -545,6 +545,11 @@ LinearMatrix3D &StratumData::SWAT()
     return swat;
 }
 
+LinearMatrix3D &StratumData::SOIL()
+{
+    return soil;
+}
+
 LinearMatrix3D &StratumData::SGAS()
 {
     return sgas;
@@ -766,6 +771,7 @@ void StratumData::InitVariables()
 
     pressure.Clear();
     swat.Clear();
+    soil.Clear();
     sgas.Clear();
     pbub.Clear();
     rs.Clear();

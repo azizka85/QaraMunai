@@ -195,6 +195,7 @@ void EclipseFileReader::ReadFile(ProjectData *data, const QString &filePath, QMe
             case PRVD: ReadPRVD(data, sr); break;
             case PRESSURE: ReadFileHelper::Read3DArray(sr, box, data->Stratum().PRESSURE()); break;
             case SWAT: ReadFileHelper::Read3DArray(sr, box, data->Stratum().SWAT()); break;
+            case SOIL: ReadFileHelper::Read3DArray(sr, box, data->Stratum().SOIL()); break;
             case SGAS: ReadFileHelper::Read3DArray(sr, box, data->Stratum().SGAS()); break;
             case PBUB: ReadFileHelper::Read3DArray(sr, box, data->Stratum().PBUB()); break;
             case RS: ReadFileHelper::Read3DArray(sr, box, data->Stratum().RS()); break;
