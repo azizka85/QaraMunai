@@ -8,47 +8,95 @@ Item {
         id: watcutChart
         anchors.fill: parent
 
-        legend {
-            visible: true
-            alignment: Qt.AlignBottom
-        }
+        margins { left: 0; right: 0; bottom: 0; top: 0 }
+
+        legend.alignment: Qt.AlignTop
+
 
         LineSeries {
             id: kinSeries
-            name: qsTr("SIN (KIN)")
-            axisX: x
-            axisY: y
+            name: qsTr("KIN")
+
+            axisX: axisX
+            axisY: axisY
         }
 
         LineSeries {
             id: waterCutSeries
-            name: qsTr("COS (Обводненость)")
+            name: qsTr("Обводненость")
+
+            axisX: axisX
+            axisY: axisY
         }
 
         LineSeries {
             id: gofSeries
-            name: qsTr("Exp (ГНФ)")
+            name: qsTr("ГНФ")
+
+            axisX: axisX
+            axisYRight: axisY2
         }
 
         LineSeries {
             id: wgfSeries
-            name: qsTr("x^2 (ВГФ)")
+            name: qsTr("ВГФ")
+
+            axisX: axisX
+            axisYRight: axisY2
         }
 
         LineSeries {
             id: wofSeries
-            name: qsTr("log(x) (ВНФ)")
+            name: qsTr("ВНФ")
+
+            axisX: axisX
+            axisYRight: axisY2
         }
 
-        ValueAxis {
-            id: x
-            min: 0;
-            max: 100
+        ValueAxis{
+            id: axisX
+            titleText:qsTr("Время")
+            color: "Black"
+
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
         }
-        ValueAxis {
-            id: y
-            min: 0
-            max: 10
+        ValueAxis{
+            id: axisY
+            titleText:qsTr("КИН, Обводненность, %")
+            color: "Black"
+
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
+        }
+        ValueAxis{
+            id: axisY2
+            titleText:qsTr("ГНФ, ВГФ, ВНФ")
+            color: "Black"
+
+            tickCount: 6
+            labelFormat: "%.1f"
+
+            minorTickCount: 4
+            minorGridVisible: true
+            minorGridLineColor: "gainsboro"
+
+            gridVisible: true
+            gridLineColor: "silver"
         }
     }
 
