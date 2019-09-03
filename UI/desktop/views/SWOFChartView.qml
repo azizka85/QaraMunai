@@ -17,6 +17,13 @@ Item {
           margins.left: 0
           margins.right: 0
 
+          Rectangle{
+              width: 60
+              height: 10
+              color: "white"
+              anchors { top: sgofChart.top; right:sgofChart.right; topMargin: 23; rightMargin: sgofChart.width/2-82 }
+          }
+
         LineSeries {
             property alias markerSize: krwSWOF2.markerSize
             property alias markerColor: krwSWOF2.color

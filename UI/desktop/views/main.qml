@@ -60,14 +60,10 @@ ApplicationWindow {
 
                     MyButton {
                         id: fullScreenButton
-                        width: 44
-                        height: 44
                         onClicked: mainWindow.visibility = mainWindow.visibility === Window.Maximized ? "FullScreen" : "Maximized"
                     }
 
                     MyButton {
-                        width: 44
-                        height: 44
                         onClicked: dockTitleVisible = !dockTitleVisible
                     }
                 }
@@ -92,8 +88,6 @@ ApplicationWindow {
                     MyButton {
                         id: fieldButton
                         checkable: true
-                        width: 44
-                        height: 44
                         onClicked: {
                             if(fieldDock.visible)
                                 fieldDock.hide();
@@ -329,57 +323,31 @@ ApplicationWindow {
             RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
 
             RibbonGroup {
-
+                title: qsTr("PVT воды")
                 width:  106
 
-                Column {
-                    leftPadding: 0
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    rightPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
                     MyButton {
                         id: pvtwButton
                         checkable: true
-                        width: 100
-                        height:18
-                        text: "PVTW воды"
-                        display: AbstractButton.TextBesideIcon
-                        icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
-                        onClicked: {
-                            if(pvtgChartDock.visible)
-                                pvtgChartDock.hide();
-                            else
-                                dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.45, true);
-                        }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
+                        onClicked: pvtwtable.show();
+
                     }
 
                     MyButton {
-                        id: poroda
                         checkable: true
-                        anchors.right: parent.right
-                        width: 100
-                        height:18
-                        text: "Порода"
-                        display: AbstractButton.TextBesideIcon
-                        icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_table_gas.png" }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
                         onClicked: {
                             if(pvtgTableDock.visible)
                                 pvtgTableDock.hide();
                             else
                                 dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
-                        }
-                    }
-
-                    MyButton {
-                        id: density
-                        checkable: true
-                        width: 100
-                        height:18
-                        text: "Плотности"
-                        display: AbstractButton.TextBesideIcon
-                        icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_table_oil.png"; }
-                        onClicked: {
-                            if(pvtoTableDock.visible)
-                                pvtoTableDock.hide();
-                            else
-                                dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.55);
                         }
                     }
                 }
@@ -389,7 +357,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Регионы")
-                width: 112
+                width: 106
                 MyComboBox {
                     id: pvtRegionList
                     anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 5 }
@@ -767,6 +735,11 @@ ApplicationWindow {
 
             WellsListView { id: wellsList; anchors.fill: parent; }
         }
+    }
+
+    PVTWView{
+        id: pvtwtable
+        visible: false
     }
 
     function createNumberArray(length)
