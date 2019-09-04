@@ -515,7 +515,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Результаты расчета")
-                width: 200
+                width: 500
 
                 Slider {
                     id: slider
@@ -585,8 +585,9 @@ ApplicationWindow {
 
                 SpinBox {
                     id: index
-                    anchors {   left: buttonsRow.right; right: parent.right; top: slider.bottom;
+                    anchors {   left: buttonsRow.right; top: slider.bottom;
                         leftMargin: 6; rightMargin: 6; topMargin: 6  }
+                    width: 100
                     from: slider.from
                     to: slider.to
                     value: slider.value
