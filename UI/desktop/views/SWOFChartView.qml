@@ -21,7 +21,7 @@ Item {
               width: 60
               height: 10
               color: "white"
-              anchors { top: sgofChart.top; right:sgofChart.right; topMargin: 23; rightMargin: sgofChart.width/2-82 }
+              anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-85 }
           }
 
         LineSeries {
