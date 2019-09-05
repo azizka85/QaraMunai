@@ -168,20 +168,20 @@ ApplicationWindow {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
                             else
-                                dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.45, true);
+                                 dockSpace.insertFirst(swofChartDock);
                         }
                     }
 
-                    MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
-                        onClicked: {
-                            if(swofTableDock.visible)
-                                swofTableDock.hide();
-                            else
-                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
-                        }
-                    }
+//                    MyButton {
+//                    checkable: true
+//                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
+//                        onClicked: {
+//                            if(swofTableDock.visible)
+//                                swofTableDock.hide();
+//                            else
+//                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
+//                        }
+//                    }
                 }
             }
 

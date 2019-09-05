@@ -5,8 +5,6 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
-    property alias settingsView: settingsView
-
 
     SplitView {
         orientation: Qt.Vertical
@@ -144,7 +142,7 @@ Item {
             id: swofList
             anchors { bottom: parent.bottom }
 
-            height: 500
+            height: 400
             Layout.maximumHeight: 500
             Layout.fillHeight: false
 
@@ -186,6 +184,8 @@ Item {
         kroSWOF2.clear();
         pcSWOF.clear();
         pcSWOF2.clear();
+
+        swofList.model = [];
     }
 
     function prepare(list)
@@ -206,6 +206,8 @@ Item {
             pcSWOF.append(list[i].sw, list[i].pc);
             pcSWOF2.append(list[i].sw, list[i].pc);
         }
+
+        swofList.model = list;
     }
 
     Menu {
