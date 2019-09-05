@@ -52,9 +52,9 @@
         <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>
         <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
         <file>MarkerShape.qml</file>
-        <file>PVTWView.qml</file>
         <file alias="MyComboBox.qml">desktop/images/MyComboBox.qml</file>
         <file alias="TestModel.qml">desktop/views/TestModel.qml</file>
+        <file>PVTWView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
@@ -93,5 +93,6 @@
         <file alias="icon_start_button.png">desktop/images/icon_start_button.png</file>
         <file alias="icon_pause_button.png">desktop/images/icon_pause_button.png</file>
         <file alias="icon_stop_button.png">desktop/images/icon_stop_button.png</file>
+        <file alias="icon_linechart_water.png">desktop/images/icon_linechart_water.png</file>
     </qresource>
 </RCC>

@@ -12,10 +12,8 @@ Item {
         anchors.fill: parent
         legend.alignment: Qt.AlignTop
 
-          margins.top: 0
-          margins.bottom: 0
-          margins.left: 0
-          margins.right: 0
+        margins { left: 0; right: 0; bottom: 0; top: 0 }
+
 
           Rectangle{
               width: 60

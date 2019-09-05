@@ -157,7 +157,7 @@ ApplicationWindow {
                     MyButton {
                         id: swofButton
                         checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil_water.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_water.png"; }
                         onClicked: {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
