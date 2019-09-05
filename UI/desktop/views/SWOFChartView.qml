@@ -1,138 +1,178 @@
 import QtQuick 2.6
 import QtCharts 2.13
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
-    property alias settingsView: settingsView
 
-    ChartView {
-
-        id: swofChart
+    SplitView {
+        orientation: Qt.Vertical
         anchors.fill: parent
-        legend.alignment: Qt.AlignTop
+        handleDelegate: Rectangle {
+                implicitWidth: 4
+                implicitHeight: 4
+                color: SplitHandle.pressed ? "#81e889"
+                    : (SplitHandle.hovered ? Qt.lighter("#c2f4c6", 1.1) : "#c2f4c6")
+            }
+        ChartView {
+            id: swofChart
+            anchors  { top: parent.top }
+            Layout.minimumHeight: parent.height - swofList.height
 
-        margins { left: 0; right: 0; bottom: 0; top: 0 }
+            legend.alignment: Qt.AlignTop
+
+            margins { left: 0; right: 0; bottom: 0; top: 0 }
 
 
-          Rectangle{
-              width: 60
-              height: 10
-              color: "white"
-              anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-85 }
-          }
+            LineSeries {
+                property alias markerSize: krwSWOF2.markerSize
+                property alias markerColor: krwSWOF2.color
+                property alias markerShape: krwSWOF2.markerShape
 
-        LineSeries {
-            property alias markerSize: krwSWOF2.markerSize
-            property alias markerColor: krwSWOF2.color
-            property alias markerShape: krwSWOF2.markerShape
+                id: krwSWOF
+                name: qsTr("Krw")
+                color: "mediumseagreen"
+                axisX: axisX
+                axisY: axisY
+                width: 2
+                style: "SolidLine"
+            }
+            LineSeries {
+                property alias markerSize: kroSWOF2.markerSize
+                property alias markerColor: kroSWOF2.color
+                property alias markerShape: kroSWOF2.markerShape
 
-            id: krwSWOF
-            name: qsTr("Krw")
-            color: "mediumseagreen"
-            axisX: axisX
-            axisY: axisY
-            width: 2
-            style: "SolidLine"
+                id: kroSWOF
+                name: qsTr("Krow")
+                color: "mediumpurple"
+                axisX: axisX
+                axisY: axisY
+                axisYRight: axisY2
+                width: 2
+                style: "SolidLine"
+            }
+            LineSeries {
+                property alias markerSize: pcSWOF2.markerSize
+                property alias markerColor: pcSWOF2.color
+                property alias markerShape: pcSWOF2.markerShape
+
+                id: pcSWOF
+                name: qsTr("Pcow")
+                color: "orange"
+                axisX: axisX
+                axisYRight: axisY2
+                width: 2
+                style: "SolidLine"
+            }
+            ScatterSeries{
+                id:krwSWOF2
+                markerSize: 8
+                visible: krwSWOF.visible
+                color: "mediumseagreen"
+                axisX: axisX
+                axisY: axisY
+                markerShape: ScatterSeries.MarkerShapeRectangle
+            }
+            ScatterSeries{
+                id:kroSWOF2
+                markerSize: 8
+                visible: kroSWOF.visible
+                color: "mediumpurple"
+                axisX: axisX
+                axisY: axisY
+                markerShape: ScatterSeries.MarkerShapeCircle
+            }
+            ScatterSeries{
+                id:pcSWOF2
+                markerSize: 8
+                visible: pcSWOF.visible
+                color: "red"
+                axisX: axisX
+                axisYRight: axisY2
+                markerShape: ScatterSeries.MarkerShapeCircle
+            }
+
+            ValueAxis{
+                id: axisX
+                titleText:qsTr("Насыщенность воды, д.ед.")
+                color: "Black"
+
+                min: 0
+                max: 1
+                tickCount: 6
+                labelFormat: "%.1f"
+
+                minorTickCount: 4
+                minorGridVisible: true
+                minorGridLineColor: "gainsboro"
+
+                gridVisible: true
+                gridLineColor: "silver"
+            }
+            ValueAxis{
+                id: axisY
+                titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
+                color: "Black"
+
+                min: 0
+                max: 1
+                tickCount: 6
+                labelFormat: "%.1f"
+
+                minorTickCount: 4
+                minorGridVisible: true
+                minorGridLineColor: "gainsboro"
+
+                gridVisible: true
+                gridLineColor: "silver"
+            }
+            ValueAxis{
+                id: axisY2
+                titleText: qsTr("Капиллярное давление, Psia")
+                color: "Black"
+
+                tickCount: 6
+                labelFormat: "%.1f"
+
+                gridVisible: false
+            }
         }
-        LineSeries {
-            property alias markerSize: kroSWOF2.markerSize
-            property alias markerColor: kroSWOF2.color
-            property alias markerShape: kroSWOF2.markerShape
+        TableView {
+            id: swofList
+            anchors { bottom: parent.bottom }
 
-            id: kroSWOF
-            name: qsTr("Krow")
-            color: "mediumpurple"
-            axisX: axisX
-            axisY: axisY
-            axisYRight: axisY2
-            width: 2
-            style: "SolidLine"
-        }
-        LineSeries {
-            property alias markerSize: pcSWOF2.markerSize
-            property alias markerColor: pcSWOF2.color
-            property alias markerShape: pcSWOF2.markerShape
+            height: 400
+            Layout.maximumHeight: 500
+            Layout.fillHeight: false
 
-            id: pcSWOF
-            name: qsTr("Pcow")
-            color: "orange"
-            axisX: axisX
-            axisYRight: axisY2
-            width: 2
-            style: "SolidLine"
-        }
-        ScatterSeries{
-            id:krwSWOF2
-            markerSize: 8
-            visible: krwSWOF.visible
-            color: "mediumseagreen"
-            axisX: axisX
-            axisY: axisY
-            markerShape: ScatterSeries.MarkerShapeRectangle
-        }
-        ScatterSeries{
-            id:kroSWOF2
-            markerSize: 8
-            visible: kroSWOF.visible
-            color: "mediumpurple"
-            axisX: axisX
-            axisY: axisY
-            markerShape: ScatterSeries.MarkerShapeCircle
-        }
-        ScatterSeries{
-            id:pcSWOF2
-            markerSize: 8
-            visible: pcSWOF.visible
-            color: "red"
-            axisX: axisX
-            axisYRight: axisY2
-            markerShape: ScatterSeries.MarkerShapeCircle
-        }
+            TableViewColumn {
+                role: "sw"
+                title: "Sw"
+                width: swofList.width/4
+                resizable: false
+            }
 
-        ValueAxis{
-            id: axisX
-            titleText:qsTr("Насыщенность воды, д.ед.")
-            color: "Black"
+            TableViewColumn {
+                role: "krw"
+                title: "Krw"
+                width: swofList.width/4
+                resizable: false
+            }
 
-            min: 0
-            max: 1
-            tickCount: 6
-            labelFormat: "%.1f"
+            TableViewColumn {
+                role: "kro"
+                title: "Krow"
+                width: swofList.width/4
+                resizable: false
+            }
 
-            minorTickCount: 4
-            minorGridVisible: true
-            minorGridLineColor: "gainsboro"
-
-            gridVisible: true
-            gridLineColor: "silver"
-        }
-        ValueAxis{
-            id: axisY
-            titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
-            color: "Black"
-
-            min: 0
-            max: 1
-            tickCount: 6
-            labelFormat: "%.1f"
-
-            minorTickCount: 4
-            minorGridVisible: true
-            minorGridLineColor: "gainsboro"
-
-            gridVisible: true
-            gridLineColor: "silver"
-        }
-        ValueAxis{
-            id: axisY2
-            titleText: qsTr("Капиллярное давление, Psia")
-            color: "Black"
-
-            tickCount: 6
-            labelFormat: "%.1f"
-
-            gridVisible: false
+            TableViewColumn {
+                role: "pc"
+                title: "Pcow"
+                width: swofList.width/4
+                resizable: false
+            }
         }
     }
 
@@ -144,6 +184,8 @@ Item {
         kroSWOF2.clear();
         pcSWOF.clear();
         pcSWOF2.clear();
+
+        swofList.model = [];
     }
 
     function prepare(list)
@@ -164,13 +206,15 @@ Item {
             pcSWOF.append(list[i].sw, list[i].pc);
             pcSWOF2.append(list[i].sw, list[i].pc);
         }
+
+        swofList.model = list;
     }
 
     Menu {
         id: settingsMenu
         MenuItem {
             text: "Настройка графиков"
-            onClicked: {
+            onTriggered: {
                 settingsView.show()
             }
         }
@@ -180,7 +224,7 @@ Item {
             id: captureMenuItem
             text: "Сделать снимок"
             property variant asad : ["gh"]
-            onClicked: {
+            onTriggered: {
                 swofChart.grabToImage(function(result){ asad.push(result);console.log(asad[1]); captureFileDialog.open(); });
             }
         }

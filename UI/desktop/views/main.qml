@@ -162,20 +162,20 @@ ApplicationWindow {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
                             else
-                                dockSpace.insertDock(swofChartDock, swofTableDock, Qt.Vertical, 0.45, true);
+                                 dockSpace.insertFirst(swofChartDock);
                         }
                     }
 
-                    MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
-                        onClicked: {
-                            if(swofTableDock.visible)
-                                swofTableDock.hide();
-                            else
-                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
-                        }
-                    }
+//                    MyButton {
+//                    checkable: true
+//                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
+//                        onClicked: {
+//                            if(swofTableDock.visible)
+//                                swofTableDock.hide();
+//                            else
+//                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
+//                        }
+//                    }
                 }
             }
 
@@ -483,7 +483,7 @@ ApplicationWindow {
 
             RibbonGroup {
                 title: qsTr("Результаты расчета")
-                width: 200
+                width: 500
 
                 Slider {
                     id: slider
@@ -553,8 +553,9 @@ ApplicationWindow {
 
                 SpinBox {
                     id: index
-                    anchors {   left: buttonsRow.right; right: parent.right; top: slider.bottom;
+                    anchors {   left: buttonsRow.right; top: slider.bottom;
                         leftMargin: 6; rightMargin: 6; topMargin: 6  }
+                    width: 100
                     from: slider.from
                     to: slider.to
                     value: slider.value

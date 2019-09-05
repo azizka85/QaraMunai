@@ -3,7 +3,6 @@ import QtCharts 2.3
 import QtQuick.Controls 2.1
 
 Item {
-    property alias settingsView: settingsView
 
     ChartView {
         id: pvtgChart
