@@ -40,25 +40,7 @@ Item {
             text: qsTr("999999")
         }
 
-        Text {
-            id: label4
-            text: qsTr("Вязкость воды:")
-        }
 
-        TextField {
-            id: waterviscosity
-            text: qsTr("999999")
-        }
-
-        Text {
-            id: label5
-            text: qsTr("Вязк. сжимаемость:")
-        }
-
-        TextField {
-            id: viscositycompressibility
-            text: qsTr("999999")
-        }
 
     }
 }

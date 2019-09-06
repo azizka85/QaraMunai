@@ -1,29 +1,36 @@
 import QtQuick 2.6
 import QtCharts 2.13
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1 as C1
+import QtQuick.Controls 1.4 as C2
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
 
-    SplitView {
+       C2.SplitView {
         orientation: Qt.Vertical
         anchors.fill: parent
+        resizing: true
         handleDelegate: Rectangle {
-                implicitWidth: 4
-                implicitHeight: 4
-                color: SplitHandle.pressed ? "#81e889"
-                    : (SplitHandle.hovered ? Qt.lighter("#c2f4c6", 1.1) : "#c2f4c6")
-            }
+            implicitWidth: 4
+            implicitHeight: 4
+            color: SplitHandle.pressed ? "#81e889"
+                                       : (SplitHandle.hovered ? Qt.lighter("#c2f4c6", 1.1) : "#c2f4c6")
+        }
         ChartView {
             id: swofChart
             anchors  { top: parent.top }
-            Layout.minimumHeight: parent.height - swofList.height
-
+            Layout.minimumHeight: parent.height/2
+            Layout.maximumHeight: 600
             legend.alignment: Qt.AlignTop
-
             margins { left: 0; right: 0; bottom: 0; top: 0 }
 
+            Rectangle{
+                width: 60
+                height: 10
+                color: "white"
+                anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-87 }
+            }
 
             LineSeries {
                 property alias markerSize: krwSWOF2.markerSize
@@ -138,36 +145,36 @@ Item {
                 gridVisible: false
             }
         }
-        TableView {
+        C2.TableView {
             id: swofList
             anchors { bottom: parent.bottom }
-
             height: 400
             Layout.maximumHeight: 500
             Layout.fillHeight: false
 
-            TableViewColumn {
+            C2.TableViewColumn {
                 role: "sw"
                 title: "Sw"
                 width: swofList.width/4
                 resizable: false
+
             }
 
-            TableViewColumn {
+            C2.TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
                 resizable: false
             }
 
-            TableViewColumn {
+            C2.TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
                 resizable: false
             }
 
-            TableViewColumn {
+           C2.TableViewColumn {
                 role: "pc"
                 title: "Pcow"
                 width: swofList.width/4
@@ -210,22 +217,89 @@ Item {
         swofList.model = list;
     }
 
-    Menu {
+    C1.Menu {
         id: settingsMenu
-        MenuItem {
+       C1.MenuItem {
             text: "Настройка графиков"
-            onTriggered: {
+            onClicked:{
                 settingsView.show()
             }
         }
 
         // Дұрыстау керек
-        MenuItem {
+        C1.MenuItem {
             id: captureMenuItem
             text: "Сделать снимок"
             property variant asad : ["gh"]
-            onTriggered: {
+            onClicked: {
                 swofChart.grabToImage(function(result){ asad.push(result);console.log(asad[1]); captureFileDialog.open(); });
+            }
+        }
+
+        C1.MenuItem {
+            id: asss
+            text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
+            onClicked: {
+                if(swofList.visible===true)
+                  {
+                    swofList.visible=false
+                    swofChart.height=parent.height
+            }
+            else{
+                   swofList.visible=true
+                }
+            }
+        }
+        C1.Menu{
+            title: "Масштаб"
+            C1.MenuItem{
+                text: "1:1"
+                onClicked: {
+                   swofChart.Layout.minimumHeight=swofChart.maximumHeight/2;
+                    swofList.height=swofChart.maximumHeight-swofChart.height
+                }
+            }
+            C1.MenuItem{
+                text: "3:2"
+                onClicked: {
+                    swofChart.height=(parent.height*3)/5;
+                    swofList.height=parent.height-swofChart.height
+                }
+            }
+            C1.MenuItem{
+                text: "5:3"
+                onClicked: {
+                    swofChart.height=(parent.height*5)/8;
+                    swofList.height=parent.height-swofChart.height
+                }
+            }
+            C1.MenuItem{
+                text: "4:3"
+                onClicked: {
+                    swofChart.height=(parent.height*4)/7;
+                    swofList.height=parent.height-swofChart.height
+                }
+            }
+            C1.MenuItem{
+                text: "5:4"
+                onClicked: {
+                    swofChart.height=(parent.height*5)/9;
+                    swofList.height=parent.height-swofChart.height
+                }
+            }
+            C1.MenuItem{
+                text: "7:5"
+                onClicked: {
+                    swofChart.height=(parent.height*7)/12;
+                    swofList.height=parent.height-swofChart.height
+                }
+            }
+            C1.MenuItem{
+                text: "16:9"
+                onClicked: {
+                    swofChart.height=(parent.height*16)/25;
+                    swofList.height=parent.height-swofChart.height
+                }
             }
         }
     }

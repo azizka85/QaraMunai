@@ -233,7 +233,7 @@ ApplicationWindow {
                         var sgofList = projectData.sgof.getList(sfRegionList.currentIndex);
 
                         swofChart.prepare(swofList);
-                        swofTable.prepare(swofList);
+                        //swofTable.prepare(swofList);
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
 
@@ -249,13 +249,14 @@ ApplicationWindow {
             tabWidth: 200
 
             RibbonGroup {
-                title: qsTr("PVT нефти")
-                width:  106
+                title: qsTr("PVT (нефти-газа-воды)")
+                width:  156
 
                 Row {
                     spacing: 6
                     leftPadding: 6
                     rightPadding: 6
+
                     anchors { verticalCenter: parent.verticalCenter; margins: 6; }
 
                     MyButton {
@@ -271,31 +272,6 @@ ApplicationWindow {
                     }
 
                     MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil.png"; }
-                        onClicked: {
-                            if(pvtoTableDock.visible)
-                                pvtoTableDock.hide();
-                            else
-                                dockSpace.insertDock(pvtoTableDock, pvtoChartDock, Qt.Vertical, 0.55);
-                        }
-                    }
-                }
-            }
-
-            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
-
-            RibbonGroup {
-                title: qsTr("PVT газа")
-                width:  106
-
-                Row {
-                    spacing: 6
-                    leftPadding: 6
-                    rightPadding: 6
-                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
-
-                    MyButton {
                         id: pvtgButton
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
@@ -308,47 +284,11 @@ ApplicationWindow {
                     }
 
                     MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
-                        onClicked: {
-                            if(pvtgTableDock.visible)
-                                pvtgTableDock.hide();
-                            else
-                                dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
-                        }
-                    }
-                }
-            }
-
-            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
-
-            RibbonGroup {
-                title: qsTr("PVT воды")
-                width:  106
-
-                Row {
-                    spacing: 6
-                    leftPadding: 6
-                    rightPadding: 6
-                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
-
-                    MyButton {
                         id: pvtwButton
                         checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_gas.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_water.png"; }
                         onClicked: pvtwtable.show();
 
-                    }
-
-                    MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas.png"; }
-                        onClicked: {
-                            if(pvtgTableDock.visible)
-                                pvtgTableDock.hide();
-                            else
-                                dockSpace.insertDock(pvtgTableDock, pvtgChartDock, Qt.Vertical, 0.55);
-                        }
                     }
                 }
             }
@@ -656,12 +596,6 @@ ApplicationWindow {
         }
 
         DockControl {
-            id: swofTableDock
-            titleVisible: false
-            SWOFTableView { id: swofTable; anchors.fill: parent;}
-        }
-
-        DockControl {
             id: sgofChartDock
             dockTitle: qsTr("ОФП и КД (газ-нефть)")
             titleVisible: dockTitleVisible
@@ -755,7 +689,7 @@ ApplicationWindow {
         mainWindow.title =  qsTr("Qara munai'");
 
         swofChart.closeProject();
-        swofTable.closeProject();
+        //swofTable.closeProject();
 
         sgofChart.closeProject();
         sgofTable.closeProject();
