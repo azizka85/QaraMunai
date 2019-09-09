@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtCharts 2.13
 import QtQuick.Controls 2.1 as C1
 import QtQuick.Controls 1.4 as C2
+import QtQuick.Controls 2.5 as C3
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
@@ -9,14 +10,8 @@ Item {
 
        C2.SplitView {
         orientation: Qt.Vertical
-        anchors.fill: parent
-        resizing: true
-        handleDelegate: Rectangle {
-            implicitWidth: 4
-            implicitHeight: 4
-            color: SplitHandle.pressed ? "#81e889"
-                                       : (SplitHandle.hovered ? Qt.lighter("#c2f4c6", 1.1) : "#c2f4c6")
-        }
+//        anchors.fill: parent
+
         ChartView {
             id: swofChart
             anchors  { top: parent.top }
@@ -315,7 +310,6 @@ Item {
             captureMenuItem.asad[1].saveToFile(captureFileDialog.fileUrl);
         }
     }
-
 
     MouseArea {
         anchors.fill: parent
