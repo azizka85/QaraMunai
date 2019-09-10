@@ -8,7 +8,7 @@ Item {
     width: 300
     height: 200
     GridLayout {
-        columns: 4
+        columns: 2
 
         Text {
             id: label1
@@ -39,8 +39,5 @@ Item {
             id: compressibility
             text: qsTr("999999")
         }
-
-
-
     }
 }
