@@ -2,21 +2,38 @@ import QtQuick 2.6
 import QtCharts 2.13
 import QtQuick.Controls 2.1 as C1
 import QtQuick.Controls 1.4 as C2
-import QtQuick.Controls 2.5 as C3
+import QtQuick.Controls 2.13 as C3
+import QtQuick.Controls 2.5 as C4
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
 
-       C2.SplitView {
+       C3.SplitView {
         orientation: Qt.Vertical
-//        anchors.fill: parent
+        anchors.fill: parent
+
+        handle: Rectangle {
+                  implicitWidth: 4
+                  implicitHeight: 4
+                  color: 'gainsboro'
+                  border { color: 'black'; width: 1 }
+              }
 
         ChartView {
             id: swofChart
-            anchors  { top: parent.top }
-            Layout.minimumHeight: parent.height/2
-            Layout.maximumHeight: 600
+            C3.SplitView.preferredHeight: parent.parent.height / 2
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                hoverEnabled: true
+                propagateComposedEvents: true
+                preventStealing: false
+                onClicked: {
+                    if(mouse.button & Qt.RightButton)
+                        settingsMenu.popup()
+                }
+            }
             legend.alignment: Qt.AlignTop
             margins { left: 0; right: 0; bottom: 0; top: 0 }
 
@@ -142,10 +159,17 @@ Item {
         }
         C2.TableView {
             id: swofList
-            anchors { bottom: parent.bottom }
-            height: 400
-            Layout.maximumHeight: 500
-            Layout.fillHeight: false
+//            MouseArea {
+//                anchors.fill: parent
+//                acceptedButtons: Qt.LeftButton | Qt.RightButton
+//                hoverEnabled: true
+//                propagateComposedEvents: true
+//                preventStealing: false
+//                onClicked: {
+//                    if(mouse.button & Qt.RightButton)
+//                        settingsMenu.popup()
+//                }
+//            }
 
             C2.TableViewColumn {
                 role: "sw"
@@ -308,15 +332,6 @@ Item {
         onAccepted: {
             close();
             captureMenuItem.asad[1].saveToFile(captureFileDialog.fileUrl);
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        acceptedButtons: Qt.LeftButton|Qt.RightButton
-        onClicked: {
-            if(mouse.button & Qt.RightButton)
-                settingsMenu.popup()
         }
     }
 
