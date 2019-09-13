@@ -30,16 +30,12 @@
         <file alias="RibbonGroup.qml">desktop/views/RibbonGroup.qml</file>
         <file alias="RibbonTab.qml">desktop/views/RibbonTab.qml</file>
         <file alias="SWOFChartView.qml">desktop/views/SWOFChartView.qml</file>
-        <file alias="SWOFTableView.qml">desktop/views/SWOFTableView.qml</file>
         <file alias="DockControl.qml">desktop/views/DockControl.qml</file>
         <file alias="DockSpace.qml">desktop/views/DockSpace.qml</file>
         <file alias="FieldView.qml">desktop/views/FieldView.qml</file>
         <file alias="PVTGChartView.qml">desktop/views/PVTGChartView.qml</file>
-        <file alias="PVTGTableView.qml">desktop/views/PVTGTableView.qml</file>
         <file alias="PVTOChartView.qml">desktop/views/PVTOChartView.qml</file>
-        <file alias="PVTOTableView.qml">desktop/views/PVTOTableView.qml</file>
         <file alias="SGOFChartView.qml">desktop/views/SGOFChartView.qml</file>
-        <file alias="SGOFTableView.qml">desktop/views/SGOFTableView.qml</file>
         <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
         <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>

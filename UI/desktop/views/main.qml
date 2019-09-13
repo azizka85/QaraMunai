@@ -584,22 +584,10 @@ ApplicationWindow {
         }
 
         DockControl {
-            id: pvtoTableDock
-            titleVisible: false
-            PVTOTableView { id: pvtoTable; anchors.fill: parent;}
-        }
-
-        DockControl {
             id: pvtgChartDock
             dockTitle: qsTr("PVT газа")
             titleVisible: dockTitleVisible
             PVTGChartView { id: pvtgChart; anchors.fill: parent;}
-        }
-
-        DockControl {
-            id: pvtgTableDock
-            titleVisible: false
-            PVTGTableView { id: pvtgTable; anchors.fill: parent;}
         }
 
         DockControl {
@@ -664,7 +652,6 @@ ApplicationWindow {
         //sgofTable.closeProject();
 
         pvtoChart.closeProject();
-        pvtoTable.closeProject();
 
         //pvtwTable.closeProject();
 
