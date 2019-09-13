@@ -8,18 +8,19 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
-
-       C3.SplitView {
+    
+    C3.SplitView {
+        id: splitView
         orientation: Qt.Vertical
         anchors.fill: parent
-
+        
         handle: Rectangle {
-                  implicitWidth: 4
-                  implicitHeight: 4
-                  color: 'gainsboro'
-                  border { color: 'black'; width: 1 }
-              }
-
+            implicitWidth: 4
+            implicitHeight: 4
+            color: 'gainsboro'
+            border { color: 'black'; width: 1 }
+        }
+        
         ChartView {
             id: swofChart
             C3.SplitView.preferredHeight: parent.parent.height / 2
@@ -36,19 +37,19 @@ Item {
             }
             legend.alignment: Qt.AlignTop
             margins { left: 0; right: 0; bottom: 0; top: 0 }
-
+            
             Rectangle{
                 width: 60
                 height: 10
                 color: "white"
                 anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-87 }
             }
-
+            
             LineSeries {
                 property alias markerSize: krwSWOF2.markerSize
                 property alias markerColor: krwSWOF2.color
                 property alias markerShape: krwSWOF2.markerShape
-
+                
                 id: krwSWOF
                 name: qsTr("Krw")
                 color: "mediumseagreen"
@@ -61,7 +62,7 @@ Item {
                 property alias markerSize: kroSWOF2.markerSize
                 property alias markerColor: kroSWOF2.color
                 property alias markerShape: kroSWOF2.markerShape
-
+                
                 id: kroSWOF
                 name: qsTr("Krow")
                 color: "mediumpurple"
@@ -75,7 +76,7 @@ Item {
                 property alias markerSize: pcSWOF2.markerSize
                 property alias markerColor: pcSWOF2.color
                 property alias markerShape: pcSWOF2.markerShape
-
+                
                 id: pcSWOF
                 name: qsTr("Pcow")
                 color: "orange"
@@ -111,21 +112,21 @@ Item {
                 axisYRight: axisY2
                 markerShape: ScatterSeries.MarkerShapeCircle
             }
-
+            
             ValueAxis{
                 id: axisX
                 titleText:qsTr("Насыщенность воды, д.ед.")
                 color: "Black"
-
+                
                 min: 0
                 max: 1
                 tickCount: 6
                 labelFormat: "%.1f"
-
+                
                 minorTickCount: 4
                 minorGridVisible: true
                 minorGridLineColor: "gainsboro"
-
+                
                 gridVisible: true
                 gridLineColor: "silver"
             }
@@ -133,16 +134,16 @@ Item {
                 id: axisY
                 titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
                 color: "Black"
-
+                
                 min: 0
                 max: 1
                 tickCount: 6
                 labelFormat: "%.1f"
-
+                
                 minorTickCount: 4
                 minorGridVisible: true
                 minorGridLineColor: "gainsboro"
-
+                
                 gridVisible: true
                 gridLineColor: "silver"
             }
@@ -150,50 +151,39 @@ Item {
                 id: axisY2
                 titleText: qsTr("Капиллярное давление, Psia")
                 color: "Black"
-
+                
                 tickCount: 6
                 labelFormat: "%.1f"
-
+                
                 gridVisible: false
             }
         }
         C2.TableView {
             id: swofList
-//            MouseArea {
-//                anchors.fill: parent
-//                acceptedButtons: Qt.LeftButton | Qt.RightButton
-//                hoverEnabled: true
-//                propagateComposedEvents: true
-//                preventStealing: false
-//                onClicked: {
-//                    if(mouse.button & Qt.RightButton)
-//                        settingsMenu.popup()
-//                }
-//            }
-
+            
             C2.TableViewColumn {
                 role: "sw"
                 title: "Sw"
                 width: swofList.width/4
                 resizable: false
-
+                
             }
-
+            
             C2.TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
                 resizable: false
             }
-
+            
             C2.TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
                 resizable: false
             }
-
-           C2.TableViewColumn {
+            
+            C2.TableViewColumn {
                 role: "pc"
                 title: "Pcow"
                 width: swofList.width/4
@@ -201,7 +191,7 @@ Item {
             }
         }
     }
-
+    
     function closeProject()
     {
         krwSWOF.clear();
@@ -210,10 +200,10 @@ Item {
         kroSWOF2.clear();
         pcSWOF.clear();
         pcSWOF2.clear();
-
+        
         swofList.model = [];
     }
-
+    
     function prepare(list)
     {
         krwSWOF.clear();
@@ -222,7 +212,7 @@ Item {
         kroSWOF2.clear();
         pcSWOF.clear();
         pcSWOF2.clear();
-
+        
         for(var i = 0; i < list.length; i++)
         {
             krwSWOF.append(list[i].sw, list[i].krw);
@@ -232,112 +222,112 @@ Item {
             pcSWOF.append(list[i].sw, list[i].pc);
             pcSWOF2.append(list[i].sw, list[i].pc);
         }
-
+        
         swofList.model = list;
     }
-
+    
     C1.Menu {
         id: settingsMenu
-       C1.MenuItem {
+        C1.MenuItem {
             text: "Настройка графиков"
             onClicked:{
                 settingsView.show()
             }
         }
-
+        
         // Дұрыстау керек
         C1.MenuItem {
             id: captureMenuItem
             text: "Сделать снимок"
-            property variant asad : ["gh"]
             onTriggered: {
-                swofChart.grabToImage(function(result){ asad.push(result);console.log(asad[1]); captureFileDialog.open(); });
+                captureFileDialog.open();
+
+            }
+
+            FileDialog {
+                id: captureFileDialog
+                title: "Выберите расположение изображения"
+                folder: shortcuts.pictures
+                nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+                selectExisting: false
+                defaultSuffix: 'png'
+                onAccepted: {
+                    console.log(Qt.resolvedUrl(fileUrl));
+                    var path = fileUrl.toString();
+                            // remove prefixed "file:///"
+                    path = path.replace(/^(file:\/{3})/,"");
+                            // unescape html codes like '%23' for '#'
+                    var cleanPath = decodeURIComponent(path);
+                    console.log(cleanPath)
+                    swofChart.grabToImage(function(resultik){console.log(resultik.saveToFile(cleanPath))});
+                }
             }
         }
-
+        
         C1.MenuItem {
             id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onClicked: {
-                if(swofList.visible===true)
-                  {
-                    swofList.visible=false
-                    swofChart.height=parent.height
             }
-            else{
-                   swofList.visible=true
+            C1.Menu{
+                title: "Масштаб"
+                C1.MenuItem{
+                    text: "1:1"
+                    onClicked: {
+                        swofChart.Layout.minimumHeight=swofChart.maximumHeight/2;
+                        swofList.height=swofChart.maximumHeight-swofChart.height
+                    }
+                }
+                C1.MenuItem{
+                    text: "3:2"
+                    onClicked: {
+                        swofChart.height=(parent.height*3)/5;
+                        swofList.height=parent.height-swofChart.height
+                    }
+                }
+                C1.MenuItem{
+                    text: "5:3"
+                    onClicked: {
+                        swofChart.height=(parent.height*5)/8;
+                        swofList.height=parent.height-swofChart.height
+                    }
+                }
+                C1.MenuItem{
+                    text: "4:3"
+                    onClicked: {
+                        swofChart.height=(parent.height*4)/7;
+                        swofList.height=parent.height-swofChart.height
+                    }
+                }
+                C1.MenuItem{
+                    text: "5:4"
+                    onClicked: {
+                        swofChart.height=(parent.height*5)/9;
+                        swofList.height=parent.height-swofChart.height
+                    }
+                }
+                C1.MenuItem{
+                    text: "7:5"
+                    onClicked: {
+                        swofChart.height=(parent.height*7)/12;
+                        swofList.height=parent.height-swofChart.height
+                    }
+                }
+                C1.MenuItem{
+                    text: "16:9"
+                    onClicked: {
+                        swofChart.height=(parent.height*16)/25;
+                        swofList.height=parent.height-swofChart.height
+                    }
                 }
             }
         }
-        C1.Menu{
-            title: "Масштаб"
-            C1.MenuItem{
-                text: "1:1"
-                onClicked: {
-                   swofChart.Layout.minimumHeight=swofChart.maximumHeight/2;
-                    swofList.height=swofChart.maximumHeight-swofChart.height
-                }
-            }
-            C1.MenuItem{
-                text: "3:2"
-                onClicked: {
-                    swofChart.height=(parent.height*3)/5;
-                    swofList.height=parent.height-swofChart.height
-                }
-            }
-            C1.MenuItem{
-                text: "5:3"
-                onClicked: {
-                    swofChart.height=(parent.height*5)/8;
-                    swofList.height=parent.height-swofChart.height
-                }
-            }
-            C1.MenuItem{
-                text: "4:3"
-                onClicked: {
-                    swofChart.height=(parent.height*4)/7;
-                    swofList.height=parent.height-swofChart.height
-                }
-            }
-            C1.MenuItem{
-                text: "5:4"
-                onClicked: {
-                    swofChart.height=(parent.height*5)/9;
-                    swofList.height=parent.height-swofChart.height
-                }
-            }
-            C1.MenuItem{
-                text: "7:5"
-                onClicked: {
-                    swofChart.height=(parent.height*7)/12;
-                    swofList.height=parent.height-swofChart.height
-                }
-            }
-            C1.MenuItem{
-                text: "16:9"
-                onClicked: {
-                    swofChart.height=(parent.height*16)/25;
-                    swofList.height=parent.height-swofChart.height
-                }
-            }
-        }
-    }
-    FileDialog {
-        id: captureFileDialog
-        title: "Выберите расположение изображения"
-        folder: shortcuts.pictures
-        nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
-        selectExisting: false
-        defaultSuffix: 'png'
-        onAccepted: {
-            close();
-            captureMenuItem.asad[1].saveToFile(captureFileDialog.fileUrl);
-        }
-    }
 
-    SettingsView {
-        id: settingsView
-        visible: false
-        model: [krwSWOF, kroSWOF, pcSWOF]
+        SettingsView {
+            id: settingsView
+            visible: false
+            model: [krwSWOF, kroSWOF, pcSWOF]
+        }
     }
 }
+
