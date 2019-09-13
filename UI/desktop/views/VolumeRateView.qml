@@ -1,14 +1,13 @@
 import QtQuick 2.12
 import QtCharts 2.3
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.3
 
 Item {
     ChartView {
         id: volumeRateChart
         anchors.fill: parent
-
         legend.alignment: Qt.AlignTop
-
         margins { left: 0; right: 0; bottom: 0; top: 0 }
 
         LineSeries {
@@ -18,7 +17,6 @@ Item {
             axisX: axisX
             axisY: axisY
         }
-
         LineSeries {
             id: vWaterProdSeries
             name: qsTr("Нак. объем доб. воды")
@@ -26,7 +24,6 @@ Item {
             axisX: axisX
             axisY: axisY
         }
-
         LineSeries {
             id: vWaterInjSeries
             name: qsTr("Нак. объем рас. воды")
@@ -34,7 +31,6 @@ Item {
             axisX: axisX
             axisY: axisY
         }
-
         LineSeries {
             id: vGasProdSeries
             name: qsTr("Нак. объем доб. газа")
@@ -42,7 +38,6 @@ Item {
             axisX: axisX
             axisYRight: axisY2
         }
-
         LineSeries {
             id: vDistGasProdSeries
             name: qsTr("Нак. объем доб. раст. газа")
@@ -50,7 +45,6 @@ Item {
             axisX: axisX
             axisYRight: axisY2
         }
-
         LineSeries {
             id: vGasInjSeries
             name: qsTr("Нак. объем рас. газа")
@@ -58,7 +52,6 @@ Item {
             axisX: axisX
             axisYRight: axisY2
         }
-
         LineSeries {
             id: vRastGasInjSeries
             name: qsTr("Нак. объем рас. своб. газа")
@@ -114,23 +107,50 @@ Item {
         }
     }
 
+    Menu {
+        id: settingsMenu
+
+        MenuItem {
+            text: "Настройка графиков"
+            onTriggered: settingsView.show();
+        }
+        MenuItem {
+            text: "Сделать снимок"
+            onTriggered: captureFileDialog.open();
+        }
+    }
+
+    SettingsView {
+        id: settingsView
+        visible: false
+        model: [krwSWOF, kroSWOF, pcSWOF]
+    }
+
+    FileDialog {
+        id: captureFileDialog
+        title: "Сохранить как"
+        folder: shortcuts.pictures
+        nameFilters: [ "PNG файл (*.png)", "Все файлы (*)" ]
+        selectExisting: false
+        defaultSuffix: 'png'
+        onAccepted: {
+            var path = fileUrl.toString();
+            // remove prefixed "file:///"
+            path = path.replace(/^(file:\/{3})/,"");
+            // unescape html codes like '%23' for '#'
+            var cleanPath = decodeURIComponent(path);
+            volumeRateChart.grabToImage(function(result){result.saveToFile(cleanPath)});
+        }
+    }
 
     function closeProject()
     {
-        vRastGasInjSeries.clear();
-        vGasInjSeries.clear();
-        vDistGasProdSeries.clear();
-        vGasProdSeries.clear();
-        vWaterInjSeries.clear();
-        vWaterProdSeries.clear();
-        vOilProdSeries.clear();
-
+        for(let i = 0; i < volumeRateChart.count; i++)
+            volumeRateChart.series(i).clear();
     }
-
     function prepare(list)
     {
         closeProject();
-
         for(var i = 0; i < list.length; i++)
         {
             vOilProdSeries.append(list[i].sw, list[i].krw);

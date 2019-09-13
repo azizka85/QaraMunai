@@ -1,14 +1,11 @@
 import QtQuick 2.6
 import QtCharts 2.13
-import QtQuick.Controls 1.4 as C1
-import QtQuick.Controls 2.13 as C2
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
-import Qt.labs.settings 1.0
 
 Item {
-
-    C1.SplitView {
+    SplitView {
         id: splitView
         orientation: Qt.Vertical
         anchors.fill: parent
@@ -22,8 +19,8 @@ Item {
         ChartView {
             id: swofChart
             margins { left: 0; right: 0; bottom: 0; top: 0 }
+            height: parent.parent.height / 2
             legend.alignment: Qt.AlignTop
-            Layout.preferredHeight: parent.parent.height / 2
 
             LineSeries {
                 property alias markerSize: krwSWOF2.markerSize
@@ -158,49 +155,45 @@ Item {
             }
         }
 
-        C1.TableView {
+        TableView {
             id: swofList
-
-            C1.TableViewColumn {
+            Layout.fillHeight: false
+            TableViewColumn {
                 role: "sw"
                 title: "Sw"
                 width: swofList.width/4
-                resizable: false
             }
-            C1.TableViewColumn {
+            TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
-                resizable: false
             }
-            C1.TableViewColumn {
+            TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
-                resizable: false
             }
-            C1.TableViewColumn {
+            TableViewColumn {
                 role: "pc"
                 title: "Pcow"
                 width: swofList.width/4
-                resizable: false
             }
         }
     }
 
-    C1.Menu {
+    Menu {
         id: settingsMenu
 
-        C1.MenuItem {
+        MenuItem {
             text: "Настройка графиков"
             onTriggered: settingsView.show();
         }
-        C1.MenuItem {
+        MenuItem {
             text: "Сделать снимок"
             onTriggered: captureFileDialog.open();
         }
-        C1.MenuItem {
-            text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
+        MenuItem {
+            text: swofList.visible?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 swofList.visible = !swofList.visible;
                 swofChart.anchors.fill = swofList.visible ? parent.parent:null;
@@ -216,9 +209,9 @@ Item {
 
     FileDialog {
         id: captureFileDialog
-        title: "Выберите расположение изображения"
+        title: "Сохранить как"
         folder: shortcuts.pictures
-        nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+        nameFilters: [ "PNG файл (*.png)", "Все файлы (*)" ]
         selectExisting: false
         defaultSuffix: 'png'
         onAccepted: {
