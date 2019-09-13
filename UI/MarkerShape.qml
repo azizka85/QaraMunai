@@ -4,10 +4,6 @@ import QtQuick.Controls 2.5
 ListModel {
     id: markerShapeCombobox
 
-//    ListElement {
-//        markerShape: "NoShape"
-//    }
-
     ListElement {
         markerShape: "Circle"
     }

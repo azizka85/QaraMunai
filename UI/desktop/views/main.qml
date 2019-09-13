@@ -145,7 +145,7 @@ ApplicationWindow {
             tabWidth: 200
 
             RibbonGroup {
-                title: qsTr("Вода-нефть-газ")
+                title: qsTr("вода-Нефть-газ")
                 width:  106
 
                 Row {
@@ -250,7 +250,12 @@ ApplicationWindow {
                         id: pvtwButton
                         checkable: true
                         icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_water.png"; }
-                        onClicked: pvtwtable.show();
+                        onClicked: {
+                            if(pvtwDock.visible)
+                                pvtwDock.hide();
+                            else
+                                dockSpace.insertFirst(pvtwDock);
+                        }
 
                     }
                 }
@@ -598,6 +603,12 @@ ApplicationWindow {
         }
 
         DockControl {
+            id: pvtwDock
+            titleVisible: false
+            PVTWView { id: pvtwTable;}
+        }
+
+        DockControl {
             id: waterCutDock
             titleVisible: false
             WaterCutView { id: waterCut; anchors.fill: parent;}
@@ -635,11 +646,6 @@ ApplicationWindow {
         }
     }
 
-    PVTWView{
-        id: pvtwtable
-        visible: false
-    }
-
     function createNumberArray(length)
     {
         var items = [];
@@ -659,6 +665,8 @@ ApplicationWindow {
 
         pvtoChart.closeProject();
         pvtoTable.closeProject();
+
+        pvtwTable.closeProject();
 
         wellSchedule.closeProject();
         wellsList.closeProject();
