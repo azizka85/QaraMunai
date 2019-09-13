@@ -4,40 +4,115 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.4
 
 Item {
-    visible: true
-    width: 300
-    height: 200
-    GridLayout {
-        columns: 2
+    GroupBox{
+        id: pvtwGroupBox
+        title: "PVTW воды"
 
-        Text {
-            id: label1
-            text: qsTr("Опорное давление:")
+        GridLayout {
+            columns: 2
+            Text {
+                id: label1
+                text: qsTr("Опорное давление:")
+            }
+
+            TextField {
+
+            }
+
+            Text {
+                id: label2
+                text: qsTr("Объемный коэф.:")
+            }
+
+            TextField {
+
+            }
+
+            Text {
+                id: label3
+                text: qsTr("Сжимаемость:")
+            }
+
+            TextField {
+
+            }
+
+            Text {
+                id: label4
+                text: qsTr("Вязкость воды:")
+            }
+
+            TextField {
+
+            }
+
+            Text {
+                id: label5
+                text: qsTr("Вязк. сжимаемость:")
+            }
+
+            TextField {
+
+            }
         }
+    }
 
-        TextField {
-            id: input
-            text: qsTr("1")
+    GroupBox{
+        id: porodaGroupBox
+        title: "Порода"
+        anchors.top: pvtwGroupBox.bottom
+        GridLayout {
+            columns: 2
+            Text {
+                id: label6
+                text: qsTr("Опорное давление:")
+            }
+
+            TextField {
+
+            }
+
+            Text {
+                id: label7
+                text: qsTr("Сжимаемость:")
+            }
+
+            TextField {
+
+            }
         }
+    }
 
-        Text {
-            id: label2
-            text: qsTr("Объемный коэф.:")
-        }
+    GroupBox{
+        title: "Плотности"
+        anchors.top: porodaGroupBox.bottom
+        GridLayout {
+            columns: 2
+            Text {
+                id: label8
+                text: qsTr("Плотность нефти:   ")
+            }
 
-        TextField {
-            id: mask
-            text: qsTr("999999")
-        }
+            TextField {
 
-        Text {
-            id: label3
-            text: qsTr("Сжимаемость:")
-        }
+            }
 
-        TextField {
-            id: compressibility
-            text: qsTr("999999")
+            Text {
+                id: label9
+                text: qsTr("Плотность воды:")
+            }
+
+            TextField {
+
+            }
+            Text {
+                id: label10
+                text: qsTr("Плотность газа:")
+            }
+
+            TextField {
+
+            }
         }
     }
 }

@@ -230,9 +230,8 @@ Item {
         id: settingsMenu
         C1.MenuItem {
             text: "Настройка графиков"
-            onClicked:{
+            onClicked:
                 settingsView.show()
-            }
         }
         
         // Дұрыстау керек
@@ -268,57 +267,13 @@ Item {
             id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onClicked: {
-            }
-            C1.Menu{
-                title: "Масштаб"
-                C1.MenuItem{
-                    text: "1:1"
-                    onClicked: {
-                        swofChart.Layout.minimumHeight=swofChart.maximumHeight/2;
-                        swofList.height=swofChart.maximumHeight-swofChart.height
-                    }
+                if(swofList.visible===true)
+                {
+                    swofList.visible=false
+                    swofChart.anchors.fill=parent.parent.anchors.fill
                 }
-                C1.MenuItem{
-                    text: "3:2"
-                    onClicked: {
-                        swofChart.height=(parent.height*3)/5;
-                        swofList.height=parent.height-swofChart.height
-                    }
-                }
-                C1.MenuItem{
-                    text: "5:3"
-                    onClicked: {
-                        swofChart.height=(parent.height*5)/8;
-                        swofList.height=parent.height-swofChart.height
-                    }
-                }
-                C1.MenuItem{
-                    text: "4:3"
-                    onClicked: {
-                        swofChart.height=(parent.height*4)/7;
-                        swofList.height=parent.height-swofChart.height
-                    }
-                }
-                C1.MenuItem{
-                    text: "5:4"
-                    onClicked: {
-                        swofChart.height=(parent.height*5)/9;
-                        swofList.height=parent.height-swofChart.height
-                    }
-                }
-                C1.MenuItem{
-                    text: "7:5"
-                    onClicked: {
-                        swofChart.height=(parent.height*7)/12;
-                        swofList.height=parent.height-swofChart.height
-                    }
-                }
-                C1.MenuItem{
-                    text: "16:9"
-                    onClicked: {
-                        swofChart.height=(parent.height*16)/25;
-                        swofList.height=parent.height-swofChart.height
-                    }
+                else{
+                    swofList.visible=true
                 }
             }
         }
