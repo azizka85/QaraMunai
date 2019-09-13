@@ -238,26 +238,6 @@ Item {
             text: "Сделать снимок"
             onTriggered: {
                 captureFileDialog.open();
-
-            }
-
-            FileDialog {
-                id: captureFileDialog
-                title: "Выберите расположение изображения"
-                folder: shortcuts.pictures
-                nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
-                selectExisting: false
-                defaultSuffix: 'png'
-                onAccepted: {
-                    console.log(Qt.resolvedUrl(fileUrl));
-                    var path = fileUrl.toString();
-                    // remove prefixed "file:///"
-                    path = path.replace(/^(file:\/{3})/,"");
-                    // unescape html codes like '%23' for '#'
-                    var cleanPath = decodeURIComponent(path);
-                    console.log(cleanPath)
-                    swofChart.grabToImage(function(resultik){console.log(resultik.saveToFile(cleanPath))});
-                }
             }
         }
 
@@ -283,18 +263,43 @@ Item {
         }
     }
 
-    //    states: [
-    //        State {
-    //            name: "tableClosed"
-    //            PropertyChanges {
-    //                target: swofList
-    //                height: 0
-    //            }
-    //        }]
-    //    transitions: [
-    //        Transition {
-    //            from: "fromState"
-    //            to: "toState"
+    FileDialog {
+        id: captureFileDialog
+        title: "Выберите расположение изображения"
+        folder: shortcuts.pictures
+        nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+        selectExisting: false
+        defaultSuffix: 'png'
+        onAccepted: {
+            var path = fileUrl.toString();
+            // remove prefixed "file:///"
+            path = path.replace(/^(file:\/{3})/,"");
+            // unescape html codes like '%23' for '#'
+            var cleanPath = decodeURIComponent(path);
+            swofChart.grabToImage(function(result){result.saveToFile(cleanPath)});
+        }
+    }
+
+    states: [
+        State {
+            name: "tableClosed"
+            PropertyChanges {
+                target: swofList
+                height: 0
+            }
+        }]
+    transitions: [
+        Transition {
+//            from: "fromState"
+//            to: "toState"
+
+            NumberAnimation {
+                properties: swofList.height
+                easing.type: Easing.InOutQuad
+            }
+        }
+    ]
+}
 
     //            NumberAnimation {
     //                properties: swofList.height
