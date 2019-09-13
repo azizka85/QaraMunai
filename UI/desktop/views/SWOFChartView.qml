@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
-
     SplitView {
         id: splitView
         orientation: Qt.Vertical
@@ -20,8 +19,8 @@ Item {
         ChartView {
             id: swofChart
             margins { left: 0; right: 0; bottom: 0; top: 0 }
+            height: parent.parent.height / 2
             legend.alignment: Qt.AlignTop
-            Layout.preferredHeight: parent.parent.height / 2
 
             LineSeries {
                 property alias markerSize: krwSWOF2.markerSize
@@ -157,30 +156,26 @@ Item {
 
         TableView {
             id: swofList
-
+            Layout.fillHeight: false
             TableViewColumn {
                 role: "sw"
                 title: "Sw"
                 width: swofList.width/4
-                resizable: false
             }
             TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
-                resizable: false
             }
             TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
-                resizable: false
             }
             TableViewColumn {
                 role: "pc"
                 title: "Pcow"
                 width: swofList.width/4
-                resizable: false
             }
         }
     }
@@ -197,7 +192,7 @@ Item {
             onTriggered: captureFileDialog.open();
         }
         MenuItem {
-            text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
+            text: swofList.visible?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 swofList.visible = !swofList.visible;
                 swofChart.anchors.fill = swofList.visible ? parent.parent:null;
@@ -215,7 +210,7 @@ Item {
         id: captureFileDialog
         title: "Сохранить как"
         folder: shortcuts.pictures
-        nameFilters: ["PNG файл (*.png)", "Все файлы (*)" ]
+        nameFilters: [ "PNG файл (*.png)", "Все файлы (*)" ]
         selectExisting: false
         defaultSuffix: 'png'
         onAccepted: {
@@ -249,4 +244,3 @@ Item {
         swofList.model = list;
     }
 }
-

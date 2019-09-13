@@ -196,10 +196,7 @@ ApplicationWindow {
                         var sgofList = projectData.sgof.getList(sfRegionList.currentIndex);
 
                         swofChart.prepare(swofList);
-                        //swofTable.prepare(swofList);
                         sgofChart.prepare(sgofList);
-                        //sgofTable.prepare(sgofList);
-
                     }
                 }
             }
@@ -230,7 +227,7 @@ ApplicationWindow {
                             if(pvtoChartDock.visible)
                                 pvtoChartDock.hide();
                             else
-                                dockSpace.insertDock(pvtoChartDock, pvtoTableDock, Qt.Vertical, 0.45, true);
+                                dockSpace.insertFirst(pvtoChartDock);
                         }
                     }
 
@@ -242,7 +239,7 @@ ApplicationWindow {
                             if(pvtgChartDock.visible)
                                 pvtgChartDock.hide();
                             else
-                                dockSpace.insertDock(pvtgChartDock, pvtgTableDock, Qt.Vertical, 0.45, true);
+                                dockSpace.insertDock(pvtgChartDock);
                         }
                     }
 
@@ -569,12 +566,6 @@ ApplicationWindow {
             titleVisible: dockTitleVisible
             SGOFChartView { id: sgofChart; anchors.fill: parent}
         }
-
-//        DockControl {
-//            id: sgofTableDock
-//            titleVisible: false
-//            SGOFTableView { id: sgofTable; anchors.fill: parent;}
-//        }
 
         DockControl {
             id: pvtoChartDock
