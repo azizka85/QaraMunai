@@ -160,7 +160,6 @@ Item {
         }
         C2.TableView {
             id: swofList
-
             C2.TableViewColumn {
                 role: "sw"
                 title: "Sw"
@@ -234,7 +233,6 @@ Item {
                 settingsView.show()
         }
 
-        // Дұрыстау керек
         C1.MenuItem {
             id: captureMenuItem
             text: "Сделать снимок"
@@ -253,9 +251,9 @@ Item {
                 onAccepted: {
                     console.log(Qt.resolvedUrl(fileUrl));
                     var path = fileUrl.toString();
-                            // remove prefixed "file:///"
+                    // remove prefixed "file:///"
                     path = path.replace(/^(file:\/{3})/,"");
-                            // unescape html codes like '%23' for '#'
+                    // unescape html codes like '%23' for '#'
                     var cleanPath = decodeURIComponent(path);
                     console.log(cleanPath)
                     swofChart.grabToImage(function(resultik){console.log(resultik.saveToFile(cleanPath))});
@@ -267,12 +265,11 @@ Item {
             id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onClicked: {
-                if(swofList.visible===true)
+                if(swofList.visible)
                 {
-                    swofList.visible=false
-                    swofChart.anchors.fill=parent.parent.anchors.fill
+                    swofChart.state = 'tableClosed'
                 }
-                else{
+                else {
                     swofList.visible=true
                 }
             }
@@ -284,4 +281,24 @@ Item {
             model: [krwSWOF, kroSWOF, pcSWOF]
         }
     }
+
+    states: [
+        State {
+            name: "tableClosed"
+            PropertyChanges {
+                target: swofList
+                height: 0
+            }
+        }]
+    transitions: [
+        Transition {
+//            from: "fromState"
+//            to: "toState"
+
+            NumberAnimation {
+                properties: swofList.height
+                easing.type: Easing.InOutQuad
+            }
+        }
+    ]
 }
