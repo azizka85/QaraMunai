@@ -49,7 +49,6 @@
         <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
         <file>MarkerShape.qml</file>
         <file alias="MyComboBox.qml">desktop/images/MyComboBox.qml</file>
-        <file alias="TestModel.qml">desktop/views/TestModel.qml</file>
         <file>PVTWView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
