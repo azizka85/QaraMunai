@@ -4,15 +4,15 @@ import QtQuick.Controls 1.4 as C1
 import QtQuick.Controls 2.13 as C2
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
+import Qt.labs.settings 1.0
 
 Item {
 
-    C2.SplitView {
+    C1.SplitView {
         id: splitView
         orientation: Qt.Vertical
         anchors.fill: parent
-
-        handle: Rectangle {
+        handleDelegate: Rectangle {
             implicitWidth: 4
             implicitHeight: 4
             color: 'gainsboro'
@@ -21,27 +21,9 @@ Item {
 
         ChartView {
             id: swofChart
-            C2.SplitView.preferredHeight: parent.parent.height / 2
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
-                hoverEnabled: true
-                propagateComposedEvents: true
-                preventStealing: false
-                onClicked: {
-                    if(mouse.button & Qt.RightButton)
-                        settingsMenu.popup()
-                }
-            }
-            legend.alignment: Qt.AlignTop
             margins { left: 0; right: 0; bottom: 0; top: 0 }
-
-            Rectangle{
-                width: 60
-                height: 10
-                color: "white"
-                anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-87 }
-            }
+            legend.alignment: Qt.AlignTop
+            Layout.preferredHeight: parent.parent.height / 2
 
             LineSeries {
                 property alias markerSize: krwSWOF2.markerSize
@@ -83,6 +65,7 @@ Item {
                 width: 2
                 style: "SolidLine"
             }
+
             ScatterSeries{
                 id:krwSWOF2
                 markerSize: 8
@@ -155,31 +138,47 @@ Item {
 
                 gridVisible: false
             }
+
+            Rectangle{
+                width: 60
+                height: 10
+                color: "white"
+                anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-87 }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                hoverEnabled: true
+                propagateComposedEvents: true
+                preventStealing: false
+                onClicked: {
+                    if(mouse.button & Qt.RightButton) settingsMenu.popup()
+                }
+            }
         }
+
         C1.TableView {
             id: swofList
+
             C1.TableViewColumn {
                 role: "sw"
                 title: "Sw"
                 width: swofList.width/4
                 resizable: false
-
             }
-
             C1.TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
                 resizable: false
             }
-
             C1.TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
                 resizable: false
             }
-
             C1.TableViewColumn {
                 role: "pc"
                 title: "Pcow"
@@ -189,76 +188,30 @@ Item {
         }
     }
 
-    function closeProject()
-    {
-        krwSWOF.clear();
-        krwSWOF2.clear();
-        kroSWOF.clear();
-        kroSWOF2.clear();
-        pcSWOF.clear();
-        pcSWOF2.clear();
-
-        swofList.model = [];
-    }
-
-    function prepare(list)
-    {
-        krwSWOF.clear();
-        krwSWOF2.clear();
-        kroSWOF.clear();
-        kroSWOF2.clear();
-        pcSWOF.clear();
-        pcSWOF2.clear();
-
-        for(var i = 0; i < list.length; i++)
-        {
-            krwSWOF.append(list[i].sw, list[i].krw);
-            krwSWOF2.append(list[i].sw, list[i].krw);
-            kroSWOF.append(list[i].sw, list[i].kro);
-            kroSWOF2.append(list[i].sw, list[i].kro);
-            pcSWOF.append(list[i].sw, list[i].pc);
-            pcSWOF2.append(list[i].sw, list[i].pc);
-        }
-
-        swofList.model = list;
-    }
-
     C1.Menu {
         id: settingsMenu
+
         C1.MenuItem {
             text: "Настройка графиков"
-           onTriggered:
-                settingsView.show()
+            onTriggered: settingsView.show();
         }
-
         C1.MenuItem {
-            id: captureMenuItem
             text: "Сделать снимок"
-            onTriggered: {
-                captureFileDialog.open();
-            }
+            onTriggered: captureFileDialog.open();
         }
-
         C1.MenuItem {
-            id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
-                if(swofList.visible)
-                {
-                    swofList.visible=false
-                    swofChart.anchors.fill=parent.parent
-                }
-                else {
-                    swofList.visible=true
-                }
+                swofList.visible = !swofList.visible;
+                swofChart.anchors.fill = swofList.visible ? parent.parent:null;
             }
         }
+    }
 
-        SettingsView {
-            id: settingsView
-            visible: false
-            model: [krwSWOF, kroSWOF, pcSWOF]
-        }
+    SettingsView {
+        id: settingsView
+        visible: false
+        model: [krwSWOF, kroSWOF, pcSWOF]
     }
 
     FileDialog {
@@ -278,23 +231,24 @@ Item {
         }
     }
 
-    states: [
-        State {
-            name: "tableClosed"
-            PropertyChanges {
-                target: swofList
-                height: 0
-            }
-        }]
-    transitions: [
-        Transition {
-//            from: "fromState"
-//            to: "toState"
-
-            NumberAnimation {
-                properties: swofList.height
-                easing.type: Easing.InOutQuad
-            }
+    function closeProject()
+    {
+        for(let i = 0; i< swofChart.count; i++)
+            swofChart.series(i).clear();
+        swofList.model = [];
+    }
+    function prepare(list)
+    {
+        closeProject();
+        for(var i = 0; i < list.length; i++)
+        {
+            krwSWOF.append(list[i].sw, list[i].krw);
+            krwSWOF2.append(list[i].sw, list[i].krw);
+            kroSWOF.append(list[i].sw, list[i].kro);
+            kroSWOF2.append(list[i].sw, list[i].kro);
+            pcSWOF.append(list[i].sw, list[i].pc);
+            pcSWOF2.append(list[i].sw, list[i].pc);
         }
-    ]
+        swofList.model = list;
+    }
 }
