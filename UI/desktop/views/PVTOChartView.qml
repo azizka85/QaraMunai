@@ -232,7 +232,6 @@ Item {
             pvtoChart.series(i).clear();
         pvtoList.model = [];
     }
-
     function prepare(list)
     {
         closeProject();
