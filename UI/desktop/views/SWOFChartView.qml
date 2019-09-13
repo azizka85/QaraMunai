@@ -45,7 +45,6 @@ Item {
                 color: "mediumpurple"
                 axisX: axisX
                 axisY: axisY
-                axisYRight: axisY2
                 width: 2
                 style: "SolidLine"
             }

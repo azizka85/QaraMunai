@@ -643,7 +643,6 @@ ApplicationWindow {
         //sgofTable.closeProject();
 
         pvtoChart.closeProject();
-        pvtoTable.closeProject();
 
         //pvtwTable.closeProject();
 
