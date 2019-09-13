@@ -123,7 +123,7 @@ Item {
     SettingsView {
         id: settingsView
         visible: false
-        model: [krwSWOF, kroSWOF, pcSWOF]
+        model: volumeRateChart
     }
 
     FileDialog {

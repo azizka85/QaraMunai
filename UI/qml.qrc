@@ -89,5 +89,6 @@
         <file alias="icon_pause_button.png">desktop/images/icon_pause_button.png</file>
         <file alias="icon_stop_button.png">desktop/images/icon_stop_button.png</file>
         <file alias="icon_linechart_water.png">desktop/images/icon_linechart_water.png</file>
+        <file alias="icon_close_button.png">desktop/images/icon_close_button.png</file>
     </qresource>
 </RCC>

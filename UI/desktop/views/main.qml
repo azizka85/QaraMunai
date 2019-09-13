@@ -162,7 +162,7 @@ ApplicationWindow {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
                             else
-                                 dockSpace.insertFirst(swofChartDock);
+                                dockSpace.insertFirst(swofChartDock);
                         }
                     }
                     MyButton {
@@ -372,16 +372,6 @@ ApplicationWindow {
                                        dockSpace.insertDock(wellPressureDock, volumeRateDock, Qt.Horizontal, 0.55);
                     }
                 }
-                TestModel {
-                    id: testMdodel
-                    onIPropChanged: {
-                        console.log("WaterCut Changed! " + testMdodel.list);
-                        for(let i = 0; i < testMdodel.list.count; i++) {
-                            console.log(i + ")" + testMdodel.list.get(i).index + " | " + testMdodel.list.get(i).xx);
-                        }
-                        waterCut.prepare(testMdodel.list);
-                    }
-                }
             }
 
             RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
@@ -476,6 +466,7 @@ ApplicationWindow {
             tabWidth: 100
         }
     }
+
     ProjectData {
         id: projectData
     }
@@ -583,7 +574,6 @@ ApplicationWindow {
 
         DockControl {
             id: pvtwDock
-            titleVisible: false
             PVTWView { id: pvtwTable;anchors.fill: parent;}
         }
 
