@@ -605,7 +605,7 @@ ApplicationWindow {
         DockControl {
             id: pvtwDock
             titleVisible: false
-            PVTWView { id: pvtwTable;}
+            PVTWView { id: pvtwTable;anchors.fill: parent;}
         }
 
         DockControl {
@@ -666,7 +666,7 @@ ApplicationWindow {
         pvtoChart.closeProject();
         pvtoTable.closeProject();
 
-        pvtwTable.closeProject();
+        //pvtwTable.closeProject();
 
         wellSchedule.closeProject();
         wellsList.closeProject();

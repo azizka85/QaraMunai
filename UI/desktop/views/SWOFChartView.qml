@@ -225,15 +225,15 @@ Item {
         swofList.model = list;
     }
 
-    C1.Menu {
+    C2.Menu {
         id: settingsMenu
-        C1.MenuItem {
+        C2.MenuItem {
             text: "Настройка графиков"
-            onClicked:
+           onTriggered:
                 settingsView.show()
         }
 
-        C1.MenuItem {
+        C2.MenuItem {
             id: captureMenuItem
             text: "Сделать снимок"
             onTriggered: {
@@ -261,13 +261,14 @@ Item {
             }
         }
 
-        C1.MenuItem {
+        C2.MenuItem {
             id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
-            onClicked: {
+            onTriggered:  {
                 if(swofList.visible)
                 {
-                    swofChart.state = 'tableClosed'
+                    swofList.visible=false
+                    swofChart.anchors.fill=parent.parent
                 }
                 else {
                     swofList.visible=true
@@ -282,23 +283,23 @@ Item {
         }
     }
 
-    states: [
-        State {
-            name: "tableClosed"
-            PropertyChanges {
-                target: swofList
-                height: 0
-            }
-        }]
-    transitions: [
-        Transition {
-//            from: "fromState"
-//            to: "toState"
+    //    states: [
+    //        State {
+    //            name: "tableClosed"
+    //            PropertyChanges {
+    //                target: swofList
+    //                height: 0
+    //            }
+    //        }]
+    //    transitions: [
+    //        Transition {
+    //            from: "fromState"
+    //            to: "toState"
 
-            NumberAnimation {
-                properties: swofList.height
-                easing.type: Easing.InOutQuad
-            }
-        }
-    ]
+    //            NumberAnimation {
+    //                properties: swofList.height
+    //                easing.type: Easing.InOutQuad
+    //            }
+    //        }
+    //    ]
 }
