@@ -1,15 +1,13 @@
 import QtQuick 2.6
 import QtCharts 2.13
-import QtQuick.Controls 2.1 as C1
-import QtQuick.Controls 1.4 as C2
-import QtQuick.Controls 2.13 as C3
-import QtQuick.Controls 2.5 as C4
+import QtQuick.Controls 1.4 as C1
+import QtQuick.Controls 2.13 as C2
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
 
-    C3.SplitView {
+    C2.SplitView {
         id: splitView
         orientation: Qt.Vertical
         anchors.fill: parent
@@ -23,7 +21,7 @@ Item {
 
         ChartView {
             id: swofChart
-            C3.SplitView.preferredHeight: parent.parent.height / 2
+            C2.SplitView.preferredHeight: parent.parent.height / 2
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -158,9 +156,9 @@ Item {
                 gridVisible: false
             }
         }
-        C2.TableView {
+        C1.TableView {
             id: swofList
-            C2.TableViewColumn {
+            C1.TableViewColumn {
                 role: "sw"
                 title: "Sw"
                 width: swofList.width/4
@@ -168,21 +166,21 @@ Item {
 
             }
 
-            C2.TableViewColumn {
+            C1.TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
                 resizable: false
             }
 
-            C2.TableViewColumn {
+            C1.TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
                 resizable: false
             }
 
-            C2.TableViewColumn {
+            C1.TableViewColumn {
                 role: "pc"
                 title: "Pcow"
                 width: swofList.width/4
@@ -225,15 +223,15 @@ Item {
         swofList.model = list;
     }
 
-    C2.Menu {
+    C1.Menu {
         id: settingsMenu
-        C2.MenuItem {
+        C1.MenuItem {
             text: "Настройка графиков"
            onTriggered:
                 settingsView.show()
         }
 
-        C2.MenuItem {
+        C1.MenuItem {
             id: captureMenuItem
             text: "Сделать снимок"
             onTriggered: {
@@ -241,7 +239,7 @@ Item {
             }
         }
 
-        C2.MenuItem {
+        C1.MenuItem {
             id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
@@ -299,12 +297,4 @@ Item {
             }
         }
     ]
-}
-
-    //            NumberAnimation {
-    //                properties: swofList.height
-    //                easing.type: Easing.InOutQuad
-    //            }
-    //        }
-    //    ]
 }
