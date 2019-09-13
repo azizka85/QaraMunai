@@ -8,19 +8,19 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
-    
+
     C3.SplitView {
         id: splitView
         orientation: Qt.Vertical
         anchors.fill: parent
-        
+
         handle: Rectangle {
             implicitWidth: 4
             implicitHeight: 4
             color: 'gainsboro'
             border { color: 'black'; width: 1 }
         }
-        
+
         ChartView {
             id: swofChart
             C3.SplitView.preferredHeight: parent.parent.height / 2
@@ -37,19 +37,19 @@ Item {
             }
             legend.alignment: Qt.AlignTop
             margins { left: 0; right: 0; bottom: 0; top: 0 }
-            
+
             Rectangle{
                 width: 60
                 height: 10
                 color: "white"
                 anchors { top: swofChart.top; right:swofChart.right; topMargin: 23; rightMargin: swofChart.width/2-87 }
             }
-            
+
             LineSeries {
                 property alias markerSize: krwSWOF2.markerSize
                 property alias markerColor: krwSWOF2.color
                 property alias markerShape: krwSWOF2.markerShape
-                
+
                 id: krwSWOF
                 name: qsTr("Krw")
                 color: "mediumseagreen"
@@ -62,7 +62,7 @@ Item {
                 property alias markerSize: kroSWOF2.markerSize
                 property alias markerColor: kroSWOF2.color
                 property alias markerShape: kroSWOF2.markerShape
-                
+
                 id: kroSWOF
                 name: qsTr("Krow")
                 color: "mediumpurple"
@@ -76,7 +76,7 @@ Item {
                 property alias markerSize: pcSWOF2.markerSize
                 property alias markerColor: pcSWOF2.color
                 property alias markerShape: pcSWOF2.markerShape
-                
+
                 id: pcSWOF
                 name: qsTr("Pcow")
                 color: "orange"
@@ -112,21 +112,21 @@ Item {
                 axisYRight: axisY2
                 markerShape: ScatterSeries.MarkerShapeCircle
             }
-            
+
             ValueAxis{
                 id: axisX
                 titleText:qsTr("Насыщенность воды, д.ед.")
                 color: "Black"
-                
+
                 min: 0
                 max: 1
                 tickCount: 6
                 labelFormat: "%.1f"
-                
+
                 minorTickCount: 4
                 minorGridVisible: true
                 minorGridLineColor: "gainsboro"
-                
+
                 gridVisible: true
                 gridLineColor: "silver"
             }
@@ -134,16 +134,16 @@ Item {
                 id: axisY
                 titleText:qsTr("Отн. фазовые проницаемости, д.ед.")
                 color: "Black"
-                
+
                 min: 0
                 max: 1
                 tickCount: 6
                 labelFormat: "%.1f"
-                
+
                 minorTickCount: 4
                 minorGridVisible: true
                 minorGridLineColor: "gainsboro"
-                
+
                 gridVisible: true
                 gridLineColor: "silver"
             }
@@ -151,10 +151,10 @@ Item {
                 id: axisY2
                 titleText: qsTr("Капиллярное давление, Psia")
                 color: "Black"
-                
+
                 tickCount: 6
                 labelFormat: "%.1f"
-                
+
                 gridVisible: false
             }
         }
@@ -165,23 +165,23 @@ Item {
                 title: "Sw"
                 width: swofList.width/4
                 resizable: false
-                
+
             }
-            
+
             C2.TableViewColumn {
                 role: "krw"
                 title: "Krw"
                 width: swofList.width/4
                 resizable: false
             }
-            
+
             C2.TableViewColumn {
                 role: "kro"
                 title: "Krow"
                 width: swofList.width/4
                 resizable: false
             }
-            
+
             C2.TableViewColumn {
                 role: "pc"
                 title: "Pcow"
@@ -190,7 +190,7 @@ Item {
             }
         }
     }
-    
+
     function closeProject()
     {
         krwSWOF.clear();
@@ -199,10 +199,10 @@ Item {
         kroSWOF2.clear();
         pcSWOF.clear();
         pcSWOF2.clear();
-        
+
         swofList.model = [];
     }
-    
+
     function prepare(list)
     {
         krwSWOF.clear();
@@ -211,7 +211,7 @@ Item {
         kroSWOF2.clear();
         pcSWOF.clear();
         pcSWOF2.clear();
-        
+
         for(var i = 0; i < list.length; i++)
         {
             krwSWOF.append(list[i].sw, list[i].krw);
@@ -221,10 +221,10 @@ Item {
             pcSWOF.append(list[i].sw, list[i].pc);
             pcSWOF2.append(list[i].sw, list[i].pc);
         }
-        
+
         swofList.model = list;
     }
-    
+
     C1.Menu {
         id: settingsMenu
         C1.MenuItem {
@@ -232,7 +232,7 @@ Item {
             onClicked:
                 settingsView.show()
         }
-        
+
         C1.MenuItem {
             id: captureMenuItem
             text: "Сделать снимок"
@@ -240,7 +240,7 @@ Item {
                 captureFileDialog.open();
             }
         }
-        
+
         C1.MenuItem {
             id: asss
             text: (swofList.visible)?"Скрыть таблицу":"Показать таблицу"
@@ -299,4 +299,3 @@ Item {
         }
     ]
 }
-
