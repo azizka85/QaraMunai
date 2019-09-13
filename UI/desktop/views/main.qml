@@ -145,7 +145,7 @@ ApplicationWindow {
             tabWidth: 200
 
             RibbonGroup {
-                title: qsTr("Нефть-вода")
+                title: qsTr("Вода-нефть-газ")
                 width:  106
 
                 Row {
@@ -157,7 +157,7 @@ ApplicationWindow {
                     MyButton {
                         id: swofButton
                         checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_water.png"; }
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_linechart_oil_water.png"; }
                         onClicked: {
                             if(swofChartDock.visible)
                                 swofChartDock.hide()
@@ -165,32 +165,6 @@ ApplicationWindow {
                                  dockSpace.insertFirst(swofChartDock);
                         }
                     }
-
-//                    MyButton {
-//                    checkable: true
-//                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_oil_water.png"; }
-//                        onClicked: {
-//                            if(swofTableDock.visible)
-//                                swofTableDock.hide();
-//                            else
-//                                dockSpace.insertDock(swofTableDock, swofChartDock, Qt.Vertical, 0.55);
-//                        }
-//                    }
-                }
-            }
-
-            RibbonSplitter { anchors { top: parent.top; bottom: parent.bottom; topMargin: 6; bottomMargin: 6 } }
-
-            RibbonGroup {
-                title: qsTr("Газ-нефть")
-                width: 106
-
-                Row {
-                    spacing: 6
-                    leftPadding: 6
-                    rightPadding: 6
-                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
-
                     MyButton {
                         id: sgofButton
                         checkable: true
@@ -199,18 +173,7 @@ ApplicationWindow {
                             if(sgofChartDock.visible)
                                 sgofChartDock.hide();
                             else
-                                dockSpace.insertDock(sgofChartDock, sgofTableDock, Qt.Vertical, 0.45, true);
-                        }
-                    }
-
-                    MyButton {
-                        checkable: true
-                        icon { width: 32; height: 32; source: "qrc:/desktop/images/icon_table_gas_oil.png"; }
-                        onClicked: {
-                            if(sgofTableDock.visible)
-                                sgofTableDock.hide();
-                            else
-                                dockSpace.insertDock(sgofTableDock, sgofChartDock, Qt.Vertical, 0.55);
+                                dockSpace.insertFirst(sgofChartDock);
                         }
                     }
                 }
@@ -235,7 +198,7 @@ ApplicationWindow {
                         swofChart.prepare(swofList);
                         //swofTable.prepare(swofList);
                         sgofChart.prepare(sgofList);
-                        sgofTable.prepare(sgofList);
+                        //sgofTable.prepare(sgofList);
 
                     }
                 }
@@ -602,11 +565,11 @@ ApplicationWindow {
             SGOFChartView { id: sgofChart; anchors.fill: parent}
         }
 
-        DockControl {
-            id: sgofTableDock
-            titleVisible: false
-            SGOFTableView { id: sgofTable; anchors.fill: parent;}
-        }
+//        DockControl {
+//            id: sgofTableDock
+//            titleVisible: false
+//            SGOFTableView { id: sgofTable; anchors.fill: parent;}
+//        }
 
         DockControl {
             id: pvtoChartDock
@@ -692,7 +655,7 @@ ApplicationWindow {
         //swofTable.closeProject();
 
         sgofChart.closeProject();
-        sgofTable.closeProject();
+        //sgofTable.closeProject();
 
         pvtoChart.closeProject();
         pvtoTable.closeProject();
