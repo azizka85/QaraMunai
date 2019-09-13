@@ -6,7 +6,7 @@ import QtQuick.Controls 2.4
 Item {
     GroupBox{
         id: pvtwGroupBox
-        title: "PVTW воды"
+        title: "\nPVTW воды"
 
         GridLayout {
             columns: 2
@@ -59,7 +59,7 @@ Item {
 
     GroupBox{
         id: porodaGroupBox
-        title: "Порода"
+        title: "\nПорода"
         anchors.top: pvtwGroupBox.bottom
         GridLayout {
             columns: 2
@@ -84,7 +84,7 @@ Item {
     }
 
     GroupBox{
-        title: "Плотности"
+        title: "\nПлотности"
         anchors.top: porodaGroupBox.bottom
         GridLayout {
             columns: 2

@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 Item {
-
     SplitView {
         id: splitView
         orientation: Qt.Vertical
@@ -20,8 +19,8 @@ Item {
     ChartView {
         id: sgofChart
         margins { left: 0; right: 0; bottom: 0; top: 0 }
+        height: parent.parent.height / 2
         legend.alignment: Qt.AlignTop
-        Layout.preferredHeight: parent.parent.height / 2
 
         LineSeries {
             property alias markerSize: krgSGOF2.markerSize
@@ -159,30 +158,26 @@ Item {
 
         TableView {
             id: sgofList
-
+            Layout.fillHeight: false
             TableViewColumn {
                 role: "sg"
                 title: "Sg"
                 width: sgofList.width/4
-                resizable: false
             }
             TableViewColumn {
                 role: "krg"
                 title: "Krg"
                 width: sgofList.width/4
-                resizable: false
             }
             TableViewColumn {
                 role: "kro"
                 title: "Krog"
                 width: sgofList.width/4
-                resizable: false
             }
             TableViewColumn {
                 role: "pc"
                 title: "Pcog"
                 width: sgofList.width/4
-                resizable: false
             }
         }
     }

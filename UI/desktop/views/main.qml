@@ -253,7 +253,6 @@ ApplicationWindow {
                             else
                                 dockSpace.insertFirst(pvtwDock);
                         }
-
                     }
                 }
             }
@@ -370,16 +369,6 @@ ApplicationWindow {
                                        wellPressureDock.hide();
                                    else
                                        dockSpace.insertDock(wellPressureDock, volumeRateDock, Qt.Horizontal, 0.55);
-                    }
-                }
-                TestModel {
-                    id: testMdodel
-                    onIPropChanged: {
-                        console.log("WaterCut Changed! " + testMdodel.list);
-                        for(let i = 0; i < testMdodel.list.count; i++) {
-                            console.log(i + ")" + testMdodel.list.get(i).index + " | " + testMdodel.list.get(i).xx);
-                        }
-                        waterCut.prepare(testMdodel.list);
                     }
                 }
             }
@@ -637,15 +626,8 @@ ApplicationWindow {
         mainWindow.title =  qsTr("Qara munai'");
 
         swofChart.closeProject();
-        //swofTable.closeProject();
-
         sgofChart.closeProject();
-        //sgofTable.closeProject();
-
         pvtoChart.closeProject();
-
-        //pvtwTable.closeProject();
-
         wellSchedule.closeProject();
         wellsList.closeProject();
 

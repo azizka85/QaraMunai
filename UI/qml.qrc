@@ -45,12 +45,10 @@
         <file alias="VolumeRateView.qml">desktop/views/VolumeRateView.qml</file>
         <file alias="WellPressureView.qml">desktop/views/WellPressureView.qml</file>
         <file alias="MyButton.qml">desktop/views/MyButton.qml</file>
-        <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>
-        <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
-        <file>MarkerShape.qml</file>
+        <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>       
+        <file alias="MarkerShape.qml">desktop/views/MarkerShape.qml</file>
         <file alias="MyComboBox.qml">desktop/images/MyComboBox.qml</file>
-        <file alias="TestModel.qml">desktop/views/TestModel.qml</file>
-        <file>PVTWView.qml</file>
+        <file alias="PVTWView.qml">desktop/images/PVTWView.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
