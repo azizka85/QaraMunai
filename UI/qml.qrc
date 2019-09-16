@@ -29,15 +29,16 @@
         <file alias="Ribbon.qml">desktop/views/Ribbon.qml</file>
         <file alias="RibbonGroup.qml">desktop/views/RibbonGroup.qml</file>
         <file alias="RibbonTab.qml">desktop/views/RibbonTab.qml</file>
-        <file alias="SWOFChartView.qml">desktop/views/SWOFChartView.qml</file>
         <file alias="DockControl.qml">desktop/views/DockControl.qml</file>
         <file alias="DockSpace.qml">desktop/views/DockSpace.qml</file>
-        <file alias="FieldView.qml">desktop/views/FieldView.qml</file>
+        <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
         <file alias="PVTGChartView.qml">desktop/views/PVTGChartView.qml</file>
         <file alias="PVTOChartView.qml">desktop/views/PVTOChartView.qml</file>
+        <file alias="SWOFChartView.qml">desktop/views/SWOFChartView.qml</file>
         <file alias="SGOFChartView.qml">desktop/views/SGOFChartView.qml</file>
+        <file alias="PVTWView.qml">desktop/views/PVTWView.qml</file>
         <file alias="WellScheduleView.qml">desktop/views/WellScheduleView.qml</file>
-        <file alias="DockSplit.qml">desktop/views/DockSplit.qml</file>
+        <file alias="FieldView.qml">desktop/views/FieldView.qml</file>
         <file alias="SettingsView.qml">desktop/views/SettingsView.qml</file>
         <file alias="WellsListView.qml">desktop/views/WellsListView.qml</file>
         <file alias="WaterCutView.qml">desktop/views/WaterCutView.qml</file>
@@ -45,10 +46,10 @@
         <file alias="VolumeRateView.qml">desktop/views/VolumeRateView.qml</file>
         <file alias="WellPressureView.qml">desktop/views/WellPressureView.qml</file>
         <file alias="MyButton.qml">desktop/views/MyButton.qml</file>
-        <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>       
+        <file alias="PenStyles.qml">desktop/views/PenStyles.qml</file>
         <file alias="MarkerShape.qml">desktop/views/MarkerShape.qml</file>
-        <file alias="MyComboBox.qml">desktop/images/MyComboBox.qml</file>
-        <file alias="PVTWView.qml">desktop/images/PVTWView.qml</file>
+        <file alias="MyComboBox.qml">desktop/views/MyComboBox.qml</file>
+        <file alias="RibbonSplitter.qml">desktop/views/RibbonSplitter.qml</file>
     </qresource>
     <qresource prefix="/desktop/images">
         <file alias="arrow-down-16x16.png">desktop/images/arrow-down-16x16.png</file>
