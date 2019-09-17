@@ -195,7 +195,8 @@ Item {
             text: swofList.visible?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 swofList.visible = !swofList.visible;
-                swofChart.anchors.fill = swofList.visible ? parent.parent:null;
+                swofChart.anchors.fill = swofList.visible ? parent.parent : null;
+                swofChart.Layout.fillHeight = swofList.visible ? false : true;
             }
         }
     }

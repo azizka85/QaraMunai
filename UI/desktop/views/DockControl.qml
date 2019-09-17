@@ -24,15 +24,14 @@ Item {
             anchors { left: parent.left; right: parent.right; top: parent.top; }
             height: !dockWindow.visible && titleVisible ? 20 : 0
             visible: !dockWindow.visible && titleVisible
-            gradient: Gradient {
-                      GradientStop { position: 0.0; color: "#D3D3D3" }
-                      GradientStop { position: 1.0; color: "#f3f3f3" }
-                  }
+            color: "#D3D3D3"
             Text {
                 anchors { left: parent.left; right: closeButton.left; top: parent.top; bottom: parent.bottom }
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: dockTitle
+                font.family: "Arial"
+                clip: true
 
                 MouseArea {
                     anchors.fill: parent

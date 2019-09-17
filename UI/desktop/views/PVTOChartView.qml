@@ -198,7 +198,8 @@ Item {
             text: pvtoList.visible?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 pvtoList.visible = !pvtoList.visible;
-                pvtoChart.anchors.fill = pvtoList.visible ? parent.parent:null;
+                pvtoChart.anchors.fill = pvtoList.visible ? parent.parent : null;
+                pvtoChart.Layout.fillHeight = pvtoList.visible ? false : true;
             }
         }
     }

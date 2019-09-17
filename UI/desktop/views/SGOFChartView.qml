@@ -21,7 +21,7 @@ Item {
         id: sgofChart
         margins { left: 0; right: 0; bottom: 0; top: 0 }
         legend.alignment: Qt.AlignTop
-        Layout.preferredHeight: parent.parent.height / 2
+        height: parent.parent.height / 2
 
         LineSeries {
             property alias markerSize: krgSGOF2.markerSize
@@ -159,7 +159,7 @@ Item {
 
         TableView {
             id: sgofList
-
+            Layout.fillHeight: false
             TableViewColumn {
                 role: "sg"
                 title: "Sg"
@@ -202,7 +202,8 @@ Item {
             text: (sgofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 sgofList.visible = !sgofList.visible;
-                sgofChart.anchors.fill = sgofList.visible ? parent.parent:null;
+                sgofChart.anchors.fill = sgofList.visible ? parent.parent : null;
+                sgofChart.Layout.fillHeight = sgofList.visible ? false : true;
             }
         }
     }

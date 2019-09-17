@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtCharts 2.3
 import QtQuick.Controls 1.4 as C1
-import QtQuick.Controls 2.4 as C2
+import QtQuick.Controls 2.13 as C2
 import QtQuick.Layouts 1.3
 
 Item {    
@@ -14,7 +14,7 @@ Item {
         visible: false
     }
 
-    C2.ComboBox {
+    C1.ComboBox {
         id: datesComboBox
         anchors { left: parent.left; top: parent.top; margins: 10; }
         width: (parent.width - 80) / 2.5
@@ -35,21 +35,21 @@ Item {
         spacing: 20
         anchors { verticalCenter: datesComboBox.verticalCenter; right: parent.right; left: datesComboBox.right; margins: 10; }
 
-        C2.Button {
+        C1.Button {
             text: qsTr("Экспорт")
             id: exportButton
             height: datesComboBox.height
             width: Math.max(text.width, (parent.width - 40) / 3);
         }
 
-        C2.Button {
+        C1.Button {
             text:  qsTr("Применить")
             id: applyButton
             height: datesComboBox.height
             width:  (parent.width - 40) / 3;
         }
 
-        C2.Button {
+        C1.Button {
             text:  qsTr("Отменить")
             id: cancelButton
             height: datesComboBox.height

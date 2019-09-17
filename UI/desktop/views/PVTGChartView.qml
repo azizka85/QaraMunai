@@ -159,7 +159,8 @@ Item {
             text: pvtgList.visible?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 pvtgList.visible = !pvtgList.visible;
-                pvtgChart.anchors.fill = pvtgList.visible ? parent.parent:null;
+                pvtgChart.anchors.fill = pvtgList.visible ? parent.parent : null;
+                pvtgChart.Layout.fillHeight = pvtgList.visible ? false : true;
             }
         }
     }
