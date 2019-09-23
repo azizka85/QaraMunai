@@ -197,7 +197,7 @@ Item {
             text: (sgofList.visible)?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 sgofList.visible = !sgofList.visible;
-                sgofChart.anchors.fill = sgofList.visible ? parent.parent:null;
+                sgofChart.anchors.fill =parent.parent
             }
         }
     }

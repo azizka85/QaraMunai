@@ -158,13 +158,16 @@ Item {
             id: swofList
             Layout.fillHeight: false
             TableViewColumn {
-                role: "sw"
+                role: "sw"             
                 title: "Sw"
                 width: swofList.width/4
             }
             TableViewColumn {
                 role: "krw"
-                title: "Krw"
+                title: Text {
+                    text: qsTr("Krw")
+                    color: "mediumseagreen"
+                }
                 width: swofList.width/4
             }
             TableViewColumn {
@@ -195,7 +198,7 @@ Item {
             text: swofList.visible?"Скрыть таблицу":"Показать таблицу"
             onTriggered:  {
                 swofList.visible = !swofList.visible;
-                swofChart.anchors.fill = swofList.visible ? parent.parent:null;
+                swofChart.anchors.fill =parent.parent
             }
         }
     }
