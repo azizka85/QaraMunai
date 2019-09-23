@@ -229,7 +229,7 @@ Item {
 
     function closeProject()
     {
-        for(let i = 0; i< pvtoChart.count; i++)
+        for(let i = 0; i < pvtoChart.count; i++)
             pvtoChart.series(i).clear();
         pvtoList.model = [];
     }

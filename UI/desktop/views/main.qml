@@ -464,6 +464,30 @@ ApplicationWindow {
         RibbonTab {
             title: qsTr("Консоль")
             tabWidth: 100
+
+            RibbonGroup {
+                title: qsTr("Функции расчета")
+                width: 156
+                Row {
+                    spacing: 6
+                    leftPadding: 6
+                    rightPadding: 6
+                    anchors { verticalCenter: parent.verticalCenter; margins: 6; }
+
+                    MyButton {
+                        id: consoleButton
+                        width: icon.width
+                        height: icon.height
+                        icon { width: 24; height: 24; source: "qrc:/desktop/images/move_last.png" }
+                        onClicked: {
+                            if(consoleDock.visible)
+                                consoleDock.hide();
+                            else
+                                dockSpace.insertFirst(consoleDock, Qt.Vertical, 0.2);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -612,6 +636,13 @@ ApplicationWindow {
             titleVisible: dockTitleVisible
 
             WellsListView { id: wellsList; anchors.fill: parent; }
+        }
+        DockControl {
+            id: consoleDock
+            dockTitle: qsTr("Console")
+            titleVisible: dockTitleVisible
+
+            ConsoleView { id: consoleView; anchors.fill: parent; }
         }
     }
 
