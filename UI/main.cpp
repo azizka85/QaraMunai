@@ -12,6 +12,8 @@
 #include <tabdimsentity.h>
 #include <swofentity.h>
 
+#include <fieldscenedrawer.h>
+
 using namespace QaraMunai::Model::DAO;
 using namespace QaraMunai::Model::Domain::Project;
 
@@ -38,6 +40,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<ROCKOPTSEntity>("QaraMunai.Model.Domain.Project", 1, 0, "ROCKOPTSData");
     qmlRegisterType<TABDIMSEntity>("QaraMunai.Model.Domain.Project", 1, 0, "TABDIMSData");
     qmlRegisterType<SWOFEntity>("QaraMunai.Model.Domain.Project", 1, 0, "SWOFEntity");
+
+    qmlRegisterType<FieldSceneDrawer>("QaraMunai.Drawers", 1, 0, "FieldSceneDrawer");
 
     if(isDesktop) engine.load(QUrl(QStringLiteral("qrc:/desktop/views/main.qml")));
     else engine.load(QUrl(QStringLiteral("qrc:/mobile/views/main.qml")));

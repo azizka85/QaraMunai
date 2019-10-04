@@ -57,4 +57,10 @@
         <file alias="icon-right-24x24.png">desktop/images/icon-right-24x24.png</file>
         <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
     </qresource>
+    <qresource prefix="/shaders">
+        <file alias="cshader.csh">shaders/cshader.csh</file>
+        <file alias="fshader.fsh">shaders/fshader.fsh</file>
+        <file alias="gshader.gsh">shaders/gshader.gsh</file>
+        <file alias="vshader.vsh">shaders/vshader.vsh</file>
+    </qresource>
 </RCC>

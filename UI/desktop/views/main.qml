@@ -428,6 +428,8 @@ ApplicationWindow {
             wellSchedule.prepare(projectData);
             wellsList.prepare(projectData);
 
+            field.prepare(projectData);
+
             loaderDialog.close();
         }
     }
@@ -599,6 +601,8 @@ ApplicationWindow {
 
         wellSchedule.closeProject();
         wellsList.closeProject();
+
+        field.closeProject();
 
         sfRegionList.model = [];
         pvtRegionList.model = [];

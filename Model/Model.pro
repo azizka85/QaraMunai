@@ -48,6 +48,7 @@ SOURCES += \
     sources/Domain/Grid/box3d.cpp \
     sources/Domain/Grid/line3d.cpp \
     sources/Domain/Grid/point3d.cpp \
+    sources/Domain/Grid/segment.cpp \
     sources/Domain/Project/addentity.cpp \
     sources/Domain/Project/compdatentity.cpp \
     sources/Domain/Project/copyentity.cpp \
@@ -140,6 +141,7 @@ HEADERS += \
     sources/Domain/Grid/box3d.h \
     sources/Domain/Grid/line3d.h \
     sources/Domain/Grid/point3d.h \
+    sources/Domain/Grid/segment.h \
     sources/Domain/Project/addentity.h \
     sources/Domain/Project/compdatentity.h \
     sources/Domain/Project/copyentity.h \

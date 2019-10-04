@@ -884,7 +884,7 @@ int ProjectData::pvtNUM(int i, int j, int k)
 
     DataHelper::ADDValue(add, "PVTNUM", addValue, i, j, k);
 
-    val += addValue;
+    val += static_cast<int>(addValue);
 
     return val;
 }
@@ -908,7 +908,7 @@ int ProjectData::eqlNUM(int i, int j, int k)
 
     DataHelper::ADDValue(add, "EQLNUM", addValue, i, j, k);
 
-    val += addValue;
+    val += static_cast<int>(addValue);
 
     return val;
 }
