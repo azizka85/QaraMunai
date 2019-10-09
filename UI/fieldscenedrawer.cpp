@@ -15,6 +15,11 @@ bool FieldSceneDrawer::ShowMesh()
     return showMesh;
 }
 
+bool FieldSceneDrawer::ShowContour()
+{
+    return showContour;
+}
+
 QVariant FieldSceneDrawer::SelectedValue()
 {
     return selectedValue;
@@ -42,6 +47,15 @@ void FieldSceneDrawer::SetShowMesh(const bool &showMesh)
     update();
 
     ShowMeshChanged();
+}
+
+void FieldSceneDrawer::SetShowContour(const bool &showContour)
+{
+    this->showContour = showContour;
+
+    update();
+
+    ShowContourChanged();
 }
 
 void FieldSceneDrawer::SetSelectedValue(const QVariant &selectedValue)
@@ -103,7 +117,8 @@ QVector<int> FieldSceneDrawer::getCalcFields()
 void FieldSceneDrawer::initVariables()
 {
     zLocation = -5;
-    showMesh = false;
+    showMesh = true;
+    showContour = true;
 
     QMetaObject metaObject = staticMetaObject;
 

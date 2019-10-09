@@ -7,6 +7,9 @@ C1.SplitView {
     property real ratio: 0.8
     property bool settingsVisible: false
 
+    property alias showContour: drawer.showContour
+    property alias showMesh: drawer.showMesh
+
     id: fieldSplit
     anchors.fill: parent
     orientation: Qt.Horizontal
@@ -20,6 +23,8 @@ C1.SplitView {
             id: drawer
             width: parent.width
             height: parent.height
+            showContour: cbShowContour.checked
+            showMesh: cbShowMesh.checked
 
             onSelectedValueChanged: console.log(drawer.selectedValue)
 
@@ -80,6 +85,7 @@ C1.SplitView {
         border { width: 1; color: "lightgray" }
 
         C2.ScrollView {
+            id: settingsContent
             anchors { top: parent.top; bottom: parent.bottom; left:  parent.left; right: parent.right; margins: 10 }
             clip: true
 
@@ -193,6 +199,141 @@ C1.SplitView {
                         }
                     }
                 }
+
+                Row {
+                    id: showContourRow
+                    spacing: 6
+
+                    C2.CheckBox {
+                        id: cbShowContour
+                        width: settingsContent.width - 40
+                        checked: true
+                        text: "Контур"
+                    }
+
+                    C2.Button {
+                        id: btnContourSettings
+                        width: 30
+                        text: "..."
+                    }
+                }
+
+                Row {
+                    id: showMeshRow
+                    spacing: 6
+
+                    C2.CheckBox {
+                        id: cbShowMesh
+                        width: settingsContent.width - 40
+                        checked: true
+                        text: "Сетка"
+                    }
+
+                    C2.Button {
+                        id: btnMeshSettings
+                        width: 30
+                        text: "..."
+                    }
+                }
+
+                C2.Button {
+                    id: btnBlockSettings
+                    width: settingsContent.width
+                    text: "Видимость блоков"
+                }
+
+                Rectangle { height: 6; width: 6; }
+
+                Text {
+                    id: wellSettingsLabel
+                    font.pixelSize: 12
+                    text: "Скважины"
+                }
+
+                Row {
+                    id: showWellsRow
+                    spacing: 6
+
+                    Text {
+                        height: 20
+                        verticalAlignment: Text.AlignVCenter
+                        text: wellSettings.visible ? "-" : "+"
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: wellSettings.visible = !wellSettings.visible
+                        }
+                    }
+
+                    C2.CheckBox {
+                        id: cbShowWells
+                        checkState: Qt.PartiallyChecked
+                        text: "Показать скважины"
+                        onCheckStateChanged: {
+                            if(checkState != Qt.PartiallyChecked)
+                            {
+                                cbShowWellName.checked = checkState == Qt.Checked;
+                                cbShowWellControl.checked = checkState == Qt.Checked;
+                                cbShowWellPerforation.checked = checkState == Qt.Checked;
+                            }
+                        }
+                    }
+                }
+
+                Column {
+                    id: wellSettings
+                    spacing: 6
+                    leftPadding: 12
+
+                    C2.CheckBox {
+                        id: cbShowWellName
+                        checked: true
+                        text: "Показать имена скважин"
+                        onClicked: cbShowWells.checkState = checkWellSettings()
+                    }
+
+                    C2.CheckBox {
+                        id: cbShowWellControl
+                        checked: false
+                        text: "Показать тип контроля скважин"
+                        onClicked: cbShowWells.checkState = checkWellSettings()
+                    }
+
+                    C2.CheckBox {
+                        id: cbShowWellPerforation
+                        checked: false
+                        text: "Показать зоны перфорации скважин"
+                        onClicked: cbShowWells.checkState = checkWellSettings()
+                    }
+                }
+
+
+                Rectangle { height: 6; width: 6; }
+
+                Text {
+                    id: otherSettingsLabel
+                    font.pixelSize: 12
+                    text: "Другое"
+                }
+
+                Row {
+                    id: showLegendRow
+                    spacing: 6
+
+                    C2.CheckBox {
+                        id: cbShowLegend
+                        width: settingsContent.width - 40
+                        checked: true
+                        text: "Легенда"
+                    }
+
+                    C2.Button {
+                        id: btnLegendSettings
+                        width: 30
+                        text: "..."
+                    }
+                }
             }
         }
     }
@@ -209,6 +350,15 @@ C1.SplitView {
     function resizeItems() {
         field.width = settingsVisible ? ratio >= 0 && ratio <= 1 ? ratio*fieldSplit.width : fieldSplit.width/2 : fieldSplit.width;
         settings.width = settingsVisible ? ratio >= 0 && ratio <= 1 ? (1-ratio)*fieldSplit.width : fieldSplit.width/2 : fieldSplit.width;
+    }
+
+    function checkWellSettings()
+    {
+        if(cbShowWellName.checked && cbShowWellControl.checked && cbShowWellPerforation.checked) return Qt.Checked;
+
+        if(!cbShowWellName.checked && !cbShowWellControl.checked && !cbShowWellPerforation.checked) return Qt.Unchecked;
+
+        return Qt.PartiallyChecked;
     }
 
     function closeProject()

@@ -25,6 +25,7 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_ENUMS(FieldNames)
 
     Q_PROPERTY(bool showMesh READ ShowMesh WRITE SetShowMesh NOTIFY ShowMeshChanged)
+    Q_PROPERTY(bool showContour READ ShowContour WRITE SetShowContour NOTIFY ShowContourChanged)
     Q_PROPERTY(QVariant selectedValue READ SelectedValue WRITE SetSelectedValue NOTIFY SelectedValueChanged)
     Q_PROPERTY(QVector2D mousePosition READ MousePosition WRITE SetMousePosition NOTIFY MousePositionChanged)
     Q_PROPERTY(QVector2D mouseDisplacement READ MouseDisplacement WRITE SetMouseDisplacement NOTIFY MouseDisplacementChanged)
@@ -38,12 +39,14 @@ public:
     QQuickFramebufferObject::Renderer *createRenderer() const;
 
     bool ShowMesh();
+    bool ShowContour();
     QVariant SelectedValue();
     QVector2D MousePosition();
     QVector2D MouseDisplacement();
     float ZLocation();
 
     void SetShowMesh(const bool &showMesh);
+    void SetShowContour(const bool &showContour);
     void SetSelectedValue(const QVariant &selectedValue);
     void SetMousePosition(const QVector2D &mousePosition);
     void SetMouseDisplacement(const QVector2D &mouseDisplacement);
@@ -54,6 +57,7 @@ public:
 
 signals:
     void ShowMeshChanged();
+    void ShowContourChanged();
     void SelectedValueChanged();
     void MousePositionChanged();
     void MouseDisplacementChanged();
@@ -107,6 +111,7 @@ protected:
 
 private:
     bool showMesh;
+    bool showContour;
     QVariant selectedValue;
     QVector2D mousePosition;
     QVector2D mouseDisplacement;
