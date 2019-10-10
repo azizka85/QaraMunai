@@ -1,6 +1,9 @@
 #version 330 core
 
 uniform bool uShowMesh;
+uniform bool uShowContour;
+uniform bool uTransparent;
+uniform bool uLighting;
 uniform vec4 uLightPosition;
 uniform float uLightPower;
 uniform vec4 uMaxColor;
@@ -17,26 +20,36 @@ in vec3 d;
 
 void main(void)
 {
-    vec4 lineColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    vec4 resultColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
-    vec4 diffMatColor;
+    vec4 resultColor = vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-    vec3 lightVector = normalize(vPosition.xyz - uLightPosition.xyz);
+    if(uShowContour)
+    {
+        vec4 diffMatColor;
 
-    float w = uMaxValue <= uMinValue ? 0.0f : max(0.0f, min(1.0f, (vValue - uMinValue)/(uMaxValue - uMinValue)));
+        float w = uMaxValue <= uMinValue ? 0.0f : max(0.0f, min(1.0f, (vValue - uMinValue)/(uMaxValue - uMinValue)));
 
-    if(w <= 0.25f) diffMatColor = uMinColor + 4.0f * w * uMidColor;
-    else if(w > 0.25f && w <= 0.5f) diffMatColor = 4.0f * (0.5f - w) * uMinColor + uMidColor;
-    else if(w > 0.5f && w <= 0.75f) diffMatColor = uMidColor + 4.0f * (w - 0.5f) * uMaxColor;
-    else diffMatColor = 4.0f * (1.0f - w) * uMidColor + uMaxColor;
+        if(w <= 0.25f) diffMatColor = uMinColor + 4.0f * w * uMidColor;
+        else if(w > 0.25f && w <= 0.5f) diffMatColor = 4.0f * (0.5f - w) * uMinColor + uMidColor;
+        else if(w > 0.5f && w <= 0.75f) diffMatColor = uMidColor + 4.0f * (w - 0.5f) * uMaxColor;
+        else diffMatColor = 4.0f * (1.0f - w) * uMidColor + uMaxColor;
 
-    vec4 diffColor = diffMatColor * uLightPower * dot(vNormal, -lightVector);
+        vec4 diffColor = diffMatColor;
 
-    resultColor += diffColor;
+        if(uLighting)
+        {
+            vec3 lightVector = normalize(vPosition.xyz - uLightPosition.xyz);
 
-    float sFactor = exp2(-abs(vValue - uSelectedValue));
+            diffColor = diffMatColor * uLightPower * dot(vNormal, -lightVector);
+        }
 
-    resultColor = (1 - 0.5*sFactor)*resultColor + 0.5*sFactor*vec4(1.0f, 1.0f, 1.0f, 1.0f);
+        resultColor += diffColor;
+
+        if(uTransparent) resultColor.w = 0.3;
+
+        float sFactor = exp2(-abs(vValue - uSelectedValue));
+
+        resultColor = (1 - 0.5*sFactor)*resultColor + 0.5*sFactor*vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    }
 
     float x = min(min(d[0], d[1]), d[2]) - 1.0f;
 

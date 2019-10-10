@@ -25,6 +25,9 @@ C1.SplitView {
             height: parent.height
             showContour: cbShowContour.checked
             showMesh: cbShowMesh.checked
+            transparent: cbTransparent.checked
+            lighting: cbLighting.checked
+            axisOfRotation: cbRotationAxis.model[cbRotationAxis.currentIndex].value
 
             onSelectedValueChanged: console.log(drawer.selectedValue)
 
@@ -165,7 +168,7 @@ C1.SplitView {
                     }
 
                     Text {
-                        text: "Рассчитаные данные"
+                        text: "Рассчитанные данные"
                         color: calcGroupArea.containsMouse ? "orange" : "green"
                         font.bold: true
 
@@ -215,6 +218,58 @@ C1.SplitView {
                         id: btnContourSettings
                         width: 30
                         text: "..."
+                        onClicked: contourDialog.open()
+                    }
+
+                    C2.Popup {
+                        id: contourDialog
+                        width: 150
+                        height: 180
+                        x: cbShowContour.x
+                        y: btnContourSettings.y + 30
+                        enabled: cbShowContour.checked
+
+                        Column {
+                            spacing: 6
+
+                            Text {
+                                id: contourLabel
+                                font.pixelSize: 12
+                                text: "Контур"
+                            }
+
+                            C2.CheckBox {
+                                id: cbTransparent
+                                text: "Прозрачный"
+                            }
+
+                            C2.CheckBox {
+                                id: cbLighting
+                                checked: true
+                                text: "Освещение"
+                            }
+
+                            Text {
+                                id: contourBrushLabel
+                                font.pixelSize: 12
+                                text: "Тип окраски"
+                            }
+
+                            Column {
+                                spacing: 6
+
+                                C2.RadioButton {
+                                    id: rbContourBlock
+                                    text: "Блочная"
+                                    checked: true
+                                }
+
+                                C2.RadioButton {
+                                    id: rbContourInterpolation
+                                    text: "Интерполяция"
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -224,15 +279,8 @@ C1.SplitView {
 
                     C2.CheckBox {
                         id: cbShowMesh
-                        width: settingsContent.width - 40
                         checked: true
                         text: "Сетка"
-                    }
-
-                    C2.Button {
-                        id: btnMeshSettings
-                        width: 30
-                        text: "..."
                     }
                 }
 
@@ -332,6 +380,55 @@ C1.SplitView {
                         id: btnLegendSettings
                         width: 30
                         text: "..."
+                    }
+                }
+
+                Row {
+                    id: rotationAxisRow
+                    spacing: 12
+
+                    Text {
+                        id: rotationAxisLabel
+                        verticalAlignment: Qt.AlignVCenter
+                        leftPadding: 6
+                        height: 20
+                        text: "Вращение"
+                    }
+
+                    C2.ComboBox {
+                        id: cbRotationAxis
+                        width: 50
+                        model: [{value: FieldSceneDrawer.XY, text: "XY"}, {value: FieldSceneDrawer.X, text: "X"},
+                                {value: FieldSceneDrawer.Y, text: "Y"}, {value: FieldSceneDrawer.Z, text: "Z"}]
+                        textRole: "text"
+                    }
+                }
+
+                Rectangle { height: 6; width: 6; }
+
+                Row {
+                    id: viewAxisRow
+                    spacing: 12
+
+                    C2.Button {
+                        id: btnXYViewAxis
+                        text: "XY"
+                        width: 30
+                        onClicked: drawer.setXYViewAxis()
+                    }
+
+                    C2.Button {
+                        id: btnXZViewAxis
+                        text: "XZ"
+                        width: 30
+                        onClicked: drawer.setXZViewAxis()
+                    }
+
+                    C2.Button {
+                        id: btnYZViewAxis
+                        text: "YZ"
+                        width: 30
+                        onClicked: drawer.setYZViewAxis()
                     }
                 }
             }

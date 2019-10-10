@@ -23,9 +23,13 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_OBJECT
 
     Q_ENUMS(FieldNames)
+    Q_ENUMS(RotationAxis)
 
     Q_PROPERTY(bool showMesh READ ShowMesh WRITE SetShowMesh NOTIFY ShowMeshChanged)
     Q_PROPERTY(bool showContour READ ShowContour WRITE SetShowContour NOTIFY ShowContourChanged)
+    Q_PROPERTY(bool transparent READ Transparent WRITE SetTransparent NOTIFY TransparentChanged)
+    Q_PROPERTY(bool lighting READ Lighting WRITE SetLighting NOTIFY LightingChanged)
+    Q_PROPERTY(RotationAxis axisOfRotation READ AxisOfRotation WRITE SetAxisOfRotation NOTIFY AxisOfRotationChanged)
     Q_PROPERTY(QVariant selectedValue READ SelectedValue WRITE SetSelectedValue NOTIFY SelectedValueChanged)
     Q_PROPERTY(QVector2D mousePosition READ MousePosition WRITE SetMousePosition NOTIFY MousePositionChanged)
     Q_PROPERTY(QVector2D mouseDisplacement READ MouseDisplacement WRITE SetMouseDisplacement NOTIFY MouseDisplacementChanged)
@@ -35,11 +39,15 @@ public:
     explicit FieldSceneDrawer(QQuickItem *parent = nullptr);
 
     enum FieldNames { PERMX, PERMY, PERMZ, PORO, NTG, TRANX, TRANY, TRANZ, SWAT, SOIL, SGAS, RS, PRESSURE, PW, PBUB, DEPTH, PVTNUM, SATNUM, EQLNUM, PORV, OILV };
+    enum RotationAxis {XY, X, Y, Z};
 
     QQuickFramebufferObject::Renderer *createRenderer() const;
 
     bool ShowMesh();
     bool ShowContour();
+    bool Transparent();
+    bool Lighting();
+    RotationAxis AxisOfRotation();
     QVariant SelectedValue();
     QVector2D MousePosition();
     QVector2D MouseDisplacement();
@@ -47,10 +55,17 @@ public:
 
     void SetShowMesh(const bool &showMesh);
     void SetShowContour(const bool &showContour);
+    void SetTransparent(const bool &transparent);
+    void SetLighting(const bool &lighting);
+    void SetAxisOfRotation(const RotationAxis &axisOfRotation);
     void SetSelectedValue(const QVariant &selectedValue);
     void SetMousePosition(const QVector2D &mousePosition);
     void SetMouseDisplacement(const QVector2D &mouseDisplacement);
     void SetZLocation(const float &zLocation);
+
+    Q_INVOKABLE void setXYViewAxis();
+    Q_INVOKABLE void setXZViewAxis();
+    Q_INVOKABLE void setYZViewAxis();
 
     Q_INVOKABLE QVariantList getFields();
     Q_INVOKABLE QVector<int> getCalcFields();
@@ -58,6 +73,9 @@ public:
 signals:
     void ShowMeshChanged();
     void ShowContourChanged();
+    void TransparentChanged();
+    void LightingChanged();
+    void AxisOfRotationChanged();
     void SelectedValueChanged();
     void MousePositionChanged();
     void MouseDisplacementChanged();
@@ -112,6 +130,9 @@ protected:
 private:
     bool showMesh;
     bool showContour;
+    bool transparent;
+    bool lighting;
+    RotationAxis axisOfRotation;
     QVariant selectedValue;
     QVector2D mousePosition;
     QVector2D mouseDisplacement;

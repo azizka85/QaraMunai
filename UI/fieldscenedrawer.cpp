@@ -20,6 +20,21 @@ bool FieldSceneDrawer::ShowContour()
     return showContour;
 }
 
+bool FieldSceneDrawer::Transparent()
+{
+    return transparent;
+}
+
+bool FieldSceneDrawer::Lighting()
+{
+    return lighting;
+}
+
+FieldSceneDrawer::RotationAxis FieldSceneDrawer::AxisOfRotation()
+{
+    return axisOfRotation;
+}
+
 QVariant FieldSceneDrawer::SelectedValue()
 {
     return selectedValue;
@@ -58,6 +73,31 @@ void FieldSceneDrawer::SetShowContour(const bool &showContour)
     ShowContourChanged();
 }
 
+void FieldSceneDrawer::SetTransparent(const bool &transparent)
+{
+    this->transparent = transparent;
+
+    update();
+
+    TransparentChanged();
+}
+
+void FieldSceneDrawer::SetLighting(const bool &lighting)
+{
+    this->lighting = lighting;
+
+    update();
+
+    LightingChanged();
+}
+
+void FieldSceneDrawer::SetAxisOfRotation(const RotationAxis &axisOfRotation)
+{
+    this->axisOfRotation = axisOfRotation;
+
+    AxisOfRotationChanged();
+}
+
 void FieldSceneDrawer::SetSelectedValue(const QVariant &selectedValue)
 {
     this->selectedValue = selectedValue;
@@ -80,7 +120,22 @@ void FieldSceneDrawer::SetMouseDisplacement(const QVector2D &mouseDisplacement)
 
     float angle = mouseDisplacement.length() / 2.0f;
 
-    QVector3D axis = QVector3D(mouseDisplacement.y(), mouseDisplacement.x(), 0.0);
+    QVector3D axis;
+
+    switch (axisOfRotation) {
+    case RotationAxis::XY:
+        axis = QVector3D(mouseDisplacement.y(), mouseDisplacement.x(), 0.0);
+        break;
+    case RotationAxis::X:
+        axis = QVector3D(mouseDisplacement.y(), 0.0, 0.0);
+        break;
+    case RotationAxis::Y:
+        axis = QVector3D(0.0, mouseDisplacement.x(), 0.0);
+        break;
+    case RotationAxis::Z:
+        axis = QVector3D(0.0, 0.0, mouseDisplacement.x());
+        break;
+    }
 
     rot = QQuaternion::fromAxisAndAngle(axis, angle) * rot;
 
@@ -96,6 +151,27 @@ void FieldSceneDrawer::SetZLocation(const float &zLocation)
     update();
 
     ZLocationChanged();
+}
+
+void FieldSceneDrawer::setXYViewAxis()
+{
+    rot = QQuaternion::fromAxisAndAngle(0, 0, 0, 0);
+
+    update();
+}
+
+void FieldSceneDrawer::setXZViewAxis()
+{
+    rot = QQuaternion::fromAxisAndAngle(1, 0, 0, 90);
+
+    update();
+}
+
+void FieldSceneDrawer::setYZViewAxis()
+{
+    rot = QQuaternion::fromAxisAndAngle(0, 1, 0, 90);
+
+    update();
 }
 
 QVariantList FieldSceneDrawer::getFields()
@@ -119,6 +195,7 @@ void FieldSceneDrawer::initVariables()
     zLocation = -5;
     showMesh = true;
     showContour = true;
+    axisOfRotation = RotationAxis::XY;
 
     QMetaObject metaObject = staticMetaObject;
 
@@ -216,6 +293,9 @@ void FieldSceneDrawer::Renderer::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     bool showMesh = drawer->showMesh;
+    bool showContour = drawer->showContour;
+    bool transparent = drawer->transparent;
+    bool lighting = drawer->lighting;
 
     float w = static_cast<float>(drawer->width());
     float h = static_cast<float>(drawer->height());
@@ -224,9 +304,9 @@ void FieldSceneDrawer::Renderer::render()
 
     QVector4D lightPosition(0.0f, 0.0f, 0.0f, 1.0f);
 
-    QVector4D maxColor(1, 0, 0, 1);
-    QVector4D midColor(0, 1, 0, 1);
-    QVector4D minColor(0, 0, 1, 1);
+    QVector4D maxColor(1, 0, 0, 0);
+    QVector4D midColor(0, 1, 0, 0);
+    QVector4D minColor(0, 0, 1, 0);
 
     float maxValue = 150.0f;
     float minValue = 0.0f;
@@ -239,6 +319,9 @@ void FieldSceneDrawer::Renderer::render()
     shaderProgram.setUniformValue("uModelMatrix", modelMatrix);
     shaderProgram.setUniformValue("uViewPort", viewPort);
     shaderProgram.setUniformValue("uShowMesh", showMesh);
+    shaderProgram.setUniformValue("uShowContour", showContour);
+    shaderProgram.setUniformValue("uTransparent", transparent);
+    shaderProgram.setUniformValue("uLighting", lighting);
     shaderProgram.setUniformValue("uLightPosition", lightPosition);
     shaderProgram.setUniformValue("uLightPower", 1.0f);
     shaderProgram.setUniformValue("uMaxColor", maxColor);
@@ -396,8 +479,6 @@ QVariant FieldSceneDrawer::Renderer::compute()
 
     float* data = static_cast<float*>(outputBuffer.map(QOpenGLBuffer::ReadOnly));
 
-    qDebug() << " ------------------- " << mousePosition << " --------------------- ";
-
     qsort(data, primitiveCount, 3 * static_cast<int>(sizeof(float)), [](const void* a, const void* b) {
 
         const float *elem1 = static_cast<const float *>(a);
@@ -416,19 +497,7 @@ QVariant FieldSceneDrawer::Renderer::compute()
         return 1;
     });
 
-    for(GLuint i = 0; i < primitiveCount; i++)
-    {
-        qDebug() << data[3*i + 0] << ", " << data[3*i + 1] << ", " << data[3*i + 2];
-    }
-
-    if(data[2] > 0)
-    {
-        retVal = data[1];
-
-        qDebug() << "Check: " << data[0] << ", " << data[1] << ", " << data[2];
-    }
-
-    qDebug() << " ---------------------------------------- ";
+    if(data[2] > 0) retVal = data[1];
 
     outputBuffer.unmap();
 
