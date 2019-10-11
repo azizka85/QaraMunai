@@ -1,4 +1,6 @@
 import QtQuick 2.12
+import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.12
 import QtQuick.Controls 1.4 as C1
 import QtQuick.Controls 2.4 as C2
 import QaraMunai.Drawers 1.0
@@ -28,8 +30,6 @@ C1.SplitView {
             transparent: cbTransparent.checked
             lighting: cbLighting.checked
             axisOfRotation: cbRotationAxis.model[cbRotationAxis.currentIndex].value
-
-            onSelectedValueChanged: console.log(drawer.selectedValue)
 
             MouseArea {
                 property vector2d localPosition
@@ -77,6 +77,130 @@ C1.SplitView {
                 onClicked: {
                     settingsVisible = !settingsVisible;
                     resizeItems();
+                }
+            }
+        }
+
+        RowLayout {
+            id: legendRow
+            width: parent.width
+            height: 40
+            visible: cbShowLegend.checked
+            anchors { bottom: parent.bottom }
+
+            Text {
+                id: legendLabel
+                Layout.minimumWidth: 150
+                Layout.preferredHeight: parent.height
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                horizontalAlignment: Qt.AlignHCenter
+                color: "white"
+                font.pixelSize: 12
+                text: "Прон. по X, mD: "
+            }
+
+            Item {
+                id: legendGradient
+                visible: true
+                Layout.preferredWidth: parent.width - legendLabel.width - 50
+                Layout.minimumWidth: 450
+                Layout.preferredHeight: parent.height
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+
+                Column {
+                    anchors.fill: parent
+                    spacing: 6
+
+                    LinearGradient {
+                        width: parent.width - 75
+                        height: 16
+                        x: 25
+                        start: Qt.point(0, 0)
+                        end: Qt.point(width, 0)
+                        gradient: Gradient {
+                            GradientStop { position: 0; color: "#0000ff" }
+                            GradientStop { position: 0.25; color: "#00ffff" }
+                            GradientStop { position: 0.5; color: "#00ff00" }
+                            GradientStop { position: 0.75; color: "#ffff00" }
+                            GradientStop { position: 1; color: "#ff0000" }
+                        }
+                    }
+
+                    Row {
+                        width: parent.width
+                        height: 22
+
+                        Text {
+                            id: legendLabel0
+                            width: parent.width/4 - 25
+                            font.pixelSize: 12
+                            color: "white"
+                            text: "0.12345"
+                        }
+
+                        Text {
+                            id: legendLabel1
+                            width: parent.width/4 - 25
+                            font.pixelSize: 12
+                            color: "white"
+                            text: "0.23456"
+                        }
+
+                        Text {
+                            id: legendLabel2
+                            width: parent.width/4 - 25
+                            font.pixelSize: 12
+                            color: "white"
+                            text: "0.34567"
+                        }
+
+                        Text {
+                            id: legendLabel3
+                            width: parent.width/4 - 25
+                            font.pixelSize: 12
+                            color: "white"
+                            text: "0.45678"
+                        }
+
+                        Text {
+                            id: legendLabel4
+                            font.pixelSize: 12
+                            color: "white"
+                            text: "0.45567dfdfdf"
+                            width: 100
+                            horizontalAlignment: Qt.AlignHCenter
+                        }
+                    }
+                }
+            }
+
+            Item {
+                id: legendSingle
+                visible: false
+                Layout.preferredWidth: parent.width - legendLabel.width - 50
+                Layout.minimumWidth: 450
+                Layout.preferredHeight: parent.height
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+
+                Column {
+                    anchors.fill: parent
+                    spacing: 6
+
+                    Rectangle {
+                        width: parent.width - 75
+                        height: 16
+                        x: 25
+                        color: "#0000ff"
+                    }
+
+                    Text {
+                        id: legendLabel5
+                        width: parent.width
+                        font.pixelSize: 12
+                        color: "white"
+                        horizontalAlignment: Qt.AlignHCenter
+                        text: "0.12345"
+                    }
                 }
             }
         }
