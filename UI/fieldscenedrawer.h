@@ -99,18 +99,16 @@ protected:
     private:
         QVector2D mousePosition;
 
-        GLuint primitiveCount;
+        int primitiveCount;
 
         QMatrix4x4 projectionMatrix;
         QMatrix4x4 viewMatrix;
         QMatrix4x4 modelMatrix;
 
         QOpenGLShaderProgram shaderProgram;
-        QOpenGLShaderProgram computeProgram;
 
         QOpenGLBuffer arrayBuffer;
         QOpenGLBuffer indBuffer;
-        QOpenGLBuffer outputBuffer;
 
         FieldSceneDrawer *drawer;
     };
@@ -125,6 +123,17 @@ protected:
         QVector3D normal;
         float exclude;
         float value;
+    };
+
+    struct CheckData
+    {
+        CheckData() {  }
+
+        CheckData(float d, float v, bool p) : depth(d), value(v), picked(p) {  }
+
+        float depth;
+        float value;
+        bool picked;
     };
 
 private:

@@ -4,8 +4,9 @@ import QtQuick.Controls 1.4
 Item {
 
     TableView {
-        id: swofList
+        id: swofTable
         anchors.fill: parent
+        model: swofList
 
         TableViewColumn {
             role: "sw"
@@ -32,14 +33,19 @@ Item {
         }
     }
 
+    ListModel {
+        id: swofList
+    }
+
     function closeProject()
     {
-        swofList.model = [];
+        swofList.clear();
     }
 
     function prepare(list)
     {
-        swofList.model = list;
+        swofList.clear();
+        swofList.append(list);
     }
 
 }

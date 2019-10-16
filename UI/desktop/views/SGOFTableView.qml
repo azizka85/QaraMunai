@@ -4,8 +4,9 @@ import QtQuick.Controls 1.4
 Item {
 
     TableView {
-        id: sgofList
+        id: sgofTable
         anchors.fill: parent
+        model: sgofList
 
         TableViewColumn {
             role: "sg"
@@ -32,14 +33,19 @@ Item {
         }
     }
 
+    ListModel {
+        id: sgofList
+    }
+
     function closeProject()
     {
-        sgofList.model = [];
+        sgofList.clear();
     }
 
     function prepare(list)
     {
-        sgofList.model = list;
+        sgofList.clear();
+        sgofList.append(list);
     }
 
 }

@@ -236,7 +236,11 @@ void FieldSceneDrawer::initVariables()
 
 QOpenGLFramebufferObject *FieldSceneDrawer::Renderer::createFramebufferObject(const QSize &size)
 {
-    return new QOpenGLFramebufferObject(size);
+    QOpenGLFramebufferObjectFormat format;
+
+    format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+
+    return new QOpenGLFramebufferObject(size, format);
 }
 
 FieldSceneDrawer::Renderer::Renderer() : QQuickFramebufferObject::Renderer(), indBuffer(QOpenGLBuffer::IndexBuffer)
@@ -287,10 +291,14 @@ void FieldSceneDrawer::Renderer::render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_CULL_FACE);
+
+    // glEnable(GL_ALPHA_TEST);
+    glEnable(GL_BLEND);    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     bool showMesh = drawer->showMesh;
     bool showContour = drawer->showContour;
@@ -302,11 +310,9 @@ void FieldSceneDrawer::Renderer::render()
 
     QVector2D viewPort(w, h);
 
-    QVector4D lightPosition(0.0f, 0.0f, 0.0f, 1.0f);
-
-    QVector4D maxColor(1, 0, 0, 0);
-    QVector4D midColor(0, 1, 0, 0);
-    QVector4D minColor(0, 0, 1, 0);
+    QVector3D maxColor(1, 0, 0);
+    QVector3D midColor(0, 1, 0);
+    QVector3D minColor(0, 0, 1);
 
     float maxValue = 150.0f;
     float minValue = 0.0f;
@@ -322,8 +328,6 @@ void FieldSceneDrawer::Renderer::render()
     shaderProgram.setUniformValue("uShowContour", showContour);
     shaderProgram.setUniformValue("uTransparent", transparent);
     shaderProgram.setUniformValue("uLighting", lighting);
-    shaderProgram.setUniformValue("uLightPosition", lightPosition);
-    shaderProgram.setUniformValue("uLightPower", 1.0f);
     shaderProgram.setUniformValue("uMaxColor", maxColor);
     shaderProgram.setUniformValue("uMidColor", midColor);
     shaderProgram.setUniformValue("uMinColor", minColor);
@@ -368,9 +372,6 @@ void FieldSceneDrawer::Renderer::render()
 
 void FieldSceneDrawer::Renderer::initShaders()
 {
-    computeProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/cshader.csh");
-    computeProgram.link();
-
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vshader.vsh");
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Geometry, ":/shaders/gshader.gsh");
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fshader.fsh");
@@ -439,69 +440,96 @@ void FieldSceneDrawer::Renderer::initCube(float width)
     indBuffer.bind();
     indBuffer.allocate(indexes.constData(), indexes.size() * static_cast<int>(sizeof (GLuint)));
     indBuffer.release();
-
-    outputBuffer.create();
-    outputBuffer.bind();
-    outputBuffer.allocate(3 * static_cast<int>(primitiveCount) * static_cast<int>(sizeof(float)));
-    outputBuffer.release();
 }
 
 QVariant FieldSceneDrawer::Renderer::compute()
 {
     QVariant retVal;
 
-    float width = static_cast<float>(drawer->width());
-    float height = static_cast<float>(drawer->height());
+    if(primitiveCount > 0)
+    {
+        float width = static_cast<float>(drawer->width());
+        float height = static_cast<float>(drawer->height());
 
-    QVector2D viewPort(width, height);
+        QVector2D mousePosition = drawer->MousePosition();
 
-    QVector2D mousePosition = drawer->MousePosition();
+        mousePosition.setX(2*mousePosition.x() - width);
+        mousePosition.setY(2*mousePosition.y() - height);
 
-    mousePosition.setX(2*mousePosition.x() - width);
-    mousePosition.setY(height - 2*mousePosition.y());
+        QVector<CheckData> data(primitiveCount);
 
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, arrayBuffer.bufferId());
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, indBuffer.bufferId());
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, outputBuffer.bufferId());
+        arrayBuffer.bind();
+        indBuffer.bind();
 
-    computeProgram.bind();
-    computeProgram.setUniformValue("uViewPort", viewPort);
-    computeProgram.setUniformValue("uMousePosition", mousePosition);
-    computeProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
-    computeProgram.setUniformValue("uViewMatrix", viewMatrix);
-    computeProgram.setUniformValue("uModelMatrix", modelMatrix);
+        VertexData* vertices = static_cast<VertexData*>(arrayBuffer.map(QOpenGLBuffer::ReadOnly));
+        GLuint* indexes = static_cast<GLuint*>(indBuffer.map(QOpenGLBuffer::ReadOnly));
 
-    glDispatchCompute(primitiveCount, 1, 1);
-
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
-
-    outputBuffer.bind();
-
-    float* data = static_cast<float*>(outputBuffer.map(QOpenGLBuffer::ReadOnly));
-
-    qsort(data, primitiveCount, 3 * static_cast<int>(sizeof(float)), [](const void* a, const void* b) {
-
-        const float *elem1 = static_cast<const float *>(a);
-        const float *elem2 = static_cast<const float *>(b);
-
-        if(elem1[2] > 0)
+        for(int i = 0; i < primitiveCount; i++)
         {
-            if(elem2[2] > 0)
-            {
-                if(elem1[0] > elem2[0]) return 1;
-            }
+            GLuint ind1 = indexes[3*i + 0];
+            GLuint ind2 = indexes[3*i + 1];
+            GLuint ind3 = indexes[3*i + 2];
 
-            return -1;
+            QVector4D v1(vertices[ind1].position, 1.0f);
+            QVector4D v2(vertices[ind2].position, 1.0f);
+            QVector4D v3(vertices[ind3].position, 1.0f);
+
+            QMatrix4x4 mvpMatrix = projectionMatrix * viewMatrix * modelMatrix;
+
+            v1 = mvpMatrix * v1;
+            v2 = mvpMatrix * v2;
+            v3 = mvpMatrix * v3;
+
+            QVector2D p1(width*v1.x()/v1.w(), height*v1.y()/v1.w());
+            QVector2D p2(width*v2.x()/v2.w(), height*v2.y()/v2.w());
+            QVector2D p3(width*v3.x()/v3.w(), height*v3.y()/v3.w());
+
+            // qDebug() << p1 << p2 << p3 << mousePosition;
+
+            float w = (v1.w() + v2.w() + v3.w())/3.0f;
+
+            QVector2D p = mousePosition;
+
+            bool picked = false;
+
+            // checking
+            float area = 0.5f *(-p2.y()*p3.x() + p1.y()*(-p2.x() + p3.x()) + p1.x()*(p2.y() - p3.y()) + p2.x()*p3.y());
+
+            float s = 1/(2*area)*(p1.y()*p3.x() - p1.x()*p3.y() + (p3.y() - p1.y())*p.x() + (p1.x() - p3.x())*p.y());
+            float t = 1/(2*area)*(p1.x()*p2.y() - p1.y()*p2.x() + (p1.y() - p2.y())*p.x() + (p2.x() - p1.x())*p.y());
+
+            if(s >= 0 && t >= 0 && 1 - s - t >= 0) picked = true;
+
+            data[i].depth = w;
+            data[i].value = vertices[ind1].value;
+            data[i].picked = picked;
+
+            // qDebug() << data[i].depth << ", " << data[i].value << ", " << data[i].picked;
         }
 
-        return 1;
-    });
+        indBuffer.unmap();
+        arrayBuffer.unmap();
 
-    if(data[2] > 0) retVal = data[1];
+        indBuffer.release();
+        arrayBuffer.release();
 
-    outputBuffer.unmap();
+        std::sort(data.begin(), data.end(), [](const CheckData &a, const CheckData &b) {
 
-    outputBuffer.release();
+            if(a.picked)
+            {
+                if(b.picked)
+                {
+                    if(a.depth > b.depth) return false;
+                }
+
+                return true;
+            }
+
+            return false;
+        });
+
+        if(data[0].picked) retVal = data[0].value;
+    }
 
     return retVal;
 }

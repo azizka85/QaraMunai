@@ -262,12 +262,11 @@ ApplicationWindow {
                         swofChart.prepare(swofList);
                         swofTable.prepare(swofList);
 
-                        swofSettingsForm.prepare(swofChart);
-                        sgofSettingsForm.prepare(sgofList);
-
                         sgofChart.prepare(sgofList);
                         sgofTable.prepare(sgofList);
 
+                        swofSettingsForm.prepare(swofChart);
+                        sgofSettingsForm.prepare(sgofList);
                     }
                 }
             }
@@ -598,6 +597,9 @@ ApplicationWindow {
 
         pvtoChart.closeProject();
         pvtoTable.closeProject();
+
+        pvtgChart.closeProject();
+        pvtgTable.closeProject();
 
         wellSchedule.closeProject();
         wellsList.closeProject();

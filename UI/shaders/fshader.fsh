@@ -4,11 +4,9 @@ uniform bool uShowMesh;
 uniform bool uShowContour;
 uniform bool uTransparent;
 uniform bool uLighting;
-uniform vec4 uLightPosition;
-uniform float uLightPower;
-uniform vec4 uMaxColor;
-uniform vec4 uMidColor;
-uniform vec4 uMinColor;
+uniform vec3 uMaxColor;
+uniform vec3 uMidColor;
+uniform vec3 uMinColor;
 uniform float uMaxValue;
 uniform float uMinValue;
 uniform float uSelectedValue;
@@ -24,7 +22,7 @@ void main(void)
 
     if(uShowContour)
     {
-        vec4 diffMatColor;
+        vec3 diffMatColor;
 
         float w = uMaxValue <= uMinValue ? 0.0f : max(0.0f, min(1.0f, (vValue - uMinValue)/(uMaxValue - uMinValue)));
 
@@ -33,27 +31,39 @@ void main(void)
         else if(w > 0.5f && w <= 0.75f) diffMatColor = uMidColor + 4.0f * (w - 0.5f) * uMaxColor;
         else diffMatColor = 4.0f * (1.0f - w) * uMidColor + uMaxColor;
 
-        vec4 diffColor = diffMatColor;
+        vec3 diffColor = diffMatColor;
 
         if(uLighting)
         {
-            vec3 lightVector = normalize(vPosition.xyz - uLightPosition.xyz);
+            vec3 lightPosition = vec3(0.0f, 0.0f, 0.0f);
 
-            diffColor = diffMatColor * uLightPower * dot(vNormal, -lightVector);
+            vec3 lightVector = normalize(vPosition.xyz - lightPosition);
+
+            float colorIntensity = dot(vNormal, -lightVector);
+
+            if(colorIntensity < 0.0f) colorIntensity = -colorIntensity;
+
+            diffColor = diffMatColor * colorIntensity;
         }
 
-        resultColor += diffColor;
-
-        if(uTransparent) resultColor.w = 0.3;
+        resultColor.xyz += diffColor;
 
         float sFactor = exp2(-abs(vValue - uSelectedValue));
 
-        resultColor = (1 - 0.5*sFactor)*resultColor + 0.5*sFactor*vec4(1.0f, 1.0f, 1.0f, 1.0f);
+        resultColor.xyz = (1 - 0.5*sFactor)*resultColor.xyz + 0.5*sFactor*vec3(1.0f, 1.0f, 1.0f);
+
+        if(uTransparent) resultColor.w = 0.3;
+    }
+    else resultColor.w = 0.0f;
+
+    if(uShowMesh)
+    {
+        float x = min(min(d[0], d[1]), d[2]) - 1.0f;
+
+        float edgeIntensity = exp2(-x*x);
+
+        resultColor = edgeIntensity * vec4(1.0f, 1.0f, 1.0f, 1.0f) + (1.0f - edgeIntensity) * resultColor;
     }
 
-    float x = min(min(d[0], d[1]), d[2]) - 1.0f;
-
-    float edgeIntensity = uShowMesh ? exp2(-x*x) : 0.0f;
-
-    gl_FragColor = edgeIntensity * vec4(1.0f, 1.0f, 1.0f, 1.0f) + (1.0f - edgeIntensity) * resultColor;
+    gl_FragColor = resultColor;
 }
