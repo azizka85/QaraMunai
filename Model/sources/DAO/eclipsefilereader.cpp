@@ -244,7 +244,7 @@ void EclipseFileReader::ReadFile(ProjectData *data, const QString &filePath, QMe
         }
     }
 
-    data->SetLoaded(true);
+    data->SetState(ProjectData::LOADED);
 
     file.close();
 }

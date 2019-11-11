@@ -22,7 +22,7 @@ bool WELSPECSEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->Loaded() && welSPECS.length() > 0;
+        return project->State() != ProjectData::CLOSED && welSPECS.length() > 0;
     }
 
     return false;
@@ -71,7 +71,7 @@ QVector<WELSPECSData> WELSPECSEntity::WELSPECSList(QDateTime date)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded())
+        if(project->State() != ProjectData::CLOSED)
         {
             QVector<WELSPECSData> welspecsList;
 
@@ -94,7 +94,7 @@ QMap<QString, QVector<WELSPECSData> > WELSPECSEntity::WELSPECSGroupList()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded())
+        if(project->State() != ProjectData::CLOSED)
         {
             QMap<QString, QVector<WELSPECSData>> welSPECSData;
 

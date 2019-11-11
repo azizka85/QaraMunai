@@ -40,9 +40,9 @@ ProjectData::ProjectData(QObject *parent) : QObject(parent)
     initVariables();
 }
 
-bool ProjectData::Loaded() const
+ProjectData::ProjectState ProjectData::State() const
 {
-    return isLoaded;
+    return state;
 }
 
 QString ProjectData::Title() const
@@ -1306,13 +1306,13 @@ QVariantList ProjectData::DATES()
     return result;
 }
 
-void ProjectData::SetLoaded(const bool &isLoaded)
+void ProjectData::SetState(const ProjectState &state)
 {
-    this->isLoaded = isLoaded;
+    this->state = state;
 
     if(!isBlockCentered) pointOrderStandard = CheckPointOrderStandard();
 
-    LoadedChanged();
+    StateChanged();
 }
 
 void ProjectData::SetTitle(const QString &title)
@@ -1419,7 +1419,7 @@ void ProjectData::initVariables()
 
     SetBlockCentered(false);
 
-    SetLoaded(false);
+    SetState(CLOSED);
 }
 
 }}}}

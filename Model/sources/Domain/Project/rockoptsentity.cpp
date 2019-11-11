@@ -22,7 +22,7 @@ QVariant ROCKOPTSEntity::MAOTP()
 
         QVariant maotp = project->Stratum().ROCKOPTS().MAOTP();
 
-        if(project->Loaded() && maotp.isNull()) maotp = DefaultValues::ROCKOPTS_MAOTP;
+        if(project->State() != ProjectData::CLOSED && maotp.isNull()) maotp = DefaultValues::ROCKOPTS_MAOTP;
 
         return maotp;
     }
@@ -40,7 +40,7 @@ QVariant ROCKOPTSEntity::RPO()
 
         QVariant rpo = project->Stratum().ROCKOPTS().RPO();
 
-        if(project->Loaded() && rpo.isNull()) rpo = DefaultValues::ROCKOPTS_RPO;
+        if(project->State() != ProjectData::CLOSED && rpo.isNull()) rpo = DefaultValues::ROCKOPTS_RPO;
 
         return rpo;
     }
@@ -58,7 +58,7 @@ QVariant ROCKOPTSEntity::RegionOption()
 
         QVariant regionOption = project->Stratum().ROCKOPTS().RegionOption();
 
-        if(project->Loaded() && regionOption.isNull()) regionOption = DefaultValues::ROCKOPTS_RegionOption;
+        if(project->State() != ProjectData::CLOSED && regionOption.isNull()) regionOption = DefaultValues::ROCKOPTS_RegionOption;
 
         return regionOption;
     }
@@ -76,7 +76,7 @@ QVariant ROCKOPTSEntity::IHBOption()
 
         QVariant ihbOption = project->Stratum().ROCKOPTS().IHBOption();
 
-        if(project->Loaded() && ihbOption.isNull()) ihbOption = DefaultValues::ROCKOPTS_IHBOption;
+        if(project->State() != ProjectData::CLOSED && ihbOption.isNull()) ihbOption = DefaultValues::ROCKOPTS_IHBOption;
 
         return ihbOption;
     }

@@ -10,6 +10,11 @@ QQuickFramebufferObject::Renderer *FieldSceneDrawer::createRenderer() const
     return new FieldSceneDrawer::Renderer();
 }
 
+ProjectData *FieldSceneDrawer::Data()
+{
+    return data;
+}
+
 bool FieldSceneDrawer::ShowMesh()
 {
     return showMesh;
@@ -53,6 +58,17 @@ QVector2D FieldSceneDrawer::MouseDisplacement()
 float FieldSceneDrawer::ZLocation()
 {
     return zLocation;
+}
+
+void FieldSceneDrawer::SetData(ProjectData *data)
+{
+    this->data = data;
+
+    dataUpdated = true;
+
+    update();
+
+    DataChanged();
 }
 
 void FieldSceneDrawer::SetShowMesh(const bool &showMesh)
@@ -185,13 +201,33 @@ QVariantList FieldSceneDrawer::getFields()
     return data;
 }
 
-QVector<int> FieldSceneDrawer::getCalcFields()
+QVariantList FieldSceneDrawer::getCalcFields()
 {
+    QVariantList calcFields;
+
+    calcFields.append(fields[SWAT].toMap());
+    calcFields.append(fields[SOIL].toMap());
+    calcFields.append(fields[SGAS].toMap());
+    calcFields.append(fields[PRESSURE].toMap());
+    calcFields.append(fields[PBUB].toMap());
+
     return calcFields;
+}
+
+void FieldSceneDrawer::updateData(int state)
+{
+    this->state = static_cast<ProjectData::ProjectState>(state);
+
+    dataUpdated = true;
+
+    update();
 }
 
 void FieldSceneDrawer::initVariables()
 {
+    dataUpdated = false;
+    state = ProjectData::ProjectState::CLOSED;
+
     zLocation = -5;
     showMesh = true;
     showContour = true;
@@ -224,14 +260,6 @@ void FieldSceneDrawer::initVariables()
     fields[EQLNUM] = FieldInfo(QString("EQLNUM"), QString("EQLNUM"), QString());
     fields[PORV] = FieldInfo(QString("PORV"), QString("PORV"), QString());
     fields[OILV] = FieldInfo(QString("OILV"), QString("OILV"), QString());
-
-    calcFields.resize(5);
-
-    calcFields[0] = SWAT;
-    calcFields[1] = SOIL;
-    calcFields[2] = SGAS;
-    calcFields[3] = PRESSURE;
-    calcFields[4] = PBUB;
 }
 
 QOpenGLFramebufferObject *FieldSceneDrawer::Renderer::createFramebufferObject(const QSize &size)
@@ -250,15 +278,17 @@ FieldSceneDrawer::Renderer::Renderer() : QQuickFramebufferObject::Renderer(), in
 
 void FieldSceneDrawer::Renderer::initialize()
 {
+    initialized = true;
+
     initializeOpenGLFunctions();
 
     initShaders();
-    initCube(1.0f);
+    initBuffer();
 }
 
 void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
 {
-    drawer = static_cast<FieldSceneDrawer*>(fbo);
+    drawer = static_cast<FieldSceneDrawer*>(fbo);       
 
     float w = static_cast<float>(drawer->width());
     float h = static_cast<float>(drawer->height());
@@ -275,7 +305,16 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
     viewMatrix.translate(0.0f, 0.0f, z);
     viewMatrix.rotate(rotation);
 
-    modelMatrix.setToIdentity();
+    modelMatrix.setToIdentity();    
+
+    if(drawer->dataUpdated || initialized)
+    {
+        if(drawer->state != ProjectData::ProjectState::CLOSED) initGeometry();
+        else clearGeometry();
+
+        drawer->dataUpdated = false;
+        initialized = false;
+    }
 
     if(mousePosition != drawer->mousePosition)
     {
@@ -368,6 +407,10 @@ void FieldSceneDrawer::Renderer::render()
     indBuffer.bind();
 
     glDrawElements(GL_TRIANGLES, indBuffer.size(), GL_UNSIGNED_INT, nullptr);
+
+    indBuffer.release();
+    arrayBuffer.release();
+    shaderProgram.release();
 }
 
 void FieldSceneDrawer::Renderer::initShaders()
@@ -375,14 +418,26 @@ void FieldSceneDrawer::Renderer::initShaders()
     computeProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/cshader.csh");
     computeProgram.link();
 
+    sortProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/sshader.csh");
+    sortProgram.link();
+
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vshader.vsh");
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Geometry, ":/shaders/gshader.gsh");
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fshader.fsh");
     shaderProgram.link();
 }
 
-void FieldSceneDrawer::Renderer::initCube(float width)
+void FieldSceneDrawer::Renderer::initBuffer()
 {
+    arrayBuffer.create();
+    indBuffer.create();
+    outputBuffer.create();
+}
+
+void FieldSceneDrawer::Renderer::initGeometry()
+{
+    float width = 1.0f;
+
     float width_div_2 = width / 2.0f;
 
     QVector<VertexData> vertexes;
@@ -434,19 +489,31 @@ void FieldSceneDrawer::Renderer::initCube(float width)
         primitiveCount += 2;
     }
 
-    arrayBuffer.create();
     arrayBuffer.bind();
     arrayBuffer.allocate(vertexes.constData(), vertexes.size() * static_cast<int>(sizeof (VertexData)));
     arrayBuffer.release();
 
-    indBuffer.create();
     indBuffer.bind();
     indBuffer.allocate(indexes.constData(), indexes.size() * static_cast<int>(sizeof (GLuint)));
     indBuffer.release();
 
-    outputBuffer.create();
     outputBuffer.bind();
     outputBuffer.allocate(3 * static_cast<int>(primitiveCount) * static_cast<int>(sizeof(float)));
+    outputBuffer.release();
+}
+
+void FieldSceneDrawer::Renderer::clearGeometry()
+{
+    arrayBuffer.bind();
+    arrayBuffer.allocate(0);
+    arrayBuffer.release();
+
+    indBuffer.bind();
+    indBuffer.allocate(0);
+    indBuffer.release();
+
+    outputBuffer.bind();
+    outputBuffer.allocate(0);
     outputBuffer.release();
 }
 
@@ -490,33 +557,31 @@ QVariant FieldSceneDrawer::Renderer::compute()
 
     glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
 
+    computeProgram.release();
+
+    sortProgram.bind();
+    sortProgram.setUniformValue("uPrimitiveCount", primitiveCount);
+
+    for(GLuint i = 0; i < primitiveCount; i++)
+    {
+        sortProgram.setUniformValue("uNumIteration", i);
+
+        glDispatchCompute(primitiveCount/2, 1, 1);
+
+        glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
+    }
+
+    sortProgram.release();
+
     outputBuffer.bind();
 
-    float* data = static_cast<float*>(outputBuffer.map(QOpenGLBuffer::ReadOnly));
+    float out[3];
 
-    qsort(data, primitiveCount, 3 * static_cast<int>(sizeof(float)), [](const void* a, const void* b) {
-
-        const float *elem1 = static_cast<const float *>(a);
-        const float *elem2 = static_cast<const float *>(b);
-
-        if(elem1[2] > 0)
-        {
-            if(elem2[2] > 0)
-            {
-                if(elem1[0] > elem2[0]) return 1;
-            }
-
-            return -1;
-        }
-
-        return 1;
-    });
-
-    if(data[2] > 0) retVal = data[1];
-
-    outputBuffer.unmap();
+    outputBuffer.read(0, out, 3*sizeof (float));
 
     outputBuffer.release();
+
+    if(out[2] > 0) retVal = out[1];
 
     return retVal;
 }

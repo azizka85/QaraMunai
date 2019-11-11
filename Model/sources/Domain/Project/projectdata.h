@@ -51,8 +51,9 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_ENUMS(WellControlMode)
     Q_ENUMS(FluidType)
     Q_ENUMS(ArrayNames)
+    Q_ENUMS(ProjectState)
 
-    Q_PROPERTY(bool loaded READ Loaded WRITE SetLoaded NOTIFY LoadedChanged)
+    Q_PROPERTY(ProjectState state READ State WRITE SetState NOTIFY StateChanged)
     Q_PROPERTY(QString title READ Title WRITE SetTitle NOTIFY TitleChanged)
     Q_PROPERTY(QDateTime startDate READ StartDate WRITE SetStartDate NOTIFY StartDateChanged)
     Q_PROPERTY(QVariant unit READ Unit WRITE SetUnit NOTIFY UnitChanged)
@@ -94,8 +95,9 @@ public:
                       MINPVV, SWATINIT, SWCR, ISWCR, SWL, ISWL, SWLPC, ISWLPC, SWU, ISWU, SGCR, ISGCR, SGL, ISGL, SGLPC, ISGLPC, PCG, IPCG,
                       PCW, IPCW, KRO, IKRO, KRORW, IKRORW, KRORG, IKRORG, KRW, IKRW, KRWR, IKRWR, KRG, IKRG, KRGR, IKRGR, PVTNUM, SATNUM,
                       EQLNUM, ENDNUM, PRESSURE, SWAT, SOIL, SGAS, PBUB, RS, DEPTH, PORV, TRANX, TRANY, TRANZ };
+    enum ProjectState {CLOSED, LOADED};
 
-    bool Loaded() const;
+    ProjectState State() const;
     QString Title() const;
     QDateTime StartDate() const;
     QVariant Unit() const;
@@ -194,7 +196,7 @@ public:
     EQUALSEntity *EQUALS();
     MULTIPLYEntity *MULTIPLY();
 
-    void SetLoaded(const bool& isLoaded);
+    void SetState(const ProjectState& state);
     void SetTitle(const QString& title);
     void SetStartDate(const QDateTime& startDate);
     void SetUnit(const QVariant& unit);
@@ -211,7 +213,7 @@ public:
     Q_INVOKABLE void initVariables();
 
 signals:
-    void LoadedChanged();
+    void StateChanged();
     void TitleChanged();
     void StartDateChanged();
     void UnitChanged();
@@ -226,7 +228,7 @@ signals:
     void BlockCenteredChanged();
 
 private:
-    bool isLoaded;
+    ProjectState state;
     QString title;
     QDateTime startDate;
     QVariant unit;

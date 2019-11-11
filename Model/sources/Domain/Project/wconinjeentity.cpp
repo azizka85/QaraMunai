@@ -22,7 +22,7 @@ bool WCONINJEEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->Loaded() && wconINJE.length() > 0;
+        return project->State() != ProjectData::CLOSED && wconINJE.length() > 0;
     }
 
     return false;
@@ -61,7 +61,7 @@ QVector<WCONINJEData> WCONINJEEntity::WCONINJEList(QDateTime date){
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded())
+        if(project->State() != ProjectData::CLOSED)
         {
             QVector<WCONINJEData> wconinjeList;
 
@@ -83,13 +83,39 @@ QVector<int> WCONINJEEntity::GetIndexes(QDateTime date)
 
 void WCONINJEEntity::AddWCONINJE(WCONINJEData &data)
 {
+    QString wellName = data.WellName();
     QDateTime date = data.Date();
 
     if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
 
-    dateIndexes[date].append(wconINJE.length());
+    QObject* projectData = parent();
 
-    wconINJE.append(data);
+    if (wellName.endsWith("*") && projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        QVector<WELSPECSData>& welSPECS = project->WELSPECS()->WELSPECS();
+
+        QString wellSearch = wellName.left(wellName.size()-1);
+
+        for(int i = 0; i < welSPECS.size(); i++)
+        {
+            if(welSPECS[i].WellName().startsWith(wellSearch))
+            {
+                data.SetWellName(welSPECS[i].WellName());
+
+                dateIndexes[date].append(wconINJE.length());
+
+                wconINJE.append(data);
+            }
+        }
+    }
+    else
+    {
+        dateIndexes[date].append(wconINJE.length());
+
+        wconINJE.append(data);
+    }
 }
 
 void WCONINJEEntity::Clear()

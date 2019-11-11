@@ -22,7 +22,7 @@ bool COMPDATEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->Loaded() && compDAT.length() > 0;
+        return project->State() != ProjectData::CLOSED && compDAT.length() > 0;
     }
 
     return false;
@@ -55,14 +55,15 @@ QVector<int> COMPDATEntity::GetIndexes(QDateTime date)
     return dateIndexes.contains(date) ? dateIndexes[date] : QVector<int>();
 }
 
-QVector<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
+QVector<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date)
+{
     QObject* projectData = parent();
 
     if (projectData != nullptr)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->Loaded())
+        if(project->State() != ProjectData::CLOSED)
         {
             QVector<COMPDATData> compdatList;
 
@@ -79,13 +80,39 @@ QVector<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
 
 void COMPDATEntity::AddCOMPDAT(COMPDATData &data)
 {
+    QString wellName = data.WellName();
     QDateTime date = data.Date();
 
     if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
 
-    dateIndexes[date].append(compDAT.length());
+    QObject* projectData = parent();
 
-    compDAT.append(data);
+    if (wellName.endsWith("*") && projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        QVector<WELSPECSData>& welSPECS = project->WELSPECS()->WELSPECS();
+
+        QString wellSearch = wellName.left(wellName.size()-1);
+
+        for(int i = 0; i < welSPECS.size(); i++)
+        {
+            if(welSPECS[i].WellName().startsWith(wellSearch))
+            {
+                data.SetWellName(welSPECS[i].WellName());
+
+                dateIndexes[date].append(compDAT.length());
+
+                compDAT.append(data);
+            }
+        }
+    }
+    else
+    {
+        dateIndexes[date].append(compDAT.length());
+
+        compDAT.append(data);
+    }
 }
 
 void COMPDATEntity::Clear()

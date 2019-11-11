@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
+
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
 
@@ -407,6 +408,7 @@ ApplicationWindow {
             tabWidth: 100
         }
     }
+
     ProjectData {
         id: projectData
     }
@@ -484,7 +486,7 @@ ApplicationWindow {
             dockTitle: qsTr("Поле")
             titleVisible: dockTitleVisible
 
-            FieldView { id: field; anchors.fill: parent; }
+            FieldView { id: field; anchors.fill: parent; projectData: projectData }
         }
 
         DockControl {

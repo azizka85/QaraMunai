@@ -13,6 +13,7 @@ using namespace QaraMunai::Model::Domain::Project;
 namespace QaraMunai {
 namespace Model {
 namespace DAO {
+
 class MODELSHARED_EXPORT IDataFileWriter : public QObject {
 
     Q_OBJECT

@@ -62,5 +62,6 @@
         <file alias="gshader.gsh">shaders/gshader.gsh</file>
         <file alias="vshader.vsh">shaders/vshader.vsh</file>
         <file alias="cshader.csh">shaders/cshader.csh</file>
+        <file alias="sshader.csh">shaders/sshader.csh</file>
     </qresource>
 </RCC>

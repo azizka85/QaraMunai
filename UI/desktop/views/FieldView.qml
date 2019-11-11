@@ -3,12 +3,15 @@ import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 1.4 as C1
 import QtQuick.Controls 2.4 as C2
+
 import QaraMunai.Drawers 1.0
+import QaraMunai.Model.Domain.Project 1.0
 
 C1.SplitView {
     property real ratio: 0.8
     property bool settingsVisible: false
 
+    property alias projectData: drawer.pdata
     property alias showContour: drawer.showContour
     property alias showMesh: drawer.showMesh
 
@@ -586,6 +589,8 @@ C1.SplitView {
     {
         initFieldsRepeater.model = [];
         calcFieldsRepeater.model = [];
+
+        drawer.updateData(ProjectData.CLOSED);
     }
 
     function prepare(projectData)
@@ -596,12 +601,8 @@ C1.SplitView {
 
         var calcFields = drawer.getCalcFields();
 
-        var data = [];
+        calcFieldsRepeater.model = calcFields;
 
-        calcFields.forEach(function(ind) {
-            data.push(fields[ind]);
-        });
-
-        calcFieldsRepeater.model = data;
+        drawer.updateData(ProjectData.LOADED);
     }
 }
