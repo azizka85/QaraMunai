@@ -33,7 +33,9 @@ C1.SplitView {
             transparent: cbTransparent.checked
             lighting: cbLighting.checked
             axisOfRotation: cbRotationAxis.model[cbRotationAxis.currentIndex].value
-
+            multX: parseFloat(multXField.text)
+            multY: parseFloat(multYField.text)
+            multZ: parseFloat(multZField.text)
             MouseArea {
                 property vector2d localPosition
 
@@ -62,9 +64,9 @@ C1.SplitView {
 
                 onWheel: {
                     if(wheel.angleDelta.y > 0)
-                        drawer.zLocation += 0.25;
+                        drawer.zLocation += 0.01;
                     else if(wheel.angleDelta.y < 0)
-                        drawer.zLocation -= 0.25;
+                        drawer.zLocation -= 0.01;
 
                     wheel.accepted = true;
                 }
@@ -493,8 +495,68 @@ C1.SplitView {
                 }
 
                 Row {
-                    id: showLegendRow
+                    id: multXRow
                     spacing: 6
+
+                    Text {
+                        id: multXLabel
+                        verticalAlignment: Qt.AlignVCenter
+                        leftPadding: 6
+                        height: 20
+                        text: "Умножение X"
+                    }
+
+                    C2.TextField {
+                        id: multXField
+                        width: 50
+                        text: "1"
+                        inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    }
+                }
+
+                Row {
+                    id: multYRow
+                    spacing: 12
+
+                    Text {
+                        id: multYLabel
+                        verticalAlignment: Qt.AlignVCenter
+                        leftPadding: 6
+                        height: 20
+                        text: "Умножение Y"
+                    }
+
+                    C2.TextField {
+                        id: multYField
+                        width: 50
+                        text: "1"
+                        inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    }
+                }
+
+                Row {
+                    id: multZRow
+                    spacing: 12
+
+                    Text {
+                        id: multZLabel
+                        verticalAlignment: Qt.AlignVCenter
+                        leftPadding: 6
+                        height: 20
+                        text: "Умножение Z"
+                    }
+
+                    C2.TextField {
+                        id: multZField
+                        width: 50
+                        text: "1"
+                        inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    }
+                }
+
+                Row {
+                    id: showLegendRow
+                    spacing: 12
 
                     C2.CheckBox {
                         id: cbShowLegend

@@ -153,20 +153,10 @@ public:
     Q_INVOKABLE double rs(int i, int j, int k);
     Q_INVOKABLE double pBub(int i, int j, int k);
 
-    Q_INVOKABLE QVariantMap coordLine(int i, int j);
-    Q_INVOKABLE QVariantMap blockDepths(int i, int j, int k);
-
     Q_INVOKABLE double pressure(int i, int j, int k);
     Q_INVOKABLE double swat(int i, int j, int k);
     Q_INVOKABLE double soil(int i, int j, int k);
-    Q_INVOKABLE double sgas(int i, int j, int k);
-
-    bool CalcCoordLine(int i, int j, Line3D& coordLine);
-    bool CalcBlockDepths(int i, int j, int k, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
-
-    bool CheckPointOrderStandard();
-
-    bool PointOrderStandard();
+    Q_INVOKABLE double sgas(int i, int j, int k);    
 
     Block GetBlock(int i, int j, int k, double x0 = 0, double y0 = 0, double z0 = 0);
     Block CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k);
@@ -237,7 +227,6 @@ private:
     QVariant numRES;
     int nx, ny, nz;
     bool isBlockCentered;
-    bool pointOrderStandard;
 
     StratumData stratum;
 

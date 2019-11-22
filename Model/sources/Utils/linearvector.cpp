@@ -95,6 +95,8 @@ void LinearVector::Clear()
 {
     index = 0;
 
+    box.InitVariables();
+
     data.clear();
 }
 

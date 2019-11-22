@@ -243,7 +243,7 @@ double ProjectData::poro(int i, int j, int k)
 
 double ProjectData::ntg(int i, int j, int k)
 {
-    double val = 0;
+    double val = 1.0;
 
     if(stratum.NTG().Box().Contains(i, j, k))
         val = stratum.NTG()(i, j, k).toDouble();
@@ -940,25 +940,6 @@ double ProjectData::pBub(int i, int j, int k)
     else return DataHelper::CalculatePBubFromPVT(stratum, pvtNUM(i, j, k));
 }
 
-QVariantMap ProjectData::coordLine(int i, int j)
-{
-    Line3D line;
-
-    CalcCoordLine(i, j, line);
-
-    return line.toMap();
-}
-
-QVariantMap ProjectData::blockDepths(int i, int j, int k)
-{
-    double d1, d2, d3, d4, d5, d6, d7, d8;
-
-    CalcBlockDepths(i, j, k, d1, d2, d3, d4, d5, d6, d7, d8);
-
-    return QVariantMap { { "d1", d1 }, { "d2", d2 }, { "d3", d3 }, { "d4", d4 },
-        { "d5", d5 }, { "d6", d6 }, { "d7", d7 }, { "d8", d8 } };
-}
-
 double ProjectData::pressure(int i, int j, int k)
 {
     double val = 0;
@@ -1023,95 +1004,6 @@ double ProjectData::sgas(int i, int j, int k)
     return val;
 }
 
-bool ProjectData::CalcCoordLine(int i, int j, Line3D &coordLine)
-{
-    if(!stratum.COORD().Box().Contains(i, j)) return false;
-
-    int cur = (j*(nx + 1) + i)*6;
-
-    double x1 = stratum.COORD()(cur + 0).toDouble();
-    double y1 = stratum.COORD()(cur + 1).toDouble();
-    double z1 = stratum.COORD()(cur + 2).toDouble();
-
-    double x2 = stratum.COORD()(cur + 3).toDouble();
-    double y2 = stratum.COORD()(cur + 4).toDouble();
-    double z2 = stratum.COORD()(cur + 5).toDouble();
-
-    coordLine.P1().SetX(x1);
-    coordLine.P1().SetY(y1);
-    coordLine.P1().SetZ(z1);
-
-    coordLine.P2().SetX(x2);
-    coordLine.P2().SetY(y2);
-    coordLine.P2().SetZ(z2);
-
-    return true;
-}
-
-bool ProjectData::CalcBlockDepths(int i, int j, int k, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8)
-{
-    if(!stratum.ZCORN().Box().Contains(i, j, k)) return false;
-
-    int cur = k*nx*ny + j*nx + 2*i;
-
-    d1 = stratum.ZCORN()(cur + 0).toDouble();
-    d2 = stratum.ZCORN()(cur + 1).toDouble();
-
-    cur = k*nx*ny + 2*j*nx + 2*i;
-
-    d3 = stratum.ZCORN()(cur + 0).toDouble();
-    d4 = stratum.ZCORN()(cur + 1).toDouble();
-
-    cur = 2*k*nx*ny + j*nx + 2*i;
-
-    d5 = stratum.ZCORN()(cur + 0).toDouble();
-    d6 = stratum.ZCORN()(cur + 1).toDouble();
-
-    cur = 2*k*nx*ny + 2*j*nx + 2*i;
-
-    d7 = stratum.ZCORN()(cur + 0).toDouble();
-    d8 = stratum.ZCORN()(cur + 1).toDouble();
-
-    return true;
-}
-
-bool ProjectData::CheckPointOrderStandard()
-{
-    Line3D coordLine;
-
-    Point3D p1, p2, p3, p4;
-
-    double d1, d2, d3, d4, d5, d6, d7, d8;
-
-    CalcBlockDepths(0, 0, 0, d1, d2, d3, d4, d5, d6, d7, d8);
-
-    CalcCoordLine(0, 0, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d1, p1);
-
-    CalcCoordLine(1, 0, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d2, p2);
-
-    CalcCoordLine(0, 1, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d3, p3);
-
-    CalcCoordLine(1, 1, coordLine);
-
-    MathHelper::IntersectZPlane(coordLine, d4, p4);
-
-    return p1.X() <= p2.X() &&
-            p3.X() <= p4.X() &&
-            p1.Y() <= p3.Y() &&
-            p2.Y() <= p4.Y();
-}
-
-bool ProjectData::PointOrderStandard()
-{
-    return pointOrderStandard;
-}
-
 Block ProjectData::GetBlock(int i, int j, int k, double x0, double y0, double z0)
 {
     return isBlockCentered ? CalcBlockByBCG(x0, y0, z0, i, j, k) : CalcBlockByCPG(i, j, k);
@@ -1155,7 +1047,7 @@ Block ProjectData::CalcBlockByCPG(int i, int j, int k)
 
     double d1, d2, d3, d4, d5, d6, d7, d8;
 
-    CalcBlockDepths(i, j, k, d1, d2, d3, d4, d5, d6, d7, d8);
+    DataHelper::CalcBlockDepthsCPG(stratum, i, j, k, nx, ny, d1, d2, d3, d4, d5, d6, d7, d8);
 
     Block block;
 
@@ -1163,46 +1055,46 @@ Block ProjectData::CalcBlockByCPG(int i, int j, int k)
     block.SetJ(j);
     block.SetK(k);
 
-    if(PointOrderStandard())
+    if(DataHelper::CheckPointOrderStandardCPG(stratum, nx, ny))
     {
-        CalcCoordLine(i, j, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j, nx, coordLine);        
 
         MathHelper::IntersectZPlane(coordLine, d1, block.P1());
         MathHelper::IntersectZPlane(coordLine, d5, block.P5());
 
-        CalcCoordLine(i+1, j, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d2, block.P2());
         MathHelper::IntersectZPlane(coordLine, d6, block.P6());
 
-        CalcCoordLine(i, j+1, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j+1, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d3, block.P3());
         MathHelper::IntersectZPlane(coordLine, d7, block.P7());
 
-        CalcCoordLine(i+1, j+1, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j+1, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d4, block.P4());
         MathHelper::IntersectZPlane(coordLine, d8, block.P8());
     }
     else
     {
-        CalcCoordLine(i, j, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d1, block.P8());
         MathHelper::IntersectZPlane(coordLine, d5, block.P4());
 
-        CalcCoordLine(i+1, j, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d2, block.P7());
         MathHelper::IntersectZPlane(coordLine, d6, block.P3());
 
-        CalcCoordLine(i, j+1, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j+1, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d3, block.P6());
         MathHelper::IntersectZPlane(coordLine, d7, block.P2());
 
-        CalcCoordLine(i+1, j+1, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j+1, nx, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d4, block.P5());
         MathHelper::IntersectZPlane(coordLine, d8, block.P1());
@@ -1309,8 +1201,6 @@ QVariantList ProjectData::DATES()
 void ProjectData::SetState(const ProjectState &state)
 {
     this->state = state;
-
-    if(!isBlockCentered) pointOrderStandard = CheckPointOrderStandard();
 
     StateChanged();
 }

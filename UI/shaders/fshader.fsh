@@ -9,10 +9,15 @@ uniform vec3 uMidColor;
 uniform vec3 uMinColor;
 uniform float uMaxValue;
 uniform float uMinValue;
-uniform float uSelectedValue;
+uniform float uSelectedBlockI;
+uniform float uSelectedBlockJ;
+uniform float uSelectedBlockK;
 
 in vec3 vNormal;
 in vec4 vPosition;
+in float vBlockI;
+in float vBlockJ;
+in float vBlockK;
 in float vValue;
 in vec3 d;
 
@@ -48,7 +53,7 @@ void main(void)
 
         resultColor.xyz += diffColor;
 
-        float sFactor = exp2(-abs(vValue - uSelectedValue));
+        float sFactor = exp2(-10*abs(vBlockI - uSelectedBlockI))*exp2(-10*abs(vBlockJ - uSelectedBlockJ))*exp2(-10*abs(vBlockK - uSelectedBlockK));
 
         resultColor.xyz = (1 - 0.5*sFactor)*resultColor.xyz + 0.5*sFactor*vec3(1.0f, 1.0f, 1.0f);
 

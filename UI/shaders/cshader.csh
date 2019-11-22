@@ -3,6 +3,7 @@ uniform vec2 uViewPort;
 uniform vec4 uRay;
 uniform mat4 uProjectionMatrix;
 uniform mat4 uMVMatrix;
+uniform mat4 uScaleMatrix;
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 layout (std430, binding = 0) buffer VertexBuffer { float vertex[]; };
@@ -17,15 +18,15 @@ void main(void)
     uint ind2 = index[3*i + 1];
     uint ind3 = index[3*i + 2];
 
-    vec4 v1 = vec4(vertex[8*ind1 + 0], vertex[8*ind1 + 1], vertex[8*ind1 + 2], 1.0f);
-    vec4 v2 = vec4(vertex[8*ind2 + 0], vertex[8*ind2 + 1], vertex[8*ind2 + 2], 1.0f);
-    vec4 v3 = vec4(vertex[8*ind3 + 0], vertex[8*ind3 + 1], vertex[8*ind3 + 2], 1.0f);
+    vec4 v1 = vec4(vertex[11*ind1 + 0], vertex[11*ind1 + 1], vertex[11*ind1 + 2], 1.0f);
+    vec4 v2 = vec4(vertex[11*ind2 + 0], vertex[11*ind2 + 1], vertex[11*ind2 + 2], 1.0f);
+    vec4 v3 = vec4(vertex[11*ind3 + 0], vertex[11*ind3 + 1], vertex[11*ind3 + 2], 1.0f);
 
-    vec4 n = vec4(vertex[8*ind3 + 3], vertex[8*ind3 + 4], vertex[8*ind3 + 5], 0.0f);
+    vec4 n = vec4(vertex[11*ind3 + 3], vertex[11*ind3 + 4], vertex[11*ind3 + 5], 0.0f);
 
-    v1 = uMVMatrix * v1;
-    v2 = uMVMatrix * v2;
-    v3 = uMVMatrix * v3;
+    v1 = uMVMatrix * uScaleMatrix * v1;
+    v2 = uMVMatrix * uScaleMatrix * v2;
+    v3 = uMVMatrix * uScaleMatrix * v3;
 
     n = uMVMatrix * n;
 
@@ -56,7 +57,9 @@ void main(void)
 
     if(d >= 0 && s >= 0 && t >= 0 && 1 - s - t >= 0) iCheck = 1.0f;
 
-    outBuffer[3*i + 0] = d;
-    outBuffer[3*i + 1] = vertex[8*ind1 + 7];
-    outBuffer[3*i + 2] = iCheck;
+    outBuffer[5*i + 0] = d;
+    outBuffer[5*i + 1] = iCheck;
+    outBuffer[5*i + 2] = vertex[11*ind1 + 7];
+    outBuffer[5*i + 3] = vertex[11*ind1 + 8];
+    outBuffer[5*i + 4] = vertex[11*ind1 + 9];
 }

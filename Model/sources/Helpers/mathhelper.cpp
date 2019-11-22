@@ -292,4 +292,19 @@ double MathHelper::GetContactArea(Point3D &a1Up, Point3D &a1Down, Point3D &b1Up,
     return 0;
 }
 
+bool MathHelper::IsIntersectedSurfaces(Segment lside1, Segment rside1, Segment lside2, Segment rside2)
+{
+    if (lside1.IsIntersect(lside2) || rside1.IsIntersect(rside2)) return true;
+
+    if (lside1.EndPoint() <= lside2.StartPoint() && rside1.StartPoint() >= rside2.EndPoint()) return true;
+
+    if (lside1.StartPoint() >= lside2.EndPoint() && rside1.EndPoint() <= rside2.StartPoint()) return true;
+
+    if (lside2.EndPoint() <= lside1.StartPoint() && rside2.StartPoint() >= rside1.EndPoint()) return true;
+
+    if (lside2.StartPoint() >= lside1.EndPoint() && rside2.EndPoint() <= rside1.StartPoint()) return true;
+
+    return false;
+}
+
 }}}

@@ -6,6 +6,7 @@
 #include <point3d.h>
 #include <line3d.h>
 #include <plane.h>
+#include <segment.h>
 
 #include <model_global.h>
 
@@ -40,6 +41,8 @@ public:
     static double GetPentagonArea(Point3D &p0, Point3D &p1, Point3D &p2, Point3D &p3, Point3D &p4);
     static double GetHexagonArea(Point3D &p0, Point3D &p1, Point3D &p2, Point3D &p3, Point3D &p4, Point3D &p5);
     static double GetContactArea(Point3D &a1Up, Point3D &a1Down, Point3D &b1Up, Point3D &b1Down, Point3D &a2Up, Point3D &a2Down, Point3D &b2Up, Point3D &b2Down, Point3D &contactAreaCenter);
+
+    static bool IsIntersectedSurfaces(Segment lside1, Segment rside1, Segment lside2, Segment rside2);
 };
 
 }}}

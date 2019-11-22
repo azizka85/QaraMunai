@@ -18,9 +18,15 @@
 
 #include <projectdata.h>
 
+#include <datahelper.h>
+
+#include <depth.h>
+
 #include <fieldinfo.h>
 
 using namespace QaraMunai::Model::Domain::Project;
+using namespace QaraMunai::Model::Domain::Grid;
+using namespace QaraMunai::Model::Helpers;
 
 class FieldSceneDrawer : public QQuickFramebufferObject
 {
@@ -35,10 +41,15 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_PROPERTY(bool transparent READ Transparent WRITE SetTransparent NOTIFY TransparentChanged)
     Q_PROPERTY(bool lighting READ Lighting WRITE SetLighting NOTIFY LightingChanged)
     Q_PROPERTY(RotationAxis axisOfRotation READ AxisOfRotation WRITE SetAxisOfRotation NOTIFY AxisOfRotationChanged)
-    Q_PROPERTY(QVariant selectedValue READ SelectedValue WRITE SetSelectedValue NOTIFY SelectedValueChanged)
+    Q_PROPERTY(int selectedBlockI READ SelectedBlockI WRITE SetSelectedBlockI NOTIFY SelectedBlockIndexChanged)
+    Q_PROPERTY(int selectedBlockJ READ SelectedBlockJ WRITE SetSelectedBlockJ NOTIFY SelectedBlockIndexChanged)
+    Q_PROPERTY(int selectedBlockK READ SelectedBlockK WRITE SetSelectedBlockK NOTIFY SelectedBlockIndexChanged)
     Q_PROPERTY(QVector2D mousePosition READ MousePosition WRITE SetMousePosition NOTIFY MousePositionChanged)
     Q_PROPERTY(QVector2D mouseDisplacement READ MouseDisplacement WRITE SetMouseDisplacement NOTIFY MouseDisplacementChanged)
     Q_PROPERTY(float zLocation READ ZLocation WRITE SetZLocation NOTIFY ZLocationChanged)
+    Q_PROPERTY(float multX READ MultX WRITE SetMultX NOTIFY MultXChanged)
+    Q_PROPERTY(float multY READ MultY WRITE SetMultY NOTIFY MultYChanged)
+    Q_PROPERTY(float multZ READ MultZ WRITE SetMultZ NOTIFY MultZChanged)
 
 public:
     explicit FieldSceneDrawer(QQuickItem *parent = nullptr);
@@ -54,10 +65,15 @@ public:
     bool Transparent();
     bool Lighting();
     RotationAxis AxisOfRotation();
-    QVariant SelectedValue();
+    int SelectedBlockI();
+    int SelectedBlockJ();
+    int SelectedBlockK();
     QVector2D MousePosition();
     QVector2D MouseDisplacement();
     float ZLocation();
+    float MultX();
+    float MultY();
+    float MultZ();
 
     void SetData(ProjectData* data);
     void SetShowMesh(const bool &showMesh);
@@ -65,10 +81,15 @@ public:
     void SetTransparent(const bool &transparent);
     void SetLighting(const bool &lighting);
     void SetAxisOfRotation(const RotationAxis &axisOfRotation);
-    void SetSelectedValue(const QVariant &selectedValue);
+    void SetSelectedBlockI(const int &selectedBlockI);
+    void SetSelectedBlockJ(const int &selectedBlockJ);
+    void SetSelectedBlockK(const int &selectedBlockK);
     void SetMousePosition(const QVector2D &mousePosition);
     void SetMouseDisplacement(const QVector2D &mouseDisplacement);
     void SetZLocation(const float &zLocation);
+    void SetMultX(const float &multX);
+    void SetMultY(const float &multY);
+    void SetMultZ(const float &multZ);
 
     Q_INVOKABLE void setXYViewAxis();
     Q_INVOKABLE void setXZViewAxis();
@@ -86,10 +107,13 @@ signals:
     void TransparentChanged();
     void LightingChanged();
     void AxisOfRotationChanged();
-    void SelectedValueChanged();
+    void SelectedBlockIndexChanged();
     void MousePositionChanged();
     void MouseDisplacementChanged();
     void ZLocationChanged();
+    void MultXChanged();
+    void MultYChanged();
+    void MultZChanged();
 
 protected:
     class Renderer : public QQuickFramebufferObject::Renderer, protected QOpenGLExtraFunctions
@@ -106,7 +130,7 @@ protected:
         void initBuffer();
         void initGeometry();
         void clearGeometry();
-        QVariant compute();
+        void compute();
 
     private:
         bool initialized;
@@ -118,6 +142,7 @@ protected:
         QMatrix4x4 projectionMatrix;
         QMatrix4x4 viewMatrix;
         QMatrix4x4 modelMatrix;
+        QMatrix4x4 scaleMatrix;
 
         QOpenGLShaderProgram shaderProgram;
         QOpenGLShaderProgram computeProgram;
@@ -134,11 +159,12 @@ protected:
     {
         VertexData() {  }
 
-        VertexData(QVector3D p, QVector3D n, float e, float v) : position(p), normal(n), exclude(e), value(v) {  }
+        VertexData(QVector3D p, QVector3D n, float e, float i, float j, float k, float v) : position(p), normal(n), exclude(e), i(i), j(j), k(k), value(v) {  }
 
         QVector3D position;
         QVector3D normal;
         float exclude;
+        float i, j, k;
         float value;
     };
 
@@ -149,11 +175,14 @@ private:
     bool transparent;
     bool lighting;
     RotationAxis axisOfRotation;
-    QVariant selectedValue;
+    int selectedBlockI;
+    int selectedBlockJ;
+    int selectedBlockK;
     QVector2D mousePosition;
     QVector2D mouseDisplacement;
     QQuaternion rot;
     float zLocation;
+    float multX, multY, multZ;
 
     bool dataUpdated;
 
