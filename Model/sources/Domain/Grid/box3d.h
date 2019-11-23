@@ -21,6 +21,10 @@ public:
     int K1();
     int K2();
 
+    int Nx();
+    int Ny();
+    int Nz();
+
     void SetI1(int i1);
     void SetI2(int i2);
     void SetJ1(int j1);

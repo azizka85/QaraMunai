@@ -19,9 +19,6 @@ class MODELSHARED_EXPORT LinearMatrix3D : public LinearVector
 public:
     LinearMatrix3D();
 
-    int Nx();
-    int Ny();
-
     QVariant operator() (int i, int j, int k);
 };
 

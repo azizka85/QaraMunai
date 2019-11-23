@@ -397,8 +397,6 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
     scaleMatrix.setToIdentity();
     scaleMatrix.scale(multX, multY, multZ);
 
-    qDebug() << scaleMatrix;
-
     if(drawer->dataUpdated || initialized)
     {
         if(drawer->state != ProjectData::ProjectState::CLOSED) initGeometry();
@@ -579,7 +577,8 @@ void FieldSceneDrawer::Renderer::initGeometry()
         DataHelper::GetDrawBlocks(drawer->data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
         DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
 
-        qDebug() << "xMin: " << xMin << ", xMax: " << xMax << ", yMin: " << yMin << ", yMax: " << yMax << ", zMin: " << zMin << ", zMax: " << zMax;
+        qDebug() << "xMin: " << xMin << ", yMin: " << yMin << ", zMin: " << zMin << "\n";
+        qDebug() << "xMax: " << xMax << ", yMax: " << yMax << ", zMax: " << zMax << "\n";
 
         for(int i = 0; i < blocks.size(); i++)
         {

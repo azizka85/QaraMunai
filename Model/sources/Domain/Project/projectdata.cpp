@@ -1057,44 +1057,44 @@ Block ProjectData::CalcBlockByCPG(int i, int j, int k)
 
     if(DataHelper::CheckPointOrderStandardCPG(stratum, nx, ny))
     {
-        DataHelper::CalcCoordLineCPG(stratum, i, j, nx, coordLine);        
+        DataHelper::CalcCoordLineCPG(stratum, i, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d1, block.P1());
         MathHelper::IntersectZPlane(coordLine, d5, block.P5());
 
-        DataHelper::CalcCoordLineCPG(stratum, i+1, j, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d2, block.P2());
         MathHelper::IntersectZPlane(coordLine, d6, block.P6());
 
-        DataHelper::CalcCoordLineCPG(stratum, i, j+1, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d3, block.P3());
         MathHelper::IntersectZPlane(coordLine, d7, block.P7());
 
-        DataHelper::CalcCoordLineCPG(stratum, i+1, j+1, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d4, block.P4());
         MathHelper::IntersectZPlane(coordLine, d8, block.P8());
     }
     else
     {
-        DataHelper::CalcCoordLineCPG(stratum, i, j, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d1, block.P8());
         MathHelper::IntersectZPlane(coordLine, d5, block.P4());
 
-        DataHelper::CalcCoordLineCPG(stratum, i+1, j, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d2, block.P7());
         MathHelper::IntersectZPlane(coordLine, d6, block.P3());
 
-        DataHelper::CalcCoordLineCPG(stratum, i, j+1, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d3, block.P6());
         MathHelper::IntersectZPlane(coordLine, d7, block.P2());
 
-        DataHelper::CalcCoordLineCPG(stratum, i+1, j+1, nx, coordLine);
+        DataHelper::CalcCoordLineCPG(stratum, i+1, j+1, coordLine);
 
         MathHelper::IntersectZPlane(coordLine, d4, block.P5());
         MathHelper::IntersectZPlane(coordLine, d8, block.P1());

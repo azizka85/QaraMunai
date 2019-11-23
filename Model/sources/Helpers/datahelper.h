@@ -4,6 +4,8 @@
 #include <qvariant.h>
 #include <qvector.h>
 
+#include <qfile.h>
+
 #include <qdebug.h>
 
 #include <depth.h>
@@ -62,7 +64,7 @@ public:
     static double CalculateRSFromRSVD(StratumData& stratum, double depth, int eqlNum);
     static double CalculatePBubFromPBVD(StratumData& stratum, double depth, int eqlNum);
 
-    static bool CalcCoordLineCPG(StratumData &stratum, int i, int j, int nx, Line3D& coordLine);
+    static bool CalcCoordLineCPG(StratumData &stratum, int i, int j, Line3D& coordLine);
     static bool CalcBlockDepthsCPG(StratumData &stratum, int i, int j, int k, int nx, int ny, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
     static bool CheckPointOrderStandardCPG(StratumData &stratum, int nx, int ny);
 

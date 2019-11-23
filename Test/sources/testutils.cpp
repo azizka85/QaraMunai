@@ -12,7 +12,7 @@ void TestUtils::TestLinearMatrix3D()
 
     linearMatrix3D.SetBox(box);
 
-    int nx = linearMatrix3D.Nx();
+    int nx = linearMatrix3D.Box().Nx();
 
     VERIFY(nx == 3, "Nx of LinearMatrix2D must be equal 3");
 

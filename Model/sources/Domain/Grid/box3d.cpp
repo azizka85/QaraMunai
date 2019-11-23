@@ -50,6 +50,21 @@ int Box3D::K2()
     return k2;
 }
 
+int Box3D::Nx()
+{
+    return i2-i1+1;
+}
+
+int Box3D::Ny()
+{
+    return j2-j1+1;
+}
+
+int Box3D::Nz()
+{
+    return k2-k1+1;
+}
+
 void Box3D::SetI1(int i1)
 {
     this->i1 = i1;

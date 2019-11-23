@@ -392,9 +392,12 @@ double DataHelper::CalculatePBubFromPBVD(StratumData &stratum, double depth, int
     return ap * k1 + bp * k2;
 }
 
-bool DataHelper::CalcCoordLineCPG(StratumData &stratum, int i, int j, int nx, Line3D &coordLine)
+bool DataHelper::CalcCoordLineCPG(StratumData &stratum, int i, int j, Line3D &coordLine)
 {
-    if(!stratum.COORD().Box().Contains(i, j)) return false;
+    int nx = stratum.COORD().Box().Nx();
+    int ny = stratum.COORD().Box().Ny();
+
+    if(j*(nx+1) + i >= (nx+1)*(ny+1)) return false; //TODO: must be >= (nx+1)*(ny+1)*numRes
 
     int cur = (j*(nx + 1) + i)*6;
 
@@ -459,19 +462,19 @@ bool DataHelper::CheckPointOrderStandardCPG(StratumData &stratum, int nx, int ny
 
     CalcBlockDepthsCPG(stratum, 0, 0, 0, nx, ny, d1, d2, d3, d4, d5, d6, d7, d8);
 
-    CalcCoordLineCPG(stratum, 0, 0, nx, coordLine);
+    CalcCoordLineCPG(stratum, 0, 0, coordLine);
 
     MathHelper::IntersectZPlane(coordLine, d1, p1);
 
-    CalcCoordLineCPG(stratum, 1, 0, nx, coordLine);
+    CalcCoordLineCPG(stratum, 1, 0, coordLine);
 
     MathHelper::IntersectZPlane(coordLine, d2, p2);
 
-    CalcCoordLineCPG(stratum, 0, 1, nx, coordLine);
+    CalcCoordLineCPG(stratum, 0, 1, coordLine);
 
     MathHelper::IntersectZPlane(coordLine, d3, p3);
 
-    CalcCoordLineCPG(stratum, 1, 1, nx, coordLine);
+    CalcCoordLineCPG(stratum, 1, 1, coordLine);
 
     MathHelper::IntersectZPlane(coordLine, d4, p4);
 
