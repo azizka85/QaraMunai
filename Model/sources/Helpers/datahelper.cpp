@@ -902,4 +902,50 @@ void DataHelper::NormalizeBlocks(double xMin, double xMax, double yMin, double y
     }
 }
 
+void DataHelper::DivideOnAxesNodes(int n, int mx, int my, int &nx, int &ny, int &nz)
+{
+    nz = n/mx/my;
+
+    int r = n - nz*my*mx;
+
+    ny = r/mx;
+
+    nx = r - ny*mx;
+}
+
+void DataHelper::NumberOfGPUNodes(int n, int mx, int my, int &nx, int &ny, int &nz)
+{
+    DivideOnAxesNodes(n, mx, my, nx, ny, nz);
+
+    if(nx == 0)
+    {
+        if(ny == 0)
+        {
+            if(nz > 0)
+            {
+                ny = my;
+                nx = mx;
+            }
+            else
+            {
+                nx = 1;
+                ny = 1;
+                nz = 1;
+            }
+        }
+        else
+        {
+            nz++;
+            nx = mx;
+        }
+    }
+    else
+    {
+        if(ny > 0 || nz > 0) nx = mx;
+
+        ny++;
+        nz++;
+    }
+}
+
 }}}

@@ -10,7 +10,9 @@ void check(in uint id1, in uint id2);
 
 void main(void)
 {
-    uint id = gl_GlobalInvocationID.x;
+    uint id = gl_GlobalInvocationID.z * gl_NumWorkGroups.y * gl_NumWorkGroups.x +
+                gl_GlobalInvocationID.y * gl_NumWorkGroups.x +
+                gl_GlobalInvocationID.x;
 
     uint n = uDiv;
 

@@ -73,6 +73,9 @@ public:
     static void CalculateDrawBlockArray(ProjectData* projectData, QVector<Depth>& depths, QVector<bool> &existBlock, QVector<bool> &drawBlock);
     static void GetDrawBlocks(ProjectData* projectData, QVector<bool> &drawBlock, QVector<Block> &blocks, double &xMin, double &xMax, double &yMin, double &yMax, double &zMin, double &zMax);
     static void NormalizeBlocks(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax, QVector<Block> &blocks);
+
+    static void DivideOnAxesNodes(int n, int mx, int my, int &nx, int &ny, int &nz);
+    static void NumberOfGPUNodes(int n, int mx, int my, int &nx, int &ny, int &nz);
 };
 
 }}}

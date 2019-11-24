@@ -688,6 +688,22 @@ void FieldSceneDrawer::Renderer::compute()
 
     QMatrix4x4 mvMatrix = viewMatrix * modelMatrix;
 
+    int cNx, cNy;
+
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &cNx);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &cNy);
+
+    qDebug() << "Max compute nodes: " << cNx << ", " << cNy;
+
+    int lNx, lNy;
+
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &lNx);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &lNy);
+
+    qDebug() << "Max local invocations: " << lNx << ", " << lNy;
+
+    int cx, cy, cz;
+
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, arrayBuffer.bufferId());
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, indBuffer.bufferId());
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, outputBuffer.bufferId());
@@ -699,7 +715,11 @@ void FieldSceneDrawer::Renderer::compute()
     computeProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
     computeProgram.setUniformValue("uMVMatrix", mvMatrix);
 
-    glDispatchCompute(primitiveCount, 1, 1);
+    DataHelper::NumberOfGPUNodes(primitiveCount, cNx, cNy, cx, cy, cz);
+
+    qDebug() << "Compute: " << cx << ", " << cy << ", " << cz;
+
+    glDispatchCompute(cx, cy, cz);
 
     glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
 
@@ -717,7 +737,11 @@ void FieldSceneDrawer::Renderer::compute()
 
         sortProgram.setUniformValue("uDiv", d);
 
-        glDispatchCompute(n, 1, 1);
+        DataHelper::NumberOfGPUNodes(n, cNx, cNy, cx, cy, cz);
+
+        qDebug() << "Sort " << d << ": " << cx << ", " << cy << ", " << cz;
+
+        glDispatchCompute(cx, cy, cz);
 
         glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
 

@@ -12,7 +12,9 @@ layout (std430, binding = 2) buffer OutputBuffer { float outBuffer[]; };
 
 void main(void)
 {
-    uint i = gl_GlobalInvocationID.x;
+    uint i = gl_GlobalInvocationID.z * gl_NumWorkGroups.y * gl_NumWorkGroups.x +
+                gl_GlobalInvocationID.y * gl_NumWorkGroups.x +
+                gl_GlobalInvocationID.x;
 
     uint ind1 = index[3*i + 0];
     uint ind2 = index[3*i + 1];
