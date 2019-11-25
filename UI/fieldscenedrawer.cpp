@@ -40,6 +40,11 @@ FieldSceneDrawer::RotationAxis FieldSceneDrawer::AxisOfRotation()
     return axisOfRotation;
 }
 
+FieldSceneDrawer::MouseAction FieldSceneDrawer::ActionByMouse()
+{
+    return actionByMouse;
+}
+
 int FieldSceneDrawer::SelectedBlockI()
 {
     return selectedBlockI;
@@ -58,11 +63,6 @@ int FieldSceneDrawer::SelectedBlockK()
 QVector2D FieldSceneDrawer::MousePosition()
 {
     return mousePosition;
-}
-
-QVector2D FieldSceneDrawer::MouseDisplacement()
-{
-    return mouseDisplacement;
 }
 
 float FieldSceneDrawer::ZLocation()
@@ -139,6 +139,13 @@ void FieldSceneDrawer::SetAxisOfRotation(const RotationAxis &axisOfRotation)
     AxisOfRotationChanged();
 }
 
+void FieldSceneDrawer::SetActionByMouse(const FieldSceneDrawer::MouseAction &actionByMouse)
+{
+    this->actionByMouse = actionByMouse;
+
+    ActionByMouseChanged();
+}
+
 void FieldSceneDrawer::SetSelectedBlockI(const int &selectedBlockI)
 {
     if(this->selectedBlockI != selectedBlockI)
@@ -176,36 +183,6 @@ void FieldSceneDrawer::SetMousePosition(const QVector2D &mouseSelection)
     update();
 
     MousePositionChanged();
-}
-
-void FieldSceneDrawer::SetMouseDisplacement(const QVector2D &mouseDisplacement)
-{
-    this->mouseDisplacement = mouseDisplacement;
-
-    float angle = mouseDisplacement.length() / 2.0f;
-
-    QVector3D axis;
-
-    switch (axisOfRotation) {
-    case RotationAxis::XY:
-        axis = QVector3D(mouseDisplacement.y(), mouseDisplacement.x(), 0.0);
-        break;
-    case RotationAxis::X:
-        axis = QVector3D(mouseDisplacement.y(), 0.0, 0.0);
-        break;
-    case RotationAxis::Y:
-        axis = QVector3D(0.0, mouseDisplacement.x(), 0.0);
-        break;
-    case RotationAxis::Z:
-        axis = QVector3D(0.0, 0.0, mouseDisplacement.x());
-        break;
-    }
-
-    rot = QQuaternion::fromAxisAndAngle(axis, angle) * rot;
-
-    update();
-
-    MouseDisplacementChanged();
 }
 
 void FieldSceneDrawer::SetZLocation(const float &zLocation)
@@ -265,6 +242,42 @@ void FieldSceneDrawer::setYZViewAxis()
     update();
 }
 
+void FieldSceneDrawer::rotateView(const QVector2D &displacement, FieldSceneDrawer::RotationAxis rotationAxis)
+{
+    float angle = displacement.length() / 2.0f;
+
+    QVector3D axis;
+
+    switch (rotationAxis) {
+    case RotationAxis::XY:
+        axis = QVector3D(displacement.y(), displacement.x(), 0.0);
+        break;
+    case RotationAxis::X:
+        axis = QVector3D(displacement.y(), 0.0, 0.0);
+        break;
+    case RotationAxis::Y:
+        axis = QVector3D(0.0, displacement.x(), 0.0);
+        break;
+    case RotationAxis::Z:
+        axis = QVector3D(0.0, 0.0, displacement.x());
+        break;
+    }
+
+    rot = QQuaternion::fromAxisAndAngle(axis, angle) * rot;
+
+    update();
+}
+
+void FieldSceneDrawer::translateView(const QVector2D &displacement)
+{
+    qDebug() << "Translation: " << xLocation << ", " << yLocation;
+
+    xLocation += displacement.y()*zLocation/1000;
+    yLocation -= displacement.x()*zLocation/1000;
+
+    update();
+}
+
 QVariantList FieldSceneDrawer::getFields()
 {
     QVariantList data;
@@ -295,6 +308,9 @@ void FieldSceneDrawer::updateData(int state)
 
     dataUpdated = true;
 
+    xLocation = 0;
+    yLocation = 0;
+
     update();
 }
 
@@ -309,10 +325,13 @@ void FieldSceneDrawer::initVariables()
     selectedBlockJ = -1;
     selectedBlockK = -1;
 
-    zLocation = 0;
+    zLocation = -1;
+    xLocation = 0;
+    yLocation = 0;
     showMesh = true;
     showContour = true;
     axisOfRotation = RotationAxis::XY;
+    actionByMouse = MouseAction::ActionRotate;
 
     multX = multY = multZ = 1;
 
@@ -382,6 +401,8 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
 
     QQuaternion rotation = drawer->rot;
     float z = drawer->zLocation;
+    float y = drawer->xLocation;
+    float x = drawer->yLocation;
 
     float aspect = w/h;
 
@@ -389,7 +410,7 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
     projectionMatrix.perspective(45.0f, aspect, 0.01f, 100.0f);
 
     viewMatrix.setToIdentity();
-    viewMatrix.translate(0.0f, 0.0f, z);
+    viewMatrix.translate(x, y, z);
     viewMatrix.rotate(rotation);
 
     modelMatrix.setToIdentity();    

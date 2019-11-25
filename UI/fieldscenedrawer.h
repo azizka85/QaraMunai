@@ -34,6 +34,7 @@ class FieldSceneDrawer : public QQuickFramebufferObject
 
     Q_ENUMS(FieldNames)
     Q_ENUMS(RotationAxis)
+    Q_ENUMS(MouseAction)
 
     Q_PROPERTY(ProjectData* pdata READ Data WRITE SetData NOTIFY DataChanged)    
     Q_PROPERTY(bool showMesh READ ShowMesh WRITE SetShowMesh NOTIFY ShowMeshChanged)
@@ -41,11 +42,11 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_PROPERTY(bool transparent READ Transparent WRITE SetTransparent NOTIFY TransparentChanged)
     Q_PROPERTY(bool lighting READ Lighting WRITE SetLighting NOTIFY LightingChanged)
     Q_PROPERTY(RotationAxis axisOfRotation READ AxisOfRotation WRITE SetAxisOfRotation NOTIFY AxisOfRotationChanged)
+    Q_PROPERTY(MouseAction actionByMouse READ ActionByMouse WRITE SetActionByMouse NOTIFY ActionByMouseChanged)
     Q_PROPERTY(int selectedBlockI READ SelectedBlockI WRITE SetSelectedBlockI NOTIFY SelectedBlockIndexChanged)
     Q_PROPERTY(int selectedBlockJ READ SelectedBlockJ WRITE SetSelectedBlockJ NOTIFY SelectedBlockIndexChanged)
     Q_PROPERTY(int selectedBlockK READ SelectedBlockK WRITE SetSelectedBlockK NOTIFY SelectedBlockIndexChanged)
     Q_PROPERTY(QVector2D mousePosition READ MousePosition WRITE SetMousePosition NOTIFY MousePositionChanged)
-    Q_PROPERTY(QVector2D mouseDisplacement READ MouseDisplacement WRITE SetMouseDisplacement NOTIFY MouseDisplacementChanged)
     Q_PROPERTY(float zLocation READ ZLocation WRITE SetZLocation NOTIFY ZLocationChanged)
     Q_PROPERTY(float multX READ MultX WRITE SetMultX NOTIFY MultXChanged)
     Q_PROPERTY(float multY READ MultY WRITE SetMultY NOTIFY MultYChanged)
@@ -56,6 +57,7 @@ public:
 
     enum FieldNames { PERMX, PERMY, PERMZ, PORO, NTG, TRANX, TRANY, TRANZ, SWAT, SOIL, SGAS, RS, PRESSURE, PW, PBUB, DEPTH, PVTNUM, SATNUM, EQLNUM, PORV, OILV };
     enum RotationAxis {XY, X, Y, Z};    
+    enum MouseAction { ActionRotate, ActionMove };
 
     QQuickFramebufferObject::Renderer *createRenderer() const;
 
@@ -65,11 +67,11 @@ public:
     bool Transparent();
     bool Lighting();
     RotationAxis AxisOfRotation();
+    MouseAction ActionByMouse();
     int SelectedBlockI();
     int SelectedBlockJ();
     int SelectedBlockK();
     QVector2D MousePosition();
-    QVector2D MouseDisplacement();
     float ZLocation();
     float MultX();
     float MultY();
@@ -81,11 +83,11 @@ public:
     void SetTransparent(const bool &transparent);
     void SetLighting(const bool &lighting);
     void SetAxisOfRotation(const RotationAxis &axisOfRotation);
+    void SetActionByMouse(const MouseAction &actionByMouse);
     void SetSelectedBlockI(const int &selectedBlockI);
     void SetSelectedBlockJ(const int &selectedBlockJ);
     void SetSelectedBlockK(const int &selectedBlockK);
     void SetMousePosition(const QVector2D &mousePosition);
-    void SetMouseDisplacement(const QVector2D &mouseDisplacement);
     void SetZLocation(const float &zLocation);
     void SetMultX(const float &multX);
     void SetMultY(const float &multY);
@@ -94,6 +96,9 @@ public:
     Q_INVOKABLE void setXYViewAxis();
     Q_INVOKABLE void setXZViewAxis();
     Q_INVOKABLE void setYZViewAxis();
+
+    Q_INVOKABLE void rotateView(const QVector2D &displacement, RotationAxis rotationAxis);
+    Q_INVOKABLE void translateView(const QVector2D &displacement);
 
     Q_INVOKABLE QVariantList getFields();
     Q_INVOKABLE QVariantList getCalcFields();
@@ -107,9 +112,9 @@ signals:
     void TransparentChanged();
     void LightingChanged();
     void AxisOfRotationChanged();
+    void ActionByMouseChanged();
     void SelectedBlockIndexChanged();
     void MousePositionChanged();
-    void MouseDisplacementChanged();
     void ZLocationChanged();
     void MultXChanged();
     void MultYChanged();
@@ -175,13 +180,15 @@ private:
     bool transparent;
     bool lighting;
     RotationAxis axisOfRotation;
+    MouseAction actionByMouse;
     int selectedBlockI;
     int selectedBlockJ;
     int selectedBlockK;
     QVector2D mousePosition;
-    QVector2D mouseDisplacement;
     QQuaternion rot;
     float zLocation;
+    float yLocation;
+    float xLocation;
     float multX, multY, multZ;
 
     bool dataUpdated;

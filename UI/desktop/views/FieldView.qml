@@ -33,16 +33,18 @@ C1.SplitView {
             transparent: cbTransparent.checked
             lighting: cbLighting.checked
             axisOfRotation: cbRotationAxis.model[cbRotationAxis.currentIndex].value
+            actionByMouse: cbActionByMouse.model[cbActionByMouse.currentIndex].value
             multX: parseFloat(multXField.text)
             multY: parseFloat(multYField.text)
             multZ: parseFloat(multZField.text)
             MouseArea {
                 property vector2d localPosition
 
+                acceptedButtons: Qt.LeftButton | Qt.MidButton
                 anchors.fill: parent
 
                 onPressed: {
-                    if(mouse.buttons === Qt.LeftButton) {
+                    if(mouse.buttons === Qt.LeftButton || mouse.buttons === Qt.MidButton) {
                         drawer.mousePosition = Qt.vector2d(mouse.x, mouse.y);
                         localPosition = drawer.mousePosition;
                     }
@@ -51,11 +53,26 @@ C1.SplitView {
                 }
 
                 onPositionChanged: {
-                    if(mouse.buttons !== Qt.LeftButton) return;
+                    if(mouse.buttons !== Qt.LeftButton && mouse.buttons !== Qt.MidButton) return;
 
                     var position = Qt.vector2d(mouse.x, mouse.y);
 
-                    drawer.mouseDisplacement = Qt.vector2d(position.x - localPosition.x, localPosition.y - position.y);
+                    var displacement = Qt.vector2d(position.x - localPosition.x, localPosition.y - position.y);
+
+                    if(mouse.buttons === Qt.LeftButton)
+                    {
+                        if(drawer.actionByMouse === FieldSceneDrawer.ActionRotate)
+                            drawer.rotateView(displacement, drawer.axisOfRotation);
+                        else
+                            drawer.translateView(displacement);
+                    }
+                    else if(mouse.buttons === Qt.MidButton)
+                    {
+                        if(drawer.actionByMouse === FieldSceneDrawer.ActionRotate)
+                            drawer.rotateView(displacement, FieldSceneDrawer.Z);
+                        else
+                            drawer.rotateView(displacement, drawer.axisOfRotation);
+                    }
 
                     localPosition = position;
 
@@ -64,9 +81,9 @@ C1.SplitView {
 
                 onWheel: {
                     if(wheel.angleDelta.y > 0)
-                        drawer.zLocation += 0.01;
+                        drawer.zLocation += 0.025;
                     else if(wheel.angleDelta.y < 0)
-                        drawer.zLocation -= 0.01;
+                        drawer.zLocation -= 0.025;
 
                     wheel.accepted = true;
                 }
@@ -356,7 +373,9 @@ C1.SplitView {
                         height: 180
                         x: cbShowContour.x
                         y: btnContourSettings.y + 30
+                        margins: 1
                         enabled: cbShowContour.checked
+                        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
                         Column {
                             spacing: 6
@@ -496,7 +515,7 @@ C1.SplitView {
 
                 Row {
                     id: multXRow
-                    spacing: 6
+                    spacing: 12
 
                     Text {
                         id: multXLabel
@@ -549,14 +568,41 @@ C1.SplitView {
                     C2.TextField {
                         id: multZField
                         width: 50
-                        text: "1"
+                        text: "-1"
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
                     }
                 }
 
+                Rectangle { height: 6; width: 6; }
+
+                Row {
+                    id: actionByMouseRow
+                    spacing: 12
+
+                    Text {
+                        id: actionByMouseLabel
+                        verticalAlignment: Qt.AlignVCenter
+                        leftPadding: 6
+                        height: 20
+                        width: 90
+                        text: "Действие с помощью мыши"
+                        wrapMode: Text.WordWrap
+                    }
+
+                    C2.ComboBox {
+                        id: cbActionByMouse
+                        width: 90
+                        model: [{value: FieldSceneDrawer.ActionRotate, text: "Вращение"},
+                                {value: FieldSceneDrawer.ActionMove, text: "Перемещение"}];
+                        textRole: "text"
+                    }
+                }
+
+                Rectangle { height: 6; width: 6; }
+
                 Row {
                     id: showLegendRow
-                    spacing: 12
+                    spacing: 6
 
                     C2.CheckBox {
                         id: cbShowLegend
@@ -666,5 +712,8 @@ C1.SplitView {
         calcFieldsRepeater.model = calcFields;
 
         drawer.updateData(ProjectData.LOADED);
+
+        drawer.zLocation = -1;
+        drawer.setXZViewAxis();
     }
 }
