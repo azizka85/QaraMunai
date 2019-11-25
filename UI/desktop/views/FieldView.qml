@@ -38,13 +38,14 @@ C1.SplitView {
             multY: parseFloat(multYField.text)
             multZ: parseFloat(multZField.text)
             MouseArea {
-                property vector2d localPosition
+                property vector2d localPosition                
 
+                id: drawerArea
                 acceptedButtons: Qt.LeftButton | Qt.MidButton
                 anchors.fill: parent
 
                 onPressed: {
-                    if(mouse.buttons === Qt.LeftButton || mouse.buttons === Qt.MidButton) {
+                    if(mouse.buttons === Qt.LeftButton || mouse.buttons === Qt.MidButton || mouse.buttons === (Qt.LeftButton | Qt.MidButton)) {
                         drawer.mousePosition = Qt.vector2d(mouse.x, mouse.y);
                         localPosition = drawer.mousePosition;
                     }
@@ -53,25 +54,29 @@ C1.SplitView {
                 }
 
                 onPositionChanged: {
-                    if(mouse.buttons !== Qt.LeftButton && mouse.buttons !== Qt.MidButton) return;
+                    if(mouse.buttons !== Qt.LeftButton && mouse.buttons !== Qt.MidButton && mouse.buttons !== (Qt.LeftButton | Qt.MidButton)) return;
 
                     var position = Qt.vector2d(mouse.x, mouse.y);
 
                     var displacement = Qt.vector2d(position.x - localPosition.x, localPosition.y - position.y);
 
-                    if(mouse.buttons === Qt.LeftButton)
+                    if(drawer.actionByMouse === FieldSceneDrawer.ActionRotate)
                     {
-                        if(drawer.actionByMouse === FieldSceneDrawer.ActionRotate)
+                        if(mouse.buttons === Qt.LeftButton)
                             drawer.rotateView(displacement, drawer.axisOfRotation);
-                        else
+                        else if(mouse.buttons === Qt.MidButton)
+                            drawer.rotateView(displacement, FieldSceneDrawer.Z);
+                        else if(mouse.buttons === (Qt.LeftButton | Qt.MidButton))
                             drawer.translateView(displacement);
                     }
-                    else if(mouse.buttons === Qt.MidButton)
+                    else
                     {
-                        if(drawer.actionByMouse === FieldSceneDrawer.ActionRotate)
-                            drawer.rotateView(displacement, FieldSceneDrawer.Z);
-                        else
+                        if(mouse.buttons === Qt.LeftButton)
+                            drawer.translateView(displacement);
+                        else if(mouse.buttons === Qt.MidButton)
                             drawer.rotateView(displacement, drawer.axisOfRotation);
+                        else if(mouse.buttons === (Qt.LeftButton | Qt.MidButton))
+                            drawer.rotateView(displacement, FieldSceneDrawer.Z);
                     }
 
                     localPosition = position;
@@ -375,7 +380,24 @@ C1.SplitView {
                         y: btnContourSettings.y + 30
                         margins: 1
                         enabled: cbShowContour.checked
-                        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                        closePolicy: C2.Popup.CloseOnEscape | C2.Popup.CloseOnPressOutside
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            property vector2d localPosition
+
+                            onPressed: localPosition = Qt.vector2d(mouse.x, mouse.y)
+
+                            onPositionChanged: {
+                                var position = Qt.vector2d(mouse.x, mouse.y);
+
+                                var displacement = position.minus(localPosition);
+
+                                contourDialog.x += displacement.x;
+                                contourDialog.y += displacement.y;
+                            }
+                        }
 
                         Column {
                             spacing: 6
@@ -713,7 +735,6 @@ C1.SplitView {
 
         drawer.updateData(ProjectData.LOADED);
 
-        drawer.zLocation = -1;
         drawer.setXZViewAxis();
     }
 }

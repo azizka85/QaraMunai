@@ -223,6 +223,8 @@ void FieldSceneDrawer::SetMultZ(const float &multZ)
 
 void FieldSceneDrawer::setXYViewAxis()
 {
+    setDefaultPosition();
+
     rot = QQuaternion::fromAxisAndAngle(0, 0, 0, 0);
 
     update();
@@ -230,6 +232,8 @@ void FieldSceneDrawer::setXYViewAxis()
 
 void FieldSceneDrawer::setXZViewAxis()
 {
+    setDefaultPosition();
+
     rot = QQuaternion::fromAxisAndAngle(1, 0, 0, 90);
 
     update();
@@ -237,6 +241,8 @@ void FieldSceneDrawer::setXZViewAxis()
 
 void FieldSceneDrawer::setYZViewAxis()
 {
+    setDefaultPosition();
+
     rot = QQuaternion::fromAxisAndAngle(0, 1, 0, 90);
 
     update();
@@ -270,10 +276,8 @@ void FieldSceneDrawer::rotateView(const QVector2D &displacement, FieldSceneDrawe
 
 void FieldSceneDrawer::translateView(const QVector2D &displacement)
 {
-    qDebug() << "Translation: " << xLocation << ", " << yLocation;
-
-    xLocation += displacement.y()*zLocation/1000;
-    yLocation -= displacement.x()*zLocation/1000;
+    xLocation -= displacement.y()/1000;
+    yLocation += displacement.x()/1000;
 
     update();
 }
@@ -302,14 +306,18 @@ QVariantList FieldSceneDrawer::getCalcFields()
     return calcFields;
 }
 
+void FieldSceneDrawer::setDefaultPosition()
+{
+    xLocation = 0;
+    yLocation = 0;
+    zLocation = -1;
+}
+
 void FieldSceneDrawer::updateData(int state)
 {
     this->state = static_cast<ProjectData::ProjectState>(state);
 
     dataUpdated = true;
-
-    xLocation = 0;
-    yLocation = 0;
 
     update();
 }
@@ -325,9 +333,8 @@ void FieldSceneDrawer::initVariables()
     selectedBlockJ = -1;
     selectedBlockK = -1;
 
-    zLocation = -1;
-    xLocation = 0;
-    yLocation = 0;
+    setDefaultPosition();
+
     showMesh = true;
     showContour = true;
     axisOfRotation = RotationAxis::XY;
@@ -794,7 +801,7 @@ void FieldSceneDrawer::Renderer::compute()
 
     if(out[1] > 0)
     {
-        qDebug() << "Check distance: " << out[0];
+        // qDebug() << "Check distance: " << out[0]; // TODO: Check the case when the view is out of near plane
 
         drawer->SetSelectedBlockI(qRound(out[2]));
         drawer->SetSelectedBlockJ(qRound(out[3]));

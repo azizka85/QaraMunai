@@ -103,6 +103,8 @@ public:
     Q_INVOKABLE QVariantList getFields();
     Q_INVOKABLE QVariantList getCalcFields();
 
+    Q_INVOKABLE void setDefaultPosition();
+
     Q_INVOKABLE void updateData(int state);
 
 signals:
