@@ -395,9 +395,9 @@ double DataHelper::CalculatePBubFromPBVD(StratumData &stratum, double depth, int
 bool DataHelper::CalcCoordLineCPG(StratumData &stratum, int i, int j, Line3D &coordLine)
 {
     int nx = stratum.COORD().Box().Nx();
-    int ny = stratum.COORD().Box().Ny();
+    // int ny = stratum.COORD().Box().Ny();
 
-    if(j*(nx+1) + i >= (nx+1)*(ny+1)) return false; //TODO: must be >= (nx+1)*(ny+1)*numRes
+    // if(j*(nx+1) + i >= (nx+1)*(ny+1)) return false; //TODO: must be >= (nx+1)*(ny+1)*numRes
 
     int cur = (j*(nx + 1) + i)*6;
 

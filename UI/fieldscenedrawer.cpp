@@ -448,11 +448,11 @@ void FieldSceneDrawer::Renderer::render()
     float j = drawer->selectedBlockJ;
     float k = drawer->selectedBlockK;
 
+    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix * scaleMatrix;
+
     shaderProgram.bind();
     shaderProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
-    shaderProgram.setUniformValue("uViewMatrix", viewMatrix);
-    shaderProgram.setUniformValue("uModelMatrix", modelMatrix);
-    shaderProgram.setUniformValue("uScaleMatrix", scaleMatrix);
+    shaderProgram.setUniformValue("uMVMatrix", mvMatrix);
     shaderProgram.setUniformValue("uViewPort", viewPort);
     shaderProgram.setUniformValue("uShowMesh", showMesh);
     shaderProgram.setUniformValue("uShowContour", showContour);
@@ -577,8 +577,8 @@ void FieldSceneDrawer::Renderer::initGeometry()
         DataHelper::GetDrawBlocks(drawer->data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
         DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
 
-        qDebug() << "xMin: " << xMin << ", yMin: " << yMin << ", zMin: " << zMin << "\n";
-        qDebug() << "xMax: " << xMax << ", yMax: " << yMax << ", zMax: " << zMax << "\n";
+        // qDebug() << "xMin: " << xMin << ", yMin: " << yMin << ", zMin: " << zMin << "\n";
+        // qDebug() << "xMax: " << xMax << ", yMax: " << yMax << ", zMax: " << zMax << "\n";
 
         for(int i = 0; i < blocks.size(); i++)
         {
@@ -686,21 +686,35 @@ void FieldSceneDrawer::Renderer::compute()
 
     rayWorld.normalize();
 
-    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix;
+    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix * scaleMatrix;
 
-    int cNx, cNy;
+    int gNx, gNy, gNz;
 
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &cNx);
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &cNy);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &gNx);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1, &gNy);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2, &gNz);
 
-    qDebug() << "Max compute nodes: " << cNx << ", " << cNy;
+    // qDebug() << "Max work groups: " << gNx << ", " << gNy << ", " << gNz;
 
-    int lNx, lNy;
+    int lNx, lNy, lNz;
 
     glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &lNx);
     glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &lNy);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, &lNz);
 
-    qDebug() << "Max local invocations: " << lNx << ", " << lNy;
+    // qDebug() << "Max work group sizes: " << lNx << ", " << lNy << ", " << lNz;
+
+    int iN;
+
+    glGetIntegerv(GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS, &iN);
+
+    // qDebug() << "Number of invocations in a single local work group: " << iN;
+
+    int sN;
+
+    glGetIntegerv(GL_MAX_COMPUTE_SHARED_MEMORY_SIZE, &sN);
+
+    // qDebug() << "Shared memory size: " << sN;
 
     int cx, cy, cz;
 
@@ -709,15 +723,14 @@ void FieldSceneDrawer::Renderer::compute()
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, outputBuffer.bufferId());
 
     computeProgram.bind();
-    computeProgram.setUniformValue("uScaleMatrix", scaleMatrix);
     computeProgram.setUniformValue("uViewPort", viewPort);
     computeProgram.setUniformValue("uRay", rayWorld);
     computeProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
     computeProgram.setUniformValue("uMVMatrix", mvMatrix);
 
-    DataHelper::NumberOfGPUNodes(primitiveCount, cNx, cNy, cx, cy, cz);
+    DataHelper::NumberOfGPUNodes(primitiveCount, gNx, gNy, cx, cy, cz);
 
-    qDebug() << "Compute: " << cx << ", " << cy << ", " << cz;
+    // qDebug() << "Compute: " << cx << ", " << cy << ", " << cz;
 
     glDispatchCompute(cx, cy, cz);
 
@@ -737,9 +750,9 @@ void FieldSceneDrawer::Renderer::compute()
 
         sortProgram.setUniformValue("uDiv", d);
 
-        DataHelper::NumberOfGPUNodes(n, cNx, cNy, cx, cy, cz);
+        DataHelper::NumberOfGPUNodes(n, gNx, gNy, cx, cy, cz);
 
-        qDebug() << "Sort " << d << ": " << cx << ", " << cy << ", " << cz;
+        // qDebug() << "Sort " << d << ": " << cx << ", " << cy << ", " << cz;
 
         glDispatchCompute(cx, cy, cz);
 
@@ -760,6 +773,8 @@ void FieldSceneDrawer::Renderer::compute()
 
     if(out[1] > 0)
     {
+        qDebug() << "Check distance: " << out[0];
+
         drawer->SetSelectedBlockI(qRound(out[2]));
         drawer->SetSelectedBlockJ(qRound(out[3]));
         drawer->SetSelectedBlockK(qRound(out[4]));        

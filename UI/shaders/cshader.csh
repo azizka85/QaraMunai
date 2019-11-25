@@ -3,7 +3,6 @@ uniform vec2 uViewPort;
 uniform vec4 uRay;
 uniform mat4 uProjectionMatrix;
 uniform mat4 uMVMatrix;
-uniform mat4 uScaleMatrix;
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 layout (std430, binding = 0) buffer VertexBuffer { float vertex[]; };
@@ -26,9 +25,9 @@ void main(void)
 
     vec4 n = vec4(vertex[11*ind3 + 3], vertex[11*ind3 + 4], vertex[11*ind3 + 5], 0.0f);
 
-    v1 = uMVMatrix * uScaleMatrix * v1;
-    v2 = uMVMatrix * uScaleMatrix * v2;
-    v3 = uMVMatrix * uScaleMatrix * v3;
+    v1 = uMVMatrix * v1;
+    v2 = uMVMatrix * v2;
+    v3 = uMVMatrix * v3;
 
     n = uMVMatrix * n;
 
