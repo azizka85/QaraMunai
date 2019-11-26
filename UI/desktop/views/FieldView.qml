@@ -32,6 +32,7 @@ C1.SplitView {
             showMesh: cbShowMesh.checked
             transparent: cbTransparent.checked
             lighting: cbLighting.checked
+            selectBlock: cbSelectBlock.checked
             axisOfRotation: cbRotationAxis.model[cbRotationAxis.currentIndex].value
             actionByMouse: cbActionByMouse.model[cbActionByMouse.currentIndex].value
             multX: parseFloat(multXField.text)
@@ -621,6 +622,13 @@ C1.SplitView {
                 }
 
                 Rectangle { height: 6; width: 6; }
+
+                C2.CheckBox {
+                    id: cbSelectBlock
+                    width: settingsContent.width - 40
+                    checked: true
+                    text: "Выбирать блоки"
+                }
 
                 Row {
                     id: showLegendRow

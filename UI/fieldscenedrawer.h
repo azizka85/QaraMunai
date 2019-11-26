@@ -41,6 +41,7 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_PROPERTY(bool showContour READ ShowContour WRITE SetShowContour NOTIFY ShowContourChanged)
     Q_PROPERTY(bool transparent READ Transparent WRITE SetTransparent NOTIFY TransparentChanged)
     Q_PROPERTY(bool lighting READ Lighting WRITE SetLighting NOTIFY LightingChanged)
+    Q_PROPERTY(bool selectBlock READ SelectBlock WRITE SetSelectBlock NOTIFY SelectBlockChanged)
     Q_PROPERTY(RotationAxis axisOfRotation READ AxisOfRotation WRITE SetAxisOfRotation NOTIFY AxisOfRotationChanged)
     Q_PROPERTY(MouseAction actionByMouse READ ActionByMouse WRITE SetActionByMouse NOTIFY ActionByMouseChanged)
     Q_PROPERTY(int selectedBlockI READ SelectedBlockI WRITE SetSelectedBlockI NOTIFY SelectedBlockIndexChanged)
@@ -66,6 +67,7 @@ public:
     bool ShowContour();
     bool Transparent();
     bool Lighting();
+    bool SelectBlock();
     RotationAxis AxisOfRotation();
     MouseAction ActionByMouse();
     int SelectedBlockI();
@@ -82,6 +84,7 @@ public:
     void SetShowContour(const bool &showContour);
     void SetTransparent(const bool &transparent);
     void SetLighting(const bool &lighting);
+    void SetSelectBlock(const bool &selectBlock);
     void SetAxisOfRotation(const RotationAxis &axisOfRotation);
     void SetActionByMouse(const MouseAction &actionByMouse);
     void SetSelectedBlockI(const int &selectedBlockI);
@@ -113,6 +116,7 @@ signals:
     void ShowContourChanged();
     void TransparentChanged();
     void LightingChanged();
+    void SelectBlockChanged();
     void AxisOfRotationChanged();
     void ActionByMouseChanged();
     void SelectedBlockIndexChanged();
@@ -181,6 +185,7 @@ private:
     bool showContour;
     bool transparent;
     bool lighting;
+    bool selectBlock;
     RotationAxis axisOfRotation;
     MouseAction actionByMouse;
     int selectedBlockI;

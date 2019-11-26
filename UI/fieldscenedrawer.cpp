@@ -35,6 +35,11 @@ bool FieldSceneDrawer::Lighting()
     return lighting;
 }
 
+bool FieldSceneDrawer::SelectBlock()
+{
+    return selectBlock;
+}
+
 FieldSceneDrawer::RotationAxis FieldSceneDrawer::AxisOfRotation()
 {
     return axisOfRotation;
@@ -130,6 +135,13 @@ void FieldSceneDrawer::SetLighting(const bool &lighting)
     update();
 
     LightingChanged();
+}
+
+void FieldSceneDrawer::SetSelectBlock(const bool &selectBlock)
+{
+    this->selectBlock = selectBlock;
+
+    SelectBlockChanged();
 }
 
 void FieldSceneDrawer::SetAxisOfRotation(const RotationAxis &axisOfRotation)
@@ -434,7 +446,7 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
         initialized = false;
     }
 
-    if(mousePosition != drawer->mousePosition)
+    if(drawer->selectBlock && mousePosition != drawer->mousePosition)
     {
         compute();
 
@@ -805,7 +817,7 @@ void FieldSceneDrawer::Renderer::compute()
 
         drawer->SetSelectedBlockI(qRound(out[2]));
         drawer->SetSelectedBlockJ(qRound(out[3]));
-        drawer->SetSelectedBlockK(qRound(out[4]));        
+        drawer->SetSelectedBlockK(qRound(out[4]));
     }
     else
     {
