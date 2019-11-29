@@ -19,8 +19,10 @@
 #include <projectdata.h>
 
 #include <datahelper.h>
+#include <mathhelper.h>
 
 #include <depth.h>
+#include <point3d.h>
 
 #include <fieldinfo.h>
 

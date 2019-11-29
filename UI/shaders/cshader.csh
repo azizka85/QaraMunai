@@ -1,7 +1,6 @@
 #version 430
 uniform vec2 uViewPort;
 uniform vec4 uRay;
-uniform mat4 uProjectionMatrix;
 uniform mat4 uMVMatrix;
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
@@ -31,32 +30,44 @@ void main(void)
 
     n = uMVMatrix * n;
 
+    vec4 vc = (v1+v3)/4 + v2/2;
+
     // line-plane intersection
-    float d = dot(v1, n) / dot(uRay, n);
+    float d = dot(vc, n) / dot(uRay, n);
 
     vec4 v = vec4(d*uRay.xyz, 1.0f);
 
-    v1 = uProjectionMatrix * v1;
-    v2 = uProjectionMatrix * v2;
-    v3 = uProjectionMatrix * v3;
+    v2 = v2 - v1;
+    v3 = v3 - v1;
 
-    v = uProjectionMatrix * v;
+    float vv3z = v.x*v3.y - v.y*v3.x;
+    float v1v3z = v1.x*v3.y - v1.y*v3.x;
 
-    vec2 p1 = uViewPort * v1.xy / v1.w;
-    vec2 p2 = uViewPort * v2.xy / v2.w;
-    vec2 p3 = uViewPort * v3.xy / v3.w;
+    float vv2z = v.x*v2.y - v.y*v2.x;
+    float v1v2z = v1.x*v2.y - v1.y*v2.x;
 
-    vec2 p = uViewPort * v.xy / v.w;
+    float v2v3z = v2.x*v3.y - v2.y*v3.x;
 
-    float iCheck = 0.0f;
+    float vv3x = v.y*v3.z - v.z*v3.y;
+    float v1v3x = v1.y*v3.z - v1.z*v3.y;
 
-    // checking
-    float area = 0.5f *(-p2.y*p3.x + p1.y*(-p2.x + p3.x) + p1.x*(p2.y - p3.y) + p2.x*p3.y);
+    float vv2x = v.y*v2.z - v.z*v2.y;
+    float v1v2x = v1.y*v2.z - v1.z*v2.y;
 
-    float s = 1/(2*area)*(p1.y*p3.x - p1.x*p3.y + (p3.y - p1.y)*p.x + (p1.x - p3.x)*p.y);
-    float t = 1/(2*area)*(p1.x*p2.y - p1.y*p2.x + (p1.y - p2.y)*p.x + (p2.x - p1.x)*p.y);
+    float v2v3x = v2.y*v3.z - v2.z*v3.y;
 
-    if(d >= 0 && s >= 0 && t >= 0 && 1 - s - t >= 0) iCheck = 1.0f;
+    float vv3 = abs(v2v3z) > abs(v2v3x) ? vv3z : vv3x;
+    float v1v3 = abs(v2v3z) > abs(v2v3x) ? v1v3z : v1v3x;
+
+    float vv2 = abs(v2v3z) > abs(v2v3x) ? vv2z : vv2x;
+    float v1v2 = abs(v2v3z) > abs(v2v3x) ? v1v2z : v1v2x;
+
+    float v2v3 = abs(v2v3z) > abs(v2v3x) ? v2v3z : v2v3x;
+
+    float a = (vv3 - v1v3)/v2v3;
+    float b = -(vv2 - v1v2)/v2v3;
+
+    float iCheck = d > 0 && a > 0.0f && b > 0.0f && (a+b) < 1.0f ? 1.0f : 0.0f;
 
     outBuffer[5*i + 0] = d;
     outBuffer[5*i + 1] = iCheck;
