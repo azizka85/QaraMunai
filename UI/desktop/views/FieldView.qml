@@ -38,6 +38,7 @@ C1.SplitView {
             multX: parseFloat(multXField.text)
             multY: parseFloat(multYField.text)
             multZ: parseFloat(multZField.text)
+
             MouseArea {
                 property vector2d localPosition                
 
@@ -727,6 +728,8 @@ C1.SplitView {
     {
         initFieldsRepeater.model = [];
         calcFieldsRepeater.model = [];
+
+        drawer.selectedBlockIndex = -1;
 
         drawer.updateData(ProjectData.CLOSED);
     }

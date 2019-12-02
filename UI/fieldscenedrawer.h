@@ -46,9 +46,7 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_PROPERTY(bool selectBlock READ SelectBlock WRITE SetSelectBlock NOTIFY SelectBlockChanged)
     Q_PROPERTY(RotationAxis axisOfRotation READ AxisOfRotation WRITE SetAxisOfRotation NOTIFY AxisOfRotationChanged)
     Q_PROPERTY(MouseAction actionByMouse READ ActionByMouse WRITE SetActionByMouse NOTIFY ActionByMouseChanged)
-    Q_PROPERTY(int selectedBlockI READ SelectedBlockI WRITE SetSelectedBlockI NOTIFY SelectedBlockIndexChanged)
-    Q_PROPERTY(int selectedBlockJ READ SelectedBlockJ WRITE SetSelectedBlockJ NOTIFY SelectedBlockIndexChanged)
-    Q_PROPERTY(int selectedBlockK READ SelectedBlockK WRITE SetSelectedBlockK NOTIFY SelectedBlockIndexChanged)
+    Q_PROPERTY(int selectedBlockIndex READ SelectedBlockIndex WRITE SetSelectedBlockIndex NOTIFY SelectedBlockIndexChanged)
     Q_PROPERTY(QVector2D mousePosition READ MousePosition WRITE SetMousePosition NOTIFY MousePositionChanged)
     Q_PROPERTY(float zLocation READ ZLocation WRITE SetZLocation NOTIFY ZLocationChanged)
     Q_PROPERTY(float multX READ MultX WRITE SetMultX NOTIFY MultXChanged)
@@ -72,9 +70,7 @@ public:
     bool SelectBlock();
     RotationAxis AxisOfRotation();
     MouseAction ActionByMouse();
-    int SelectedBlockI();
-    int SelectedBlockJ();
-    int SelectedBlockK();
+    int SelectedBlockIndex();
     QVector2D MousePosition();
     float ZLocation();
     float MultX();
@@ -89,14 +85,14 @@ public:
     void SetSelectBlock(const bool &selectBlock);
     void SetAxisOfRotation(const RotationAxis &axisOfRotation);
     void SetActionByMouse(const MouseAction &actionByMouse);
-    void SetSelectedBlockI(const int &selectedBlockI);
-    void SetSelectedBlockJ(const int &selectedBlockJ);
-    void SetSelectedBlockK(const int &selectedBlockK);
+    void SetSelectedBlockIndex(const int &selectedBlockIndex);
     void SetMousePosition(const QVector2D &mousePosition);
     void SetZLocation(const float &zLocation);
     void SetMultX(const float &multX);
     void SetMultY(const float &multY);
     void SetMultZ(const float &multZ);
+
+    Q_INVOKABLE QVariantMap getSelectedBlockIndexes();
 
     Q_INVOKABLE void setXYViewAxis();
     Q_INVOKABLE void setXZViewAxis();
@@ -190,9 +186,7 @@ private:
     bool selectBlock;
     RotationAxis axisOfRotation;
     MouseAction actionByMouse;
-    int selectedBlockI;
-    int selectedBlockJ;
-    int selectedBlockK;
+    int selectedBlockIndex;
     QVector2D mousePosition;
     QQuaternion rot;
     float zLocation;
