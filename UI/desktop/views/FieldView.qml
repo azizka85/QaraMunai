@@ -554,6 +554,7 @@ C1.SplitView {
                         width: 50
                         text: "1"
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
+                        selectByMouse: true
                     }
                 }
 
@@ -574,6 +575,7 @@ C1.SplitView {
                         width: 50
                         text: "1"
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
+                        selectByMouse: true
                     }
                 }
 
@@ -594,6 +596,7 @@ C1.SplitView {
                         width: 50
                         text: "-1"
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
+                        selectByMouse: true
                     }
                 }
 

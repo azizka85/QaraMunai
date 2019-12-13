@@ -21,7 +21,6 @@
 #include <datahelper.h>
 #include <mathhelper.h>
 
-#include <depth.h>
 #include <point3d.h>
 
 #include <fieldinfo.h>
@@ -138,8 +137,7 @@ protected:
         void initShaders();
         void initBuffer();
         void initGeometry();
-        void clearGeometry();
-        void compute();
+        void clearGeometry();        
 
     private:
         bool initialized;
@@ -154,27 +152,14 @@ protected:
         QMatrix4x4 scaleMatrix;
 
         QOpenGLShaderProgram shaderProgram;
-        QOpenGLShaderProgram computeProgram;
-        QOpenGLShaderProgram sortProgram;
 
-        QOpenGLBuffer arrayBuffer;
-        QOpenGLBuffer indBuffer;
-        QOpenGLBuffer outputBuffer;
+        QOpenGLBuffer vertexBuffer;
+        QOpenGLBuffer indexBuffer;
+
+        QOpenGLBuffer blockIndexBuffer;
+        QOpenGLBuffer valueBuffer;
 
         FieldSceneDrawer *drawer;
-    };
-
-    struct VertexData
-    {
-        VertexData() {  }
-
-        VertexData(QVector3D p, QVector3D n, float e, float i, float j, float k, float v) : position(p), normal(n), exclude(e), i(i), j(j), k(k), value(v) {  }
-
-        QVector3D position;
-        QVector3D normal;
-        float exclude;
-        float i, j, k;
-        float value;
     };
 
 private:

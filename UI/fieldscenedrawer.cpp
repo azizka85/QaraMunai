@@ -93,59 +93,80 @@ void FieldSceneDrawer::SetData(ProjectData *data)
 
 void FieldSceneDrawer::SetShowMesh(const bool &showMesh)
 {
-    this->showMesh = showMesh;
+    if(this->showMesh != showMesh)
+    {
+        this->showMesh = showMesh;
 
-    update();
+        update();
 
-    ShowMeshChanged();
+        ShowMeshChanged();
+    }
 }
 
 void FieldSceneDrawer::SetShowContour(const bool &showContour)
 {
-    this->showContour = showContour;
+    if(this->showContour != showContour)
+    {
+        this->showContour = showContour;
 
-    update();
+        update();
 
-    ShowContourChanged();
+        ShowContourChanged();
+    }
 }
 
 void FieldSceneDrawer::SetTransparent(const bool &transparent)
 {
-    this->transparent = transparent;
+    if(this->transparent != transparent)
+    {
+        this->transparent = transparent;
 
-    update();
+        update();
 
-    TransparentChanged();
+        TransparentChanged();
+    }
 }
 
 void FieldSceneDrawer::SetLighting(const bool &lighting)
 {
-    this->lighting = lighting;
+    if(this->lighting != lighting)
+    {
+        this->lighting = lighting;
 
-    update();
+        update();
 
-    LightingChanged();
+        LightingChanged();
+    }
 }
 
 void FieldSceneDrawer::SetSelectBlock(const bool &selectBlock)
 {
-    this->selectBlock = selectBlock;
+    if(this->selectBlock != selectBlock)
+    {
+        this->selectBlock = selectBlock;
 
-    SelectBlockChanged();
+        SelectBlockChanged();
+    }
 }
 
 void FieldSceneDrawer::SetAxisOfRotation(const RotationAxis &axisOfRotation)
 {
-    this->axisOfRotation = axisOfRotation;
+    if(this->axisOfRotation != axisOfRotation)
+    {
+        this->axisOfRotation = axisOfRotation;
 
-    AxisOfRotationChanged();
+        AxisOfRotationChanged();
+    }
 }
 
 void FieldSceneDrawer::SetActionByMouse(const FieldSceneDrawer::MouseAction &actionByMouse)
 {
-    this->actionByMouse = actionByMouse;
+    if(this->actionByMouse != actionByMouse)
+    {
+        this->actionByMouse = actionByMouse;
 
-    ActionByMouseChanged();
+        ActionByMouseChanged();
+    }
 }
 
 void FieldSceneDrawer::SetSelectedBlockIndex(const int &selectedBlockIndex)
@@ -160,9 +181,9 @@ void FieldSceneDrawer::SetSelectedBlockIndex(const int &selectedBlockIndex)
     }
 }
 
-void FieldSceneDrawer::SetMousePosition(const QVector2D &mouseSelection)
+void FieldSceneDrawer::SetMousePosition(const QVector2D &mousePosition)
 {
-    this->mousePosition = mouseSelection;
+    this->mousePosition = mousePosition;
 
     update();
 
@@ -182,7 +203,7 @@ void FieldSceneDrawer::SetMultX(const float &multX)
 {
     this->multX = multX;
 
-    updateData(ProjectData::LOADED); // update();
+    update();
 
     MultXChanged();
 }
@@ -191,7 +212,7 @@ void FieldSceneDrawer::SetMultY(const float &multY)
 {
     this->multY = multY;
 
-    updateData(ProjectData::LOADED); // update();
+    update();
 
     MultYChanged();
 }
@@ -200,7 +221,7 @@ void FieldSceneDrawer::SetMultZ(const float &multZ)
 {
     this->multZ = multZ;
 
-    updateData(ProjectData::LOADED); // update();
+    update();
 
     MultZChanged();
 }
@@ -338,6 +359,10 @@ void FieldSceneDrawer::initVariables()
 
     showMesh = true;
     showContour = true;
+    transparent = false;
+    lighting = true;
+    selectBlock = true;
+
     axisOfRotation = RotationAxis::XY;
     actionByMouse = MouseAction::ActionRotate;
 
@@ -381,7 +406,7 @@ QOpenGLFramebufferObject *FieldSceneDrawer::Renderer::createFramebufferObject(co
     return new QOpenGLFramebufferObject(size, format);
 }
 
-FieldSceneDrawer::Renderer::Renderer() : QQuickFramebufferObject::Renderer(), indBuffer(QOpenGLBuffer::IndexBuffer)
+FieldSceneDrawer::Renderer::Renderer() : QQuickFramebufferObject::Renderer(), indexBuffer(QOpenGLBuffer::IndexBuffer)
 {
     initialize();
 }
@@ -437,7 +462,7 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
 
     if(drawer->selectBlock && mousePosition != drawer->mousePosition)
     {
-        compute();
+        // compute();
 
         mousePosition = drawer->mousePosition;
     }
@@ -455,6 +480,8 @@ void FieldSceneDrawer::Renderer::render()
     // glEnable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);    
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    float m = 1000.0f; // max edge width
 
     bool showMesh = drawer->showMesh;
     bool showContour = drawer->showContour;
@@ -475,25 +502,10 @@ void FieldSceneDrawer::Renderer::render()
 
     int index = drawer->selectedBlockIndex;
 
-    int i = -1;
-    int j = -1;
-    int k = -1;
-
-    if(index >= 0 && drawer->data != nullptr)
-    {
-        int nx = drawer->data->Nx();
-        int ny = drawer->data->Ny();
-
-        if(nx > 0 && ny > 0) DataHelper::DivideOnAxesNodes(index, nx, ny, i, j, k);
-    }
-
-    float fi = i;
-    float fj = j;
-    float fk = k;
-
-    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix;
+    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix * scaleMatrix;
 
     shaderProgram.bind();
+    shaderProgram.setUniformValue("uM", m);
     shaderProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
     shaderProgram.setUniformValue("uMVMatrix", mvMatrix);
     shaderProgram.setUniformValue("uViewPort", viewPort);
@@ -506,366 +518,226 @@ void FieldSceneDrawer::Renderer::render()
     shaderProgram.setUniformValue("uMinColor", minColor);
     shaderProgram.setUniformValue("uMaxValue", maxValue);
     shaderProgram.setUniformValue("uMinValue", minValue);
-    shaderProgram.setUniformValue("uSelectedBlockI", fi);
-    shaderProgram.setUniformValue("uSelectedBlockJ", fj);
-    shaderProgram.setUniformValue("uSelectedBlockK", fk);
+    shaderProgram.setUniformValue("uSelectedBlockIndex", index);
 
-    arrayBuffer.bind();
+    vertexBuffer.bind();
 
     int offset = 0;
 
-    int vertexLocation = shaderProgram.attributeLocation("aPosition");
+    int vLocation = shaderProgram.attributeLocation("vV");
 
-    shaderProgram.enableAttributeArray(vertexLocation);
-    shaderProgram.setAttributeBuffer(vertexLocation, GL_FLOAT, offset, 3, sizeof (VertexData));
+    shaderProgram.enableAttributeArray(vLocation);
+    shaderProgram.setAttributeBuffer(vLocation, GL_FLOAT, offset, 3, sizeof (QVector3D));
 
-    offset += sizeof (QVector3D);
+    vertexBuffer.release();
 
-    int normalLocation = shaderProgram.attributeLocation("aNormal");
+    valueBuffer.bind();
 
-    shaderProgram.enableAttributeArray(normalLocation);
-    shaderProgram.setAttributeBuffer(normalLocation, GL_FLOAT, offset, 3, sizeof (VertexData));
+    offset = 0;
 
-    offset += sizeof (QVector3D);
-
-    int excludeLocation = shaderProgram.attributeLocation("aExclude");
-
-    shaderProgram.enableAttributeArray(excludeLocation);
-    shaderProgram.setAttributeBuffer(excludeLocation, GL_FLOAT, offset, 1, sizeof (VertexData));
-
-    offset += sizeof (float);
-
-    int blockILocation = shaderProgram.attributeLocation("aBlockI");
-
-    shaderProgram.enableAttributeArray(blockILocation);
-    shaderProgram.setAttributeBuffer(blockILocation, GL_FLOAT, offset, 1, sizeof (VertexData));
-
-    offset += sizeof (float);
-
-    int blockJLocation = shaderProgram.attributeLocation("aBlockJ");
-
-    shaderProgram.enableAttributeArray(blockJLocation);
-    shaderProgram.setAttributeBuffer(blockJLocation, GL_FLOAT, offset, 1, sizeof (VertexData));
-
-    offset += sizeof (float);
-
-    int blockKLocation = shaderProgram.attributeLocation("aBlockK");
-
-    shaderProgram.enableAttributeArray(blockKLocation);
-    shaderProgram.setAttributeBuffer(blockKLocation, GL_FLOAT, offset, 1, sizeof (VertexData));
-
-    offset += sizeof (float);
-
-    int valueLocation = shaderProgram.attributeLocation("aValue");
+    int valueLocation = shaderProgram.attributeLocation("vValue");
 
     shaderProgram.enableAttributeArray(valueLocation);
-    shaderProgram.setAttributeBuffer(valueLocation, GL_FLOAT, offset, 1, sizeof (VertexData));
+    shaderProgram.setAttributeBuffer(valueLocation, GL_FLOAT, offset, 1, sizeof (float));
 
-    indBuffer.bind();
+    valueBuffer.release();
 
-    glDrawElements(GL_TRIANGLES, indBuffer.size(), GL_UNSIGNED_INT, nullptr);
+    blockIndexBuffer.bind();
 
-    indBuffer.release();
-    arrayBuffer.release();
+    offset = 0;
+
+    int blockIndexLocation = shaderProgram.attributeLocation("vBlockIndex");
+
+    shaderProgram.enableAttributeArray(blockIndexLocation);
+    shaderProgram.setAttributeBuffer(blockIndexLocation, GL_FLOAT, offset, 1, sizeof (float));
+
+    blockIndexBuffer.release();
+
+    indexBuffer.bind();
+
+    glDrawElements(GL_TRIANGLES, indexBuffer.size(), GL_UNSIGNED_INT, nullptr);
+
+    indexBuffer.release();
+
     shaderProgram.release();
 }
 
 void FieldSceneDrawer::Renderer::initShaders()
 {
-    computeProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/cshader.csh");
-    computeProgram.link();
-
-    sortProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/sshader.csh");
-    sortProgram.link();
-
-    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vshader.vsh");
-    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Geometry, ":/shaders/gshader.gsh");
-    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fshader.fsh");
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vshader.glsl");
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Geometry, ":/shaders/gshader.glsl");
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fshader.glsl");
     shaderProgram.link();
 }
 
 void FieldSceneDrawer::Renderer::initBuffer()
 {
-    arrayBuffer.create();
-    indBuffer.create();
-    outputBuffer.create();
+    vertexBuffer.create();
+    indexBuffer.create();
+
+    blockIndexBuffer.create();
+
+    valueBuffer.create();
 }
 
 void FieldSceneDrawer::Renderer::initGeometry()
 {
     primitiveCount = 0;
 
-    QVector<VertexData> vertexes;
+    QVector<QVector3D> vertexes;
     QVector<GLuint> indexes;
+
+    QVector<float> blockIndexes;
+    QVector<float> values;
 
     if(drawer->data != nullptr)
     {
-        double xMin = 0;
-        double xMax = 0;
+        int nx = drawer->data->Nx();
+        int ny = drawer->data->Ny();
+        int nz = drawer->data->Nz();
 
-        double yMin = 0;
-        double yMax = 0;
+        double x0 = 0;
+        double y0 = 0;
+        double z0 = 0;
 
-        double zMin = 0;
-        double zMax = 0;
-
-        QVector<Depth> depths;
-        QVector<bool> existBlock;
-        QVector<bool> drawBlock;
-        QVector<Block> blocks;
-
-        DataHelper::CalculateBlockDepthArray(drawer->data, depths);
-        DataHelper::CalculateExistBlockArray(drawer->data, existBlock);
-        DataHelper::CalculateDrawBlockArray(drawer->data, depths, existBlock, drawBlock);
-        DataHelper::GetDrawBlocks(drawer->data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
-        DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
-
-        // qDebug() << "xMin: " << xMin << ", yMin: " << yMin << ", zMin: " << zMin << "\n";
-        // qDebug() << "xMax: " << xMax << ", yMax: " << yMax << ", zMax: " << zMax << "\n";
-
-        for(int i = 0; i < blocks.size(); i++)
+        for(int i = 0; i < nx; i++)
         {
-            Block& block = blocks[i];
+            y0 = 0;
 
-            QVector3D p8 = scaleMatrix * QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z());
-            QVector3D p7 = scaleMatrix * QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z());
-            QVector3D p6 = scaleMatrix * QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z());
-            QVector3D p5 = scaleMatrix * QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z());
-            QVector3D p4 = scaleMatrix * QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z());
-            QVector3D p3 = scaleMatrix * QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z());
-            QVector3D p2 = scaleMatrix * QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z());
-            QVector3D p1 = scaleMatrix * QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z());
-
-            QVector3D a = p5 - p7;
-            QVector3D b = p8 - p7;
-
-            QVector3D n = QVector3D::crossProduct(a, b);
-
-            vertexes.append(VertexData(p7, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p5, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p8, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p6, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-
-            a = p6 - p8;
-            b = p4 - p8;
-
-            n = QVector3D::crossProduct(a, b);
-
-            vertexes.append(VertexData(p8, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p6, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p4, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p2, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-
-            a = p4 - p8;
-            b = p7 - p8;
-
-            n = QVector3D::crossProduct(a, b);
-
-            vertexes.append(VertexData(p8, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p4, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p7, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p3, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-
-            a = p2 - p4;
-            b = p3 - p4;
-
-            n = QVector3D::crossProduct(a, b);
-
-            vertexes.append(VertexData(p4, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p2, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p3, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p1, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-
-            a = p3 - p7;
-            b = p5 - p7;
-
-            n = QVector3D::crossProduct(a, b);
-
-            vertexes.append(VertexData(p7, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p3, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p5, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p1, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-
-            a = p1 - p5;
-            b = p6 - p5;
-
-            n = QVector3D::crossProduct(a, b);
-
-            vertexes.append(VertexData(p5, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p1, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p6, n, 0.0f, block.I(), block.J(), block.K(), 0.0f));
-            vertexes.append(VertexData(p2, n, 1.0f, block.I(), block.J(), block.K(), 0.0f));
-
-            for(GLuint j = 0; j < 24; j += 4)
+            for(int j = 0; j < ny; j++)
             {
-                indexes.append(static_cast<GLuint>(24*i) + j + 0);
-                indexes.append(static_cast<GLuint>(24*i) + j + 1);
-                indexes.append(static_cast<GLuint>(24*i) + j + 2);
+                z0 = drawer->data->tops(i, j);
 
-                indexes.append(static_cast<GLuint>(24*i) + j + 2);
-                indexes.append(static_cast<GLuint>(24*i) + j + 1);
-                indexes.append(static_cast<GLuint>(24*i) + j + 3);
+                for(int k = 0; k < nz; k++)
+                {
+                    Block block = drawer->data->GetBlock(i, j, k, x0, y0, z0);
 
-                primitiveCount += 2;
+                    int index = k*nx*ny + j*nx + i;
+
+                    // bottom
+                    vertexes.append(QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    vertexes.append(QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    vertexes.append(QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    vertexes.append(QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    // top
+                    vertexes.append(QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    vertexes.append(QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    vertexes.append(QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    vertexes.append(QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z()));
+                    values.append(0.0f);
+                    blockIndexes.append(index);
+
+                    // left face
+                    indexes.append(8*index + 0);
+                    indexes.append(8*index + 4);
+                    indexes.append(8*index + 1);
+
+                    indexes.append(8*index + 7);
+                    indexes.append(8*index + 1);
+                    indexes.append(8*index + 4);
+
+                    // right face
+                    indexes.append(8*index + 3);
+                    indexes.append(8*index + 2);
+                    indexes.append(8*index + 5);
+
+                    indexes.append(8*index + 6);
+                    indexes.append(8*index + 5);
+                    indexes.append(8*index + 2);
+
+                    // back face
+                    indexes.append(8*index + 7);
+                    indexes.append(8*index + 6);
+                    indexes.append(8*index + 1);
+
+                    indexes.append(8*index + 2);
+                    indexes.append(8*index + 1);
+                    indexes.append(8*index + 6);
+
+                    // front face
+                    indexes.append(8*index + 4);
+                    indexes.append(8*index + 0);
+                    indexes.append(8*index + 5);
+
+                    indexes.append(8*index + 3);
+                    indexes.append(8*index + 5);
+                    indexes.append(8*index + 0);
+
+                    // down face
+                    indexes.append(8*index + 1);
+                    indexes.append(8*index + 2);
+                    indexes.append(8*index + 0);
+
+                    indexes.append(8*index + 3);
+                    indexes.append(8*index + 0);
+                    indexes.append(8*index + 2);
+
+                    // up face
+                    indexes.append(8*index + 7);
+                    indexes.append(8*index + 4);
+                    indexes.append(8*index + 6);
+
+                    indexes.append(8*index + 5);
+                    indexes.append(8*index + 6);
+                    indexes.append(8*index + 4);
+
+                    primitiveCount += 12;
+
+                    if(k == nz-1 && j == ny-1) x0 = block.P8().X();
+                    if(k == nz-1) y0 = block.P8().Y();
+                    z0 = block.P8().Z();
+                }
             }
         }
 
-        qDebug() << "Number of blocks, draw blocks and triangle polygons: " << drawBlock.size() << ", " << blocks.size() << ", " << primitiveCount;
+        vertexBuffer.bind();
+        vertexBuffer.allocate(vertexes.constData(), vertexes.size() * sizeof (QVector3D));
+        vertexBuffer.release();
+
+        indexBuffer.bind();
+        indexBuffer.allocate(indexes.constData(), indexes.size() * sizeof (GLuint));
+        indexBuffer.release();
+
+        blockIndexBuffer.bind();
+        blockIndexBuffer.allocate(blockIndexes.constData(), blockIndexes.size() * sizeof (float));
+        blockIndexBuffer.release();
+
+        valueBuffer.bind();
+        valueBuffer.allocate(values.constData(), values.size() * sizeof (float));
+        valueBuffer.release();
     }
-
-    arrayBuffer.bind();
-    arrayBuffer.allocate(vertexes.constData(), vertexes.size() * static_cast<int>(sizeof (VertexData)));
-    arrayBuffer.release();
-
-    indBuffer.bind();
-    indBuffer.allocate(indexes.constData(), indexes.size() * static_cast<int>(sizeof (GLuint)));
-    indBuffer.release();
-
-    outputBuffer.bind();
-    outputBuffer.allocate(5 * static_cast<int>(primitiveCount) * static_cast<int>(sizeof(float)));
-    outputBuffer.release();
 }
 
 void FieldSceneDrawer::Renderer::clearGeometry()
 {
     primitiveCount = 0;
 
-    arrayBuffer.bind();
-    arrayBuffer.allocate(0);
-    arrayBuffer.release();
+    vertexBuffer.bind();
+    vertexBuffer.allocate(0);
+    vertexBuffer.release();
 
-    indBuffer.bind();
-    indBuffer.allocate(0);
-    indBuffer.release();
-
-    outputBuffer.bind();
-    outputBuffer.allocate(0);
-    outputBuffer.release();
-}
-
-void FieldSceneDrawer::Renderer::compute()
-{
-    float width = static_cast<float>(drawer->width());
-    float height = static_cast<float>(drawer->height());
-
-    QVector2D viewPort(width, height);
-
-    QVector2D mousePosition = drawer->MousePosition();
-
-    mousePosition.setX(2*mousePosition.x() - width);
-    mousePosition.setY(2*mousePosition.y() - height);
-
-    QVector4D rayClip(mousePosition.x()/width, mousePosition.y()/height, -1.0f, 1.0f);
-
-    QVector4D rayEye = projectionMatrix.inverted() * rayClip;    
-
-    rayEye.setW(0);
-
-    QVector4D rayWorld = rayEye;
-
-    rayWorld.normalize();
-
-    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix;
-
-    int gNx, gNy, gNz;
-
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &gNx);
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1, &gNy);
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2, &gNz);
-
-    // qDebug() << "Max work groups: " << gNx << ", " << gNy << ", " << gNz;
-
-    int lNx, lNy, lNz;
-
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &lNx);
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &lNy);
-    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, &lNz);
-
-    // qDebug() << "Max work group sizes: " << lNx << ", " << lNy << ", " << lNz;
-
-    int iN;
-
-    glGetIntegerv(GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS, &iN);
-
-    // qDebug() << "Number of invocations in a single local work group: " << iN;
-
-    int sN;
-
-    glGetIntegerv(GL_MAX_COMPUTE_SHARED_MEMORY_SIZE, &sN);
-
-    // qDebug() << "Shared memory size: " << sN;
-
-    int cx, cy, cz;
-
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, arrayBuffer.bufferId());
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, indBuffer.bufferId());
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, outputBuffer.bufferId());
-
-    computeProgram.bind();
-    computeProgram.setUniformValue("uViewPort", viewPort);
-    computeProgram.setUniformValue("uRay", rayWorld);
-    computeProgram.setUniformValue("uMVMatrix", mvMatrix);
-
-    DataHelper::NumberOfGPUNodes(primitiveCount, gNx, gNy, cx, cy, cz);
-
-    // qDebug() << "Compute: " << cx << ", " << cy << ", " << cz;
-
-    glDispatchCompute(cx, cy, cz);
-
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
-
-    computeProgram.release();
-
-    sortProgram.bind();
-    sortProgram.setUniformValue("uPrimitiveCount", primitiveCount);
-
-    uint d = 1;
-    uint n = primitiveCount;
-
-    while(d < primitiveCount)
-    {
-        n = (n%2 == 0) ? n/2 : (n+1)/2;
-
-        sortProgram.setUniformValue("uDiv", d);
-
-        DataHelper::NumberOfGPUNodes(n, gNx, gNy, cx, cy, cz);
-
-        // qDebug() << "Sort " << d << ": " << cx << ", " << cy << ", " << cz;
-
-        glDispatchCompute(cx, cy, cz);
-
-        glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
-
-        d = 2*d;
-    }
-
-    sortProgram.release();
-
-    outputBuffer.bind();
-
-    float out[10];
-
-    outputBuffer.read(0, out, 10*sizeof (float));
-
-    outputBuffer.release();
-
-    if(out[1] > 0 && drawer->data != nullptr)
-    {
-        // qDebug() << QString("Check distance: {%1, %2, %3} - %4, %5; ").arg(out[2]).arg(out[3]).arg(out[4]).arg(out[0]).arg(out[1]);
-
-        int nx = drawer->data->Nx();
-        int ny = drawer->data->Ny();
-
-        int i = qRound(out[2]);
-        int j = qRound(out[3]);
-        int k = qRound(out[4]);
-
-        int index = k*nx*ny + j*nx + i;
-
-        drawer->SetSelectedBlockIndex(index);
-    }
-    else
-    {
-        drawer->SetSelectedBlockIndex(-1);
-    }
+    indexBuffer.bind();
+    indexBuffer.allocate(0);
+    indexBuffer.release();
 }

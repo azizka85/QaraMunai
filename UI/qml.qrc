@@ -58,9 +58,9 @@
         <file alias="settings_icon_32x32.png">desktop/images/settings_icon_32x32.png</file>
     </qresource>
     <qresource prefix="/shaders">
-        <file alias="fshader.fsh">shaders/fshader.fsh</file>
-        <file alias="gshader.gsh">shaders/gshader.gsh</file>
-        <file alias="vshader.vsh">shaders/vshader.vsh</file>
+        <file alias="fshader.glsl">shaders/fshader.glsl</file>
+        <file alias="gshader.glsl">shaders/gshader.glsl</file>
+        <file alias="vshader.glsl">shaders/vshader.glsl</file>
         <file alias="cshader.csh">shaders/cshader.csh</file>
         <file alias="sshader.csh">shaders/sshader.csh</file>
     </qresource>
