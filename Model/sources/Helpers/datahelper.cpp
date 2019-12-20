@@ -484,6 +484,424 @@ bool DataHelper::CheckPointOrderStandardCPG(StratumData &stratum, int nx, int ny
             p2.Y() <= p4.Y();
 }
 
+void DataHelper::CalculateBlockDepthArray(ProjectData *projectData, QVector<Depth> &depths)
+{
+    int nx = projectData->Nx();
+    int ny = projectData->Ny();
+    int nz = projectData->Nz();
+
+    depths.resize(nx*ny*nz);
+
+    double x0 = 0;
+    double y0 = 0;
+    double z0 = 0;
+
+    for(int i = 0; i < nx; i++)
+    {
+        y0 = 0;
+
+        for(int j = 0; j < ny; j++)
+        {
+            z0 = projectData->tops(i, j);
+
+            for(int k = 0; k < nz; k++)
+            {
+                Block block = projectData->GetBlock(i, j, k, x0, y0, z0);
+
+                int ind = k*nx*ny + j*nx + i;
+
+                depths[ind] = Depth(block.P1().Z(), block.P2().Z(), block.P3().Z(), block.P4().Z(), block.P5().Z(), block.P6().Z(), block.P7().Z(), block.P8().Z());
+
+                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
+                if(k == nz-1) y0 = block.P8().Y();
+                z0 = block.P8().Z();
+            }
+        }
+    }
+}
+
+void DataHelper::CalculateExistBlockArray(ProjectData *projectData, QVector<bool> &existBlock)
+{
+    int nx = projectData->Nx();
+    int ny = projectData->Ny();
+    int nz = projectData->Nz();
+
+    existBlock.resize(nx*ny*nz);
+
+    for(int i = 0; i < nx; i++)
+    {
+        for(int j = 0; j < ny; j++)
+        {
+            for(int k = 0; k < nz; k++)
+            {
+                int ind = k*nx*ny + j*nx + i; // i, j, k
+
+                existBlock[ind] = projectData->actnum(i, j, k);
+            }
+        }
+    }
+}
+
+void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth> &depths, QVector<bool> &existBlock, QVector<bool> &drawBlock)
+{
+    int nx = projectData->Nx();
+    int ny = projectData->Ny();
+    int nz = projectData->Nz();
+
+    drawBlock.resize(nx*ny*nz);
+
+    for(int i = 0; i < nx; i++)
+    {
+        for(int j = 0; j < ny; j++)
+        {
+            for(int k = 0; k < nz; k++)
+            {
+                int ind = k*nx*ny + j*nx + i; // i, j, k
+
+                drawBlock[ind] = false;
+
+                if(!existBlock[ind]) continue;
+
+                if (i == 0 || i == nx - 1 || j == 0 || j == ny - 1 || k == 0 || k == nz - 1)
+                {
+                    drawBlock[ind] = existBlock[ind];
+                }
+                else
+                {
+                    int ind1 = (k-1)*nx*ny + j*nx + i; // i, j, k-1
+                    int ind2 = (k+1)*nx*ny + j*nx + i; // i, j, k+1
+
+                    if(!existBlock[ind1] || !existBlock[ind2]) drawBlock[ind] = true;
+                    else
+                    {
+                        // i+1,j
+                        ind1 = j*nx + (i+1); // i+1, j, 0
+                        ind2 = (nz-1)*nx*ny + j*nx + (i+1); // i+1, j, nz-1
+
+                        bool found = false;
+
+                        if(depths[ind].H6() < depths[ind1].H1() && depths[ind].H8() < depths[ind1].H3())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        if(depths[ind].H2() > depths[ind2].H5() && depths[ind].H4() > depths[ind2].H7())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        Segment lside1(depths[ind].H2(), depths[ind].H6());
+                        Segment rside1(depths[ind].H4(), depths[ind].H8());
+
+                        for(int kk = 0; kk < nz; kk++)
+                        {
+                            int subInd = kk*nx*ny + j*nx + i+1; // i+1, j, kk
+
+                            if(!existBlock[subInd])
+                            {
+                                Segment lside2(depths[subInd].H1(), depths[subInd].H5());
+                                Segment rside2(depths[subInd].H3(), depths[subInd].H7());
+
+                                if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
+                                {
+                                    found = true;
+
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(found)
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        // i-1, j
+                        ind1 = j*nx + (i-1); // i-1, j, 0
+                        ind2 = (nz-1)*nx*ny + j*nx + (i-1); // i-1, j, nz-1
+
+                        found = false;
+
+                        if(depths[ind].H5() < depths[ind1].H2() && depths[ind].H7() < depths[ind1].H4())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        if(depths[ind].H1() > depths[ind2].H6() && depths[ind].H3() > depths[ind2].H8())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        lside1 = Segment(depths[ind].H1(), depths[ind].H5());
+                        rside1 = Segment(depths[ind].H3(), depths[ind].H7());
+
+                        for(int kk = 0; kk < nz; kk++)
+                        {
+                            int subInd = kk*nx*ny + j*nx + i-1; // i-1, j, kk
+
+                            if(!existBlock[subInd])
+                            {
+                                Segment lside2(depths[subInd].H2(), depths[subInd].H6());
+                                Segment rside2(depths[subInd].H4(), depths[subInd].H8());
+
+                                if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
+                                {
+                                    found = true;
+
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(found)
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        // i, j+1
+                        ind1 = (j+1)*nx + i; // i, j+1, 0
+                        ind2 = (nz-1)*nx*ny + (j+1)*nx + i; // i, j+1, nz-1
+
+                        found = false;
+
+                        if(depths[ind].H7() < depths[ind1].H1() && depths[ind].H8() < depths[ind1].H2())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        if(depths[ind].H3() > depths[ind2].H5() && depths[ind].H4() > depths[ind2].H6())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        lside1 = Segment(depths[ind].H3(), depths[ind].H7());
+                        rside1 = Segment(depths[ind].H4(), depths[ind].H8());
+
+                        for(int kk = 0; kk < nz; kk++)
+                        {
+                            int subInd = kk*nx*ny + (j+1)*nx + i; // i, j+1, kk
+
+                            if(!existBlock[subInd])
+                            {
+                                Segment lside2(depths[subInd].H1(), depths[subInd].H5());
+                                Segment rside2(depths[subInd].H2(), depths[subInd].H6());
+
+                                if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
+                                {
+                                    found = true;
+
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(found)
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        // i, j-1
+                        ind1 = (j-1)*nx + i; // i, j-1, 0
+                        ind2 = (nz-1)*nx*ny + (j-1)*nx + i; // i, j-1, nz-1
+
+                        found = false;
+
+                        if(depths[ind].H5() < depths[ind1].H3() && depths[ind].H6() < depths[ind1].H4())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        if(depths[ind].H1() > depths[ind2].H7() && depths[ind].H2() > depths[ind2].H8())
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+
+                        lside1 = Segment(depths[ind].H1(), depths[ind].H5());
+                        rside1 = Segment(depths[ind].H2(), depths[ind].H6());
+
+                        for(int kk = 0; kk < nz; kk++)
+                        {
+                            int subInd = kk*nx*ny + (j-1)*nx + i; // i, j-1, kk
+
+                            if(!existBlock[subInd])
+                            {
+                                Segment lside2(depths[subInd].H3(), depths[subInd].H7());
+                                Segment rside2(depths[subInd].H4(), depths[subInd].H8());
+
+                                if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
+                                {
+                                    found = true;
+
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(found)
+                        {
+                            drawBlock[ind] = true;
+
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void DataHelper::GetDrawBlocks(ProjectData *projectData, QVector<bool> &drawBlock, QVector<Block> &blocks, double &xMin, double &xMax, double &yMin, double &yMax, double &zMin, double &zMax)
+{
+    int nx = projectData->Nx();
+    int ny = projectData->Ny();
+    int nz = projectData->Nz();
+
+    double x0 = xMin = xMax = 0;
+    double y0 = yMin = yMax = 0;
+    double z0 = zMin = zMax = 0;
+
+    for(int i = 0; i < nx; i++)
+    {
+        y0 = 0;
+
+        for(int j = 0; j < ny; j++)
+        {
+            z0 = projectData->tops(i, j);
+
+            for(int k = 0; k < nz; k++)
+            {
+                Block block = projectData->GetBlock(i, j, k, x0, y0, z0);
+
+                int ind = k*nx*ny + j*nx + i;
+
+                if(drawBlock[ind])
+                {
+                    if(blocks.size() == 0)
+                    {
+                        xMin = xMax = block.P1().X();
+                        yMin = yMax = block.P1().Y();
+                        zMin = zMax = block.P1().Z();
+                    }
+
+                    xMin = qMin(xMin, qMin(block.P1().X(), qMin(block.P2().X(), qMin(block.P3().X(), qMin(block.P4().X(), qMin(block.P5().X(), qMin(block.P6().X(), qMin(block.P7().X(), block.P8().X()))))))));
+                    yMin = qMin(yMin, qMin(block.P1().Y(), qMin(block.P2().Y(), qMin(block.P3().Y(), qMin(block.P4().Y(), qMin(block.P5().Y(), qMin(block.P6().Y(), qMin(block.P7().Y(), block.P8().Y()))))))));
+                    zMin = qMin(zMin, qMin(block.P1().Z(), qMin(block.P2().Z(), qMin(block.P3().Z(), qMin(block.P4().Z(), qMin(block.P5().Z(), qMin(block.P6().Z(), qMin(block.P7().Z(), block.P8().Z()))))))));
+
+                    xMax = qMax(xMax, qMax(block.P1().X(), qMax(block.P2().X(), qMax(block.P3().X(), qMax(block.P4().X(), qMax(block.P5().X(), qMax(block.P6().X(), qMax(block.P7().X(), block.P8().X()))))))));
+                    yMax = qMax(yMax, qMax(block.P1().Y(), qMax(block.P2().Y(), qMax(block.P3().Y(), qMax(block.P4().Y(), qMax(block.P5().Y(), qMax(block.P6().Y(), qMax(block.P7().Y(), block.P8().Y()))))))));
+                    zMax = qMax(zMax, qMax(block.P1().Z(), qMax(block.P2().Z(), qMax(block.P3().Z(), qMax(block.P4().Z(), qMax(block.P5().Z(), qMax(block.P6().Z(), qMax(block.P7().Z(), block.P8().Z()))))))));
+
+                    blocks.append(block);
+                }
+
+                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
+                if(k == nz-1) y0 = block.P8().Y();
+                z0 = block.P8().Z();
+            }
+        }
+    }
+}
+
+void DataHelper::NormalizeBlocks(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax, QVector<Block> &blocks)
+{
+    double maxD = qMax(qMax(xMax - xMin, yMax - yMin), zMax - zMin);
+
+    double scaleX = (xMax - xMin)/maxD;
+    double scaleY = (yMax - yMin)/maxD;
+    double scaleZ = (zMax - zMin)/maxD;
+
+    maxD = ISEQUAL(maxD, 0) ? 1 : maxD;
+
+    for(int i = 0; i < blocks.size(); i++)
+    {
+        double x = blocks[i].P1().X();
+        double y = blocks[i].P1().Y();
+        double z = blocks[i].P1().Z();
+
+        blocks[i].P1().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P1().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P1().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P2().X();
+        y = blocks[i].P2().Y();
+        z = blocks[i].P2().Z();
+
+        blocks[i].P2().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P2().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P2().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P3().X();
+        y = blocks[i].P3().Y();
+        z = blocks[i].P3().Z();
+
+        blocks[i].P3().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P3().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P3().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P4().X();
+        y = blocks[i].P4().Y();
+        z = blocks[i].P4().Z();
+
+        blocks[i].P4().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P4().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P4().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P5().X();
+        y = blocks[i].P5().Y();
+        z = blocks[i].P5().Z();
+
+        blocks[i].P5().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P5().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P5().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P6().X();
+        y = blocks[i].P6().Y();
+        z = blocks[i].P6().Z();
+
+        blocks[i].P6().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P6().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P6().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P7().X();
+        y = blocks[i].P7().Y();
+        z = blocks[i].P7().Z();
+
+        blocks[i].P7().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P7().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P7().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+
+        x = blocks[i].P8().X();
+        y = blocks[i].P8().Y();
+        z = blocks[i].P8().Z();
+
+        blocks[i].P8().SetX(-0.5*scaleX + (x-xMin)/maxD);
+        blocks[i].P8().SetY(-0.5*scaleY + (y-yMin)/maxD);
+        blocks[i].P8().SetZ(-0.5*scaleZ + (z-zMin)/maxD);
+    }
+}
+
 void DataHelper::DivideOnAxesNodes(int n, int mx, int my, int &nx, int &ny, int &nz)
 {
     nz = n/mx/my;

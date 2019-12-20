@@ -462,7 +462,7 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
 
     if(drawer->selectBlock && mousePosition != drawer->mousePosition)
     {
-        // compute();
+        findSelectedBlock();
 
         mousePosition = drawer->mousePosition;
     }
@@ -504,30 +504,30 @@ void FieldSceneDrawer::Renderer::render()
 
     QMatrix4x4 mvMatrix = viewMatrix * modelMatrix * scaleMatrix;
 
-    shaderProgram.bind();
-    shaderProgram.setUniformValue("uM", m);
-    shaderProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
-    shaderProgram.setUniformValue("uMVMatrix", mvMatrix);
-    shaderProgram.setUniformValue("uViewPort", viewPort);
-    shaderProgram.setUniformValue("uShowMesh", showMesh);
-    shaderProgram.setUniformValue("uShowContour", showContour);
-    shaderProgram.setUniformValue("uTransparent", transparent);
-    shaderProgram.setUniformValue("uLighting", lighting);
-    shaderProgram.setUniformValue("uMaxColor", maxColor);
-    shaderProgram.setUniformValue("uMidColor", midColor);
-    shaderProgram.setUniformValue("uMinColor", minColor);
-    shaderProgram.setUniformValue("uMaxValue", maxValue);
-    shaderProgram.setUniformValue("uMinValue", minValue);
-    shaderProgram.setUniformValue("uSelectedBlockIndex", index);
+    drawShaderProgram.bind();
+    drawShaderProgram.setUniformValue("uM", m);
+    drawShaderProgram.setUniformValue("uProjectionMatrix", projectionMatrix);
+    drawShaderProgram.setUniformValue("uMVMatrix", mvMatrix);
+    drawShaderProgram.setUniformValue("uViewPort", viewPort);
+    drawShaderProgram.setUniformValue("uShowMesh", showMesh);
+    drawShaderProgram.setUniformValue("uShowContour", showContour);
+    drawShaderProgram.setUniformValue("uTransparent", transparent);
+    drawShaderProgram.setUniformValue("uLighting", lighting);
+    drawShaderProgram.setUniformValue("uMaxColor", maxColor);
+    drawShaderProgram.setUniformValue("uMidColor", midColor);
+    drawShaderProgram.setUniformValue("uMinColor", minColor);
+    drawShaderProgram.setUniformValue("uMaxValue", maxValue);
+    drawShaderProgram.setUniformValue("uMinValue", minValue);
+    drawShaderProgram.setUniformValue("uSelectedBlockIndex", index);
 
     vertexBuffer.bind();
 
     int offset = 0;
 
-    int vLocation = shaderProgram.attributeLocation("vV");
+    int vLocation = drawShaderProgram.attributeLocation("vV");
 
-    shaderProgram.enableAttributeArray(vLocation);
-    shaderProgram.setAttributeBuffer(vLocation, GL_FLOAT, offset, 3, sizeof (QVector3D));
+    drawShaderProgram.enableAttributeArray(vLocation);
+    drawShaderProgram.setAttributeBuffer(vLocation, GL_FLOAT, offset, 3, sizeof (QVector3D));
 
     vertexBuffer.release();
 
@@ -535,10 +535,10 @@ void FieldSceneDrawer::Renderer::render()
 
     offset = 0;
 
-    int valueLocation = shaderProgram.attributeLocation("vValue");
+    int valueLocation = drawShaderProgram.attributeLocation("vValue");
 
-    shaderProgram.enableAttributeArray(valueLocation);
-    shaderProgram.setAttributeBuffer(valueLocation, GL_FLOAT, offset, 1, sizeof (float));
+    drawShaderProgram.enableAttributeArray(valueLocation);
+    drawShaderProgram.setAttributeBuffer(valueLocation, GL_FLOAT, offset, 1, sizeof (float));
 
     valueBuffer.release();
 
@@ -546,10 +546,10 @@ void FieldSceneDrawer::Renderer::render()
 
     offset = 0;
 
-    int blockIndexLocation = shaderProgram.attributeLocation("vBlockIndex");
+    int blockIndexLocation = drawShaderProgram.attributeLocation("vBlockIndex");
 
-    shaderProgram.enableAttributeArray(blockIndexLocation);
-    shaderProgram.setAttributeBuffer(blockIndexLocation, GL_FLOAT, offset, 1, sizeof (float));
+    drawShaderProgram.enableAttributeArray(blockIndexLocation);
+    drawShaderProgram.setAttributeBuffer(blockIndexLocation, GL_FLOAT, offset, 1, sizeof (float));
 
     blockIndexBuffer.release();
 
@@ -559,15 +559,21 @@ void FieldSceneDrawer::Renderer::render()
 
     indexBuffer.release();
 
-    shaderProgram.release();
+    drawShaderProgram.release();
 }
 
 void FieldSceneDrawer::Renderer::initShaders()
 {
-    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vshader.glsl");
-    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Geometry, ":/shaders/gshader.glsl");
-    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fshader.glsl");
-    shaderProgram.link();
+    drawShaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vshader.glsl");
+    drawShaderProgram.addShaderFromSourceFile(QOpenGLShader::Geometry, ":/shaders/gshader.glsl");
+    drawShaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fshader.glsl");
+    drawShaderProgram.link();
+
+    selectShaderProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/compute_selected_blocks.glsl");
+    selectShaderProgram.link();
+
+    nearestShaderProgram.addShaderFromSourceFile(QOpenGLShader::Compute, ":/shaders/find_nearest_block.glsl");
+    nearestShaderProgram.link();
 }
 
 void FieldSceneDrawer::Renderer::initBuffer()
@@ -576,8 +582,11 @@ void FieldSceneDrawer::Renderer::initBuffer()
     indexBuffer.create();
 
     blockIndexBuffer.create();
-
     valueBuffer.create();
+
+    outBlockIndexBuffer.create();
+    outBlockDistanceBuffer.create();
+    outIsSelectedBlockBuffer.create();
 }
 
 void FieldSceneDrawer::Renderer::initGeometry()
@@ -592,123 +601,119 @@ void FieldSceneDrawer::Renderer::initGeometry()
 
     if(drawer->data != nullptr)
     {
-        int nx = drawer->data->Nx();
-        int ny = drawer->data->Ny();
-        int nz = drawer->data->Nz();
+        double xMin = 0;
+        double xMax = 0;
 
-        double x0 = 0;
-        double y0 = 0;
-        double z0 = 0;
+        double yMin = 0;
+        double yMax = 0;
 
-        for(int i = 0; i < nx; i++)
+        double zMin = 0;
+        double zMax = 0;
+
+        QVector<Depth> depths;
+        QVector<bool> existBlock;
+        QVector<bool> drawBlock;
+        QVector<Block> blocks;
+
+        DataHelper::CalculateBlockDepthArray(drawer->data, depths);
+        DataHelper::CalculateExistBlockArray(drawer->data, existBlock);
+        DataHelper::CalculateDrawBlockArray(drawer->data, depths, existBlock, drawBlock);
+        DataHelper::GetDrawBlocks(drawer->data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
+        DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
+
+        for(int index = 0; index < blocks.size(); index++)
         {
-            y0 = 0;
+            Block& block = blocks[index];
 
-            for(int j = 0; j < ny; j++)
-            {
-                z0 = drawer->data->tops(i, j);
+            // bottom
+            vertexes.append(QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                for(int k = 0; k < nz; k++)
-                {
-                    Block block = drawer->data->GetBlock(i, j, k, x0, y0, z0);
+            vertexes.append(QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    int index = k*nx*ny + j*nx + i;
+            vertexes.append(QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    // bottom
-                    vertexes.append(QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            vertexes.append(QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    vertexes.append(QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            // top
+            vertexes.append(QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    vertexes.append(QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            vertexes.append(QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    vertexes.append(QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            vertexes.append(QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    // top
-                    vertexes.append(QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            vertexes.append(QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z()));
+            values.append(0.0f);
+            blockIndexes.append(index);
 
-                    vertexes.append(QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            // left face
+            indexes.append(8*index + 0);
+            indexes.append(8*index + 4);
+            indexes.append(8*index + 1);
 
-                    vertexes.append(QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            indexes.append(8*index + 7);
+            indexes.append(8*index + 1);
+            indexes.append(8*index + 4);
 
-                    vertexes.append(QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z()));
-                    values.append(0.0f);
-                    blockIndexes.append(index);
+            // right face
+            indexes.append(8*index + 3);
+            indexes.append(8*index + 2);
+            indexes.append(8*index + 5);
 
-                    // left face
-                    indexes.append(8*index + 0);
-                    indexes.append(8*index + 4);
-                    indexes.append(8*index + 1);
+            indexes.append(8*index + 6);
+            indexes.append(8*index + 5);
+            indexes.append(8*index + 2);
 
-                    indexes.append(8*index + 7);
-                    indexes.append(8*index + 1);
-                    indexes.append(8*index + 4);
+            // back face
+            indexes.append(8*index + 7);
+            indexes.append(8*index + 6);
+            indexes.append(8*index + 1);
 
-                    // right face
-                    indexes.append(8*index + 3);
-                    indexes.append(8*index + 2);
-                    indexes.append(8*index + 5);
+            indexes.append(8*index + 2);
+            indexes.append(8*index + 1);
+            indexes.append(8*index + 6);
 
-                    indexes.append(8*index + 6);
-                    indexes.append(8*index + 5);
-                    indexes.append(8*index + 2);
+            // front face
+            indexes.append(8*index + 4);
+            indexes.append(8*index + 0);
+            indexes.append(8*index + 5);
 
-                    // back face
-                    indexes.append(8*index + 7);
-                    indexes.append(8*index + 6);
-                    indexes.append(8*index + 1);
+            indexes.append(8*index + 3);
+            indexes.append(8*index + 5);
+            indexes.append(8*index + 0);
 
-                    indexes.append(8*index + 2);
-                    indexes.append(8*index + 1);
-                    indexes.append(8*index + 6);
+            // down face
+            indexes.append(8*index + 1);
+            indexes.append(8*index + 2);
+            indexes.append(8*index + 0);
 
-                    // front face
-                    indexes.append(8*index + 4);
-                    indexes.append(8*index + 0);
-                    indexes.append(8*index + 5);
+            indexes.append(8*index + 3);
+            indexes.append(8*index + 0);
+            indexes.append(8*index + 2);
 
-                    indexes.append(8*index + 3);
-                    indexes.append(8*index + 5);
-                    indexes.append(8*index + 0);
+            // up face
+            indexes.append(8*index + 7);
+            indexes.append(8*index + 4);
+            indexes.append(8*index + 6);
 
-                    // down face
-                    indexes.append(8*index + 1);
-                    indexes.append(8*index + 2);
-                    indexes.append(8*index + 0);
+            indexes.append(8*index + 5);
+            indexes.append(8*index + 6);
+            indexes.append(8*index + 4);
 
-                    indexes.append(8*index + 3);
-                    indexes.append(8*index + 0);
-                    indexes.append(8*index + 2);
-
-                    // up face
-                    indexes.append(8*index + 7);
-                    indexes.append(8*index + 4);
-                    indexes.append(8*index + 6);
-
-                    indexes.append(8*index + 5);
-                    indexes.append(8*index + 6);
-                    indexes.append(8*index + 4);
-
-                    primitiveCount += 12;
-
-                    if(k == nz-1 && j == ny-1) x0 = block.P8().X();
-                    if(k == nz-1) y0 = block.P8().Y();
-                    z0 = block.P8().Z();
-                }
-            }
+            primitiveCount += 12;
         }
 
         vertexBuffer.bind();
@@ -726,6 +731,18 @@ void FieldSceneDrawer::Renderer::initGeometry()
         valueBuffer.bind();
         valueBuffer.allocate(values.constData(), values.size() * sizeof (float));
         valueBuffer.release();
+
+        outBlockIndexBuffer.bind();
+        outBlockIndexBuffer.allocate(primitiveCount * sizeof (int));
+        outBlockIndexBuffer.release();
+
+        outBlockDistanceBuffer.bind();
+        outBlockDistanceBuffer.allocate(primitiveCount * sizeof (float));
+        outBlockDistanceBuffer.release();
+
+        outIsSelectedBlockBuffer.bind();
+        outIsSelectedBlockBuffer.allocate(primitiveCount * sizeof (bool));
+        outIsSelectedBlockBuffer.release();
     }
 }
 
@@ -740,4 +757,150 @@ void FieldSceneDrawer::Renderer::clearGeometry()
     indexBuffer.bind();
     indexBuffer.allocate(0);
     indexBuffer.release();
+
+    blockIndexBuffer.bind();
+    blockIndexBuffer.allocate(0);
+    blockIndexBuffer.release();
+
+    valueBuffer.bind();
+    valueBuffer.allocate(0);
+    valueBuffer.release();
+
+    outBlockIndexBuffer.bind();
+    outBlockIndexBuffer.allocate(0);
+    outBlockIndexBuffer.release();
+
+    outBlockDistanceBuffer.bind();
+    outBlockDistanceBuffer.allocate(0);
+    outBlockDistanceBuffer.release();
+
+    outIsSelectedBlockBuffer.bind();
+    outIsSelectedBlockBuffer.allocate(0);
+    outIsSelectedBlockBuffer.release();
+}
+
+void FieldSceneDrawer::Renderer::findSelectedBlock()
+{
+    float width = static_cast<float>(drawer->width());
+    float height = static_cast<float>(drawer->height());
+
+    QVector2D viewPort(width, height);
+
+    QVector2D mousePosition = drawer->MousePosition();
+
+    mousePosition.setX(2*mousePosition.x() - width);
+    mousePosition.setY(2*mousePosition.y() - height);
+
+    QVector4D rayClip(mousePosition.x()/width, mousePosition.y()/height, -1.0f, 1.0f);
+
+    QVector4D rayEye = projectionMatrix.inverted() * rayClip;
+
+    rayEye.setW(0);
+
+    QVector4D rayWorld = rayEye;
+
+    rayWorld.normalize();
+
+    QMatrix4x4 mvMatrix = viewMatrix * modelMatrix * scaleMatrix;
+
+    int gNx, gNy, gNz;
+
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &gNx);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1, &gNy);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2, &gNz);
+
+    // qDebug() << "Max work groups: " << gNx << ", " << gNy << ", " << gNz;
+
+    int lNx, lNy, lNz;
+
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &lNx);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &lNy);
+    glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, &lNz);
+
+    // qDebug() << "Max work group sizes: " << lNx << ", " << lNy << ", " << lNz;
+
+    int iN;
+
+    glGetIntegerv(GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS, &iN);
+
+    // qDebug() << "Number of invocations in a single local work group: " << iN;
+
+    int sN;
+
+    glGetIntegerv(GL_MAX_COMPUTE_SHARED_MEMORY_SIZE, &sN);
+
+    // qDebug() << "Shared memory size: " << sN;
+
+    int cx, cy, cz;
+
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, vertexBuffer.bufferId());
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, indexBuffer.bufferId());
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, blockIndexBuffer.bufferId());
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, outBlockIndexBuffer.bufferId());
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, outBlockDistanceBuffer.bufferId());
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 5, outIsSelectedBlockBuffer.bufferId());
+
+    selectShaderProgram.bind();
+    selectShaderProgram.setUniformValue("uViewPort", viewPort);
+    selectShaderProgram.setUniformValue("uRay", rayWorld);
+    selectShaderProgram.setUniformValue("uMVMatrix", mvMatrix);
+    selectShaderProgram.setUniformValue("uPrimitiveCount", primitiveCount);
+
+    DataHelper::NumberOfGPUNodes(primitiveCount, gNx, gNy, cx, cy, cz);
+
+    // qDebug() << "Compute: " << cx << ", " << cy << ", " << cz;
+
+    glDispatchCompute(cx, cy, cz);
+
+    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
+
+    selectShaderProgram.release();
+
+    nearestShaderProgram.bind();
+    nearestShaderProgram.setUniformValue("uPrimitiveCount", primitiveCount);
+
+    uint d = 1;
+    uint n = primitiveCount;
+
+    while(d < primitiveCount)
+    {
+        n = (n%2 == 0) ? n/2 : (n+1)/2;
+
+        nearestShaderProgram.setUniformValue("uDiv", d);
+
+        DataHelper::NumberOfGPUNodes(n, gNx, gNy, cx, cy, cz);
+
+        // qDebug() << "Sort " << d << ": " << cx << ", " << cy << ", " << cz;
+
+        glDispatchCompute(cx, cy, cz);
+
+        glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT | GL_BUFFER_UPDATE_BARRIER_BIT);
+
+        d = 2*d;
+    }
+
+    nearestShaderProgram.release();
+
+    outBlockIndexBuffer.bind();
+    outIsSelectedBlockBuffer.bind();
+
+    int outBlockIndex[1];
+    bool outIsSelectedBlock[1];
+
+    outBlockIndexBuffer.read(0, outBlockIndex, sizeof (int));
+    outIsSelectedBlockBuffer.read(0, outIsSelectedBlock, sizeof (bool));
+
+    outBlockIndexBuffer.release();
+    outIsSelectedBlockBuffer.release();
+
+    if(outIsSelectedBlock[0])
+    {
+        int index = outBlockIndex[0];
+
+        drawer->SetSelectedBlockIndex(index);
+    }
+    else
+    {
+        drawer->SetSelectedBlockIndex(-1);
+    }
 }

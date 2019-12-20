@@ -138,6 +138,7 @@ protected:
         void initBuffer();
         void initGeometry();
         void clearGeometry();        
+        void findSelectedBlock();
 
     private:
         bool initialized;
@@ -151,13 +152,19 @@ protected:
         QMatrix4x4 modelMatrix;
         QMatrix4x4 scaleMatrix;
 
-        QOpenGLShaderProgram shaderProgram;
+        QOpenGLShaderProgram drawShaderProgram;
+        QOpenGLShaderProgram selectShaderProgram;
+        QOpenGLShaderProgram nearestShaderProgram;
 
         QOpenGLBuffer vertexBuffer;
         QOpenGLBuffer indexBuffer;
 
         QOpenGLBuffer blockIndexBuffer;
         QOpenGLBuffer valueBuffer;
+
+        QOpenGLBuffer outBlockIndexBuffer;
+        QOpenGLBuffer outBlockDistanceBuffer;
+        QOpenGLBuffer outIsSelectedBlockBuffer;
 
         FieldSceneDrawer *drawer;
     };

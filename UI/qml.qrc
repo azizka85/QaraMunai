@@ -61,7 +61,7 @@
         <file alias="fshader.glsl">shaders/fshader.glsl</file>
         <file alias="gshader.glsl">shaders/gshader.glsl</file>
         <file alias="vshader.glsl">shaders/vshader.glsl</file>
-        <file alias="cshader.csh">shaders/cshader.csh</file>
-        <file alias="sshader.csh">shaders/sshader.csh</file>
+        <file alias="compute_selected_blocks.glsl">shaders/compute_selected_blocks.glsl</file>
+        <file alias="find_nearest_block.glsl">shaders/find_nearest_block.glsl</file>
     </qresource>
 </RCC>
