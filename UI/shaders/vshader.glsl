@@ -5,7 +5,7 @@ uniform mat4 uMVMatrix;
 
 in vec4 vV;
 in float vValue;
-in int vBlockIndex;
+in float vBlockIndex;
 
 out vec4 gVt;
 out vec4 gVp;

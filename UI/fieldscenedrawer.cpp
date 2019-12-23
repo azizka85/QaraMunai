@@ -500,7 +500,7 @@ void FieldSceneDrawer::Renderer::render()
     float maxValue = 150.0f;
     float minValue = 0.0f;
 
-    int index = drawer->selectedBlockIndex;
+    float index = drawer->selectedBlockIndex;
 
     QMatrix4x4 mvMatrix = viewMatrix * modelMatrix * scaleMatrix;
 
@@ -615,6 +615,12 @@ void FieldSceneDrawer::Renderer::initGeometry()
         QVector<bool> drawBlock;
         QVector<Block> blocks;
 
+        int nx = drawer->data->Nx();
+        int ny = drawer->data->Ny();
+        int nz = drawer->data->Nz();
+
+        qDebug() << nx << ", " << ny << ", " << nz;
+
         DataHelper::CalculateBlockDepthArray(drawer->data, depths);
         DataHelper::CalculateExistBlockArray(drawer->data, existBlock);
         DataHelper::CalculateDrawBlockArray(drawer->data, depths, existBlock, drawBlock);
@@ -625,39 +631,41 @@ void FieldSceneDrawer::Renderer::initGeometry()
         {
             Block& block = blocks[index];
 
+            float blockIndex = block.I() + block.J() * nx + block.K() * nx * ny;
+
             // bottom
             vertexes.append(QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             vertexes.append(QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             vertexes.append(QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             vertexes.append(QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             // top
             vertexes.append(QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             vertexes.append(QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             vertexes.append(QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             vertexes.append(QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z()));
             values.append(0.0f);
-            blockIndexes.append(index);
+            blockIndexes.append(blockIndex);
 
             // left face
             indexes.append(8*index + 0);
@@ -733,7 +741,7 @@ void FieldSceneDrawer::Renderer::initGeometry()
         valueBuffer.release();
 
         outBlockIndexBuffer.bind();
-        outBlockIndexBuffer.allocate(primitiveCount * sizeof (int));
+        outBlockIndexBuffer.allocate(primitiveCount * sizeof (float));
         outBlockIndexBuffer.release();
 
         outBlockDistanceBuffer.bind();
@@ -741,7 +749,7 @@ void FieldSceneDrawer::Renderer::initGeometry()
         outBlockDistanceBuffer.release();
 
         outIsSelectedBlockBuffer.bind();
-        outIsSelectedBlockBuffer.allocate(primitiveCount * sizeof (bool));
+        outIsSelectedBlockBuffer.allocate(primitiveCount * sizeof (float));
         outIsSelectedBlockBuffer.release();
     }
 }
@@ -882,22 +890,28 @@ void FieldSceneDrawer::Renderer::findSelectedBlock()
     nearestShaderProgram.release();
 
     outBlockIndexBuffer.bind();
-    outIsSelectedBlockBuffer.bind();
 
-    int outBlockIndex[1];
-    bool outIsSelectedBlock[1];
+    float outBlockIndex;
 
-    outBlockIndexBuffer.read(0, outBlockIndex, sizeof (int));
-    outIsSelectedBlockBuffer.read(0, outIsSelectedBlock, sizeof (bool));
+    outBlockIndexBuffer.read(0, &outBlockIndex, sizeof (float));
 
     outBlockIndexBuffer.release();
+
+    outIsSelectedBlockBuffer.bind();
+
+    float outIsSelectedBlock;
+
+    outIsSelectedBlockBuffer.read(0, &outIsSelectedBlock, sizeof (float));
+
     outIsSelectedBlockBuffer.release();
 
-    if(outIsSelectedBlock[0])
+    if(outIsSelectedBlock > 0)
     {
-        int index = outBlockIndex[0];
+        float index = outBlockIndex;
 
         drawer->SetSelectedBlockIndex(index);
+
+        qDebug() << index;
     }
     else
     {

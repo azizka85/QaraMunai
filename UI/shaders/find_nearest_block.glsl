@@ -3,9 +3,9 @@ uniform int uPrimitiveCount;
 uniform int uDiv;
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
-layout (std430, binding = 3) buffer OutBlockIndexBuffer { uint outBlockIndex[]; };
+layout (std430, binding = 3) buffer OutBlockIndexBuffer { float outBlockIndex[]; };
 layout (std430, binding = 4) buffer OutBlockDistanceBuffer { float outBlockDistance[]; };
-layout (std430, binding = 5) buffer OutIsSelectedBlockBuffer { bool outIsSelectedBlock[]; };
+layout (std430, binding = 5) buffer OutIsSelectedBlockBuffer { float outIsSelectedBlock[]; };
 
 bool compare(in uint id1, in uint id2);
 void check(in uint id1, in uint id2);
@@ -26,9 +26,9 @@ void main(void)
 
 bool compare(in uint id1, in uint id2)
 {
-    if(outIsSelectedBlock[id1])
+    if(outIsSelectedBlock[id1] > 0)
     {
-        if(outIsSelectedBlock[id2])
+        if(outIsSelectedBlock[id2] > 0)
         {
             if(outBlockDistance[id1] > outBlockDistance[id2]) return false;
         }
@@ -49,11 +49,11 @@ void check(in uint id1, in uint id2)
         outBlockDistance[id1] = outBlockDistance[id2];
         outBlockDistance[id2] = ftemp;
 
-        uint itemp = outBlockIndex[id1];
+        float itemp = outBlockIndex[id1];
         outBlockIndex[id1] = outBlockIndex[id2];
         outBlockIndex[id2] = itemp;
 
-        bool btemp = outIsSelectedBlock[id1];
+        float btemp = outIsSelectedBlock[id1];
         outIsSelectedBlock[id1] = outIsSelectedBlock[id2];
         outIsSelectedBlock[id2] = btemp;
     }

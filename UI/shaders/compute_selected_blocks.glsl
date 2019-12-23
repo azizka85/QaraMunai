@@ -7,10 +7,10 @@ uniform int uPrimitiveCount;
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 layout (std430, binding = 0) buffer VertexBuffer { float vertex[]; };
 layout (std430, binding = 1) buffer IndexBuffer { uint index[]; };
-layout (std430, binding = 2) buffer BlockIndexBuffer { uint blockIndex[]; };
-layout (std430, binding = 3) buffer OutBlockIndexBuffer { uint outBlockIndex[]; };
+layout (std430, binding = 2) buffer BlockIndexBuffer { float blockIndex[]; };
+layout (std430, binding = 3) buffer OutBlockIndexBuffer { float outBlockIndex[]; };
 layout (std430, binding = 4) buffer OutBlockDistanceBuffer { float outBlockDistance[]; };
-layout (std430, binding = 5) buffer OutIsSelectedBlockBuffer { bool outIsSelectedBlock[]; };
+layout (std430, binding = 5) buffer OutIsSelectedBlockBuffer { float outIsSelectedBlock[]; };
 
 void main(void)
 {
@@ -76,7 +76,7 @@ void main(void)
         float a = (vv3 - v1v3)/v2v3;
         float b = -(vv2 - v1v2)/v2v3;
 
-        bool iCheck = d > 0 && a > 0.0f && b > 0.0f && (a+b) < 1.0f ? true : false;
+        float iCheck = d > 0 && a > 0.0f && b > 0.0f && (a+b) < 1.0f ? 1 : -1;
 
         outBlockIndex[i] = blockIndex[ind1];
         outBlockDistance[i] = d;
