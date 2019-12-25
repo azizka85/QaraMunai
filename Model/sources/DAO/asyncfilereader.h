@@ -20,6 +20,7 @@ public:
 
 signals:
     void loadComplete();
+    void dataProcessed();
 
 public:
     Q_INVOKABLE void load(IDataFileReader *reader, ProjectData *data, const QString &filePath);

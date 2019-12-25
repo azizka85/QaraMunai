@@ -46,7 +46,6 @@ SOURCES += \
     sources/DAO/eclipsefilereader.cpp \
     sources/Domain/Grid/block.cpp \
     sources/Domain/Grid/box3d.cpp \
-    sources/Domain/Grid/depth.cpp \
     sources/Domain/Grid/line3d.cpp \
     sources/Domain/Grid/point3d.cpp \
     sources/Domain/Grid/segment.cpp \
@@ -140,7 +139,6 @@ HEADERS += \
     sources/DAO/idatafilewriter.h \
     sources/Domain/Grid/block.h \
     sources/Domain/Grid/box3d.h \
-    sources/Domain/Grid/depth.h \
     sources/Domain/Grid/line3d.h \
     sources/Domain/Grid/point3d.h \
     sources/Domain/Grid/segment.h \

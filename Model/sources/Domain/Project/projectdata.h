@@ -121,7 +121,7 @@ public:
 
     Q_INVOKABLE double depth(int i, int j, int k);
 
-    Q_INVOKABLE QVariant block(int i, int j, int k, double x0 = 0, double y0 = 0, double z0 = 0);
+    Q_INVOKABLE QVariant block(int i, int j, int k);
 
     Q_INVOKABLE double poro(int i, int j, int k);
     Q_INVOKABLE double ntg(int i, int j, int k);
@@ -158,7 +158,7 @@ public:
     Q_INVOKABLE double soil(int i, int j, int k);
     Q_INVOKABLE double sgas(int i, int j, int k);    
 
-    Block GetBlock(int i, int j, int k, double x0 = 0, double y0 = 0, double z0 = 0);
+    Block GetBlock(int i, int j, int k);
     Block CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k);
     Block CalcBlockByCPG(int i, int j, int k);
 
@@ -199,6 +199,8 @@ public:
     void SetNz(int nz);
 
     void SetBlockCentered(bool isBlockCentered);
+
+    void ProcessData();
 
     Q_INVOKABLE void initVariables();
 
@@ -251,6 +253,8 @@ private:
     ADDEntity *add;
     EQUALSEntity *equals;
     MULTIPLYEntity *multiply;
+
+    QVector<Block> blocks;
 };
 
 }}}}

@@ -9,7 +9,6 @@
 #include <qdebug.h>
 
 #include <block.h>
-#include <depth.h>
 #include <segment.h>
 
 #include <linearmatrix3d.h>
@@ -68,9 +67,8 @@ public:
     static bool CalcBlockDepthsCPG(StratumData &stratum, int i, int j, int k, int nx, int ny, double &d1, double &d2, double &d3, double &d4, double &d5, double &d6, double &d7, double &d8);
     static bool CheckPointOrderStandardCPG(StratumData &stratum, int nx, int ny);
 
-    static void CalculateBlockDepthArray(ProjectData* projectData, QVector<Depth>& depths);
     static void CalculateExistBlockArray(ProjectData* projectData, QVector<bool> &existBlock);
-    static void CalculateDrawBlockArray(ProjectData* projectData, QVector<Depth>& depths, QVector<bool> &existBlock, QVector<bool> &drawBlock);
+    static void CalculateDrawBlockArray(ProjectData* projectData, QVector<bool> &existBlock, QVector<bool> &drawBlock);
     static void GetDrawBlocks(ProjectData* projectData, QVector<bool> &drawBlock, QVector<Block> &blocks, double &xMin, double &xMax, double &yMin, double &yMax, double &zMin, double &zMax);
     static void NormalizeBlocks(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax, QVector<Block> &blocks);
 

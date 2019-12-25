@@ -484,42 +484,6 @@ bool DataHelper::CheckPointOrderStandardCPG(StratumData &stratum, int nx, int ny
             p2.Y() <= p4.Y();
 }
 
-void DataHelper::CalculateBlockDepthArray(ProjectData *projectData, QVector<Depth> &depths)
-{
-    int nx = projectData->Nx();
-    int ny = projectData->Ny();
-    int nz = projectData->Nz();
-
-    depths.resize(nx*ny*nz);
-
-    double x0 = 0;
-    double y0 = 0;
-    double z0 = 0;
-
-    for(int i = 0; i < nx; i++)
-    {
-        y0 = 0;
-
-        for(int j = 0; j < ny; j++)
-        {
-            z0 = projectData->tops(i, j);
-
-            for(int k = 0; k < nz; k++)
-            {
-                Block block = projectData->GetBlock(i, j, k, x0, y0, z0);
-
-                int ind = k*nx*ny + j*nx + i;
-
-                depths[ind] = Depth(block.P1().Z(), block.P2().Z(), block.P3().Z(), block.P4().Z(), block.P5().Z(), block.P6().Z(), block.P7().Z(), block.P8().Z());
-
-                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
-                if(k == nz-1) y0 = block.P8().Y();
-                z0 = block.P8().Z();
-            }
-        }
-    }
-}
-
 void DataHelper::CalculateExistBlockArray(ProjectData *projectData, QVector<bool> &existBlock)
 {
     int nx = projectData->Nx();
@@ -542,7 +506,7 @@ void DataHelper::CalculateExistBlockArray(ProjectData *projectData, QVector<bool
     }
 }
 
-void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth> &depths, QVector<bool> &existBlock, QVector<bool> &drawBlock)
+void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<bool> &existBlock, QVector<bool> &drawBlock)
 {
     int nx = projectData->Nx();
     int ny = projectData->Ny();
@@ -557,6 +521,8 @@ void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth
             for(int k = 0; k < nz; k++)
             {
                 int ind = k*nx*ny + j*nx + i; // i, j, k
+
+                Block block = projectData->GetBlock(i, j, k);
 
                 drawBlock[ind] = false;
 
@@ -578,33 +544,38 @@ void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth
                         ind1 = j*nx + (i+1); // i+1, j, 0
                         ind2 = (nz-1)*nx*ny + j*nx + (i+1); // i+1, j, nz-1
 
+                        Block block1 = projectData->GetBlock(i+1, j, 0);
+                        Block block2 = projectData->GetBlock(i+1, j, nz-1);
+
                         bool found = false;
 
-                        if(depths[ind].H6() < depths[ind1].H1() && depths[ind].H8() < depths[ind1].H3())
+                        if(block.P6().Z() < block1.P1().Z() && block.P8().Z() < block1.P3().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        if(depths[ind].H2() > depths[ind2].H5() && depths[ind].H4() > depths[ind2].H7())
+                        if(block.P2().Z() > block2.P5().Z() && block.P4().Z() > block2.P7().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        Segment lside1(depths[ind].H2(), depths[ind].H6());
-                        Segment rside1(depths[ind].H4(), depths[ind].H8());
+                        Segment lside1(block.P2().Z(), block.P6().Z());
+                        Segment rside1(block.P4().Z(), block.P8().Z());
 
                         for(int kk = 0; kk < nz; kk++)
                         {
                             int subInd = kk*nx*ny + j*nx + i+1; // i+1, j, kk
 
+                            Block subBlock = projectData->GetBlock(i+1, j, kk);
+
                             if(!existBlock[subInd])
                             {
-                                Segment lside2(depths[subInd].H1(), depths[subInd].H5());
-                                Segment rside2(depths[subInd].H3(), depths[subInd].H7());
+                                Segment lside2(subBlock.P1().Z(), subBlock.P5().Z());
+                                Segment rside2(subBlock.P3().Z(), subBlock.P7().Z());
 
                                 if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
                                 {
@@ -626,33 +597,38 @@ void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth
                         ind1 = j*nx + (i-1); // i-1, j, 0
                         ind2 = (nz-1)*nx*ny + j*nx + (i-1); // i-1, j, nz-1
 
+                        block1 = projectData->GetBlock(i-1, j, 0);
+                        block2 = projectData->GetBlock(i-1, j, nz-1);
+
                         found = false;
 
-                        if(depths[ind].H5() < depths[ind1].H2() && depths[ind].H7() < depths[ind1].H4())
+                        if(block.P5().Z() < block1.P2().Z() && block.P7().Z() < block1.P4().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        if(depths[ind].H1() > depths[ind2].H6() && depths[ind].H3() > depths[ind2].H8())
+                        if(block.P1().Z() > block2.P6().Z() && block.P3().Z() > block2.P8().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        lside1 = Segment(depths[ind].H1(), depths[ind].H5());
-                        rside1 = Segment(depths[ind].H3(), depths[ind].H7());
+                        lside1 = Segment(block.P1().Z(), block.P5().Z());
+                        rside1 = Segment(block.P3().Z(), block.P7().Z());
 
                         for(int kk = 0; kk < nz; kk++)
                         {
                             int subInd = kk*nx*ny + j*nx + i-1; // i-1, j, kk
 
+                            Block subBlock = projectData->GetBlock(i-1, j, kk);
+
                             if(!existBlock[subInd])
                             {
-                                Segment lside2(depths[subInd].H2(), depths[subInd].H6());
-                                Segment rside2(depths[subInd].H4(), depths[subInd].H8());
+                                Segment lside2(subBlock.P2().Z(), subBlock.P6().Z());
+                                Segment rside2(subBlock.P4().Z(), subBlock.P8().Z());
 
                                 if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
                                 {
@@ -674,33 +650,38 @@ void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth
                         ind1 = (j+1)*nx + i; // i, j+1, 0
                         ind2 = (nz-1)*nx*ny + (j+1)*nx + i; // i, j+1, nz-1
 
+                        block1 = projectData->GetBlock(i, j+1, 0);
+                        block2 = projectData->GetBlock(i, j+1, nz-1);
+
                         found = false;
 
-                        if(depths[ind].H7() < depths[ind1].H1() && depths[ind].H8() < depths[ind1].H2())
+                        if(block.P7().Z() < block1.P1().Z() && block.P8().Z() < block1.P2().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        if(depths[ind].H3() > depths[ind2].H5() && depths[ind].H4() > depths[ind2].H6())
+                        if(block.P3().Z() > block2.P5().Z() && block.P4().Z() > block2.P6().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        lside1 = Segment(depths[ind].H3(), depths[ind].H7());
-                        rside1 = Segment(depths[ind].H4(), depths[ind].H8());
+                        lside1 = Segment(block.P3().Z(), block.P7().Z());
+                        rside1 = Segment(block.P4().Z(), block.P8().Z());
 
                         for(int kk = 0; kk < nz; kk++)
                         {
                             int subInd = kk*nx*ny + (j+1)*nx + i; // i, j+1, kk
 
+                            Block subBlock = projectData->GetBlock(i, j+1, kk);
+
                             if(!existBlock[subInd])
                             {
-                                Segment lside2(depths[subInd].H1(), depths[subInd].H5());
-                                Segment rside2(depths[subInd].H2(), depths[subInd].H6());
+                                Segment lside2(subBlock.P1().Z(), subBlock.P5().Z());
+                                Segment rside2(subBlock.P2().Z(), subBlock.P6().Z());
 
                                 if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
                                 {
@@ -722,33 +703,38 @@ void DataHelper::CalculateDrawBlockArray(ProjectData *projectData, QVector<Depth
                         ind1 = (j-1)*nx + i; // i, j-1, 0
                         ind2 = (nz-1)*nx*ny + (j-1)*nx + i; // i, j-1, nz-1
 
+                        block1 = projectData->GetBlock(i, j-1, 0);
+                        block2 = projectData->GetBlock(i, j-1, nz-1);
+
                         found = false;
 
-                        if(depths[ind].H5() < depths[ind1].H3() && depths[ind].H6() < depths[ind1].H4())
+                        if(block.P5().Z() < block1.P3().Z() && block.P6().Z() < block1.P4().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        if(depths[ind].H1() > depths[ind2].H7() && depths[ind].H2() > depths[ind2].H8())
+                        if(block.P1().Z() > block2.P7().Z() && block.P2().Z() > block2.P8().Z())
                         {
                             drawBlock[ind] = true;
 
                             continue;
                         }
 
-                        lside1 = Segment(depths[ind].H1(), depths[ind].H5());
-                        rside1 = Segment(depths[ind].H2(), depths[ind].H6());
+                        lside1 = Segment(block.P1().Z(), block.P5().Z());
+                        rside1 = Segment(block.P2().Z(), block.P6().Z());
 
                         for(int kk = 0; kk < nz; kk++)
                         {
                             int subInd = kk*nx*ny + (j-1)*nx + i; // i, j-1, kk
 
+                            Block subBlock = projectData->GetBlock(i, j-1, kk);
+
                             if(!existBlock[subInd])
                             {
-                                Segment lside2(depths[subInd].H3(), depths[subInd].H7());
-                                Segment rside2(depths[subInd].H4(), depths[subInd].H8());
+                                Segment lside2(subBlock.P3().Z(), subBlock.P7().Z());
+                                Segment rside2(subBlock.P4().Z(), subBlock.P8().Z());
 
                                 if(MathHelper::IsIntersectedSurfaces(lside1, rside1, lside2, rside2))
                                 {
@@ -792,7 +778,7 @@ void DataHelper::GetDrawBlocks(ProjectData *projectData, QVector<bool> &drawBloc
 
             for(int k = 0; k < nz; k++)
             {
-                Block block = projectData->GetBlock(i, j, k, x0, y0, z0);
+                Block block = projectData->GetBlock(i, j, k);
 
                 int ind = k*nx*ny + j*nx + i;
 

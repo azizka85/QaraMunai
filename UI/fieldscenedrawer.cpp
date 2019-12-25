@@ -610,7 +610,6 @@ void FieldSceneDrawer::Renderer::initGeometry()
         double zMin = 0;
         double zMax = 0;
 
-        QVector<Depth> depths;
         QVector<bool> existBlock;
         QVector<bool> drawBlock;
         QVector<Block> blocks;
@@ -621,9 +620,8 @@ void FieldSceneDrawer::Renderer::initGeometry()
 
         qDebug() << nx << ", " << ny << ", " << nz;
 
-        DataHelper::CalculateBlockDepthArray(drawer->data, depths);
         DataHelper::CalculateExistBlockArray(drawer->data, existBlock);
-        DataHelper::CalculateDrawBlockArray(drawer->data, depths, existBlock, drawBlock);
+        DataHelper::CalculateDrawBlockArray(drawer->data, existBlock, drawBlock);
         DataHelper::GetDrawBlocks(drawer->data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
         DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
 

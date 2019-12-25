@@ -214,9 +214,9 @@ double ProjectData::depth(int i, int j, int k)
     return val;
 }
 
-QVariant ProjectData::block(int i, int j, int k, double x0, double y0, double z0)
+QVariant ProjectData::block(int i, int j, int k)
 {
-    return GetBlock(i, j, k, x0, y0, z0).toMap();
+    return GetBlock(i, j, k).toMap();
 }
 
 double ProjectData::poro(int i, int j, int k)
@@ -1004,9 +1004,11 @@ double ProjectData::sgas(int i, int j, int k)
     return val;
 }
 
-Block ProjectData::GetBlock(int i, int j, int k, double x0, double y0, double z0)
+Block ProjectData::GetBlock(int i, int j, int k)
 {
-    return isBlockCentered ? CalcBlockByBCG(x0, y0, z0, i, j, k) : CalcBlockByCPG(i, j, k);
+    int ind = k*nx*ny + j*nx + i;
+
+    return ind >= 0 && ind < blocks.size() ? blocks[ind] : Block();
 }
 
 Block ProjectData::CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k)
@@ -1275,6 +1277,38 @@ void ProjectData::SetBlockCentered(bool isBlockCentered)
     BlockCenteredChanged();
 }
 
+void ProjectData::ProcessData()
+{
+    blocks.resize(nx*ny*nz);
+
+    double x0 = 0;
+    double y0 = 0;
+    double z0 = 0;
+
+    for(int i = 0; i < nx; i++)
+    {
+        y0 = 0;
+
+        for(int j = 0; j < ny; j++)
+        {
+            z0 = tops(i, j);
+
+            for(int k = 0; k < nz; k++)
+            {
+                Block block = isBlockCentered ? CalcBlockByBCG(x0, y0, z0, i, j, k) : CalcBlockByCPG(i, j, k);
+
+                int ind = k*nx*ny + j*nx + i;
+
+                blocks[ind] = block;
+
+                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
+                if(k == nz-1) y0 = block.P8().Y();
+                z0 = block.P8().Z();
+            }
+        }
+    }
+}
+
 void ProjectData::initVariables()
 {
     SetTitle("");
@@ -1306,6 +1340,8 @@ void ProjectData::initVariables()
     add->Clear();
     equals->Clear();
     multiply->Clear();
+
+    blocks.clear();
 
     SetBlockCentered(false);
 

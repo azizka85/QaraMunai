@@ -429,6 +429,11 @@ ApplicationWindow {
             wellSchedule.prepare(projectData);
             wellsList.prepare(projectData);
 
+            loaderDialog.text = "Идет обработка данных";
+        }
+
+        onDataProcessed: {
+
             field.prepare(projectData);
 
             loaderDialog.close();
@@ -443,12 +448,17 @@ ApplicationWindow {
 
         onAccepted: {
             closeProject();
+
             loaderDialog.open();
+            loaderDialog.text = "Идет загрузка данных";
+
             projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""));
         }
     }
 
     Popup {
+        property alias text: loaderText.text
+
         id: loaderDialog
         width: 150
         height: 150
@@ -458,10 +468,10 @@ ApplicationWindow {
         closePolicy: Popup.NoAutoClose
 
         Text {
+            id: loaderText
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 12
-            text: qsTr("Идет загрузка данных")
+            font.pixelSize: 12            
         }
 
         AnimatedImage {
