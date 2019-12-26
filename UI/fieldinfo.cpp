@@ -2,11 +2,17 @@
 
 FieldInfo::FieldInfo() { }
 
-FieldInfo::FieldInfo(QString title, QString legendTitle, QString unitText)
+FieldInfo::FieldInfo(uint id, QString title, QString legendTitle, QString unitText)
 {
+    this->id = id;
     this->title = title;
     this->legendTitle = legendTitle;
     this->unitText = unitText;
+}
+
+uint FieldInfo::Id()
+{
+    return id;
 }
 
 QString FieldInfo::Title()
@@ -22,6 +28,11 @@ QString FieldInfo::LegendTitle()
 QString FieldInfo::UnitText()
 {
     return unitText;
+}
+
+void FieldInfo::SetId(uint id)
+{
+    this->id = id;
 }
 
 void FieldInfo::SetTitle(QString title)
@@ -41,5 +52,5 @@ void FieldInfo::SetUnitText(QString unitText)
 
 QVariantMap FieldInfo::toMap()
 {
-    return QVariantMap {{"title", title}, {"legendTitle", legendTitle}, {"unitText", unitText}};
+    return QVariantMap {{"id", id}, {"title", title}, {"legendTitle", legendTitle}, {"unitText", unitText}};
 }

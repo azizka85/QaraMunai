@@ -8,12 +8,14 @@ class FieldInfo
 {
 public:
     FieldInfo();
-    FieldInfo(QString title, QString legendTitle, QString unitText);
+    FieldInfo(uint id, QString title, QString legendTitle, QString unitText);
 
+    uint Id();
     QString Title();
     QString LegendTitle();
     QString UnitText();
 
+    void SetId(uint id);
     void SetTitle(QString title);
     void SetLegendTitle(QString legendTitle);
     void SetUnitText(QString unitText);
@@ -21,6 +23,7 @@ public:
     QVariantMap toMap();
 
 private:
+    uint id;
     QString title, legendTitle, unitText;
 };
 

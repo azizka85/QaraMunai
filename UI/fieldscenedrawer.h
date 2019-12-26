@@ -37,6 +37,7 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_ENUMS(RotationAxis)
     Q_ENUMS(MouseAction)
 
+    Q_PROPERTY(uint fieldId READ FieldID WRITE SetFieldID NOTIFY FieldIDChanged)
     Q_PROPERTY(ProjectData* pdata READ Data WRITE SetData NOTIFY DataChanged)    
     Q_PROPERTY(bool showMesh READ ShowMesh WRITE SetShowMesh NOTIFY ShowMeshChanged)
     Q_PROPERTY(bool showContour READ ShowContour WRITE SetShowContour NOTIFY ShowContourChanged)
@@ -61,6 +62,7 @@ public:
 
     QQuickFramebufferObject::Renderer *createRenderer() const;
 
+    uint FieldID();
     ProjectData* Data();
     bool ShowMesh();
     bool ShowContour();
@@ -76,6 +78,9 @@ public:
     float MultY();
     float MultZ();
 
+    FieldInfo GetFieldInfo(uint id);
+
+    void SetFieldID(const uint& id);
     void SetData(ProjectData* data);
     void SetShowMesh(const bool &showMesh);
     void SetShowContour(const bool &showContour);
@@ -91,6 +96,8 @@ public:
     void SetMultY(const float &multY);
     void SetMultZ(const float &multZ);
 
+    void SetFieldData(uint id, float &minValue, float &maxValue);
+
     Q_INVOKABLE QVariantMap getSelectedBlockIndexes();
 
     Q_INVOKABLE void setXYViewAxis();
@@ -100,14 +107,18 @@ public:
     Q_INVOKABLE void rotateView(const QVector2D &displacement, RotationAxis rotationAxis);
     Q_INVOKABLE void translateView(const QVector2D &displacement);
 
+    Q_INVOKABLE QVariant getField(uint id);
     Q_INVOKABLE QVariantList getFields();
     Q_INVOKABLE QVariantList getCalcFields();
+
+    Q_INVOKABLE QVariant setField(uint id);
 
     Q_INVOKABLE void setDefaultPosition();
 
     Q_INVOKABLE void updateData(int state);
 
 signals:
+    void FieldIDChanged();
     void DataChanged();
     void ShowMeshChanged();
     void ShowContourChanged();
@@ -186,11 +197,13 @@ private:
     float xLocation;
     float multX, multY, multZ;
 
+    uint fieldId;
+
     bool dataUpdated;
 
     ProjectData *data;
 
-    QVector<FieldInfo> fields;    
+    QVector<FieldInfo> fields;
 
     void initVariables();
 };

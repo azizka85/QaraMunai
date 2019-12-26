@@ -10,6 +10,11 @@ QQuickFramebufferObject::Renderer *FieldSceneDrawer::createRenderer() const
     return new FieldSceneDrawer::Renderer();
 }
 
+uint FieldSceneDrawer::FieldID()
+{
+    return fieldId;
+}
+
 ProjectData *FieldSceneDrawer::Data()
 {
     return data;
@@ -78,6 +83,25 @@ float FieldSceneDrawer::MultY()
 float FieldSceneDrawer::MultZ()
 {
     return multZ;
+}
+
+FieldInfo FieldSceneDrawer::GetFieldInfo(uint id)
+{
+    if(id > 0 && id < fields.size()) return fields[id];
+
+    return FieldInfo();
+}
+
+void FieldSceneDrawer::SetFieldID(const uint &id)
+{
+    if(fieldId != id)
+    {
+        fieldId = id;
+
+        update();
+
+        FieldIDChanged();
+    }
 }
 
 void FieldSceneDrawer::SetData(ProjectData *data)
@@ -226,6 +250,11 @@ void FieldSceneDrawer::SetMultZ(const float &multZ)
     MultZChanged();
 }
 
+void FieldSceneDrawer::SetFieldData(uint id, float &minValue, float &maxValue)
+{
+
+}
+
 QVariantMap FieldSceneDrawer::getSelectedBlockIndexes()
 {
     int index = selectedBlockIndex;
@@ -306,6 +335,11 @@ void FieldSceneDrawer::translateView(const QVector2D &displacement)
     update();
 }
 
+QVariant FieldSceneDrawer::getField(uint id)
+{
+    return GetFieldInfo(id).toMap();
+}
+
 QVariantList FieldSceneDrawer::getFields()
 {
     QVariantList data;
@@ -328,6 +362,16 @@ QVariantList FieldSceneDrawer::getCalcFields()
     calcFields.append(fields[PBUB].toMap());
 
     return calcFields;
+}
+
+QVariant FieldSceneDrawer::setField(uint id)
+{
+    float minValue = 0.0f;
+    float maxValue = 0.0f;
+
+    SetFieldData(id, minValue, maxValue);
+
+    return QVariantMap {{ "minValue", minValue }, { "maxValue", maxValue }};
 }
 
 void FieldSceneDrawer::setDefaultPosition()
@@ -355,6 +399,8 @@ void FieldSceneDrawer::initVariables()
 
     selectedBlockIndex = -1;
 
+    fieldId = PERMX;
+
     setDefaultPosition();
 
     showMesh = true;
@@ -374,27 +420,27 @@ void FieldSceneDrawer::initVariables()
 
     fields.resize(fieldNamesEnum.keyCount());
 
-    fields[PERMX] = FieldInfo(QString("Прон. по X"), QString("Прон. по X"), QString("mD"));
-    fields[PERMY] = FieldInfo(QString("Прон. по Y"), QString("Прон. по Y"), QString("mD"));
-    fields[PERMZ] = FieldInfo(QString("Прон. по Z"), QString("Прон. по Z"), QString("mD"));
-    fields[PORO] = FieldInfo(QString("Пористость"), QString("Пористость"), QString());
-    fields[NTG] = FieldInfo(QString("Песчанистость"), QString("Песчанистость"), QString());
-    fields[TRANX] = FieldInfo(QString("TranX"), QString("Проводимость по X"), QString("cP-rm3/day/bar"));
-    fields[TRANY] = FieldInfo(QString("TranY"), QString("Проводимость по Y"), QString("cP-rm3/day/bar"));
-    fields[TRANZ] = FieldInfo(QString("TranZ"), QString("Проводимость по Z"), QString("cP-rm3/day/bar"));
-    fields[SWAT] = FieldInfo(QString("Sw"), QString("Насыщ. водой"), QString());
-    fields[SOIL] = FieldInfo(QString("So"), QString("Насыщ. нефтью"), QString());
-    fields[SGAS] = FieldInfo(QString("Sg"), QString("Насыщ. газом"), QString());
-    fields[RS] = FieldInfo(QString("RS"), QString("RS"), QString());
-    fields[PRESSURE] = FieldInfo(QString("Давление"), QString("Давление"), QString("barsa"));
-    fields[PW] = FieldInfo(QString("PW"), QString("PW"), QString("barsa"));
-    fields[PBUB] = FieldInfo(QString("Давл. насыщения"), QString("Давл. насыщ."), QString("barsa"));
-    fields[DEPTH] = FieldInfo(QString("Глубина"), QString("Глубина"), QString("m"));
-    fields[PVTNUM] = FieldInfo(QString("PVTNUM"), QString("PVTNUM"), QString());
-    fields[SATNUM] = FieldInfo(QString("SATNUM"), QString("SATNUM"), QString());
-    fields[EQLNUM] = FieldInfo(QString("EQLNUM"), QString("EQLNUM"), QString());
-    fields[PORV] = FieldInfo(QString("PORV"), QString("PORV"), QString());
-    fields[OILV] = FieldInfo(QString("OILV"), QString("OILV"), QString());
+    fields[PERMX] = FieldInfo(PERMX, QString("Прон. по X"), QString("Прон. по X"), QString("mD"));
+    fields[PERMY] = FieldInfo(PERMY, QString("Прон. по Y"), QString("Прон. по Y"), QString("mD"));
+    fields[PERMZ] = FieldInfo(PERMZ, QString("Прон. по Z"), QString("Прон. по Z"), QString("mD"));
+    fields[PORO] = FieldInfo(PORO, QString("Пористость"), QString("Пористость"), QString());
+    fields[NTG] = FieldInfo(NTG, QString("Песчанистость"), QString("Песчанистость"), QString());
+    fields[TRANX] = FieldInfo(TRANX, QString("TranX"), QString("Проводимость по X"), QString("cP-rm3/day/bar"));
+    fields[TRANY] = FieldInfo(TRANY, QString("TranY"), QString("Проводимость по Y"), QString("cP-rm3/day/bar"));
+    fields[TRANZ] = FieldInfo(TRANZ, QString("TranZ"), QString("Проводимость по Z"), QString("cP-rm3/day/bar"));
+    fields[SWAT] = FieldInfo(SWAT, QString("Sw"), QString("Насыщ. водой"), QString());
+    fields[SOIL] = FieldInfo(SOIL, QString("So"), QString("Насыщ. нефтью"), QString());
+    fields[SGAS] = FieldInfo(SGAS, QString("Sg"), QString("Насыщ. газом"), QString());
+    fields[RS] = FieldInfo(RS, QString("RS"), QString("RS"), QString());
+    fields[PRESSURE] = FieldInfo(PRESSURE, QString("Давление"), QString("Давление"), QString("barsa"));
+    fields[PW] = FieldInfo(PW, QString("PW"), QString("PW"), QString("barsa"));
+    fields[PBUB] = FieldInfo(PBUB, QString("Давл. насыщения"), QString("Давл. насыщ."), QString("barsa"));
+    fields[DEPTH] = FieldInfo(DEPTH, QString("Глубина"), QString("Глубина"), QString("m"));
+    fields[PVTNUM] = FieldInfo(PVTNUM, QString("PVTNUM"), QString("PVTNUM"), QString());
+    fields[SATNUM] = FieldInfo(SATNUM, QString("SATNUM"), QString("SATNUM"), QString());
+    fields[EQLNUM] = FieldInfo(EQLNUM, QString("EQLNUM"), QString("EQLNUM"), QString());
+    fields[PORV] = FieldInfo(PORV, QString("PORV"), QString("PORV"), QString());
+    fields[OILV] = FieldInfo(OILV, QString("OILV"), QString("OILV"), QString());
 }
 
 QOpenGLFramebufferObject *FieldSceneDrawer::Renderer::createFramebufferObject(const QSize &size)

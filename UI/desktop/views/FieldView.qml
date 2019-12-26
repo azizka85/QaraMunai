@@ -300,6 +300,8 @@ C1.SplitView {
                                 id: initFieldArea
                                 anchors.fill: parent
                                 hoverEnabled: true
+
+                                onClicked: setField(modelData)
                             }
                         }
                     }
@@ -351,6 +353,8 @@ C1.SplitView {
                                 id: calcFieldArea
                                 anchors.fill: parent
                                 hoverEnabled: true
+
+                                onClicked: setField(modelData)
                             }
                         }
                     }
@@ -729,6 +733,9 @@ C1.SplitView {
 
     function closeProject()
     {
+        legendGradient.visible = true;
+        legendSingle.visible = false;
+
         initFieldsRepeater.model = [];
         calcFieldsRepeater.model = [];
 
@@ -747,8 +754,49 @@ C1.SplitView {
 
         calcFieldsRepeater.model = calcFields;
 
+        var field = drawer.getField(FieldSceneDrawer.PERMX);
+
+        setField(field);
+
         drawer.updateData(ProjectData.LOADED);
 
         drawer.setXZViewAxis();
+    }
+
+    function setField(field)
+    {
+        var unitText = field.unitText === "" ? "" : ", " + field.unitText;
+
+        legendLabel.text = field.legendTitle + unitText;
+
+        var values = drawer.setField(field.id);
+
+        var minValue = values.minValue;
+        var maxValue = values.maxValue;
+
+        if(minValue === maxValue)
+        {
+            legendGradient.visible = false;
+            legendSingle.visible = true;
+
+            legendLabel5.text = minValue;
+        }
+        else
+        {
+            legendGradient.visible = true;
+            legendSingle.visible = false;
+
+            var val1 = minValue;
+            var val2 = 0.75 * minValue + 0.25 * maxValue;
+            var val3 = 0.5 * minValue + 0.5 * maxValue;
+            var val4 = 0.25 * minValue + 0.75 * maxValue;
+            var val5 = maxValue;
+
+            legendLabel0.text = val1;
+            legendLabel1.text = val2;
+            legendLabel2.text = val3;
+            legendLabel3.text = val4;
+            legendLabel4.text = val5;
+        }
     }
 }
