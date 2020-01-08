@@ -178,18 +178,11 @@ void ReadFileHelper::FillVector(QTextStream &sr, LinearVector &linearVector)
     }
 }
 
-void ReadFileHelper::ReadVector(QTextStream &sr, const Box1D &box, LinearVector &linearVector)
+void ReadFileHelper::ReadVector(QTextStream &sr, const Box3D &box, LinearVector &linearVector)
 {
     linearVector.SetBox(box);
 
     FillVector(sr, linearVector);
-}
-
-void ReadFileHelper::Read2DArray(QTextStream &sr, const Box2D &box, LinearMatrix2D &linearMatrix2D)
-{
-    linearMatrix2D.SetBox(box);
-
-    FillVector(sr, linearMatrix2D);
 }
 
 void ReadFileHelper::Read3DArray(QTextStream &sr, const Box3D &box, LinearMatrix3D &linearMatrix3D)

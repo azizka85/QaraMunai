@@ -2,7 +2,7 @@
 #define SUBARRAY_H
 
 #include <qvariant.h>
-#include <qlist.h>
+#include <qvector.h>
 
 #include <model_global.h>
 
@@ -13,6 +13,7 @@ namespace Utils {
 class MODELSHARED_EXPORT SubArray
 {
 public:
+    SubArray();
     SubArray(int index);
     SubArray(int index, int length, QVariant value);
 
@@ -21,7 +22,7 @@ public:
     int Index();
     int Length();
     QVariant Value();
-    QList<QVariant>& List();
+    QVector<QVariant>& List();
 
     void SetIndex(int index);
     void SetLength(int length);
@@ -32,7 +33,7 @@ private:
     int index;    
     int length;
     QVariant value;
-    QList<QVariant> list;
+    QVector<QVariant> list;
 };
 
 }}}

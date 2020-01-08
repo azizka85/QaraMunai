@@ -6,7 +6,7 @@
 #include <qstring.h>
 
 #include <defaultvalues.h>
-#include <linearmatrix2d.h>
+#include <linearmatrix3d.h>
 #include <eclipsefilereader.h>
 #include <unithelper.h>
 
@@ -27,8 +27,15 @@ public:
 signals:
 
 private slots:
-    void TestLinearMatrix2D();
+    void TestLinearMatrix3D();
+    void TestUnitConstants();
     void TestConvertPressure();
+    void TestConvertLength();
+    void TestConvertVolume();
+    void TestConvertMass();
+    void TestConvertDensity();
+    void TestConvertGasLiquidRatio();
+    void TestConvertTemperature();
     void TestDefaultValues();
     void TestCasesEnum();
     void TestEnums();

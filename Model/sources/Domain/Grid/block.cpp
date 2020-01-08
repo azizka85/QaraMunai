@@ -124,6 +124,36 @@ double Block::Volume()
     return ans / 6.0;
 }
 
+double Block::Depth()
+{
+    return (P1().Z() + P2().Z() + P3().Z() + P4().Z() +
+            P5().Z() + P6().Z() + P7().Z() + P8().Z()) / 8;
+}
+
+double Block::DX()
+{
+    return ((p2.X() - p1.X()) +
+             (p4.X() - p3.X()) +
+             (p6.X() - p5.X()) +
+            (p8.X() - p7.X())) / 4.0;
+}
+
+double Block::DY()
+{
+    return ((p3.Y() - p1.Y()) +
+             (p4.Y() - p2.Y()) +
+             (p7.Y() - p5.Y()) +
+            (p8.Y() - p6.Y())) / 4.0;
+}
+
+double Block::DZ()
+{
+    return ((p5.Z() - p1.Z()) +
+             (p6.Z() - p2.Z()) +
+             (p7.Z() - p3.Z()) +
+             (p8.Z() - p4.Z())) / 4.0;
+}
+
 void Block::SetI(const int &i)
 {
     this->i = i;

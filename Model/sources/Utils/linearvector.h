@@ -4,9 +4,9 @@
 #include <typeinfo.h>
 
 #include <qvariant.h>
-#include <qlist.h>
+#include <qvector.h>
 
-#include <box1d.h>
+#include <box3d.h>
 #include <subarray.h>
 
 #include <model_global.h>
@@ -22,12 +22,12 @@ class MODELSHARED_EXPORT LinearVector
 public:
     LinearVector();
 
-    Box1D &Box();
+    Box3D &Box();
     int Count();
 
     QVariant operator() (int i);
 
-    void SetBox(const Box1D& box);
+    void SetBox(const Box3D &box);
     void Add(QVariant value);
     void AddInterval(int length, QVariant value);
     QVariant Search(int index);
@@ -35,9 +35,9 @@ public:
     void Clear();
 
 private:
-    int index;
-    Box1D box;
-    QList<SubArray> data;
+    Box3D box;
+    int index;    
+    QVector<SubArray> data;
 
     int SearchDataIndex(int index);
     int BinarySearch(int l, int r, int index);

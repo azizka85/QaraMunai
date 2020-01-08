@@ -155,7 +155,7 @@ ApplicationWindow {
             text: qsTr("Карта")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 menuList.model = fieldMenuList;
@@ -166,7 +166,7 @@ ApplicationWindow {
             text: qsTr("Функции насыщенности")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 menuList.model = sfMenuList;
@@ -177,7 +177,7 @@ ApplicationWindow {
             text: qsTr("Свойства пластовой жидкости")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 menuList.model = pvtMenuList;
@@ -188,7 +188,7 @@ ApplicationWindow {
             text: qsTr("Расчетные данные")
             icon: "qrc:/mobile/images/open-child-list.svg"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 menuList.model = calcMenuList;
@@ -199,7 +199,7 @@ ApplicationWindow {
             text: qsTr("Консоль")
             icon: "qrc:/mobile/images/console-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();
@@ -263,7 +263,7 @@ ApplicationWindow {
             text: qsTr("Поле")
             icon: "qrc:/mobile/images/icon-field-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();
@@ -305,7 +305,7 @@ ApplicationWindow {
             text: qsTr("ОФП и КД (газ-нефть)")
             icon: "qrc:/mobile/images/icon-linechart-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 sgofView.prepare(projectData);
@@ -336,7 +336,7 @@ ApplicationWindow {
             text: qsTr("PVT нефти")
             icon: "qrc:/mobile/images/icon-linechart-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 pvtoView.prepare(projectData);
@@ -352,7 +352,7 @@ ApplicationWindow {
             text: qsTr("PVT газа")
             icon: "qrc:/mobile/images/icon-linechart-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 pvtgView.prepare(projectData);
@@ -386,7 +386,7 @@ ApplicationWindow {
             icon: "qrc:/mobile/images/run-calculation-16x16.png"
             secondIcon: "qrc:/mobile/images/pause-calculation-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();
@@ -397,7 +397,7 @@ ApplicationWindow {
             text: "Остановить расчет"
             icon: "qrc:/mobile/images/stop-calculation-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();
@@ -408,7 +408,7 @@ ApplicationWindow {
             text: qsTr("Обводненность и КИН")
             icon: "qrc:/mobile/images/calc-results-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();
@@ -419,7 +419,7 @@ ApplicationWindow {
             text: qsTr("Дебиты воды и нефти")
             icon: "qrc:/mobile/images/calc-results-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();
@@ -430,7 +430,7 @@ ApplicationWindow {
             text: qsTr("Объем закачки и добычи")
             icon: "qrc:/mobile/images/calc-results-16x16.png"
             displayed: function() {
-                return projectData.isLoaded;
+                return projectData.loaded;
             }
             triggered: function() {
                 mainMenu.close();

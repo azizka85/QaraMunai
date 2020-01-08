@@ -14,7 +14,7 @@ namespace Project {
 
 class MODELSHARED_EXPORT DefaultValues {
 public:
-    constexpr static ProjectData::UnitType Unit = ProjectData::METRIC;
+    constexpr static ProjectData::UnitType Unit = ProjectData::FIELD;
 
     constexpr static ProjectData::ModelType Model = ProjectData::TwoPhase;
 

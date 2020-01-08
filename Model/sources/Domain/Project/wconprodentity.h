@@ -4,7 +4,7 @@
 #include <qmetaobject.h>
 #include <qobject.h>
 #include <qdatetime.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <wconproddata.h>
@@ -25,10 +25,22 @@ class MODELSHARED_EXPORT WCONPRODEntity : public QObject
 public:
     explicit WCONPRODEntity(QObject *parent = nullptr);
 
+    QVector<WCONPRODData> &WCONPROD();
+
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(QDateTime date);
 
-    QList<WCONPRODData> WCONPRODList(QDateTime date);
+    QVector<WCONPRODData> WCONPRODList(QDateTime date);
+
+    QVector<int> GetIndexes(QDateTime date);
+
+    void AddWCONPROD(WCONPRODData &data);
+
+    void Clear();
+
+private:
+    QMap<QDateTime, QVector<int>> dateIndexes;
+    QVector<WCONPRODData> wconPROD;
 };
 
 }}}}

@@ -16,6 +16,7 @@ Window {
     TableView {
         id: settings
         anchors.fill: parent
+        model:largeModel
 
         TableViewColumn {
             role: "name"
@@ -152,37 +153,28 @@ Window {
 
         TableViewColumn {
             role: "markerSize"
-            title: "Толщина \nмаркера" 
+            title: "Толщина \nмаркера"
             horizontalAlignment: Text.AlignHCenter
             resizable: false
             width: 60
-            delegate: TextInput {
-                anchors.fill: parent
-                text: modelData.markerSize
-                onTextChanged: if(acceptableInput) modelData.markerSize = text
-                validator: IntValidator { bottom: 1; top: 10 }
-                horizontalAlignment: Text.AlignHCenter
-            }
         }
 
-        TableViewColumn {
-            role: "markerShape"
-            title: "Тип линии"
-            horizontalAlignment: Text.AlignHCenter
-            resizable: false
-            width: 85
-            delegate: ComboBox {
-                currentIndex: modelData.markerShape
-                anchors.fill: parent
-                height: currentText.height
-                model: MarkerShape {}
-                onCurrentTextChanged: modelData.markerShape = currentIndex
-            }
-        }
     }
 
-    function closeProject()
+    ListModel {
+        id: largeModel
+    }
+
+    function prepare(chart)
     {
-        settings.model = [];
+        for (var i=0 ; i< chart.count; ++i)
+            largeModel.append({"name": chart.series(i).name
+                              ,"show": true
+                              ,"linecolor": "red"
+                              ,"linethck": 2
+                              ,"markerthck":2
+                              ,"markercolor": "blue"
+                              ,"linedash":"dot"
+                              ,"markerdash": "circle"});
     }
 }

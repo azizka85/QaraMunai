@@ -1,8 +1,8 @@
 #ifndef ROCKOPTSENTITY_H
 #define ROCKOPTSENTITY_H
 
-#include <QObject>
-#include <QVariant>
+#include <qobject.h>
+#include <qvariant.h>
 
 #include <model_global.h>
 

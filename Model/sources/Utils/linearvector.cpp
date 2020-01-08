@@ -9,7 +9,7 @@ LinearVector::LinearVector()
     index = 0;
 }
 
-Box1D& LinearVector::Box()
+Box3D& LinearVector::Box()
 {
     return box;
 }
@@ -21,12 +21,10 @@ int LinearVector::Count()
 
 QVariant LinearVector::operator()(int i)
 {
-    i = i - box.I1();
-
     return Search(i);
 }
 
-void LinearVector::SetBox(const Box1D &box)
+void LinearVector::SetBox(const Box3D &box)
 {
     this->box = box;
 }
@@ -81,7 +79,7 @@ QVariant LinearVector::Search(int index)
             {
                 int subIndex = subArray->Index();
 
-                QList<QVariant> &list = subArray->List();
+                QVector<QVariant> &list = subArray->List();
 
                 subIndex = index - subIndex;
 
@@ -95,6 +93,10 @@ QVariant LinearVector::Search(int index)
 
 void LinearVector::Clear()
 {
+    index = 0;
+
+    box.InitVariables();
+
     data.clear();
 }
 

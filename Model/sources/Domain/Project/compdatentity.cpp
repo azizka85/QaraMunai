@@ -9,6 +9,11 @@ namespace Project {
 
 COMPDATEntity::COMPDATEntity(QObject *parent) : QObject (parent) { }
 
+QVector<COMPDATData> &COMPDATEntity::COMPDAT()
+{
+    return compDAT;
+}
+
 bool COMPDATEntity::exist()
 {
     QObject* projectData = parent();
@@ -17,7 +22,7 @@ bool COMPDATEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().COMPDAT().length() > 0;
+        return project->State() != ProjectData::CLOSED && compDAT.length() > 0;
     }
 
     return false;
@@ -27,7 +32,7 @@ QVariantList COMPDATEntity::getList(QDateTime date)
 {
     QVariantList compdatList;
 
-    QList<COMPDATData> list = COMPDATList(date);
+    QVector<COMPDATData> list = COMPDATList(date);
 
     QMetaObject metaObject = ProjectData::staticMetaObject;
 
@@ -45,29 +50,75 @@ QVariantList COMPDATEntity::getList(QDateTime date)
     return compdatList;
 }
 
-QList<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date){
+QVector<int> COMPDATEntity::GetIndexes(QDateTime date)
+{
+    return dateIndexes.contains(date) ? dateIndexes[date] : QVector<int>();
+}
+
+QVector<COMPDATData> COMPDATEntity::COMPDATList(QDateTime date)
+{
     QObject* projectData = parent();
 
     if (projectData != nullptr)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->State() != ProjectData::CLOSED)
         {
-            QList<COMPDATData> compdatList;
+            QVector<COMPDATData> compdatList;
 
-            QList<COMPDATData> list = project->Stratum().COMPDAT();
+            QVector<int> indexes = GetIndexes(date);
 
-            for(int i = 0; i < list.length(); i++)
-            {
-                if(list[i].Date() == date) compdatList.append(list[i]);
-            }
+            for(int i = 0; i < indexes.length(); i++) compdatList.append(compDAT[indexes[i]]);
 
             return compdatList;
         }
     }
 
-    return QList<COMPDATData>();
+    return QVector<COMPDATData>();
+}
+
+void COMPDATEntity::AddCOMPDAT(COMPDATData &data)
+{
+    QString wellName = data.WellName();
+    QDateTime date = data.Date();
+
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
+
+    QObject* projectData = parent();
+
+    if (wellName.endsWith("*") && projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        QVector<WELSPECSData>& welSPECS = project->WELSPECS()->WELSPECS();
+
+        QString wellSearch = wellName.left(wellName.size()-1);
+
+        for(int i = 0; i < welSPECS.size(); i++)
+        {
+            if(welSPECS[i].WellName().startsWith(wellSearch))
+            {
+                data.SetWellName(welSPECS[i].WellName());
+
+                dateIndexes[date].append(compDAT.length());
+
+                compDAT.append(data);
+            }
+        }
+    }
+    else
+    {
+        dateIndexes[date].append(compDAT.length());
+
+        compDAT.append(data);
+    }
+}
+
+void COMPDATEntity::Clear()
+{
+    dateIndexes.clear();
+    compDAT.clear();
 }
 
 }}}}

@@ -9,6 +9,11 @@ namespace Project {
 
 WCONINJEEntity::WCONINJEEntity(QObject *parent) : QObject (parent) { }
 
+QVector<WCONINJEData> &WCONINJEEntity::WCONINJE()
+{
+    return wconINJE;
+}
+
 bool WCONINJEEntity::exist()
 {
     QObject* projectData = parent();
@@ -17,7 +22,7 @@ bool WCONINJEEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().WCONINJE().length() > 0;
+        return project->State() != ProjectData::CLOSED && wconINJE.length() > 0;
     }
 
     return false;
@@ -27,7 +32,7 @@ QVariantList WCONINJEEntity::getList(QDateTime date)
 {
     QVariantList wconinjeList;
 
-    QList<WCONINJEData> list = WCONINJEList(date);
+    QVector<WCONINJEData> list = WCONINJEList(date);
 
     QMetaObject metaObject = ProjectData::staticMetaObject;
 
@@ -49,29 +54,74 @@ QVariantList WCONINJEEntity::getList(QDateTime date)
     return wconinjeList;
 }
 
-QList<WCONINJEData> WCONINJEEntity::WCONINJEList(QDateTime date){
+QVector<WCONINJEData> WCONINJEEntity::WCONINJEList(QDateTime date){
     QObject* projectData = parent();
 
     if (projectData != nullptr)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->State() != ProjectData::CLOSED)
         {
-            QList<WCONINJEData> wconinjeList;
+            QVector<WCONINJEData> wconinjeList;
 
-            QList<WCONINJEData> list = project->Stratum().WCONINJE();
+            QVector<int> indexes = GetIndexes(date);
 
-            for(int i = 0; i < list.length(); i++)
-            {
-                if(list[i].Date() == date) wconinjeList.append(list[i]);
-            }
+            for(int i = 0; i < indexes.length(); i++) wconinjeList.append(wconINJE[indexes[i]]);
 
             return wconinjeList;
         }
     }
 
-    return QList<WCONINJEData>();
+    return QVector<WCONINJEData>();
+}
+
+QVector<int> WCONINJEEntity::GetIndexes(QDateTime date)
+{
+    return dateIndexes.contains(date) ? dateIndexes[date] : QVector<int>();
+}
+
+void WCONINJEEntity::AddWCONINJE(WCONINJEData &data)
+{
+    QString wellName = data.WellName();
+    QDateTime date = data.Date();
+
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
+
+    QObject* projectData = parent();
+
+    if (wellName.endsWith("*") && projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        QVector<WELSPECSData>& welSPECS = project->WELSPECS()->WELSPECS();
+
+        QString wellSearch = wellName.left(wellName.size()-1);
+
+        for(int i = 0; i < welSPECS.size(); i++)
+        {
+            if(welSPECS[i].WellName().startsWith(wellSearch))
+            {
+                data.SetWellName(welSPECS[i].WellName());
+
+                dateIndexes[date].append(wconINJE.length());
+
+                wconINJE.append(data);
+            }
+        }
+    }
+    else
+    {
+        dateIndexes[date].append(wconINJE.length());
+
+        wconINJE.append(data);
+    }
+}
+
+void WCONINJEEntity::Clear()
+{
+    dateIndexes.clear();
+    wconINJE.clear();
 }
 
 

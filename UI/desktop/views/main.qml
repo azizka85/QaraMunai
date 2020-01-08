@@ -2,6 +2,7 @@ import QtQuick 2.13
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
+
 import QaraMunai.Model.Domain.Project 1.0
 import QaraMunai.Model.DAO 1.0
 import QtQuick.Controls.Styles 1.4
@@ -118,7 +119,7 @@ ApplicationWindow {
                             if(wellScheduleDock.visible)
                                 wellScheduleDock.hide();
                             else
-                                dockSpace.insertDock(wellScheduleDock, wellsListDock, Qt.Horizontal, 0.2, false);
+                                dockSpace.insertDock(wellScheduleDock, wellsListDock, Qt.Horizontal, 0.8, true);
                         }
                     }
 
@@ -130,7 +131,7 @@ ApplicationWindow {
                             if(wellsListDock.visible)
                                 wellsListDock.hide();
                             else
-                                dockSpace.insertDock(wellsListDock, wellScheduleDock, Qt.Horizontal, 0.2, true);
+                                dockSpace.insertDock(wellsListDock, wellScheduleDock, Qt.Horizontal, 0.8, false);
                         }
                     }
                 }
@@ -176,6 +177,17 @@ ApplicationWindow {
                                 dockSpace.insertFirst(sgofChartDock);
                         }
                     }
+
+                    Button {
+                        width: icon.width + 12
+                        height: icon.height + 12
+                        icon { width: 32; height: 32; source: "qrc:/desktop/images/settings_icon_32x32.png"; }
+
+                        onClicked: {
+                            sgofSettingsForm.prepare(sgofChart);
+                            sgofSettingsForm.show();
+                        }
+                    }
                 }
             }
 
@@ -196,7 +208,13 @@ ApplicationWindow {
                         var sgofList = projectData.sgof.getList(sfRegionList.currentIndex);
 
                         swofChart.prepare(swofList);
+                        swofTable.prepare(swofList);
+
                         sgofChart.prepare(sgofList);
+                        sgofTable.prepare(sgofList);
+
+                        swofSettingsForm.prepare(swofChart);
+                        sgofSettingsForm.prepare(sgofList);
                     }
                 }
             }
@@ -511,6 +529,13 @@ ApplicationWindow {
             wellSchedule.prepare(projectData);
             wellsList.prepare(projectData);
 
+            loaderDialog.text = "Идет обработка данных";
+        }
+
+        onDataProcessed: {
+
+            field.prepare(projectData);
+
             loaderDialog.close();
         }
     }
@@ -523,12 +548,17 @@ ApplicationWindow {
 
         onAccepted: {
             closeProject();
+
             loaderDialog.open();
-            projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""))
+            loaderDialog.text = "Идет загрузка данных";
+
+            projectReader.load(eclipseReader, projectData, importDATAOFD.fileUrl.toString().replace("file:///", ""));
         }
     }
 
     Popup {
+        property alias text: loaderText.text
+
         id: loaderDialog
         width: 150
         height: 150
@@ -538,10 +568,10 @@ ApplicationWindow {
         closePolicy: Popup.NoAutoClose
 
         Text {
+            id: loaderText
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 12
-            text: qsTr("Идет загрузка данных")
         }
 
         AnimatedImage {
@@ -565,7 +595,8 @@ ApplicationWindow {
             id: fieldDock
             dockTitle: qsTr("Поле")
             titleVisible: dockTitleVisible
-            FieldView { id: field; anchors.fill: parent; }
+
+            FieldView { id: field; anchors.fill: parent; projectData: projectData }
         }
 
         DockControl {
@@ -642,8 +673,14 @@ ApplicationWindow {
             dockTitle: qsTr("Console")
             titleVisible: dockTitleVisible
 
-            ConsoleView { id: consoleView; anchors.fill: parent; }
-        }
+    SettingsView {
+        id: sgofSettingsForm
+        visible: false
+    }
+
+    SettingsView {
+        id: swofSettingsForm
+        visible: false
     }
 
     function createNumberArray(length)
@@ -667,13 +704,17 @@ ApplicationWindow {
 
         //pvtwTable.closeProject();
 
+        pvtgChart.closeProject();
+        pvtgTable.closeProject();
+
         wellSchedule.closeProject();
         wellsList.closeProject();
+
+        field.closeProject();
 
         sfRegionList.model = [];
         pvtRegionList.model = [];
 
         projectData.initVariables();
     }
-
 }

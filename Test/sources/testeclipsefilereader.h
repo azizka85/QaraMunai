@@ -23,12 +23,10 @@ public:
 
 signals:
 
-private slots:    
-    void TestValidateLoad();    
+private slots:
+    void TestValidateLoad();
 
 private:
-    void TestLoad();
-    void TestMassiveValidateLoad();
     void ValidateLoad(ProjectData &data);
     void ValidateInitialization(ProjectData &data);
 };

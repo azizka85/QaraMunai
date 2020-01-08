@@ -22,7 +22,7 @@ QVariant ENDSCALEEntity::Directional() const
 
         QVariant directional = project->Stratum().ENDSCALE().Directional();
 
-        if(project->IsLoaded() && directional.isNull()) directional = DefaultValues::ENDSCALE_Directional;
+        if(project->State() != ProjectData::CLOSED && directional.isNull()) directional = DefaultValues::ENDSCALE_Directional;
 
         return directional;
     }
@@ -40,7 +40,7 @@ QVariant ENDSCALEEntity::Irreversible() const
 
         QVariant irreversible = project->Stratum().ENDSCALE().Irreversible();
 
-        if(project->IsLoaded() && irreversible.isNull()) irreversible = DefaultValues::ENDSCALE_Irreversible;
+        if(project->State() != ProjectData::CLOSED && irreversible.isNull()) irreversible = DefaultValues::ENDSCALE_Irreversible;
 
         return irreversible;
     }
@@ -58,7 +58,7 @@ QVariant ENDSCALEEntity::NTENDP() const
 
         QVariant ntENDP = project->Stratum().ENDSCALE().NTENDP();
 
-        if(project->IsLoaded() && ntENDP.isNull()) ntENDP = DefaultValues::ENDSCALE_NTENDP;
+        if(project->State() != ProjectData::CLOSED && ntENDP.isNull()) ntENDP = DefaultValues::ENDSCALE_NTENDP;
 
         return ntENDP;
     }
@@ -76,7 +76,7 @@ QVariant ENDSCALEEntity::MaxNodesEPD() const
 
         QVariant maxNodesEPD = project->Stratum().ENDSCALE().MaxNodesEPD();
 
-        if(project->IsLoaded() && maxNodesEPD.isNull()) maxNodesEPD = DefaultValues::ENDSCALE_MaxNodesENDP;
+        if(project->State() != ProjectData::CLOSED && maxNodesEPD.isNull()) maxNodesEPD = DefaultValues::ENDSCALE_MaxNodesENDP;
 
         return maxNodesEPD;
     }

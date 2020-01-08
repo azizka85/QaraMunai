@@ -2,13 +2,12 @@
 #define STRATUMDATA_H
 
 #include <qvariant.h>
-#include <qlist.h>
+#include <qvector.h>
 
 #include <eqldimsdata.h>
 #include <endscaledata.h>
 #include <rockoptsdata.h>
 #include <tabdimsdata.h>
-#include <linearmatrix2d.h>
 #include <linearmatrix3d.h>
 #include <rsconstdata.h>
 #include <pvtodata.h>
@@ -80,7 +79,7 @@ public:
     ROCKOPTSData& ROCKOPTS();
     TABDIMSData& TABDIMS();
 
-    LinearMatrix2D& TOPS();
+    LinearMatrix3D& TOPS();
 
     LinearMatrix3D& DX();
     LinearMatrix3D& DY();
@@ -111,39 +110,39 @@ public:
     double MINPV();
 
     RSCONSTData& RSCONST();
-    QList<RSCONSTData>& RSCONSTT();
+    QVector<RSCONSTData>& RSCONSTT();
 
-    QList<QList<PVTOData>>& PVTO();
-    QList<QList<PVCOData>>& PVCO();
+    QVector<QVector<PVTOData>>& PVTO();
+    QVector<QVector<PVCOData>>& PVCO();
 
     PMAXData& PMAX();
 
-    QList<PVCDOData>& PVCDO();
+    QVector<PVCDOData>& PVCDO();
 
-    QList<QList<PVDOData>>& PVDO();
+    QVector<QVector<PVDOData>>& PVDO();
 
-    QList<PVTWData> &PVTW();
+    QVector<PVTWData> &PVTW();
 
-    QList<QList<PVDGData>> &PVDG();
-    QList<QList<PVTGData>> &PVTG();
+    QVector<QVector<PVDGData>> &PVDG();
+    QVector<QVector<PVTGData>> &PVTG();
 
-    QList<ROCKData> &ROCK();
-    QList<DENSITYData> &DENSITY();
-    QList<GRAVITYData> &GRAVITY();
+    QVector<ROCKData> &ROCK();
+    QVector<DENSITYData> &DENSITY();
+    QVector<GRAVITYData> &GRAVITY();
 
-    QList<QList<SWOFData>> &SWOF();
-    QList<QList<SGOFData> > &SGOF();
-    QList<QList<SGWFNData>> &SGWFN();
-    QList<QList<SLGOFData>> &SLGOF();
-    QList<QList<SOF2Data>> &SOF2();
-    QList<QList<SOF3Data>> &SOF3();
+    QVector<QVector<SWOFData>> &SWOF();
+    QVector<QVector<SGOFData> > &SGOF();
+    QVector<QVector<SGWFNData>> &SGWFN();
+    QVector<QVector<SLGOFData>> &SLGOF();
+    QVector<QVector<SOF2Data>> &SOF2();
+    QVector<QVector<SOF3Data>> &SOF3();
 
-    QList<SOF32DData> &SOF32D();
+    QVector<SOF32DData> &SOF32D();
 
-    QList<QList<SWFNData>> &SWFN();
-    QList<QList<SGFNData>> &SGFN();
-    QList<QList<SOMGASData>> &SOMGAS();
-    QList<QList<SOMWATData>> &SOMWAT();
+    QVector<QVector<SWFNData>> &SWFN();
+    QVector<QVector<SGFNData>> &SGFN();
+    QVector<QVector<SOMGASData>> &SOMGAS();
+    QVector<QVector<SOMWATData>> &SOMWAT();
 
     LinearMatrix3D& SWATINIT();
     LinearMatrix3D& SWCR();
@@ -165,7 +164,7 @@ public:
     LinearMatrix3D& PCW();
     LinearMatrix3D& IPCW();
 
-    QList<PPCWMAXData> &PPCWMAX();
+    QVector<PPCWMAXData> &PPCWMAX();
 
     LinearMatrix3D& KRO();
     LinearMatrix3D& IKRO();
@@ -182,59 +181,50 @@ public:
     LinearMatrix3D& KRGR();
     LinearMatrix3D& IKRGR();
 
-    QList<QList<ENKRVDData>> &ENKRVD();
-    QList<QList<ENPCVDData>> &ENPCVD();
-    QList<QList<ENSPCVDData>> &ENSPCVD();
+    QVector<QVector<ENKRVDData>> &ENKRVD();
+    QVector<QVector<ENPCVDData>> &ENPCVD();
+    QVector<QVector<ENSPCVDData>> &ENSPCVD();
 
-    QList<QVariant> &SCALELIM();
+    QVector<QVariant> &SCALELIM();
 
     QVariant SCALECRS();
 
-    QList<QList<SPECHEATData>> &SPECHEAT();
-    QList<QList<SPECROCKData>> &SPECROCK();
+    QVector<QVector<SPECHEATData>> &SPECHEAT();
+    QVector<QVector<SPECROCKData>> &SPECROCK();
 
-    QList<VISCREFData> &VISCREF();
+    QVector<VISCREFData> &VISCREF();
 
-    QList<QList<OILVISCTData>> &OILVISCT();
-    QList<QList<WATVISCTData>> &WATVISCT();
+    QVector<QVector<OILVISCTData>> &OILVISCT();
+    QVector<QVector<WATVISCTData>> &WATVISCT();
 
     LinearMatrix3D &PVTNUM();
     LinearMatrix3D &SATNUM();
     LinearMatrix3D &EQLNUM();
     LinearMatrix3D &ENDNUM();
 
-    QList<EQUILData> &EQUIL();
+    QVector<EQUILData> &EQUIL();
 
-    QList<QList<RSVDData>> &RSVD();
-    QList<QList<PBVDData>> &PBVD();
-    QList<QList<PRVDData>> &PRVD();
+    QVector<QVector<RSVDData>> &RSVD();
+    QVector<QVector<PBVDData>> &PBVD();
+    QVector<QVector<PRVDData>> &PRVD();
 
     LinearMatrix3D &PRESSURE();
     LinearMatrix3D &SWAT();
+    LinearMatrix3D &SOIL();
     LinearMatrix3D &SGAS();
     LinearMatrix3D &PBUB();
     LinearMatrix3D &RS();
 
-    QList<AQUANCONData> &AQUANCON();
-    QList<AQUFETPData> &AQUFETP();
+    QVector<AQUANCONData> &AQUANCON();
+    QVector<AQUFETPData> &AQUFETP();
 
     DIMPESData& DIMPES();
 
-    QList<WELSPECSData> &WELSPECS();
-    QList<COMPDATData> &COMPDAT();
-    QList<WCONPRODData> &WCONPROD();
-    QList<WCONINJEData> &WCONINJE();
+    QVector<QDateTime> &DATES();
 
-    QList<QDateTime> &DATES();
-
-    QList<WCONHISTData> &WCONHIST();
-    QList<WCONINJHData> &WCONINJH();
-    QList<WELTARGData> &WELTARG();
-
-    QList<EQUALSData> &EQUALS();
-    QList<COPYData> &COPY();
-    QList<ADDData> &ADD();
-    QList<MULTIPLYData> &MULTIPLY();
+    QVector<WCONHISTData> &WCONHIST();
+    QVector<WCONINJHData> &WCONINJH();
+    QVector<WELTARGData> &WELTARG();
 
     LinearMatrix3D& DEPTH();
     LinearMatrix3D& PORV();
@@ -253,7 +243,7 @@ private:
     ROCKOPTSData rockOPTS;
     TABDIMSData tabDIMS;
 
-    LinearMatrix2D tops;
+    LinearMatrix3D tops;
 
     LinearMatrix3D dx, dy, dz;
 
@@ -270,92 +260,82 @@ private:
     double minpv;
 
     RSCONSTData rsCONST;
-    QList<RSCONSTData> rsCONSTT;
+    QVector<RSCONSTData> rsCONSTT;
 
-    QList<QList<PVTOData>> pvto;
-    QList<QList<PVCOData>> pvco;
+    QVector<QVector<PVTOData>> pvto;
+    QVector<QVector<PVCOData>> pvco;
 
     PMAXData pmax;
 
-    QList<PVCDOData> pvcdo;
+    QVector<PVCDOData> pvcdo;
 
-    QList<QList<PVDOData>> pvdo;
+    QVector<QVector<PVDOData>> pvdo;
 
-    QList<PVTWData> pvtw;
+    QVector<PVTWData> pvtw;
 
-    QList<QList<PVDGData>> pvdg;
-    QList<QList<PVTGData>> pvtg;
+    QVector<QVector<PVDGData>> pvdg;
+    QVector<QVector<PVTGData>> pvtg;
 
-    QList<ROCKData> rock;
-    QList<DENSITYData> density;
-    QList<GRAVITYData> gravity;
+    QVector<ROCKData> rock;
+    QVector<DENSITYData> density;
+    QVector<GRAVITYData> gravity;
 
-    QList<QList<SWOFData>> swof;
-    QList<QList<SGOFData>> sgof;
-    QList<QList<SGWFNData>> sgwfn;
-    QList<QList<SLGOFData>> slgof;
-    QList<QList<SOF2Data>> sof2;
-    QList<QList<SOF3Data>> sof3;
+    QVector<QVector<SWOFData>> swof;
+    QVector<QVector<SGOFData>> sgof;
+    QVector<QVector<SGWFNData>> sgwfn;
+    QVector<QVector<SLGOFData>> slgof;
+    QVector<QVector<SOF2Data>> sof2;
+    QVector<QVector<SOF3Data>> sof3;
 
-    QList<SOF32DData> sof32d;
+    QVector<SOF32DData> sof32d;
 
-    QList<QList<SWFNData>> swfn;
-    QList<QList<SGFNData>> sgfn;
-    QList<QList<SOMGASData>> somgas;
-    QList<QList<SOMWATData>> somwat;
+    QVector<QVector<SWFNData>> swfn;
+    QVector<QVector<SGFNData>> sgfn;
+    QVector<QVector<SOMGASData>> somgas;
+    QVector<QVector<SOMWATData>> somwat;
 
     LinearMatrix3D swatINIT, swcr, iswcr, swl, iswl, swlpc, iswlpc, swu, iswu, sgcr, isgcr, sgl, isgl, sglpc, isglpc, pcg, ipcg, pcw, ipcw;
 
-    QList<PPCWMAXData> ppcwMAX;
+    QVector<PPCWMAXData> ppcwMAX;
 
     LinearMatrix3D kro, ikro, krorw, ikrorw, krorg, ikrorg, krw, ikrw, krwr, ikrwr, krg, ikrg, krgr, ikrgr;
 
-    QList<QList<ENKRVDData>> enkrvd;
-    QList<QList<ENPCVDData>> enpcvd;
-    QList<QList<ENSPCVDData>> enspcvd;
+    QVector<QVector<ENKRVDData>> enkrvd;
+    QVector<QVector<ENPCVDData>> enpcvd;
+    QVector<QVector<ENSPCVDData>> enspcvd;
 
-    QList<QVariant> scalelim;
+    QVector<QVariant> scalelim;
 
     QVariant scleCRS;
 
-    QList<QList<SPECHEATData>> specheat;
-    QList<QList<SPECROCKData>> specrock;
+    QVector<QVector<SPECHEATData>> specheat;
+    QVector<QVector<SPECROCKData>> specrock;
 
-    QList<VISCREFData> viscREF;
+    QVector<VISCREFData> viscREF;
 
-    QList<QList<OILVISCTData>> oilVISCT;
-    QList<QList<WATVISCTData>> watVISCT;
+    QVector<QVector<OILVISCTData>> oilVISCT;
+    QVector<QVector<WATVISCTData>> watVISCT;
 
     LinearMatrix3D pvtnum, satnum, eqlnum, endnum;
 
-    QList<EQUILData> equil;
+    QVector<EQUILData> equil;
 
-    QList<QList<RSVDData>> rsvd;
-    QList<QList<PBVDData>> pbvd;
-    QList<QList<PRVDData>> prvd;
+    QVector<QVector<RSVDData>> rsvd;
+    QVector<QVector<PBVDData>> pbvd;
+    QVector<QVector<PRVDData>> prvd;
 
-    LinearMatrix3D pressure, swat, sgas, pbub, rs;
+    LinearMatrix3D pressure, swat, soil, sgas, pbub, rs;
 
-    QList<AQUANCONData> aquanCON;
-    QList<AQUFETPData> aquFETP;
+    QVector<AQUANCONData> aquanCON;
+    QVector<AQUFETPData> aquFETP;
 
     DIMPESData dimpes;
 
-    QList<WELSPECSData> welSPECS;
-    QList<COMPDATData> compDAT;
-    QList<WCONPRODData> wconPROD;
-    QList<WCONINJEData> wconINJE;
+    QVector<QDateTime> dates;
 
-    QList<QDateTime> dates;
-
-    QList<WCONHISTData> wconHIST;
-    QList<WCONINJHData> wconINJH;
-    QList<WELTARGData> welTARG;
-
-    QList<EQUALSData> equals;
-    QList<COPYData> copy;
-    QList<ADDData> add;
-    QList<MULTIPLYData> multiply;
+    QVector<WCONHISTData> wconHIST;
+    QVector<WCONINJHData> wconINJH;
+    QVector<WELTARGData> welTARG;
 
     LinearMatrix3D depth, porv, tranX, tranY, tranZ;
 };

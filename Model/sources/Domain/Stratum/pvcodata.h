@@ -1,7 +1,7 @@
 #ifndef PVCODATA_H
 #define PVCODATA_H
 
-#include <QVariant>
+#include <qvariant.h>
 
 #include <model_global.h>
 

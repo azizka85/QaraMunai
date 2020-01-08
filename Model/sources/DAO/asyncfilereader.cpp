@@ -20,6 +20,10 @@ void AsyncFileReader::run()
     reader->load(data, filePath);
 
     loadComplete();
+
+    data->ProcessData();
+
+    dataProcessed();
 }
 
 }}}

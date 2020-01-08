@@ -22,7 +22,7 @@ QVariant TABDIMSEntity::NTSFUN() const
 
         QVariant ntSFUN = project->Stratum().TABDIMS().NTSFUN();
 
-        if(project->IsLoaded() && ntSFUN.isNull()) ntSFUN = DefaultValues::TABDIMS_NTSFUN;
+        if(project->State() != ProjectData::CLOSED && ntSFUN.isNull()) ntSFUN = DefaultValues::TABDIMS_NTSFUN;
 
         return ntSFUN;
     }
@@ -40,7 +40,7 @@ QVariant TABDIMSEntity::NTPVT() const
 
         QVariant ntPVT = project->Stratum().TABDIMS().NTPVT();
 
-        if(project->IsLoaded() && ntPVT.isNull()) ntPVT = DefaultValues::TABDIMS_NTPVT;
+        if(project->State() != ProjectData::CLOSED && ntPVT.isNull()) ntPVT = DefaultValues::TABDIMS_NTPVT;
 
         return ntPVT;
     }
@@ -58,7 +58,7 @@ QVariant TABDIMSEntity::NSSFUN() const
 
         QVariant nsSFUN = project->Stratum().TABDIMS().NSSFUN();
 
-        if(project->IsLoaded() && nsSFUN.isNull()) nsSFUN = DefaultValues::TABDIMS_NSSFUN;
+        if(project->State() != ProjectData::CLOSED && nsSFUN.isNull()) nsSFUN = DefaultValues::TABDIMS_NSSFUN;
 
         return nsSFUN;
     }

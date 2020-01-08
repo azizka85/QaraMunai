@@ -9,6 +9,11 @@ namespace Project {
 
 WCONPRODEntity::WCONPRODEntity(QObject *parent) : QObject (parent) { }
 
+QVector<WCONPRODData> &WCONPRODEntity::WCONPROD()
+{
+    return wconPROD;
+}
+
 bool WCONPRODEntity::exist()
 {
     QObject* projectData = parent();
@@ -17,7 +22,7 @@ bool WCONPRODEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().WCONPROD().length() > 0;
+        return project->State() != ProjectData::CLOSED && wconPROD.length() > 0;
     }
 
     return false;
@@ -27,7 +32,7 @@ QVariantList WCONPRODEntity::getList(QDateTime date)
 {
     QVariantList wconprodList;
 
-    QList<WCONPRODData> list = WCONPRODList(date);
+    QVector<WCONPRODData> list = WCONPRODList(date);
 
     QMetaObject metaObject = ProjectData::staticMetaObject;
 
@@ -47,7 +52,7 @@ QVariantList WCONPRODEntity::getList(QDateTime date)
     return wconprodList;
 }
 
-QList<WCONPRODData> WCONPRODEntity::WCONPRODList(QDateTime date)
+QVector<WCONPRODData> WCONPRODEntity::WCONPRODList(QDateTime date)
 {
     QObject* projectData = parent();
 
@@ -55,22 +60,67 @@ QList<WCONPRODData> WCONPRODEntity::WCONPRODList(QDateTime date)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded())
+        if(project->State() != ProjectData::CLOSED)
         {
-            QList<WCONPRODData> wconprodList;
+            QVector<WCONPRODData> wconprodList;
 
-            QList<WCONPRODData> list = project->Stratum().WCONPROD();
+            QVector<int> indexes = GetIndexes(date);
 
-            for(int i = 0; i < list.length(); i++)
-            {
-                if(list[i].Date() == date) wconprodList.append(list[i]);
-            }
+            for(int i = 0; i < indexes.length(); i++) wconprodList.append(wconPROD[indexes[i]]);
 
             return wconprodList;
         }
     }
 
-    return QList<WCONPRODData>();
+    return QVector<WCONPRODData>();
+}
+
+QVector<int> WCONPRODEntity::GetIndexes(QDateTime date)
+{
+    return dateIndexes.contains(date) ? dateIndexes[date] : QVector<int>();
+}
+
+void WCONPRODEntity::AddWCONPROD(WCONPRODData &data)
+{
+    QString wellName = data.WellName();
+    QDateTime date = data.Date();
+
+    if(!dateIndexes.contains(date)) dateIndexes[date] = QVector<int>();
+
+    QObject* projectData = parent();
+
+    if (wellName.endsWith("*") && projectData != nullptr)
+    {
+        ProjectData* project = static_cast<ProjectData*>(projectData);
+
+        QVector<WELSPECSData>& welSPECS = project->WELSPECS()->WELSPECS();
+
+        QString wellSearch = wellName.left(wellName.size()-1);
+
+        for(int i = 0; i < welSPECS.size(); i++)
+        {
+            if(welSPECS[i].WellName().startsWith(wellSearch))
+            {
+                data.SetWellName(welSPECS[i].WellName());
+
+                dateIndexes[date].append(wconPROD.length());
+
+                wconPROD.append(data);
+            }
+        }
+    }
+    else
+    {
+        dateIndexes[date].append(wconPROD.length());
+
+        wconPROD.append(data);
+    }
+}
+
+void WCONPRODEntity::Clear()
+{
+    dateIndexes.clear();
+    wconPROD.clear();
 }
 
 

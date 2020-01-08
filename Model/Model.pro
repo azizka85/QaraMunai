@@ -45,14 +45,16 @@ SOURCES += \
     sources/DAO/asyncfilereader.cpp \
     sources/DAO/eclipsefilereader.cpp \
     sources/Domain/Grid/block.cpp \
-    sources/Domain/Grid/box1d.cpp \
-    sources/Domain/Grid/box2d.cpp \
     sources/Domain/Grid/box3d.cpp \
-    sources/Domain/Grid/point2d.cpp \
+    sources/Domain/Grid/line3d.cpp \
     sources/Domain/Grid/point3d.cpp \
-    sources/Domain/Project/blockpointsentity.cpp \
+    sources/Domain/Grid/segment.cpp \
+    sources/Domain/Project/addentity.cpp \
     sources/Domain/Project/compdatentity.cpp \
+    sources/Domain/Project/copyentity.cpp \
     sources/Domain/Project/defaultvalues.cpp \
+    sources/Domain/Project/equalsentity.cpp \
+    sources/Domain/Project/multiplyentity.cpp \
     sources/Domain/Project/projectdata.cpp \
     sources/Domain/Project/pvtgentity.cpp \
     sources/Domain/Project/pvtoentity.cpp \
@@ -113,9 +115,9 @@ SOURCES += \
     sources/Domain/Stratum/welspecsdata.cpp \
     sources/Domain/Stratum/weltargdata.cpp \
     sources/Helpers/Eclipse/readfilehelper.cpp \
+    sources/Helpers/datahelper.cpp \
     sources/Helpers/mathhelper.cpp \
     sources/Helpers/unithelper.cpp \
-    sources/Utils/linearmatrix2d.cpp \
     sources/Utils/linearmatrix3d.cpp \
     sources/Utils/linearvector.cpp \
     sources/Utils/subarray.cpp \
@@ -127,7 +129,8 @@ SOURCES += \
     sources/Domain/Stratum/eqldimsdata.cpp \
     sources/Domain/Stratum/rockoptsdata.cpp \
     sources/Domain/Stratum/tabdimsdata.cpp \
-    sources/Domain/Project/swofentity.cpp
+    sources/Domain/Project/swofentity.cpp \
+    sources/Domain/Grid/plane.cpp
 
 HEADERS += \
     sources/DAO/asyncfilereader.h \
@@ -135,14 +138,16 @@ HEADERS += \
     sources/DAO/idatafilereader.h \
     sources/DAO/idatafilewriter.h \
     sources/Domain/Grid/block.h \
-    sources/Domain/Grid/box1d.h \
-    sources/Domain/Grid/box2d.h \
     sources/Domain/Grid/box3d.h \
-    sources/Domain/Grid/point2d.h \
+    sources/Domain/Grid/line3d.h \
     sources/Domain/Grid/point3d.h \
-    sources/Domain/Project/blockpointsentity.h \
+    sources/Domain/Grid/segment.h \
+    sources/Domain/Project/addentity.h \
     sources/Domain/Project/compdatentity.h \
+    sources/Domain/Project/copyentity.h \
     sources/Domain/Project/defaultvalues.h \
+    sources/Domain/Project/equalsentity.h \
+    sources/Domain/Project/multiplyentity.h \
     sources/Domain/Project/projectdata.h \
     sources/Domain/Project/pvtgentity.h \
     sources/Domain/Project/pvtoentity.h \
@@ -203,9 +208,9 @@ HEADERS += \
     sources/Domain/Stratum/welspecsdata.h \
     sources/Domain/Stratum/weltargdata.h \
     sources/Helpers/Eclipse/readfilehelper.h \
+    sources/Helpers/datahelper.h \
     sources/Helpers/mathhelper.h \
     sources/Helpers/unithelper.h \
-    sources/Utils/linearmatrix2d.h \
     sources/Utils/linearmatrix3d.h \
     sources/Utils/linearvector.h \
     sources/Utils/subarray.h \
@@ -218,4 +223,5 @@ HEADERS += \
     sources/Domain/Stratum/eqldimsdata.h \
     sources/Domain/Stratum/rockoptsdata.h \
     sources/Domain/Stratum/tabdimsdata.h \
-    sources/Domain/Project/swofentity.h
+    sources/Domain/Project/swofentity.h \
+    sources/Domain/Grid/plane.h

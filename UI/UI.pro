@@ -32,7 +32,9 @@ INCLUDEPATH += sources \
                 ../Model/sources/Helpers/Eclipse
 
 SOURCES += \
-        main.cpp \
+        fieldinfo.cpp \
+        fieldscenedrawer.cpp \
+        main.cpp
 
 RESOURCES += qml.qrc
 
@@ -51,4 +53,6 @@ DISTFILES +=
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lModel
 
-HEADERS +=
+HEADERS += \
+    fieldinfo.h \
+    fieldscenedrawer.h

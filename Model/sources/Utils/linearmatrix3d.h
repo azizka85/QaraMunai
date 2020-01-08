@@ -19,16 +19,7 @@ class MODELSHARED_EXPORT LinearMatrix3D : public LinearVector
 public:
     LinearMatrix3D();
 
-    Box3D& Box();
-    int Nx();
-    int Ny();
-
     QVariant operator() (int i, int j, int k);
-
-    void SetBox(const Box3D &box);
-
-private:
-    Box3D box;
 };
 
 }}}

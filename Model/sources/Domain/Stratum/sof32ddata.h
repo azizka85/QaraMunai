@@ -1,7 +1,7 @@
 #ifndef SOF32DDATA_H
 #define SOF32DDATA_H
 
-#include <qlist.h>
+#include <qvector.h>
 
 #include <sof32dkrodata.h>
 
@@ -17,14 +17,14 @@ class MODELSHARED_EXPORT SOF32DData
 public:
     SOF32DData();
 
-    QList<double> &SW();
-    QList<SOF32DKrOData> &SOF32DKrO();
+    QVector<double> &SW();
+    QVector<SOF32DKrOData> &SOF32DKrO();
 
     void InitVariables();
 
 private:
-    QList<double> sw;
-    QList<SOF32DKrOData> sof32dKrO;
+    QVector<double> sw;
+    QVector<SOF32DKrOData> sof32dKrO;
 };
 
 }}}}

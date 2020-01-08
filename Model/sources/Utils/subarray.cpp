@@ -4,6 +4,11 @@ namespace QaraMunai {
 namespace Model {
 namespace Utils {
 
+SubArray::SubArray() : SubArray(-1)
+{
+
+}
+
 SubArray::SubArray(int index) : SubArray(index, -1, QVariant())
 {    
     isInterval = false;
@@ -40,7 +45,7 @@ QVariant SubArray::Value()
     return value;
 }
 
-QList<QVariant> &SubArray::List()
+QVector<QVariant> &SubArray::List()
 {  
     return list;
 }

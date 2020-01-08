@@ -17,7 +17,7 @@ bool SWOFEntity::exist()
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        return project->IsLoaded() && project->Stratum().SWOF().length() > 0;
+        return project->State() != ProjectData::CLOSED && project->Stratum().SWOF().length() > 0;
     }
 
     return false;
@@ -27,14 +27,14 @@ QVariantList SWOFEntity::getList(int region)
 {
     QVariantList swofList;
 
-    QList<SWOFData> list = SWOFList(region);
+    QVector<SWOFData> list = SWOFList(region);
 
     for(int i = 0; i < list.length(); i++) swofList.append(list[i].toMap());
 
     return swofList;
 }
 
-QList<SWOFData> SWOFEntity::SWOFList(int region)
+QVector<SWOFData> SWOFEntity::SWOFList(int region)
 {
     QObject* projectData = parent();
 
@@ -42,10 +42,10 @@ QList<SWOFData> SWOFEntity::SWOFList(int region)
     {
         ProjectData* project = static_cast<ProjectData*>(projectData);
 
-        if(project->IsLoaded() && project->Stratum().SWOF().length() > region) return project->Stratum().SWOF()[region];
+        if(project->State() != ProjectData::CLOSED && project->Stratum().SWOF().length() > region) return project->Stratum().SWOF()[region];
     }
 
-    return QList<SWOFData>();
+    return QVector<SWOFData>();
 }
 
 }}}}

@@ -1,7 +1,7 @@
 #ifndef SOF32DKRODATA_H
 #define SOF32DKRODATA_H
 
-#include <qlist.h>
+#include <qvector.h>
 
 #include <model_global.h>
 
@@ -16,7 +16,7 @@ public:
     SOF32DKrOData();
 
     double SG();
-    QList<double> &KrO();
+    QVector<double> &KrO();
 
     void SetSG(const double& sg);
 
@@ -24,7 +24,7 @@ public:
 
 private:
     double sg;
-    QList<double> kro;
+    QVector<double> kro;
 };
 
 }}}}

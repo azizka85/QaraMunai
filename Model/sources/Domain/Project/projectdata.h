@@ -5,7 +5,11 @@
 #include <qvariant.h>
 #include <qdatetime.h>
 
+#include <block.h>
+#include <line3d.h>
+
 #include <stratumdata.h>
+
 #include <tabdimsentity.h>
 #include <eqldimsentity.h>
 #include <endscaleentity.h>
@@ -13,12 +17,19 @@
 
 #include <swofentity.h>
 #include <sgofentity.h>
+
 #include <pvtoentity.h>
 #include <pvtgentity.h>
+
 #include <welspecsentity.h>
 #include <compdatentity.h>
 #include <wconprodentity.h>
 #include <wconinjeentity.h>
+
+#include <copyentity.h>
+#include <addentity.h>
+#include <equalsentity.h>
+#include <multiplyentity.h>
 
 #include <model_global.h>
 
@@ -39,8 +50,10 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_ENUMS(WellStatusType)
     Q_ENUMS(WellControlMode)
     Q_ENUMS(FluidType)
+    Q_ENUMS(ArrayNames)
+    Q_ENUMS(ProjectState)
 
-    Q_PROPERTY(bool isLoaded READ IsLoaded WRITE SetIsLoaded NOTIFY IsLoadedChanged)
+    Q_PROPERTY(ProjectState state READ State WRITE SetState NOTIFY StateChanged)
     Q_PROPERTY(QString title READ Title WRITE SetTitle NOTIFY TitleChanged)
     Q_PROPERTY(QDateTime startDate READ StartDate WRITE SetStartDate NOTIFY StartDateChanged)
     Q_PROPERTY(QVariant unit READ Unit WRITE SetUnit NOTIFY UnitChanged)
@@ -50,6 +63,8 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(int nx READ Nx WRITE SetNx NOTIFY NxChanged)
     Q_PROPERTY(int ny READ Ny WRITE SetNy NOTIFY NyChanged)
     Q_PROPERTY(int nz READ Nz WRITE SetNz NOTIFY NzChanged)
+    Q_PROPERTY(bool blockCentered READ BlockCentered WRITE SetBlockCentered NOTIFY BlockCenteredChanged)
+    Q_PROPERTY(QVariantList dates READ DATES)
     Q_PROPERTY(TABDIMSEntity* tabDIMS READ TABDIMS)
     Q_PROPERTY(EQLDIMSEntity* eqlDIMS READ EQLDIMS)
     Q_PROPERTY(ENDSCALEEntity* endSCALE READ ENDSCALE)
@@ -62,7 +77,10 @@ class MODELSHARED_EXPORT ProjectData : public QObject
     Q_PROPERTY(COMPDATEntity* compdat READ COMPDAT)
     Q_PROPERTY(WCONPRODEntity* wconprod READ WCONPROD)
     Q_PROPERTY(WCONINJEEntity* wconinje READ WCONINJE)
-    Q_PROPERTY(QVariantList dates READ DATES)
+    Q_PROPERTY(COPYEntity* copy READ COPY)
+    Q_PROPERTY(ADDEntity* add READ ADD)
+    Q_PROPERTY(EQUALSEntity* equals READ EQUALS)
+    Q_PROPERTY(MULTIPLYEntity *multiply READ MULTIPLY)
 
 public:
     explicit ProjectData(QObject *parent = nullptr);
@@ -73,8 +91,13 @@ public:
     enum WellStatusType { AUTO = 0, OPEN = 1, STOP = 2, SHUT = 3 };
     enum WellControlMode { ORAT = 0, WRAT = 1, GRAT = 2, LRAT = 3, RESV = 4, BHP = 5, RATE = 6 };
     enum FluidType { WATER = 0, GAS = 1, OIL = 2 };
+    enum ArrayNames { TOPS, DX, DY, DZ, ACTNUM, MULTPV, PERMX, PERMY, PERMZ, PORO, NTG, DZNET, MULTX, MULTY, MULTZ, MULTXm, MULTYm, MULTZm,
+                      MINPVV, SWATINIT, SWCR, ISWCR, SWL, ISWL, SWLPC, ISWLPC, SWU, ISWU, SGCR, ISGCR, SGL, ISGL, SGLPC, ISGLPC, PCG, IPCG,
+                      PCW, IPCW, KRO, IKRO, KRORW, IKRORW, KRORG, IKRORG, KRW, IKRW, KRWR, IKRWR, KRG, IKRG, KRGR, IKRGR, PVTNUM, SATNUM,
+                      EQLNUM, ENDNUM, PRESSURE, SWAT, SOIL, SGAS, PBUB, RS, DEPTH, PORV, TRANX, TRANY, TRANZ };
+    enum ProjectState {CLOSED, LOADED};
 
-    bool IsLoaded() const;
+    ProjectState State() const;
     QString Title() const;
     QDateTime StartDate() const;
     QVariant Unit() const;
@@ -86,9 +109,58 @@ public:
     int Ny() const;
     int Nz() const;
 
+    bool BlockCentered() const;
+
+    QVariantList DATES();
+
     Q_INVOKABLE double dx(int i, int j, int k);
     Q_INVOKABLE double dy(int i, int j, int k);
     Q_INVOKABLE double dz(int i, int j, int k);
+
+    Q_INVOKABLE double tops(int i, int j);
+
+    Q_INVOKABLE double depth(int i, int j, int k);
+
+    Q_INVOKABLE QVariant block(int i, int j, int k);
+
+    Q_INVOKABLE double poro(int i, int j, int k);
+    Q_INVOKABLE double ntg(int i, int j, int k);
+    Q_INVOKABLE bool actnum(int i, int j, int k);
+
+    Q_INVOKABLE double cellVolume(int i, int j, int k);
+
+    Q_INVOKABLE double tranX(int i, int j, int k, double z0, double zm1);
+    Q_INVOKABLE double tranY(int i, int j, int k, double z0, double zm1);
+    Q_INVOKABLE double tranZ(int i, int j, int k);
+
+    Q_INVOKABLE double poreVolume(int i, int j, int k);
+    Q_INVOKABLE double oilVolume(int i, int j, int k);
+
+    Q_INVOKABLE double multX(int i, int j, int k);
+    Q_INVOKABLE double multXm(int i, int j, int k);
+    Q_INVOKABLE double multY(int i, int j, int k);
+    Q_INVOKABLE double multYm(int i, int j, int k);
+    Q_INVOKABLE double multZ(int i, int j, int k);
+    Q_INVOKABLE double multZm(int i, int j, int k);
+
+    Q_INVOKABLE double permX(int i, int j, int k);
+    Q_INVOKABLE double permY(int i, int j, int k);
+    Q_INVOKABLE double permZ(int i, int j, int k);
+
+    Q_INVOKABLE int pvtNUM(int i, int j, int k);
+    Q_INVOKABLE int eqlNUM(int i, int j, int k);
+
+    Q_INVOKABLE double rs(int i, int j, int k);
+    Q_INVOKABLE double pBub(int i, int j, int k);
+
+    Q_INVOKABLE double pressure(int i, int j, int k);
+    Q_INVOKABLE double swat(int i, int j, int k);
+    Q_INVOKABLE double soil(int i, int j, int k);
+    Q_INVOKABLE double sgas(int i, int j, int k);    
+
+    Block GetBlock(int i, int j, int k);
+    Block CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k);
+    Block CalcBlockByCPG(int i, int j, int k);
 
     StratumData &Stratum();
 
@@ -100,15 +172,21 @@ public:
 
     SWOFEntity *SWOF();
     SGOFEntity *SGOF();
+
     PVTOEntity *PVTO();
     PVTGEntity *PVTG();
+
     WELSPECSEntity *WELSPECS();
     COMPDATEntity *COMPDAT();
     WCONPRODEntity *WCONPROD();
     WCONINJEEntity *WCONINJE();
-    QVariantList DATES();
 
-    void SetIsLoaded(const bool& isLoaded);
+    COPYEntity *COPY();
+    ADDEntity *ADD();
+    EQUALSEntity *EQUALS();
+    MULTIPLYEntity *MULTIPLY();
+
+    void SetState(const ProjectState& state);
     void SetTitle(const QString& title);
     void SetStartDate(const QDateTime& startDate);
     void SetUnit(const QVariant& unit);
@@ -120,10 +198,14 @@ public:
     void SetNy(int ny);
     void SetNz(int nz);
 
+    void SetBlockCentered(bool isBlockCentered);
+
+    void ProcessData();
+
     Q_INVOKABLE void initVariables();
 
 signals:
-    void IsLoadedChanged();
+    void StateChanged();
     void TitleChanged();
     void StartDateChanged();
     void UnitChanged();
@@ -135,8 +217,10 @@ signals:
     void NyChanged();
     void NzChanged();
 
+    void BlockCenteredChanged();
+
 private:
-    bool isLoaded;
+    ProjectState state;
     QString title;
     QDateTime startDate;
     QVariant unit;
@@ -144,6 +228,7 @@ private:
     QVariant temperatureOption;
     QVariant numRES;
     int nx, ny, nz;
+    bool isBlockCentered;
 
     StratumData stratum;
 
@@ -158,10 +243,18 @@ private:
 
     PVTOEntity *pvto;
     PVTGEntity *pvtg;
+
     WELSPECSEntity *welspecs;
     COMPDATEntity *compdat;
     WCONPRODEntity *wconprod;
     WCONINJEEntity *wconinje;
+
+    COPYEntity *copy;
+    ADDEntity *add;
+    EQUALSEntity *equals;
+    MULTIPLYEntity *multiply;
+
+    QVector<Block> blocks;
 };
 
 }}}}

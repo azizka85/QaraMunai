@@ -3,7 +3,7 @@
 
 #include <qobject.h>
 #include <qdatetime.h>
-#include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include <welspecsdata.h>
@@ -24,10 +24,26 @@ class MODELSHARED_EXPORT WELSPECSEntity : public QObject
 public:
     explicit WELSPECSEntity(QObject *parent = nullptr);
 
+    QVector<WELSPECSData> &WELSPECS();
+
     Q_INVOKABLE bool exist();
     Q_INVOKABLE QVariantList getList(QDateTime date);
+    Q_INVOKABLE QVariantMap getData();
 
-    QList<WELSPECSData> WELSPECSList(QVariant date);
+    QVector<WELSPECSData> WELSPECSList(QDateTime date);
+    QMap<QString, QVector<WELSPECSData>> WELSPECSGroupList();
+
+    QVector<int> GetDateIndexes(QDateTime date);
+    QVector<int> GetGroupIndexes(QString group);
+
+    void AddWELSPECS(WELSPECSData &data);
+
+    void Clear();
+
+private:
+    QMap<QDateTime, QVector<int>> dateIndexes;
+    QMap<QString, QVector<int>> groupIndexes;
+    QVector<WELSPECSData> welSPECS;
 };
 
 }}}}
