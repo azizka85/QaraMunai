@@ -10,6 +10,7 @@ import QaraMunai.Model.Domain.Project 1.0
 C1.SplitView {
     property real ratio: 0.8
     property bool settingsVisible: false
+    property var currentField: null
 
     property alias projectData: drawer.pdata
     property alias showContour: drawer.showContour
@@ -38,6 +39,13 @@ C1.SplitView {
             multX: parseFloat(multXField.text)
             multY: parseFloat(multYField.text)
             multZ: parseFloat(multZField.text)
+
+            onSelectedBlockIndexChanged: {
+                if(currentField !== null && drawer.selectedBlockIndex >= 0) {
+                    var indexes = drawer.getSelectedBlockIndexes();
+                    console.log("Select block: {" + indexes.i + ", " + indexes.j + ", " + indexes.k + "}" + ", field: " + currentField.legendTitle + ", value: " + drawer.getFieldData(currentField.id, indexes.i, indexes.j, indexes.k));
+                }
+            }
 
             MouseArea {
                 property vector2d localPosition                
@@ -741,11 +749,15 @@ C1.SplitView {
 
         drawer.selectedBlockIndex = -1;
 
-        drawer.updateData(ProjectData.CLOSED);
+        drawer.updateData(FieldSceneDrawer.ClearData);
+
+        drawer.clearFieldData();
     }
 
     function prepare(projectData)
     {
+        drawer.calculateDrawBlocks();
+
         var fields = drawer.getFields();
 
         initFieldsRepeater.model = fields;
@@ -758,13 +770,15 @@ C1.SplitView {
 
         setField(field);
 
-        drawer.updateData(ProjectData.LOADED);
+        drawer.updateData(FieldSceneDrawer.UpdateGeometry);
 
         drawer.setXZViewAxis();
     }
 
     function setField(field)
     {
+        currentField = field;
+
         var unitText = field.unitText === "" ? "" : ", " + field.unitText;
 
         legendLabel.text = field.legendTitle + unitText;
@@ -798,5 +812,7 @@ C1.SplitView {
             legendLabel3.text = val4;
             legendLabel4.text = val5;
         }
+
+        drawer.updateData(FieldSceneDrawer.UpdateFieldData);
     }
 }

@@ -129,8 +129,8 @@ public:
 
     Q_INVOKABLE double cellVolume(int i, int j, int k);
 
-    Q_INVOKABLE double tranX(int i, int j, int k, double z0, double zm1);
-    Q_INVOKABLE double tranY(int i, int j, int k, double z0, double zm1);
+    Q_INVOKABLE double tranX(int i, int j, int k);
+    Q_INVOKABLE double tranY(int i, int j, int k);
     Q_INVOKABLE double tranZ(int i, int j, int k);
 
     Q_INVOKABLE double poreVolume(int i, int j, int k);
@@ -149,15 +149,18 @@ public:
 
     Q_INVOKABLE int pvtNUM(int i, int j, int k);
     Q_INVOKABLE int eqlNUM(int i, int j, int k);
+    Q_INVOKABLE int satNUM(int i, int j, int k);
 
     Q_INVOKABLE double rs(int i, int j, int k);
     Q_INVOKABLE double pBub(int i, int j, int k);
 
     Q_INVOKABLE double pressure(int i, int j, int k);
+    Q_INVOKABLE double pwater(int i, int j, int k);
     Q_INVOKABLE double swat(int i, int j, int k);
     Q_INVOKABLE double soil(int i, int j, int k);
     Q_INVOKABLE double sgas(int i, int j, int k);    
 
+    Block GetBlock(int index);
     Block GetBlock(int i, int j, int k);
     Block CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k);
     Block CalcBlockByCPG(int i, int j, int k);
@@ -255,6 +258,7 @@ private:
     MULTIPLYEntity *multiply;
 
     QVector<Block> blocks;
+    QVector<double> po, pw, sw;
 };
 
 }}}}

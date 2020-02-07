@@ -10,11 +10,6 @@ QQuickFramebufferObject::Renderer *FieldSceneDrawer::createRenderer() const
     return new FieldSceneDrawer::Renderer();
 }
 
-uint FieldSceneDrawer::FieldID()
-{
-    return fieldId;
-}
-
 ProjectData *FieldSceneDrawer::Data()
 {
     return data;
@@ -87,21 +82,9 @@ float FieldSceneDrawer::MultZ()
 
 FieldInfo FieldSceneDrawer::GetFieldInfo(uint id)
 {
-    if(id > 0 && id < fields.size()) return fields[id];
+    if(id < fields.size()) return fields[id];
 
     return FieldInfo();
-}
-
-void FieldSceneDrawer::SetFieldID(const uint &id)
-{
-    if(fieldId != id)
-    {
-        fieldId = id;
-
-        update();
-
-        FieldIDChanged();
-    }
 }
 
 void FieldSceneDrawer::SetData(ProjectData *data)
@@ -250,9 +233,118 @@ void FieldSceneDrawer::SetMultZ(const float &multZ)
     MultZChanged();
 }
 
+float FieldSceneDrawer::GetFieldData(uint id, int index)
+{
+    Block& block = blocks[index];
+
+    int i = block.I();
+    int j = block.J();
+    int k = block.K();
+
+    return GetFieldData(id, i, j, k);
+}
+
+float FieldSceneDrawer::GetFieldData(uint id, int i, int j, int k)
+{
+    float value = 0.0f;
+
+    switch (id) {
+    case PERMX:
+    default:
+        value = data->permX(i, j, k);
+        break;
+    case PERMY:
+        value = data->permY(i, j, k);
+        break;
+    case PERMZ:
+        value = data->permZ(i, j, k);
+        break;
+    case PORO:
+        value = data->poro(i, j, k);
+        break;
+    case NTG:
+        value = data->ntg(i, j, k);
+        break;
+    case TRANX:
+        value = data->tranX(i, j, k);
+        break;
+    case TRANY:
+        value = data->tranY(i, j, k);
+        break;
+    case TRANZ:
+        value = data->tranZ(i, j, k);
+        break;
+    case SWAT:
+        value = data->swat(i, j, k);
+        break;
+    case SOIL:
+        value = data->soil(i, j, k);
+        break;
+    case SGAS:
+        value = data->sgas(i, j, k);
+        break;
+    case RS:
+        value = data->rs(i, j, k);
+        break;
+    case PRESSURE:
+        value = data->pressure(i, j, k);
+        break;
+    case PW:
+        value = data->pwater(i, j, k);
+        break;
+    case PBUB:
+        value = data->pBub(i, j, k);
+        break;
+    case DEPTH:
+        value = data->depth(i, j, k);
+        break;
+    case PVTNUM:
+        value = data->pvtNUM(i, j, k);
+        break;
+    case SATNUM:
+        value = data->satNUM(i, j, k);
+        break;
+    case EQLNUM:
+        value = data->eqlNUM(i, j, k);
+        break;
+    case PORV:
+        value = data->poreVolume(i, j, k);
+        break;
+    case OILV:
+        value = data->oilVolume(i, j, k);
+        break;
+    }
+
+    return value;
+}
+
 void FieldSceneDrawer::SetFieldData(uint id, float &minValue, float &maxValue)
 {
+    fieldData.clear();
 
+    if(data != nullptr)
+    {
+        for(int index = 0; index < blocks.size(); index++)
+        {
+            float value = GetFieldData(id, index);
+
+            if(index == 0)
+            {
+                minValue = value;
+                maxValue = value;
+            }
+            else
+            {
+                minValue = minValue > value ? value : minValue;
+                maxValue = maxValue < value ? value : maxValue;
+            }
+
+            fieldData.append(value);
+        }
+
+        this->minValue = minValue;
+        this->maxValue = maxValue;
+    }
 }
 
 QVariantMap FieldSceneDrawer::getSelectedBlockIndexes()
@@ -364,6 +456,36 @@ QVariantList FieldSceneDrawer::getCalcFields()
     return calcFields;
 }
 
+float FieldSceneDrawer::getFieldData(uint id, int i, int j, int k)
+{
+    return GetFieldData(id, i, j, k);
+}
+
+void FieldSceneDrawer::calculateDrawBlocks()
+{
+    blocks.clear();
+
+    if(data != nullptr)
+    {
+        double xMin = 0;
+        double xMax = 0;
+
+        double yMin = 0;
+        double yMax = 0;
+
+        double zMin = 0;
+        double zMax = 0;
+
+        QVector<bool> existBlock;
+        QVector<bool> drawBlock;
+
+        DataHelper::CalculateExistBlockArray(data, existBlock);
+        DataHelper::CalculateDrawBlockArray(data, existBlock, drawBlock);
+        DataHelper::GetDrawBlocks(data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
+        DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
+    }
+}
+
 QVariant FieldSceneDrawer::setField(uint id)
 {
     float minValue = 0.0f;
@@ -381,13 +503,18 @@ void FieldSceneDrawer::setDefaultPosition()
     zLocation = -1;
 }
 
-void FieldSceneDrawer::updateData(int state)
+void FieldSceneDrawer::updateData(int changeDataAction)
 {
-    this->state = static_cast<ProjectData::ProjectState>(state);
+    this->changeDataAction = static_cast<ChangeDataAction>(changeDataAction);
 
     dataUpdated = true;
 
     update();
+}
+
+void FieldSceneDrawer::clearFieldData()
+{
+    fieldData.clear();
 }
 
 void FieldSceneDrawer::initVariables()
@@ -395,11 +522,9 @@ void FieldSceneDrawer::initVariables()
     data = nullptr;
 
     dataUpdated = false;
-    state = ProjectData::ProjectState::CLOSED;
+    changeDataAction = ChangeDataAction::ClearData;
 
-    selectedBlockIndex = -1;
-
-    fieldId = PERMX;
+    selectedBlockIndex = -1;    
 
     setDefaultPosition();
 
@@ -413,6 +538,8 @@ void FieldSceneDrawer::initVariables()
     actionByMouse = MouseAction::ActionRotate;
 
     multX = multY = multZ = 1;
+
+    minValue = maxValue = 0.0f;
 
     QMetaObject metaObject = staticMetaObject;
 
@@ -499,8 +626,19 @@ void FieldSceneDrawer::Renderer::synchronize(QQuickFramebufferObject *fbo)
 
     if(drawer->dataUpdated || initialized)
     {
-        if(drawer->state != ProjectData::ProjectState::CLOSED) initGeometry();
-        else clearGeometry();
+        switch (drawer->changeDataAction)
+        {
+        case UpdateGeometry:
+            initGeometry();
+            initFieldData();
+            break;
+        case UpdateFieldData:
+            initFieldData();
+            break;
+        case ClearData:
+            clearGeometry();
+            break;
+        }
 
         drawer->dataUpdated = false;
         initialized = false;
@@ -543,8 +681,8 @@ void FieldSceneDrawer::Renderer::render()
     QVector3D midColor(0, 1, 0);
     QVector3D minColor(0, 0, 1);
 
-    float maxValue = 150.0f;
-    float minValue = 0.0f;
+    float maxValue = drawer->maxValue;
+    float minValue = drawer->minValue;
 
     float index = drawer->selectedBlockIndex;
 
@@ -642,73 +780,46 @@ void FieldSceneDrawer::Renderer::initGeometry()
     QVector<QVector3D> vertexes;
     QVector<GLuint> indexes;
 
-    QVector<float> blockIndexes;
-    QVector<float> values;
+    QVector<float> blockIndexes;    
 
     if(drawer->data != nullptr)
     {
-        double xMin = 0;
-        double xMax = 0;
-
-        double yMin = 0;
-        double yMax = 0;
-
-        double zMin = 0;
-        double zMax = 0;
-
-        QVector<bool> existBlock;
-        QVector<bool> drawBlock;
-        QVector<Block> blocks;
-
         int nx = drawer->data->Nx();
         int ny = drawer->data->Ny();
         int nz = drawer->data->Nz();
 
         qDebug() << nx << ", " << ny << ", " << nz;
 
-        DataHelper::CalculateExistBlockArray(drawer->data, existBlock);
-        DataHelper::CalculateDrawBlockArray(drawer->data, existBlock, drawBlock);
-        DataHelper::GetDrawBlocks(drawer->data, drawBlock, blocks, xMin, xMax, yMin, yMax, zMin, zMax);
-        DataHelper::NormalizeBlocks(xMin, xMax, yMin, yMax, zMin, zMax, blocks);
-
-        for(int index = 0; index < blocks.size(); index++)
+        for(int index = 0; index < drawer->blocks.size(); index++)
         {
-            Block& block = blocks[index];
+            Block& block = drawer->blocks[index];
 
             float blockIndex = block.I() + block.J() * nx + block.K() * nx * ny;
 
             // bottom
-            vertexes.append(QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P1().X(), block.P1().Y(), block.P1().Z()));            
             blockIndexes.append(blockIndex);
 
-            vertexes.append(QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P3().X(), block.P3().Y(), block.P3().Z()));            
             blockIndexes.append(blockIndex);
 
-            vertexes.append(QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P4().X(), block.P4().Y(), block.P4().Z()));            
             blockIndexes.append(blockIndex);
 
-            vertexes.append(QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P2().X(), block.P2().Y(), block.P2().Z()));            
             blockIndexes.append(blockIndex);
 
             // top
-            vertexes.append(QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P5().X(), block.P5().Y(), block.P5().Z()));            
             blockIndexes.append(blockIndex);
 
-            vertexes.append(QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P6().X(), block.P6().Y(), block.P6().Z()));            
             blockIndexes.append(blockIndex);
 
-            vertexes.append(QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P8().X(), block.P8().Y(), block.P8().Z()));            
             blockIndexes.append(blockIndex);
 
-            vertexes.append(QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z()));
-            values.append(0.0f);
+            vertexes.append(QVector3D(block.P7().X(), block.P7().Y(), block.P7().Z()));            
             blockIndexes.append(blockIndex);
 
             // left face
@@ -780,10 +891,6 @@ void FieldSceneDrawer::Renderer::initGeometry()
         blockIndexBuffer.allocate(blockIndexes.constData(), blockIndexes.size() * sizeof (float));
         blockIndexBuffer.release();
 
-        valueBuffer.bind();
-        valueBuffer.allocate(values.constData(), values.size() * sizeof (float));
-        valueBuffer.release();
-
         outBlockIndexBuffer.bind();
         outBlockIndexBuffer.allocate(primitiveCount * sizeof (float));
         outBlockIndexBuffer.release();
@@ -794,13 +901,42 @@ void FieldSceneDrawer::Renderer::initGeometry()
 
         outIsSelectedBlockBuffer.bind();
         outIsSelectedBlockBuffer.allocate(primitiveCount * sizeof (float));
-        outIsSelectedBlockBuffer.release();
+        outIsSelectedBlockBuffer.release();        
     }
+}
+
+void FieldSceneDrawer::Renderer::initFieldData()
+{
+    QVector<float> values;
+
+    for(int index = 0; index < drawer->blocks.size(); index++)
+    {
+        float value = drawer->fieldData[index];
+
+        // bottom
+        values.append(value);
+        values.append(value);
+        values.append(value);
+        values.append(value);
+
+        // top
+        values.append(value);
+        values.append(value);
+        values.append(value);
+        values.append(value);
+    }
+
+    valueBuffer.bind();
+    valueBuffer.allocate(values.constData(), values.size() * sizeof (float));
+    valueBuffer.release();
 }
 
 void FieldSceneDrawer::Renderer::clearGeometry()
 {
     primitiveCount = 0;
+
+    drawer->minValue = 0.0f;
+    drawer->maxValue = 0.0f;
 
     vertexBuffer.bind();
     vertexBuffer.allocate(0);
@@ -951,11 +1087,9 @@ void FieldSceneDrawer::Renderer::findSelectedBlock()
 
     if(outIsSelectedBlock > 0)
     {
-        float index = outBlockIndex;
+        int index = qRound(outBlockIndex);
 
         drawer->SetSelectedBlockIndex(index);
-
-        qDebug() << index;
     }
     else
     {

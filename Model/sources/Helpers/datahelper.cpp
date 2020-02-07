@@ -6,6 +6,38 @@ namespace QaraMunai {
 namespace Model {
 namespace Helpers {
 
+void DataHelper::GenerateBlocks(ProjectData *projectData, QVector<Block> &blocks, int nx, int ny, int nz, bool isBlockCentered)
+{
+    blocks.resize(nx*ny*nz);
+
+    double x0 = 0;
+    double y0 = 0;
+    double z0 = 0;
+
+    for(int i = 0; i < nx; i++)
+    {
+        y0 = 0;
+
+        for(int j = 0; j < ny; j++)
+        {
+            z0 = projectData->tops(i, j);
+
+            for(int k = 0; k < nz; k++)
+            {
+                Block block = isBlockCentered ? projectData->CalcBlockByBCG(x0, y0, z0, i, j, k) : projectData->CalcBlockByCPG(i, j, k);
+
+                int ind = k*nx*ny + j*nx + i;
+
+                blocks[ind] = block;
+
+                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
+                if(k == nz-1) y0 = block.P8().Y();
+                z0 = block.P8().Z();
+            }
+        }
+    }
+}
+
 LinearMatrix3D &DataHelper::GetArray(StratumData &stratum, int name)
 {
     ProjectData::ArrayNames arrayName = static_cast<ProjectData::ArrayNames>(name);
@@ -109,6 +141,8 @@ QVariant DataHelper::GetEQUALSData(EQUALSEntity *equals, QString arrayName, int 
         {
             EQUALSData& data = equals->EQUALS()[indexes[ind]];
 
+            Box3D &box = data.Box();
+
             if(data.Box().Contains(i, j, k))
             {
                 val = data.Value();
@@ -200,9 +234,30 @@ double DataHelper::GetPoFromPVT(StratumData &stratum, int pvtNum, int rowNum)
     return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum][rowNum].PO() : stratum.PVDO()[pvtNum][rowNum].PO();
 }
 
+void DataHelper::GetPoRangeFromPVT(StratumData &stratum, double p, int pvtNum, int &a, int &b)
+{
+    a = 0;
+    b = GetPVTLength(stratum, pvtNum) - 1;
+
+    while (b - a > 1)
+    {
+        int r = (a + b) / 2;
+
+        double po = GetPoFromPVT(stratum, pvtNum, r);
+
+        if (po > p) b = r;
+        else a = r;
+    }
+}
+
 double DataHelper::GetBoFromPVT(StratumData &stratum, int pvtNum, int rowNum)
 {
     return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum][rowNum].BO() : stratum.PVDO()[pvtNum][rowNum].BO();
+}
+
+double DataHelper::GetMoFromPVT(StratumData &stratum, int pvtNum, int rowNum)
+{
+    return stratum.PVTO().length() > 0 ? stratum.PVTO()[pvtNum][rowNum].MO() : stratum.PVDO()[pvtNum][rowNum].MO();
 }
 
 double DataHelper::CalculateRSBubFromPVT(StratumData &stratum, int pvtNum)
@@ -232,7 +287,7 @@ double DataHelper::CalculateRSBubFromPVT(StratumData &stratum, int pvtNum)
 }
 
 double DataHelper::CalculateRSFromPVT(StratumData &stratum, double p, int pvtNum)
-{
+{    
     int a = 0;
     int b = GetPVTLength(stratum, pvtNum) - 1;
 
@@ -764,18 +819,14 @@ void DataHelper::GetDrawBlocks(ProjectData *projectData, QVector<bool> &drawBloc
     int ny = projectData->Ny();
     int nz = projectData->Nz();
 
-    double x0 = xMin = xMax = 0;
-    double y0 = yMin = yMax = 0;
-    double z0 = zMin = zMax = 0;
+    xMin = xMax = 0;
+    yMin = yMax = 0;
+    zMin = zMax = 0;
 
     for(int i = 0; i < nx; i++)
     {
-        y0 = 0;
-
         for(int j = 0; j < ny; j++)
         {
-            z0 = projectData->tops(i, j);
-
             for(int k = 0; k < nz; k++)
             {
                 Block block = projectData->GetBlock(i, j, k);
@@ -801,10 +852,6 @@ void DataHelper::GetDrawBlocks(ProjectData *projectData, QVector<bool> &drawBloc
 
                     blocks.append(block);
                 }
-
-                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
-                if(k == nz-1) y0 = block.P8().Y();
-                z0 = block.P8().Z();
             }
         }
     }
@@ -931,6 +978,391 @@ void DataHelper::NumberOfGPUNodes(int n, int mx, int my, int &nx, int &ny, int &
 
         ny++;
         nz++;
+    }
+}
+
+void DataHelper::SetPVTOil(StratumData& stratum, int pvtNum, double p, double rod, double rg, double &mo, double &bo, double &dBo, double &rs, double &drs, double &dro, double &ro, double pBub, double cr)
+{
+    int a = 0;
+    int b = 0;
+
+    GetPoRangeFromPVT(stratum, p, pvtNum, a, b);
+
+    double poA = GetPoFromPVT(stratum, pvtNum, a);
+    double poB = GetPoFromPVT(stratum, pvtNum, b);
+
+    double k1 = (poB - p) / (poB - poA);
+    double k2 = (p - poA) / (poB - poA);
+
+    if (p < poA) { k1 = 1.0; k2 = 0.0; }
+    if (p > poB) { k1 = 0.0; k2 = 1.0; }
+
+    double moA = GetMoFromPVT(stratum, pvtNum, a);
+    double moB = GetMoFromPVT(stratum, pvtNum, b);
+
+    double boA = GetBoFromPVT(stratum, pvtNum, a);
+    double boB = GetBoFromPVT(stratum, pvtNum, b);
+
+    mo = moA * k1 + moB * k2;
+    bo = 1/boA * k1 + 1/boB * k2;
+
+    double bod = boA * k1 + boB * k2;
+
+    double rsA = GetRSFromPVT(stratum, pvtNum, a);
+    double rsB = GetRSFromPVT(stratum, pvtNum, b);
+
+    rs = rsA * k1 + rsB * k2;
+
+    dBo = (1.0 / boB - 1.0 / boA) / (poB - poA);
+
+    drs = (rsB - rsA) / (poB - poA);
+
+    dro = (rod + cr * rs * rg) * dBo + cr * rg * bo * drs;
+
+    bo = bod * (1 - 1e-6 * (p - pBub));
+    bo = 1 / bo;
+    ro = (rod + cr * rs * rg) * bo;
+}
+
+void DataHelper::SetPVTWAT(StratumData &stratum, int pvtNum, double p, double rwd, double &mw, double &bw, double &dbw, double &rw, double &drw)
+{
+    double cw = stratum.PVTW().size() > pvtNum && !stratum.PVTW()[pvtNum].CW().isNull() ? stratum.PVTW()[pvtNum].CW().toDouble() : DefaultValues::PVTW_CW;
+    double pr = stratum.PVTW().size() > pvtNum && !stratum.PVTW()[pvtNum].PWRef().isNull() ? stratum.PVTW()[pvtNum].PWRef().toDouble() : DefaultValues::PVTW_PWRef;
+    double br = stratum.PVTW().size() > pvtNum && !stratum.PVTW()[pvtNum].BWRef().isNull() ? stratum.PVTW()[pvtNum].BWRef().toDouble() : DefaultValues::PVTW_BWRef;
+    double mr = stratum.PVTW().size() > pvtNum && !stratum.PVTW()[pvtNum].MWRef().isNull() ? stratum.PVTW()[pvtNum].MWRef().toDouble() : DefaultValues::PVTW_MWRef;
+
+    double x = cw * (p - pr);
+
+    bw = (1.0 + x + x * x / 2.0) / br;
+
+    double y = (cw - mr) * (p - pr);
+
+    mw = br * mr * bw / (1 + y + y*y/2);
+
+    dbw = cw * (1 + x) / br;
+
+    rw = rwd * bw;
+    drw = rwd * dbw;
+}
+
+void DataHelper::SetPcForInvSw(StratumData &stratum, int satNum, double pc, double &sw)
+{
+    // TODO: SW  not only on SWOF
+    if(stratum.SWOF().size() > satNum && stratum.SWOF()[satNum].size() > 0)
+    {
+        int a = 0;
+        int b = stratum.SWOF()[satNum].size() - 1;
+
+        while (b - a > 1)
+        {
+            int r = (a + b) / 2;
+
+            // TODO: Capillary pressure  not only on SWOF and default values are calculated
+            double pow = stratum.SWOF()[satNum][r].Pc().toDouble();
+
+            if (pow > pc) a = r;
+            else b = r;
+        }
+
+        // TODO: Capillary pressure  not only on SWOF and default values are calculated
+        double powA = stratum.SWOF()[satNum][a].Pc().toDouble();
+        double powB = stratum.SWOF()[satNum][b].Pc().toDouble();
+
+        double k1 = (powB - pc) / (powB - powA);
+        double k2 = (pc - powA) / (powB - powA);
+
+        if (pc < powB) { k1 = 0.0; k2 = 1.0; }
+        if (pc > powA) { k1 = 1.0; k2 = 0.0; }
+
+        // TODO: SW  not only on SWOF
+        double swA = stratum.SWOF()[satNum][a].SW();
+        double swB = stratum.SWOF()[satNum][b].SW();
+
+        sw = swA * k1 + swB * k2;
+    }
+}
+
+void DataHelper::CalcEquilData(ProjectData *projectData, int nx, int ny, int nz, QVector<double> &pw, QVector<double> &po, QVector<double> &sw)
+{
+    if(!projectData->Stratum().EQLDIMS().NTEQUL().isNull())
+    {
+        int ntEQUL = projectData->Stratum().EQLDIMS().NTEQUL().toInt();
+
+        if(ntEQUL > 0)
+        {
+            pw.resize(nx*ny*nz);
+            po.resize(nx*ny*nz);
+            sw.resize(nx*ny*nz);
+
+            for(int regNum = 0; regNum < ntEQUL; regNum++)
+            {
+                int regCount = 0;
+
+                for (int i = 0; i < nx; i++)
+                {
+                    for (int j = 0; j < ny; j++)
+                    {
+                        for (int k = 0; k < nz; k++)
+                        {
+                            int eqlNum = projectData->eqlNUM(i, j, k) - 1;
+
+                            if(eqlNum == regNum) regCount++;
+                        }
+                    }
+                }
+
+                QVector<int> bList(regCount);
+
+                int l = 0;
+
+                for (int i = 0; i < nx; i++)
+                {
+                    for (int j = 0; j < ny; j++)
+                    {
+                        for (int k = 0; k < nz; k++)
+                        {
+                            int eqlNum = projectData->eqlNUM(i, j, k) - 1;
+
+                            if(eqlNum == regNum)
+                            {
+                                int ind = k*nx*ny + j*nx + i;
+
+                                bList[l] = ind;
+
+                                l++;
+                            }
+                        }
+                    }
+                }
+
+                std::sort(bList.begin(), bList.end(), [nx, ny, projectData](const int &ind1, const int &ind2) -> bool
+                {
+                    int i1, j1, k1;
+                    int i2, j2, k2;
+
+                    DataHelper::DivideOnAxesNodes(ind1, nx, ny, i1, j1, k1);
+                    DataHelper::DivideOnAxesNodes(ind2, nx, ny, i2, j2, k2);
+
+                    return projectData->depth(i1, j1, k1) < projectData->depth(i2, j2, k2);
+                });
+
+
+                if(regNum < projectData->Stratum().EQUIL().size())
+                {
+                    EQUILData& data = projectData->Stratum().EQUIL()[regNum];
+
+                    double datum = data.DatumDepth();
+                    double pDatum = data.DatumP();
+                    double dWOC = data.WOCDepth().toDouble();
+                    double pWOC = data.WOCPc().toDouble();
+
+                    auto ub = std::lower_bound(bList.begin(), bList.end(), datum, [nx, ny, projectData](const int &ind, const double& datumDepth) -> bool
+                    {
+                        int i, j, k;
+
+                        DataHelper::DivideOnAxesNodes(ind, nx, ny, i, j, k);
+                        double bDepth = projectData->depth(i, j, k);
+
+                        return bDepth < datumDepth;
+                    });
+
+                    int m = ub - bList.begin();
+
+                    m = m < 0 ? m+1 : m < bList.size() ? m : m-1;
+
+                    int dIndex = bList[m];
+
+                    int dI, dJ, dK;
+
+                    DataHelper::DivideOnAxesNodes(dIndex, nx, ny, dI, dJ, dK);
+
+                    qDebug() << "Datum index: " << dI << ", " << dJ << ", " << dK;
+
+                    // Oil pressure calculation
+                    double ro, rg;
+                    double datumBo, datumMo, datumDBo, datumRS, datumRo, datumDRS, datumDRo;
+
+                    int pvtNum = projectData->pvtNUM(dI, dJ, dK) - 1;
+
+                    double datumPBub = projectData->pBub(dI, dJ, dK);
+
+                    ro = projectData->Stratum().DENSITY().length() > pvtNum && !projectData->Stratum().DENSITY()[pvtNum].RO().isNull() ? projectData->Stratum().DENSITY()[pvtNum].RO().toDouble() : DefaultValues::DENSITY_RO;
+                    rg = projectData->Stratum().DENSITY().length() > pvtNum && !projectData->Stratum().DENSITY()[pvtNum].RG().isNull() ? projectData->Stratum().DENSITY()[pvtNum].RG().toDouble() : DefaultValues::DENSITY_RG;
+
+                    QMetaObject metaObject = ProjectData::staticMetaObject;
+                    QMetaEnum unitsEnum = metaObject.enumerator(metaObject.indexOfEnumerator("UnitType"));
+                    ProjectData::UnitType unitType = projectData->Unit().isNull() ? DefaultValues::Unit : static_cast<ProjectData::UnitType>(projectData->Unit().toInt());
+                    double cr = UnitHelper::ConvertGasLiquidRatio(ProjectData::METRIC, unitType, 1, unitsEnum).toDouble();
+
+                    cr = 1/cr;
+
+                    double g = UnitHelper::GravityTable[unitType];
+
+                    DataHelper::SetPVTOil(projectData->Stratum(), pvtNum, pDatum, ro, rg, datumMo, datumBo, datumDBo, datumRS, datumDRS, datumDRo, datumRo, datumPBub, cr);
+
+                    for(int r = 0; r < regCount; r++)
+                    {
+                        int i, j, k;
+                        int ind = bList[r];
+
+                        DataHelper::DivideOnAxesNodes(ind, nx, ny, i, j, k);
+
+                        po[ind] = pDatum + datumRo * g * (projectData->depth(i, j, k) - datum);
+                    }
+
+                    // Water pressure calculation (TODO: is correct only for Block-centered grid...)
+                    ub = std::lower_bound(bList.begin(), bList.end(), dWOC, [nx, ny, projectData](const int &ind, const double& wocDepth) -> bool
+                    {
+                        int i, j, k;
+
+                        DataHelper::DivideOnAxesNodes(ind, nx, ny, i, j, k);
+                        double bDepth = projectData->depth(i, j, k);
+                        double dz = projectData->dz(i, j, k);
+
+                        return wocDepth >= bDepth - dz/2 && wocDepth <= bDepth + dz/2; // (TODO: is correct only for Block-centered grid...)
+                    });
+
+                    m = ub - bList.begin();
+
+                    m = m < 0 ? m+1 : m < bList.size() ? m : m-1;
+
+                    dIndex = bList[m];
+
+                    DataHelper::DivideOnAxesNodes(dIndex, nx, ny, dI, dJ, dK);
+
+                    qDebug() << "WOC index: " << dI << ", " << dJ << ", " << dK;
+
+                    double wocBw, wocMw, wocDBw, wocRw, wocDRw;
+                    double wocMo, wocBo, wocDBo, wocRs, wocDRs, wocDRo, wocRo;
+
+                    pvtNum = projectData->pvtNUM(dI, dJ, dK) - 1;
+
+                    ro = projectData->Stratum().DENSITY().length() > pvtNum && !projectData->Stratum().DENSITY()[pvtNum].RO().isNull() ? projectData->Stratum().DENSITY()[pvtNum].RO().toDouble() : DefaultValues::DENSITY_RO;
+                    rg = projectData->Stratum().DENSITY().length() > pvtNum && !projectData->Stratum().DENSITY()[pvtNum].RG().isNull() ? projectData->Stratum().DENSITY()[pvtNum].RG().toDouble() : DefaultValues::DENSITY_RG;
+
+                    double rw = projectData->Stratum().DENSITY().length() > pvtNum && !projectData->Stratum().DENSITY()[pvtNum].RW().isNull() ? projectData->Stratum().DENSITY()[pvtNum].RW().toDouble() : DefaultValues::DENSITY_RW;
+
+                    double wocPBub = projectData->pBub(dI, dJ, dK);
+
+                    DataHelper::SetPVTOil(projectData->Stratum(), pvtNum, po[dIndex], ro, rg, wocMo, wocBo, wocDBo, wocRs, wocDRs, wocDRo, wocRo, wocPBub, cr);
+
+                    double poWOC = po[dIndex] + wocRo * g * (dWOC - projectData->depth(dI, dJ, dK));
+
+                    DataHelper::SetPVTWAT(projectData->Stratum(), pvtNum, poWOC - pWOC, rw, wocMw, wocBw, wocDBw, wocRw, wocDRw);
+
+                    for (int r = 0; r < regCount; r++)
+                    {
+                        int i, j, k;
+                        int ind = bList[r];
+
+                        DataHelper::DivideOnAxesNodes(ind, nx, ny, i, j, k);
+
+                        pw[ind] = poWOC - pWOC + g * rw * (projectData->depth(i, j, k) - dWOC);
+                    }
+
+                    // Water saturation calculation
+                    for (int r = 0; r < regCount; r++)
+                    {
+                        int i, j, k;
+                        int ind = bList[r];
+
+                        DataHelper::DivideOnAxesNodes(ind, nx, ny, i, j, k);
+
+                        pvtNum = projectData->pvtNUM(i, j, k);
+
+                        double pcOW = po[ind] - pw[ind];
+
+                        int satNum = projectData->satNUM(i, j, k);
+
+                        // TODO: Capillary pressure  not only on SWOF and default values are calculated
+                        double powMax = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][0].Pc().toDouble() : 0;
+                        double powMin = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][projectData->Stratum().SWOF()[satNum].size()-1].Pc().toDouble() : 0;
+
+                        // TODO: is correct only for Block-centered grid...
+                        double depth = projectData->depth(i, j, k);
+                        double dz = projectData->dz(i, j, k);
+
+                        double top = depth - dz / 2;
+
+                        if(dWOC > depth - dz/2 && dWOC <= dWOC <= depth + dz/2)
+                        {
+                            double delta = dz / 10;
+
+                            sw[ind] = 0;
+
+                            for(int j = 0; j < 10; j++)
+                            {
+                                double pof = po[ind] + ro * g * (top + (j + 0.5) * delta - depth);
+                                double pwf = pw[ind] + rw * g * (top + (j + 0.5) * delta - depth);
+
+                                double pcOWf = pof - pwf;
+
+                                double swf = 0;
+
+                                if (pcOWf >= powMax)
+                                {
+                                    // TODO: SW  not only on SWOF
+                                    swf = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][0].SW() : 0;
+                                }
+                                else if (pcOWf <= powMin)
+                                {
+                                    // TODO: SW  not only on SWOF
+                                    swf = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][projectData->Stratum().SWOF()[satNum].size() - 1].SW() : 0;
+                                }
+                                else if (pcOWf > powMin && pcOWf < powMax)
+                                {
+                                    SetPcForInvSw(projectData->Stratum(), satNum, pcOWf, swf);
+                                }
+
+                                sw[ind] += swf;
+                            }
+
+                            sw[ind] = sw[ind] / 10;
+                        }
+                        else
+                        {
+                            if (pcOW >= powMax)
+                            {
+                                sw[ind] = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][0].SW() : 0;
+                            }
+                            else if (pcOW <= powMin)
+                            {
+                                sw[ind] = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][projectData->Stratum().SWOF()[satNum].size() - 1].SW() : 0;
+                            }
+                            else if (pcOW > powMin && pcOW < powMax)
+                            {
+                                SetPcForInvSw(projectData->Stratum(), satNum, pcOW, sw[ind]);
+                            }
+                        }
+                    }
+
+                    for (int r = m + 1; r < bList.size(); r++)
+                    {
+                        int i, j, k;
+                        int ind = bList[r];
+
+                        DataHelper::DivideOnAxesNodes(ind, nx, ny, i, j, k);
+
+                        int satNum = projectData->satNUM(i, j, k);
+
+                        double depth = projectData->depth(i, j, k);
+
+                        // TODO: Capillary pressure  not only on SWOF and default values are calculated
+                        double powBegin = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][0].Pc().toDouble() : 0;
+                        double powEnd = projectData->Stratum().SWOF().size() > satNum && projectData->Stratum().SWOF()[satNum].size() > 0 ? projectData->Stratum().SWOF()[satNum][projectData->Stratum().SWOF()[satNum].size() - 1].Pc().toDouble() : 0;
+
+                        if (dWOC >= depth)
+                        {
+                            pw[ind] = po[ind] - powBegin;
+                        }
+                        else
+                        {
+                            po[ind] = pw[ind] + powEnd;
+                        }
+                    }
+                }                                                
+            }
+        }
     }
 }
 

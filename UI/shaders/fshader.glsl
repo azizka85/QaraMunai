@@ -59,7 +59,7 @@ void main(void)
 
     if(uShowMesh)
     {
-        float x = min(min(fD[0], fD[1]), fD[2]) - 1.0f;
+        float x = min(min(fD[0], fD[1]), fD[2]);
 
         float edgeIntensity = exp2(-x*x);
 

@@ -26,6 +26,10 @@ public:
     constexpr static int TABDIMS_NTPVT = 1;
     constexpr static int TABDIMS_NSSFUN = 50;
 
+    constexpr static int PVTNUM = 1;
+    constexpr static int EQLNUM = 1;
+    constexpr static int SATNUM = 1;
+
     constexpr static int EQLDIMS_NTEQUL = 1;
 
     constexpr static ENDSCALEEntity::DirectionalType ENDSCALE_Directional = ENDSCALEEntity::NODIR;

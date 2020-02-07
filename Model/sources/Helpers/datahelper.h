@@ -22,6 +22,9 @@
 #include <addentity.h>
 
 #include <mathhelper.h>
+#include <unithelper.h>
+
+#include <defaultvalues.h>
 
 #include <model_global.h>
 
@@ -43,6 +46,8 @@ namespace Helpers {
 class MODELSHARED_EXPORT DataHelper
 {
 public:
+    static void GenerateBlocks(ProjectData* projectData, QVector<Block> &blocks, int nx, int ny, int nz, bool isBlockCentered);
+
     static LinearMatrix3D& GetArray(StratumData& stratum, int name);
     static LinearMatrix3D& GetArrayByName(StratumData& stratum, QString arrayName);
     static QVariant GetEQUALSData(EQUALSEntity* equals, QString arrayName, int i, int j, int k);
@@ -53,11 +58,13 @@ public:
     static int GetPVTLength(StratumData& stratum, int pvtNum);
     static double GetRSFromPVT(StratumData& stratum, int pvtNum, int rowNum = -1);
     static double GetPoFromPVT(StratumData& stratum, int pvtNum, int rowNum);
+    static void GetPoRangeFromPVT(StratumData& stratum, double p, int pvtNum, int &a, int &b);
     static double GetBoFromPVT(StratumData& stratum, int pvtNum, int rowNum);
+    static double GetMoFromPVT(StratumData& stratum, int pvtNum, int rowNum);
     static double CalculateRSBubFromPVT(StratumData& stratum, int pvtNum);
     static double CalculateRSFromPVT(StratumData& stratum, double p, int pvtNum);
     static double CalculatePBubFromPVT(StratumData& stratum, int pvtNum);
-    static double CalculatePoFromPVT(StratumData& stratum, double rs, int pvtNum);
+    static double CalculatePoFromPVT(StratumData& stratum, double rs, int pvtNum);    
     static double CalculateBoFromPVT(StratumData& stratum, double p, int pvtNum);
 
     static double CalculateRSFromRSVD(StratumData& stratum, double depth, int eqlNum);
@@ -74,6 +81,13 @@ public:
 
     static void DivideOnAxesNodes(int n, int mx, int my, int &nx, int &ny, int &nz);
     static void NumberOfGPUNodes(int n, int mx, int my, int &nx, int &ny, int &nz);
+
+    static void SetPVTOil(StratumData& stratum, int pvtNum, double p, double rod, double rg, double &mo, double &bo, double &dBo, double &rs, double &drs, double &dro, double &ro, double pBub, double cr);
+    static void SetPVTWAT(StratumData &stratum, int pvtNum, double p, double rwd, double &mw, double &bw, double &dbw, double &rw, double &drw);
+
+    static void SetPcForInvSw(StratumData &stratum, int satNum, double pc, double &sw);
+
+    static void CalcEquilData(ProjectData* projectData, int nx, int ny, int nz, QVector<double> &pw, QVector<double> &po, QVector<double> &sw);
 };
 
 }}}

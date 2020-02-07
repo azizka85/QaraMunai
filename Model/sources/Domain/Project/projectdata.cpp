@@ -194,7 +194,7 @@ double ProjectData::tops(int i, int j)
 
 double ProjectData::depth(int i, int j, int k)
 {
-    double val = 0;
+    double val = GetBlock(i, j, k).Depth();
 
     if(stratum.DEPTH().Box().Contains(i, j, k))
         val = stratum.DEPTH()(i, j, k).toDouble();
@@ -427,7 +427,7 @@ double ProjectData::multZm(int i, int j, int k)
     return val;
 }
 
-double ProjectData::tranX(int i, int j, int k, double z0, double zm1)
+double ProjectData::tranX(int i, int j, int k)
 {
     double val = 0;
 
@@ -443,8 +443,8 @@ double ProjectData::tranX(int i, int j, int k, double z0, double zm1)
 
     if(BlockCentered())
     {
-        Block current = CalcBlockByBCG(0, 0, z0, i, j, k);
-        Block lBlock = CalcBlockByBCG(0, 0, zm1, i-1, j, k);
+        Block current = GetBlock(i, j, k);
+        Block lBlock = GetBlock(i-1, j, k);
 
         double dxc = dx(i, j, k);
         double dyc = dy(i, j, k);
@@ -482,7 +482,7 @@ double ProjectData::tranX(int i, int j, int k, double z0, double zm1)
     }
     else
     {
-        Block current = CalcBlockByCPG(i, j, k);
+        Block current = GetBlock(i, j, k);
 
         Point3D myBlockCenter = MathHelper::GetMassCenter(current.P1(), current.P2(), current.P3(), current.P4(),
                                                           current.P5(), current.P6(), current.P7(), current.P8());
@@ -493,7 +493,7 @@ double ProjectData::tranX(int i, int j, int k, double z0, double zm1)
 
             Point3D contactAreaCenter;
 
-            Block lBlock = CalcBlockByCPG(current.I()-1, current.J(), current.K());
+            Block lBlock = GetBlock(i-1, j, k);
 
             double a = MathHelper::GetContactArea(current.P5(), current.P1(), current.P7(), current.P3(),
                                                     lBlock.P6(), lBlock.P2(), lBlock.P8(), lBlock.P4(), contactAreaCenter);
@@ -545,7 +545,7 @@ double ProjectData::tranX(int i, int j, int k, double z0, double zm1)
     return val;
 }
 
-double ProjectData::tranY(int i, int j, int k, double z0, double zm1)
+double ProjectData::tranY(int i, int j, int k)
 {
     double val = 0;
 
@@ -561,8 +561,8 @@ double ProjectData::tranY(int i, int j, int k, double z0, double zm1)
 
     if(BlockCentered())
     {
-        Block current = CalcBlockByBCG(0, 0, z0, i, j, k);
-        Block dBlock = CalcBlockByBCG(0, 0, zm1, i, j-1, k);
+        Block current = GetBlock(i, j, k);
+        Block dBlock = GetBlock(i, j-1, k);
 
         double dxc = dx(i, j, k);
         double dyc = dy(i, j, k);
@@ -600,18 +600,18 @@ double ProjectData::tranY(int i, int j, int k, double z0, double zm1)
     }
     else
     {
-        Block current = CalcBlockByCPG(i, j, k);
+        Block current = GetBlock(i, j, k);
 
         Point3D myBlockCenter = MathHelper::GetMassCenter(current.P1(), current.P2(), current.P3(), current.P4(),
                                                           current.P5(), current.P6(), current.P7(), current.P8());
 
-        if (actnum(current.I(), current.J(), current.K()) && actnum(current.I(), current.J() - 1, current.K()))
+        if (actnum(i, j, k) && actnum(i, j - 1, k))
         {
             Plane contactPlane(current.P1(), current.P2(), current.P6());
 
             Point3D contactAreaCenter;
 
-            Block dBlock = CalcBlockByCPG(current.I(), current.J()-1, current.K());
+            Block dBlock = GetBlock(i, j-1, k);
 
             double a = MathHelper::GetContactArea(current.P5(), current.P1(), current.P6(), current.P2(),
                                                     dBlock.P7(), dBlock.P3(), dBlock.P8(), dBlock.P4(), contactAreaCenter);
@@ -704,12 +704,12 @@ double ProjectData::tranZ(int i, int j, int k)
     }
     else
     {
-        Block current = CalcBlockByCPG(i, j, k);
+        Block current = GetBlock(i, j, k);
 
         Point3D myBlockCenter = MathHelper::GetMassCenter(current.P1(), current.P2(), current.P3(), current.P4(),
                                                           current.P5(), current.P6(), current.P7(), current.P8());
 
-        if (actnum(current.I(), current.J(), current.K()) && actnum(current.I(), current.J(), current.K() - 1))
+        if (actnum(i, j, k) && actnum(i, j, k - 1))
         {
             Plane contactPlane(current.P1(), current.P2(), current.P4());
 
@@ -717,7 +717,7 @@ double ProjectData::tranZ(int i, int j, int k)
 
             Point3D contactAreaCenter = MathHelper::GetAveragePoint(p);
 
-            Block bBlock = CalcBlockByCPG(current.I(), current.J(), current.K()-1);
+            Block bBlock = GetBlock(i, j, k-1);
 
             double a = MathHelper::GetTetragonArea(current.P1(), current.P2(), current.P4(), current.P3());
 
@@ -792,7 +792,7 @@ double ProjectData::oilVolume(int i, int j, int k)
 
     double cv = UnitHelper::ConvertVolume(static_cast<UnitType>(unit), LAB, 1, unitsEnum).toDouble();
 
-    int pvtNum = pvtNUM(i, j, k);
+    int pvtNum = pvtNUM(i, j, k) - 1;
 
     double bo = DataHelper::CalculateBoFromPVT(Stratum(), pressure(i, j, k), pvtNum);
 
@@ -867,7 +867,7 @@ double ProjectData::permZ(int i, int j, int k)
 
 int ProjectData::pvtNUM(int i, int j, int k)
 {
-    int val = -1;
+    int val = DefaultValues::PVTNUM;
 
     if(stratum.PVTNUM().Box().Contains(i, j, k))
         val = stratum.PVTNUM()(i, j, k).toInt();
@@ -891,7 +891,7 @@ int ProjectData::pvtNUM(int i, int j, int k)
 
 int ProjectData::eqlNUM(int i, int j, int k)
 {
-    int val = -1;
+    int val = DefaultValues::EQLNUM;
 
     if(stratum.EQLNUM().Box().Contains(i, j, k))
         val = stratum.EQLNUM()(i, j, k).toInt();
@@ -913,14 +913,38 @@ int ProjectData::eqlNUM(int i, int j, int k)
     return val;
 }
 
+int ProjectData::satNUM(int i, int j, int k)
+{
+    int val = DefaultValues::SATNUM;
+
+    if(stratum.SATNUM().Box().Contains(i, j, k))
+        val = stratum.SATNUM()(i, j, k).toInt();
+
+    QVariant value = DataHelper::GetEQUALSData(equals, "SATNUM", i, j, k);
+
+    val = !value.isNull() ? value.toInt() : val;
+
+    value = DataHelper::GetCOPYData(copy, stratum, "SATNUM", i, j, k);
+
+    val = !value.isNull() ? value.toInt() : val;
+
+    double addValue = 0;
+
+    DataHelper::ADDValue(add, "SATNUM", addValue, i, j, k);
+
+    val += static_cast<int>(addValue);
+
+    return val;
+}
+
 double ProjectData::rs(int i, int j, int k)
 {
     double cDepth = depth(i, j, k);
 
     if(stratum.RS().Count() > 0) return stratum.RS()(i, j, k).toDouble();
-    else if(stratum.PBUB().Count()) return DataHelper::CalculateRSFromPVT(stratum, stratum.PBUB()(i, j, k).toDouble(), pvtNUM(i, j, k));
-    else if(stratum.RSVD().length() > 0) return DataHelper::CalculateRSFromRSVD(stratum, cDepth, eqlNUM(i, j, k));
-    else return DataHelper::CalculateRSBubFromPVT(stratum, pvtNUM(i, j, k));
+    else if(stratum.PBUB().Count()) return DataHelper::CalculateRSFromPVT(stratum, stratum.PBUB()(i, j, k).toDouble(), pvtNUM(i, j, k) - 1);
+    else if(stratum.RSVD().length() > 0) return DataHelper::CalculateRSFromRSVD(stratum, cDepth, eqlNUM(i, j, k) - 1);
+    else return DataHelper::CalculateRSBubFromPVT(stratum, pvtNUM(i, j, k) - 1);
 }
 
 double ProjectData::pBub(int i, int j, int k)
@@ -930,19 +954,21 @@ double ProjectData::pBub(int i, int j, int k)
     if(stratum.PBUB().Count() > 0) return stratum.PBUB()(i, j, k).toDouble();
     else if(stratum.RS().Count() > 0)
     {
-        double p = DataHelper::CalculatePoFromPVT(stratum, stratum.RS()(i, j, k).toDouble(), pvtNUM(i, j, k));
+        double p = DataHelper::CalculatePoFromPVT(stratum, stratum.RS()(i, j, k).toDouble(), pvtNUM(i, j, k) - 1);
 
         if(sgas(i, j, k) > 0 || p > pressure(i, j, k)) p = pressure(i, j, k);
 
         return p;
     }
-    else if(stratum.PBVD().length() > 0) return DataHelper::CalculatePBubFromPBVD(stratum, cDepth, eqlNUM(i, j, k));
-    else return DataHelper::CalculatePBubFromPVT(stratum, pvtNUM(i, j, k));
+    else if(stratum.PBVD().length() > 0) return DataHelper::CalculatePBubFromPBVD(stratum, cDepth, eqlNUM(i, j, k) - 1);
+    else return DataHelper::CalculatePBubFromPVT(stratum, pvtNUM(i, j, k) - 1);
 }
 
 double ProjectData::pressure(int i, int j, int k)
 {
-    double val = 0;
+    int ind = k*nx*ny + j*nx + i;
+
+    double val = po.size() > ind ? po[ind] : 0;
 
     if(stratum.PRESSURE().Box().Contains(i, j, k))
         val = stratum.PRESSURE()(i, j, k).toDouble();
@@ -958,9 +984,20 @@ double ProjectData::pressure(int i, int j, int k)
     return val;
 }
 
+double ProjectData::pwater(int i, int j, int k)
+{
+    int ind = k*nx*ny + j*nx + i;
+
+    double val = pw.size() > ind ? pw[ind] : 0;
+
+    return val;
+}
+
 double ProjectData::swat(int i, int j, int k)
 {
-    double val = 0;
+    int ind = k*nx*ny + j*nx + i;
+
+    double val = sw.size() > ind ? sw[ind] : 0;
 
     if(stratum.SWAT().Box().Contains(i, j, k))
         val = stratum.SWAT()(i, j, k).toDouble();
@@ -1004,11 +1041,16 @@ double ProjectData::sgas(int i, int j, int k)
     return val;
 }
 
+Block ProjectData::GetBlock(int index)
+{
+    return index >= 0 && index < blocks.size() ? blocks[index] : Block();
+}
+
 Block ProjectData::GetBlock(int i, int j, int k)
 {
     int ind = k*nx*ny + j*nx + i;
 
-    return ind >= 0 && ind < blocks.size() ? blocks[ind] : Block();
+    return GetBlock(ind);
 }
 
 Block ProjectData::CalcBlockByBCG(double x0, double y0, double z0, int i, int j, int k)
@@ -1279,34 +1321,9 @@ void ProjectData::SetBlockCentered(bool isBlockCentered)
 
 void ProjectData::ProcessData()
 {
-    blocks.resize(nx*ny*nz);
+    DataHelper::GenerateBlocks(this, blocks, nx, ny, nz, isBlockCentered);
 
-    double x0 = 0;
-    double y0 = 0;
-    double z0 = 0;
-
-    for(int i = 0; i < nx; i++)
-    {
-        y0 = 0;
-
-        for(int j = 0; j < ny; j++)
-        {
-            z0 = tops(i, j);
-
-            for(int k = 0; k < nz; k++)
-            {
-                Block block = isBlockCentered ? CalcBlockByBCG(x0, y0, z0, i, j, k) : CalcBlockByCPG(i, j, k);
-
-                int ind = k*nx*ny + j*nx + i;
-
-                blocks[ind] = block;
-
-                if(k == nz-1 && j == ny-1) x0 = block.P8().X();
-                if(k == nz-1) y0 = block.P8().Y();
-                z0 = block.P8().Z();
-            }
-        }
-    }
+    DataHelper::CalcEquilData(this, nx, ny, nz, pw, po, sw);
 }
 
 void ProjectData::initVariables()
@@ -1342,6 +1359,10 @@ void ProjectData::initVariables()
     multiply->Clear();
 
     blocks.clear();
+
+    po.clear();
+    pw.clear();
+    sw.clear();
 
     SetBlockCentered(false);
 

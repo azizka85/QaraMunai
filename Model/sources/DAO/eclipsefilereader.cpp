@@ -1587,14 +1587,14 @@ void EclipseFileReader::ReadINCLUDE(ProjectData *data, QTextStream &sr, QString 
 
 void EclipseFileReader::ReadEQUALS(ProjectData *data, QTextStream &sr)
 {
-    Box3D rangeBox = box;
+    Box3D rangeBox = box;    
 
     while (true)
     {
         QStringList str = ReadFileHelper::ParseParams(sr, 0, true);
         if (str.length() == 0) break;
 
-        EQUALSData equals;
+        EQUALSData equals;        
 
         equals.SetArrayName(str[0].replace("'", ""));
         equals.SetValue(str[1].toDouble());        

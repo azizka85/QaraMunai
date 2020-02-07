@@ -36,8 +36,8 @@ class FieldSceneDrawer : public QQuickFramebufferObject
     Q_ENUMS(FieldNames)
     Q_ENUMS(RotationAxis)
     Q_ENUMS(MouseAction)
+    Q_ENUMS(ChangeDataAction)
 
-    Q_PROPERTY(uint fieldId READ FieldID WRITE SetFieldID NOTIFY FieldIDChanged)
     Q_PROPERTY(ProjectData* pdata READ Data WRITE SetData NOTIFY DataChanged)    
     Q_PROPERTY(bool showMesh READ ShowMesh WRITE SetShowMesh NOTIFY ShowMeshChanged)
     Q_PROPERTY(bool showContour READ ShowContour WRITE SetShowContour NOTIFY ShowContourChanged)
@@ -59,10 +59,10 @@ public:
     enum FieldNames { PERMX, PERMY, PERMZ, PORO, NTG, TRANX, TRANY, TRANZ, SWAT, SOIL, SGAS, RS, PRESSURE, PW, PBUB, DEPTH, PVTNUM, SATNUM, EQLNUM, PORV, OILV };
     enum RotationAxis {XY, X, Y, Z};    
     enum MouseAction { ActionRotate, ActionMove };
+    enum ChangeDataAction { UpdateGeometry, UpdateFieldData, ClearData };
 
     QQuickFramebufferObject::Renderer *createRenderer() const;
 
-    uint FieldID();
     ProjectData* Data();
     bool ShowMesh();
     bool ShowContour();
@@ -80,7 +80,6 @@ public:
 
     FieldInfo GetFieldInfo(uint id);
 
-    void SetFieldID(const uint& id);
     void SetData(ProjectData* data);
     void SetShowMesh(const bool &showMesh);
     void SetShowContour(const bool &showContour);
@@ -95,6 +94,9 @@ public:
     void SetMultX(const float &multX);
     void SetMultY(const float &multY);
     void SetMultZ(const float &multZ);
+
+    float GetFieldData(uint id, int index);
+    float GetFieldData(uint id, int i, int j, int k);
 
     void SetFieldData(uint id, float &minValue, float &maxValue);
 
@@ -111,14 +113,19 @@ public:
     Q_INVOKABLE QVariantList getFields();
     Q_INVOKABLE QVariantList getCalcFields();
 
+    Q_INVOKABLE float getFieldData(uint id, int i, int j, int k);
+
+    Q_INVOKABLE void calculateDrawBlocks();
+
     Q_INVOKABLE QVariant setField(uint id);
 
     Q_INVOKABLE void setDefaultPosition();
 
-    Q_INVOKABLE void updateData(int state);
+    Q_INVOKABLE void updateData(int changeDataAction);
+
+    Q_INVOKABLE void clearFieldData();
 
 signals:
-    void FieldIDChanged();
     void DataChanged();
     void ShowMeshChanged();
     void ShowContourChanged();
@@ -148,6 +155,7 @@ protected:
         void initShaders();
         void initBuffer();
         void initGeometry();
+        void initFieldData();
         void clearGeometry();        
         void findSelectedBlock();
 
@@ -181,7 +189,7 @@ protected:
     };
 
 private:
-    ProjectData::ProjectState state;
+    ChangeDataAction changeDataAction;
     bool showMesh;
     bool showContour;
     bool transparent;
@@ -197,13 +205,17 @@ private:
     float xLocation;
     float multX, multY, multZ;
 
-    uint fieldId;
-
     bool dataUpdated;
 
     ProjectData *data;
 
     QVector<FieldInfo> fields;
+
+    QVector<float> fieldData;
+    QVector<Block> blocks;
+
+    float minValue;
+    float maxValue;
 
     void initVariables();
 };

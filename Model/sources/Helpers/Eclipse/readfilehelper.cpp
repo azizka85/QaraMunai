@@ -79,7 +79,7 @@ QStringList ReadFileHelper::ParseParams(QTextStream &sr, int nameIndex, bool can
         temp = "";
         for (int i = 0; i < str.length(); i++)
         {
-            temp += (str[i].isEmpty() ? "*" : str[i]) + ",";
+            temp += (str[i].trimmed().isEmpty() ? "*" : str[i]) + ",";
         }
     }
 
