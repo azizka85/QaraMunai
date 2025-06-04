@@ -13,11 +13,16 @@ Item {
     Rectangle {
         id: content
         anchors.fill: parent
-        border { width: 1; color: "lightgray" }
-
+//        border { width: 2; color: "black" }
+        color: '#f3f3f3'
         Row {
             id: groups
             anchors.fill: parent
+        }
+        Rectangle {
+            color: "#d2d2d2"
+            anchors { top: parent.bottom; left: parent.left; right: parent.right }
+            height: 1
         }
     }
 }

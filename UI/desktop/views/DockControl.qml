@@ -22,15 +22,16 @@ Item {
         Rectangle {
             id: headerPanel
             anchors { left: parent.left; right: parent.right; top: parent.top; }
-            border { width: 1; color: "gray" }
             height: !dockWindow.visible && titleVisible ? 20 : 0
             visible: !dockWindow.visible && titleVisible
-
+            color: "#D3D3D3"
             Text {
-                anchors { left: parent.left; right: closeImage.left; top: parent.top; bottom: parent.bottom }
+                anchors { left: parent.left; right: closeButton.left; top: parent.top; bottom: parent.bottom }
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: dockTitle
+                font.family: "Arial"
+                clip: true
 
                 MouseArea {
                     anchors.fill: parent
@@ -38,18 +39,13 @@ Item {
                 }
             }
 
-            Image {
-                id: closeImage
+            MyButton {
+                id: closeButton
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter; rightMargin: 5 }
-                source: "qrc:/desktop/images/close.svg"
-                width: 16
-                height: 16                
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    onClicked: hide()
-                }
+                icon { width: 16; height: 16; source: "qrc:/desktop/images/icon_close_button.png"; }
+                width: 20
+                height: 20
+                onClicked: hide()
             }
         }
 
